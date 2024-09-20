@@ -1,7 +1,16 @@
+import LOGO from "./src/logo.tsx";
+
 export default {
-    logo: <span>NarraLeaf-React</span>,
+    logo: LOGO,
     project: {
         link: 'https://github.com/NarraLeaf/narraleaf-react'
+    },
+    docsRepositoryBase: 'https://github.com/NarraLeaf/react.narraleaf.com/tree/master',
+    head() {
+        return (
+            <>
+                <link rel="icon" href="/static/leaf.svg" />
+            </>
+        );
     }
-    // ... other theme options
 }

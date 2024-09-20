@@ -1,0 +1,9 @@
+{
+    "index": {
+        "type": "page",
+        "title": "Home",
+        "theme": {
+            "layout": "full"
+        }
+    }
+}
