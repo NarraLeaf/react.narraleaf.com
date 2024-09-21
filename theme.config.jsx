@@ -12,5 +12,6 @@ export default {
                 <link rel="icon" href="/static/leaf.svg" />
             </>
         );
-    }
+    },
+    primaryHue: 192.73,
 }

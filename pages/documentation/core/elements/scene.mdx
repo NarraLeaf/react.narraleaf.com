@@ -1,0 +1,111 @@
+import {Callout, Tabs} from 'nextra/components';
+
+# Scene
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+Scene contains multiple actions that can be performed on the scene. 
+
+For example, you can add a [Character](./character) Action to the scene
+
+```ts
+import { Scene } from 'narraleaf-react';
+
+const scene = new Scene("scene 1");
+const character1 = new Character("character 1");
+
+scene.action([
+    character1
+        .say("Hello World")
+        .say("How are you?")
+        .toActions(),
+]);
+```
+
+## Public Method
+
+### constructor
+
+- `name: string` - Name of the scene
+- `config?: DeepPartial<SceneConfig>` - [SceneConfig](../types/SceneConfig)
+
+### setBackground
+
+Set background of the scene. If the transition is provided, the background will be changed with the transition effect.
+
+- `background: Background` - [Background](../types/Background)
+- `transition?: ITransition` - [Transition](../types/ITransition)
+
+### applyTransform
+
+Apply a transform to the background. Usually used for shaking or zooming effect.
+
+- `transform: Transform<ImageTransformProps>` - [Transform](../animation/transform)\<TransformDefinitions.[ImageTransformProps](../types/ImageTransformProps)\>
+
+### jumpTo
+
+Jump to another scene. If the transition is provided, the scene will be changed with the transition effect.
+
+> Note: The current scene will be disposed after jumping to another scene. The rest of the actions will not be executed.
+
+- `arg0: Scene` - The Scene instance you want to jump to
+- `config: JumpConfig` - [Jump Config](../types/JumpConfig)
+
+### sleep
+
+Sleep for a duration before executing the next action.
+
+#### Overload 1 of 3
+
+- `ms: number` - Duration in milliseconds
+
+#### Overload 2 of 3
+
+- `promise: Promise<any>` - Promise to wait for
+
+#### Overload 3 of 3
+
+- `awaitable: Awaitable<any, any>` - unresolved [Awaitable](../types/Awaitable)
+
+### setBackgroundMusic
+
+Set background music of the scene.
+
+- `sound: Sound` - [Sound](./sound) instance
+- `fade?: number` - If set, the fade-out effect will be applied to the previous music, and the fade-in effect will be applied to the current music, with a duration in milliseconds
+
+### action
+
+Add actions to the scene. Do not call this method more than once.
+
+#### Overload 1 of 2
+
+- `actions: (Actions | Actions[])[]` - Actions to be executed
+
+#### Overload 2 of 2
+
+This overload let you pass a function that receives the scene instance and returns the actions to be executed.
+
+In some cases, you may want to make a shortcut to the scene instance
+
+```ts
+story.entry(
+    new Scene("scene 1").action(scene => [
+        scene
+            .setBackground(background)
+            .sleep(1000)
+            .toActions(),
+    ])
+);
+```
+
+- `actions: ((scene: Scene) => Actions[])` - Actions to be executed
+
+### toActions
+
+Convert the actions to an array of actions.
+
+
+

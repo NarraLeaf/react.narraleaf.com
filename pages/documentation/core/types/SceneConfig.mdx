@@ -1,0 +1,38 @@
+# SceneConfig
+
+```ts
+type SceneConfig = {
+    invertY: boolean;
+    invertX: boolean;
+    backgroundMusic: Sound | null;
+    backgroundMusicFade: number;
+} & {
+    background: {
+        url: string;
+    } | color | null | undefined | StaticImageData;
+};
+```
+
+## invertY
+
+If true, the Y-axis will be inverted.
+
+In the default coordinate system, the origin is at the top-left corner of the screen, with the Y-axis pointing downwards. If you set this property to true, the Y-axis will point upwards.
+
+## invertX
+
+If true, the X-axis will be inverted.
+
+In the default coordinate system, the origin is at the top-left corner of the screen, with the X-axis pointing to the right. If you set this property to true, the X-axis will point to the left.
+
+## backgroundMusic
+
+The background music of the scene.
+
+## backgroundMusicFade
+
+The duration of the fade effect when changing the background music. This value will be used when fading in and out the music.
+
+## background
+
+See [Background](./Background).

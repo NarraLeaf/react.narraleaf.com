@@ -1,0 +1,49 @@
+# ImageTransformProps
+
+```ts
+type ImageTransformProps = {
+    opacity: number;
+    scale: number;
+    rotation: number;
+    display: boolean;
+} & {
+    position: RawPosition | IPosition;
+};
+```
+
+## opacity
+
+The opacity of the image. The value should be between 0 and 1.
+
+## scale
+
+The scale of the image. The value should be greater than 0.
+
+## rotation
+
+The rotation of the image in degrees.
+
+## display
+
+Do not use this property
+
+## position
+
+The position of the image. See [IPosition](./IPosition)
+
+> **Note:** You can use raw position object as a shortcut, so you don't need to create a new IPosition instance.  
+> ```ts
+> image.applyTransform(new Transform<TransformDefinitions.ImageTransformProps>([
+>     {
+>         props: {
+>             position: {
+>                 x: 100,
+>                 y: 100
+>             }
+>         },
+>         options: {}
+>     }
+> ], {}));
+> ```
+
+

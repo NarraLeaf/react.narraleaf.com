@@ -1,0 +1,160 @@
+import { Tabs, Cards } from 'nextra/components';
+
+# NarraLeaf-React Core
+
+Core is the main functionality of NarraLeaf-React. It provides the basic building blocks for creating a Visual Novel with React.
+
+If you have not read the [Quick Start](/documentation/quick-start) yet, we recommend you to read it first. It will help you understand the basic concepts of NarraLeaf-React.
+
+## Create Story
+
+Story is the bigggest concept in NarraLeaf-React. You can define a story in a typescript file and export it. 
+
+```ts
+import {Story,Scene} from "narraleaf-react";
+
+const story = new Story("My First NarraLeaf Story"); // a human-readable name
+```
+
+After that, you can add an entry point to the story. 
+
+```ts
+const scene1 = new Scene("scene1", {});
+
+story.entry(scene1);
+```
+
+Finally, you can export the story and use it in your React app.
+
+```tsx
+"use client";
+
+import { GameProviders, Player } from "narraleaf-react";
+import { story } from "./scene1"; // your story
+
+export default function App() {
+    return (
+        <GameProviders>
+
+            <Player 
+                story={story} // your story
+            />
+
+        </GameProviders>
+    );
+}
+```
+
+## Add Actions
+
+To show something on the screen, you need to add actions to the story. 
+
+The basic action container is `Scene`. You can create a scene like this:
+
+```ts
+const scene1 = new Scene("Scene 1");
+```
+
+And then, you can add actions to the scene. 
+
+```ts
+const character1 = new Character("Character 1");
+
+scene1.action([
+    character1
+        .say("Hello World!")
+        .say("Good morning!")
+        .toActions(),
+]);
+```
+
+Your story will execute the actions in order. It will show the dialog "Hello World!" and "Good morning!" on the screen.
+
+Read more about `Element` in the [Elements](/documentation/core/elements) section.
+
+## Example
+
+Here is an example of a complete story.
+
+<Tabs items={['src/story.ts', 'src/page.tsx']}>
+    <Tabs.Tab>
+        ```ts
+        import {
+            Story,
+            Scene,
+            Character,
+        } from "narraleaf-react";
+
+        // Create a story
+        const story = new Story("My Story");
+        const scene1 = new Scene("Scene 1", {
+            background: {
+                url: "https://via.placeholder.com/1920x1080"
+            },
+        });
+
+        // define your characters
+        const character1 = new Character("Character 1");
+        const character2 = new Character("Character 2");
+
+        // add actions to the scene
+        scene1.action([
+            character1
+                .say("Hello World!")
+                .say("Welcome to NarraLeaf!")
+                .say("This is a Visual Novel framework for React.")
+                .say("I hope you enjoy it!")
+                .toActions(),
+
+            character2
+                .say("Start your story by editing this file.")
+                .say("We have a lot of features for you.")
+                .toActions(),
+        ]);
+
+        // add the scene to the story
+        story.entry(scene1);
+
+        export { story };
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+        ```tsx
+        "use client";
+
+        import { Game, GameProviders, Player } from "narraleaf-react";
+        import { useState } from "react";
+        import { story } from "./story";
+
+        export default function App() {
+            return (
+                <GameProviders game={game}>
+                    <Player 
+                        // pass the story to the Player component
+                        story={story} 
+                        onReady={({game}) => {
+                            // start the game when the Player is ready
+                            game.getLiveGame().newGame();
+                        }} 
+                        height={"100vh"} 
+                    />
+                </GameProviders>
+            );
+        }
+        ```
+    </Tabs.Tab>
+</Tabs>
+
+## Next Steps
+
+Let's start creating complex stories with NarraLeaf-React. Read more about the Elements to learn how to create more complex actions.
+
+<Cards num={1}>
+    <Cards.Card
+        title="Elements"
+        description="Learn how to create more complex actions with NarraLeaf-React."
+        href="/documentation/core/elements"
+        arrow
+    />
+</Cards>
+

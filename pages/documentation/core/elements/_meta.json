@@ -1,0 +1,10 @@
+{
+    "scene": "Scene",
+    "character": "Character",
+    "image": "Image",
+    "sound": "Sound",
+    "menu": "Menu",
+    "script": "Script",
+    "condition": "Condition",
+    "control": "Control"
+}
