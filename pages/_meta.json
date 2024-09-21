@@ -4,6 +4,11 @@
         "title": "Home",
         "theme": {
             "layout": "full"
-        }
+        },
+        "display": "hidden"
+    },
+    "documentation": {
+        "type": "page",
+        "title": "Documentation"
     }
 }
