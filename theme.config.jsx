@@ -14,4 +14,9 @@ export default {
         );
     },
     primaryHue: 192.73,
+    useNextSeoProps() {
+        return {
+            titleTemplate: '%s – NarraLeaf React',
+        }
+    },
 }
