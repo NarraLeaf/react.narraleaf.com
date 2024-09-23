@@ -19,4 +19,11 @@ export default {
             titleTemplate: '%s – NarraLeaf React',
         }
     },
+    head: (
+        <>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta property="og:title" content="NarraLeaf-React" />
+            <meta property="og:description" content="A new definition of the visual novel" />
+        </>
+    )
 }
