@@ -6,3 +6,19 @@ import {Callout, Tabs} from 'nextra/components';
     This page is under construction.
 </Callout>
 
+Word is a part of the Sentence. It is used to style the text.
+
+Constructing a red word:
+
+```ts
+import { Word } from 'narraleaf-react';
+
+const word = new Word("Hello", {color: "#f00"});
+```
+
+## Public Method
+
+### constructor
+
+- `text: string` - The content of the word
+- `config?: Partial<WordConfig>` - [WordConfig](../../types/WordConfig)

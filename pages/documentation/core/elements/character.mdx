@@ -17,3 +17,72 @@ import {Callout, Tabs, Cards} from 'nextra/components';
     />
 </Cards>
 
+Character controls the dialogues of the character.
+
+**Note:** Character do not control the appearance of the character or image. For that, you can use [Image](./image). 
+
+## Public Method
+
+### constructor
+
+- `name: string | null` - If null, then it is a narrator. Narrator do not show any name in the dialogue box.
+- `config?: DeepPartial<CharacterConfig>` - [CharacterConfig](../types/CharacterConfig)
+
+### say
+
+#### Overload 1 of 3
+
+Say a sentence.
+
+```typescript
+character
+    .say("Hello, world!")
+    .say("How are you?")
+```
+
+- `content: string` - The content of the sentence
+
+#### Overload 2 of 3
+
+Use custom Sentence object.
+
+```typescript
+character.say(
+    new Sentence(character, [
+        "Hello, ",
+        new Word("world", {color: "#f00"}), // Some words can be colored
+    ])
+) // will output "Hello, world" with "world" in red color
+```
+
+> **Note:** The dialogues's name will be the same as the sentence's name.
+
+- `content: Sentence` - See [Sentence](./character/sentence)
+
+#### Overload 3 of 3
+
+Use mixed content of string and Word object.
+
+```typescript
+character.say([
+    "Hello, ",
+    new Word("world", {color: "#f00"}), // Some words can be colored
+]) // will output "Hello, world" with "world" in red color
+```
+
+- `content: (string | Word)[]` - See [Word](./character/word)
+
+### toActions
+
+Convert the character's dialogues to actions.
+
+```typescript
+scene.action([
+    character
+        .say("Hello World")
+        .say("How are you?")
+        .toActions(),
+])
+```
+
+

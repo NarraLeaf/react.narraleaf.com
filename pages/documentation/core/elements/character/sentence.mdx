@@ -6,3 +6,34 @@ import {Callout, Tabs} from 'nextra/components';
     This page is under construction.
 </Callout>
 
+Sentence is a part of the Character. It is used to construct a dialogue.
+
+Constructing a sentence:
+
+```ts
+import { Sentence } from 'narraleaf-react';
+
+const character = new Character("character 1");
+const sentence = new Sentence(character, [
+    "Hello, ",
+    new Word("world", {color: "#f00"}), // Some words can be colored
+]);
+```
+
+or 
+
+```ts
+const sentence = new Sentence(character, "Hello, world");
+```
+
+## Public Method
+
+### constructor
+
+- `character: Character | null` - If null, then it is a narrator. Narrator do not show any name in the dialogue box.
+- `(string | Word)[] | (string | Word)` - The content of the sentence
+- `config?: Partial<SentenceConfig>` - [SentenceConfig](../../types/SentenceConfig)
+
+
+
+

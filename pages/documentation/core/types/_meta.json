@@ -2,6 +2,16 @@
     "IPosition": "IPosition",
     "ITransition": "ITransition",
     "ImageTransformProps": "ImageTransformProps",
+    "ImageConfig": "ImageConfig",
     "JumpConfig": "JumpConfig",
-    "SceneConfig": "SceneConfig"
+    "SceneConfig": "SceneConfig",
+    "SentenceConfig": "SentenceConfig",
+    "CharacterConfig": "CharacterConfig",
+    "CharacterMode": "CharacterMode",
+    "CommonImage": "CommonImage",
+    "CommonTransformProps": "CommonTransformProps",
+    "CustomEasingFunction": "CustomEasingFunction",
+    "WordConfig": "WordConfig",
+    "EasingDefinition": "EasingDefinition",
+    "BezierDefinition": "BezierDefinition"
 }

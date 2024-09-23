@@ -1,0 +1,27 @@
+# TransformDefinitions.CommonTransformProps
+
+```typescript
+type CommonTransformProps = {
+    duration: number;
+    ease: EasingDefinition;
+    delay: number;
+} & {
+    sync: boolean;
+};
+```
+
+## duration
+
+The duration of the transform in milliseconds.
+
+## ease
+
+The easing function of the transform. See [EasingDefinition](./EasingDefinition).
+
+## delay
+
+The delay of the transform in milliseconds.
+
+## sync
+
+If true, the next step will be executed after the current step is completed. 
