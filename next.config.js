@@ -8,6 +8,10 @@ const withNextra = require('nextra')({
  * @type {import('next').NextConfig}
  */
 const NextJSConfig = {
+    i18n: {
+        locales: ['en-US', 'zh-CN', 'de-DE'],
+        defaultLocale: 'en-US'
+    }
 };
 module.exports = withNextra(NextJSConfig);
 

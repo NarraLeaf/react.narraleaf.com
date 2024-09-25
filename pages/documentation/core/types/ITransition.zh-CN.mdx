@@ -1,0 +1,158 @@
+# ITransition
+
+Transition effect is used to animate the Image or Scene when changing image or background of the scene.
+
+```ts
+interface ITransition<T extends ElementProp = {}> {
+    events: EventDispatcher<EventTypes<[T[]]>>;
+    controller: AnimationPlaybackControls | null | undefined;
+    start(onComplete?: () => void): void;
+    toElementProps(): T[];
+    setSrc(src: string): void;
+    copy(): ITransition<T>;
+}
+```
+
+## Public Method
+
+### start
+
+Start the transition effect.
+
+- `onComplete?: () => void` - Callback function that will be called when the transition is completed.
+
+> You can request animation by calling `Base.prototype.requestAnimation` if you extend the `Base` class.
+> 
+> ```ts
+> super.requestAnimation({
+>     start: 0,
+>     end: 1,
+>     duration: this.duration
+> }, {
+>     onComplete,
+>     onUpdate: (value) => {
+>         this.state.opacity = value;
+>     }
+> });
+> ```
+
+
+### setSrc
+
+Set the source of the image element.  
+Some transition won't get the src immediately when instantiated. 
+Instead, when it is using in the scene, the src will be set by scene. 
+So we need to provide a method to set the src.
+
+### toElementProps
+
+Returns an array of ElementProps, each element represents the properties of the image element.  
+
+Here is an example of [Dissolve.ts](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/dissolve.ts): 
+
+```ts
+public toElementProps(): (DissolveProps & ElementProp)[] {
+    return [
+        { // for the first image
+            style: {opacity: this.state.opacity},
+        },
+        { // for the second image
+            style: {opacity: 1 - this.state.opacity},
+            src: this.src,
+        }
+    ];
+}
+```
+
+When we dissolve the image, we actually render two images at the same time. The first image has an opacity of `this.state.opacity`, and the second image has an opacity of `1 - this.state.opacity`.  
+So that the first image will gradually disappear, and the second image will gradually appear.
+
+### copy
+
+Returns a new instance of the transition effect.
+
+## Public Property
+
+### events
+
+You don't need to override this property.
+
+### controller
+
+You don't need to override this property.
+
+## Custom Transition
+
+You can create your own transition effect by implementing the [ITransition](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/type.ts) interface and extends the [Base](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/base.ts) class.
+
+Here is an example of [Dissolve.ts](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/dissolve.ts):
+
+```ts
+import {Base, ITransition} from 'narraleaf-react';
+
+type DissolveProps = {
+    style: {
+        opacity: number;
+    },
+    src?: string;
+};
+
+/**
+ * @class Dissolve
+ * @implements ITransition
+ * @extends Base
+ * @description Dissolve transition effect
+ */
+export class Dissolve extends Base<DissolveProps> implements ITransition<DissolveProps> {
+    private duration: number;
+    private opacity = 0;
+    private src: string | undefined;
+
+    /**
+     * Image will dissolve from one image to another
+     */
+    constructor(duration: number = 1000, src?: string) {
+        super();
+        this.duration = duration;
+        if (src) {
+            this.src = src;
+        }
+    }
+
+    setSrc(src: string) {
+        this.src = src;
+    }
+
+    public start(onComplete?: () => void): void {
+        this.state.opacity = 1;
+
+        this.requestAnimation({
+            start: 1,
+            end: 0,
+            duration: this.duration
+        }, {
+            onComplete,
+            onUpdate: (value) => {
+                this.opacity = value;
+            }
+        });
+    }
+
+    public toElementProps() {
+        return [
+            {
+                style: {opacity: this.opacity},
+            },
+            {
+                style: {opacity: 1 - this.opacity},
+                src: this.src,
+            }
+        ];
+    }
+
+    copy(): ITransition<DissolveProps> {
+        return new Dissolve(this.duration, this.src);
+    }
+}
+```
+

@@ -19,8 +19,7 @@ const character1 = new Character("character 1");
 scene.action([
     character1
         .say("Hello World")
-        .say("How are you?")
-        .toActions(),
+        .say("How are you?"),
 ]);
 ```
 
@@ -95,17 +94,10 @@ story.entry(
     new Scene("scene 1").action(scene => [
         scene
             .setBackground(background)
-            .sleep(1000)
-            .toActions(),
+            .sleep(1000),
     ])
 );
 ```
 
 - `actions: ((scene: Scene) => Actions[])` - Actions to be executed
-
-### toActions
-
-Convert the actions to an array of actions.
-
-
 

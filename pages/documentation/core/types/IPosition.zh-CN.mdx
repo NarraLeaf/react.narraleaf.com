@@ -1,0 +1,65 @@
+# IPosition
+
+Here are 3 types of IPosition: CommonPosition, Align, and Coord2D.
+
+## CommonPosition
+
+CommonPosition represents some common position types. 
+
+```ts
+import {CommonPosition} from "narraleaf-react";
+
+// x: 66.67%, y: 50%
+new CommonPosition(CommonPosition.Positions.Right)
+```
+
+## Align
+
+Align represents the alignment of the position.
+
+```ts
+constructor(xalign?: UnknownAble<number>, yalign?: UnknownAble<number>);
+constructor(arg0: {
+    xalign?: UnknownAble<number>;
+    yalign?: UnknownAble<number>;
+    xoffset?: UnknownAble<number>;
+    yoffset?: UnknownAble<number>;
+});
+```
+
+### Example
+
+```ts
+// x: 50%, y: 50%
+new Align(0.5, 0.5);
+// x: 25%, y: 50%
+new Align({xalign: 0.25, yalign: 0.5});
+// x: 25% + 10px, y: 50% - 20px
+new Align({xalign: 0.25, yalign: 0.5, xoffset: 10, yoffset: -20});
+```
+
+## Coord2D
+
+Coord2D represents the 2D coordinate.
+
+```ts
+constructor(arg0: {
+    x?: UnknownAble<Coord2DPosition["x"]>;
+    y?: UnknownAble<Coord2DPosition["y"]>;
+    xoffset?: UnknownAble<number>;
+    yoffset?: UnknownAble<number>;
+});
+constructor(x: UnknownAble<Coord2DPosition["x"]>, y: UnknownAble<Coord2DPosition["y"]>);
+```
+
+### Example
+
+```ts
+// x: 50%, y: 50%
+new Coord2D("50%", "50%");
+// x: 1280px, y: 50%
+new Coord2D({x: 1280, y: "50%"});
+// x: 1280px + 10px, y: 50% - 20px
+new Coord2D({x: 1280, y: "-50%", xoffset: 10, yoffset: -20});
+```
+

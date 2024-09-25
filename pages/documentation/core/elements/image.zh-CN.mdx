@@ -1,0 +1,111 @@
+import {Callout, Tabs} from 'nextra/components';
+
+# Image
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+Image is very important for a visual novel. It is used to show the appearance of the character. 
+
+In NarraLeaf-React, Image only controls the appearance of the character. It does not control the dialogues of the character. For that, you can use [Character](../character).
+
+## Public Method
+
+### constructor
+
+- `name: string` - The name of the image, it will be used for debugging purpose
+- `config?: DeepPartial<ImageConfig>` - [ImageConfig](../types/ImageConfig)
+
+### dispose
+
+Generally, **you do not need to call this method**. This method is used to dispose the image.  
+Disposed image will not be shown in the screen for the rest of the story.
+
+### setSrc
+
+- `src: string | StaticImageData` - The source of the image
+- `transition?: ITransition` - For ITransition, see [ITransition](../types/ITransition)
+
+```typescript
+image.setSrc("your/image/src", new Fade(1000));
+```
+
+### applyTransform
+
+- `transform: Transform` - [Transform](../animation/transform)
+
+### show
+
+Show the image.
+
+#### Overload 1 of 3
+
+Show image immediately.
+
+```typescript
+image.show();
+```
+
+#### Overload 2 of 3
+
+Show image with custom transform.
+
+> **Note:** You have to add `alpha: 1` in the transform props to show the image.
+
+- `options: Transform` - [Transform](../animation/transform)
+
+#### Overload 3 of 3
+
+Show image with transform config. A transform with alpha:1 will be applied to the image.
+
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - See TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
+
+```typescript
+image.show({
+    duration: 1000,
+    ease: "easeInOut",
+});
+```
+
+### hide
+
+Hide the image.
+
+#### Overload 1 of 3
+
+Hide image immediately.
+
+```typescript
+image.hide();
+```
+
+#### Overload 2 of 3
+
+Hide image with custom transform.
+
+> **Note:** You have to add `alpha: 0` in the transform props to hide the image.
+
+- `options: Transform` - [Transform](../animation/transform)
+
+#### Overload 3 of 3
+
+Hide image with transform config. A transform with alpha:0 will be applied to the image.
+
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - See TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
+
+```typescript
+image.hide({
+    duration: 1000,
+    ease: "easeInOut",
+});
+```
+
+### copy
+
+Copy the image.
+
+```typescript
+const newImage = image.copy();
+```
+

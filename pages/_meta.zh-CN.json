@@ -1,0 +1,14 @@
+{
+    "index": {
+        "type": "page",
+        "title": "主页",
+        "theme": {
+            "layout": "full"
+        },
+        "display": "hidden"
+    },
+    "documentation": {
+        "type": "page",
+        "title": "文档"
+    }
+}

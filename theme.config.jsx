@@ -25,5 +25,9 @@ export default {
             <meta property="og:title" content="NarraLeaf-React" />
             <meta property="og:description" content="A new definition of the visual novel" />
         </>
-    )
+    ),
+    i18n: [
+        { locale: 'en-US', text: 'English' },
+        { locale: 'zh-CN', text: '中文' }
+    ]
 }

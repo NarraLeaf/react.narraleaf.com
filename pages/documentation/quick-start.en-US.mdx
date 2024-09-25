@@ -1,4 +1,4 @@
-import { FileTree, Callout, Tabs, Cards } from 'nextra/components';
+import { FileTree, Callout, Tabs, Cards, Steps } from 'nextra/components';
 
 # Quick Start
 
@@ -8,7 +8,9 @@ NarraLeaf-React is easy to understand and use. This guide will help you create y
 
 Now it's time to create your first Visual Novel with NarraLeaf-React.
 
-### Step 1: Create a new React app
+<Steps>
+
+### Create a new React app
 
 First, create a new React app using Create React App.
 
@@ -34,7 +36,7 @@ navigate to the directory where you want to create your app and run the followin
 
 This will create a new React app with NarraLeaf-React template.
 
-### Step 2: Run the app
+### Run the app
 
 To preview the app, run the app using the following command:
 
@@ -57,6 +59,8 @@ To preview the app, run the app using the following command:
 </Tabs>
 
 You can visit `http://localhost:3000` to see your first Visual Novel.
+
+</Steps>
 
 Congratulations! You have created your first Visual Novel with NarraLeaf-React.
 
@@ -143,22 +147,12 @@ const character2 = new Character("Alice");
 scene1.action([
     character1
         .say("Hello, World!")
-        .say("Good morning!")
-        .toActions(),
+        .say("Good morning!"),
     character2
         .say("Hi, John!")
         .say("How are you?")
-        .toActions()
 ]);
 ```
-
-You may notice that we use `toActions()` to convert the actions to an *action array*.  
-This is because the framework need to track the order of the actions. 
-Everytimes you call an action, you have to call `toActions()` to convert it to an *action array*.
-
-<Callout type="warning" emoji="⚠️">
-    Do not forget to call `toActions()` after you call an action, and do not call this method at the other place.
-</Callout>
 
 Finally, you can use a story to wrap the scenes. 
 

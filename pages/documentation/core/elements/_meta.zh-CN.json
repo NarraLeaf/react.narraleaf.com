@@ -1,0 +1,10 @@
+{
+    "scene": "场景",
+    "character": "角色",
+    "image": "图片",
+    "sound": "声音",
+    "menu": "选项",
+    "script": "脚本",
+    "condition": "条件",
+    "control": "控制"
+}
