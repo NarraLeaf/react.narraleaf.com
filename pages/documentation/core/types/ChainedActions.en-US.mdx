@@ -1,0 +1,18 @@
+# ChainedActions
+
+```ts
+type ChainedAction = Proxied<GameElement, Chained<LogicAction.Actions>>;
+type ChainedActions = (ChainedAction | ChainedAction[] | Actions | Actions[])[];
+```
+
+Example:
+
+```ts
+[
+    character1
+        .say("Hello")
+        .say("World"),
+    scene1.jumpTo(scene2),
+    character2.say("World")
+] satisfies ChainedActions;
+```

@@ -6,12 +6,17 @@
     "JumpConfig": "JumpConfig",
     "SceneConfig": "SceneConfig",
     "SentenceConfig": "SentenceConfig",
+    "SoundConfig": "SoundConfig",
+    "SoundType": "SoundType",
     "CharacterConfig": "CharacterConfig",
     "CharacterMode": "CharacterMode",
+    "ChainedActions": "ChainedActions",
     "CommonImage": "CommonImage",
     "CommonTransformProps": "CommonTransformProps",
     "CustomEasingFunction": "CustomEasingFunction",
     "WordConfig": "WordConfig",
     "EasingDefinition": "EasingDefinition",
-    "BezierDefinition": "BezierDefinition"
+    "BezierDefinition": "BezierDefinition",
+    "MenuConfig": "MenuConfig",
+    "MenuChoice": "MenuChoice"
 }

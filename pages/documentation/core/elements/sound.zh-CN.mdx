@@ -6,3 +6,82 @@ import {Callout, Tabs} from 'nextra/components';
     This page is under construction.
 </Callout>
 
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
+
+Sound controls the sound of the game
+
+There are 4 types of sound:
+
+1. soundEffect
+2. music
+3. voice
+4. backgroundMusic
+
+## Public Method
+
+### constructor
+
+- `config?: DeepPartial<SoundConfig>` - See [SoundConfig](../types/SoundConfig)
+
+### play
+
+Play the sound
+
+> **Note:** `backgroundMusic` cannot be played with this method
+
+```ts
+const sound = new Sound({
+    src: 'sound.mp3',
+});
+scene.action([
+    sound.play(),
+]);
+```
+
+### stop
+
+Stop the sound. After stopping, the sound will go back to the beginning
+
+> **Note:** `backgroundMusic` cannot be stopped with this method
+
+### fade
+
+Fade the sound
+
+- `start: number | undefined` - Start volume, from 0 to 1, default is current volume
+- `end: number` - End volume, from 0 to 1
+- `duration: number` - Duration in milliseconds
+
+```ts
+const sound = new Sound({
+    src: 'sound.mp3',
+    volume: 0,
+});
+scene.action([
+    sound
+        .play()
+        .fade(0, 1, 1000), // fade in 1 second
+]);
+```
+
+### setVolume
+
+Set the volume of the sound
+
+- `volume: number` - Volume, from 0 to 1
+
+### setRate
+
+Set the rate of the sound
+
+- `rate: number` - Rate, base is 1
+
+### pause
+
+- `fade?: number` - Fade duration in milliseconds
+
+### resume
+
+- `fade?: number` - Fade duration in milliseconds

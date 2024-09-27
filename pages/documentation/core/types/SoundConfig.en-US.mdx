@@ -1,0 +1,42 @@
+# SoundConfig
+
+```ts
+type SoundConfig = {
+    type?: SoundType;
+    src: string;
+    sync: boolean;
+    loop: boolean;
+    volume: number;
+    streaming?: boolean;
+};
+```
+
+## type
+
+The type of the sound. See [SoundType](./SoundType).
+
+- **soundEffect**: Sound effect
+- **music**: Music
+- **voice**: Voice
+- **backgroundMusic**: Background music
+
+## src
+
+The source of the sound. Can be a URL
+
+## sync
+
+If true, the operation will wait until the sound is played
+
+## loop
+
+Whether to loop, if sync and loop are both true, sync will be treated as **false**
+
+## volume
+
+The volume of the sound
+
+## streaming
+
+If true, the sound will be streamed
+

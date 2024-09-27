@@ -1,4 +1,5 @@
 {
     "game": "Game",
-    "live-game": "LiveGame"
+    "live-game": "LiveGame",
+    "game-state": "GameState"
 }
