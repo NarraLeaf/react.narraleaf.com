@@ -2,14 +2,6 @@ import {Callout, Tabs} from 'nextra/components';
 
 # Scene
 
-<Callout type="warning" emoji="⚠️">
-    This page is under construction.
-</Callout>
-
-<Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
-</Callout>
-
 Scene contains multiple actions that can be performed on the scene. 
 
 For example, you can add a [Character](./character) Action to the scene
@@ -33,6 +25,14 @@ scene.action([
 
 - `name: string` - Name of the scene
 - `config?: DeepPartial<SceneConfig>` - [SceneConfig](../types/SceneConfig)
+
+### activate
+
+This is only used when auto activation is not working
+
+### deactivate
+
+This is only used when auto deactivation is not working
 
 ### setBackground
 

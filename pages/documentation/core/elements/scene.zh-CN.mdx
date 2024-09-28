@@ -1,97 +1,89 @@
 import {Callout, Tabs} from 'nextra/components';
 
-# Scene
+# 场景
 
-<Callout type="warning" emoji="⚠️">
-    This page is under construction.
-</Callout>
+场景包含可以在场景上执行的多个操作。
 
-<Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
-</Callout>
-
-Scene contains multiple actions that can be performed on the scene. 
-
-For example, you can add a [Character](./character) Action to the scene
+例如，您可以将[角色](./character)操作添加到场景中
 
 ```ts
 import { Scene } from 'narraleaf-react';
 
-const scene = new Scene("scene 1");
-const character1 = new Character("character 1");
+const scene = new Scene("场景1");
+const character1 = new Character("角色1");
 
 scene.action([
     character1
-        .say("Hello World")
-        .say("How are you?"),
+        .say("你好，世界！")
+        .say("你好吗？"),
 ]);
 ```
 
-## Public Method
+## 公共方法
 
 ### constructor
 
-- `name: string` - Name of the scene
+- `name: string` - 场景名字，用于调试目的
 - `config?: DeepPartial<SceneConfig>` - [SceneConfig](../types/SceneConfig)
 
 ### setBackground
 
-Set background of the scene. If the transition is provided, the background will be changed with the transition effect.
+设置场景的背景。如果提供了过渡效果，则背景将使用过渡效果更改。
 
 - `background: Background` - [Background](../types/Background)
 - `transition?: ITransition` - [Transition](../types/ITransition)
 
 ### applyTransform
 
-Apply a transform to the background. Usually used for shaking or zooming effect.
+应用变换到背景。通常用于抖动或缩放效果。
 
 - `transform: Transform<ImageTransformProps>` - [Transform](../animation/transform)\<TransformDefinitions.[ImageTransformProps](../types/ImageTransformProps)\>
 
 ### jumpTo
 
-Jump to another scene. If the transition is provided, the scene will be changed with the transition effect.
+跳转到另一个场景。如果提供了过渡效果，则场景将使用过渡效果更改。
 
-> Note: The current scene will be disposed after jumping to another scene. The rest of the actions will not be executed.
+> 注意：跳转到另一个场景后，当前场景将被停用。其余的操作将不会被执行。
 
-- `arg0: Scene` - The Scene instance you want to jump to
+- `arg0: Scene` - 要跳转到的场景实例
 - `config: Partial<JumpConfig>` - [Jump Config](../types/JumpConfig)
 
 ### sleep
 
-Sleep for a duration before executing the next action.
+等待一段时间再执行下一个操作。
 
 #### Overload 1 of 3
 
-- `ms: number` - Duration in milliseconds
+- `ms: number` - 持续时间（毫秒）
 
 #### Overload 2 of 3
 
-- `promise: Promise<any>` - Promise to wait for
+- `promise: Promise<any>` - 等待的Promise
 
 #### Overload 3 of 3
 
-- `awaitable: Awaitable<any, any>` - unresolved [Awaitable](../types/Awaitable)
+- `awaitable: Awaitable<any, any>` - 未解决的 [Awaitable](../types/Awaitable)
 
 ### setBackgroundMusic
 
-Set background music of the scene.
+设置场景的背景音乐。
 
-- `sound: Sound` - [Sound](./sound) instance
-- `fade?: number` - If set, the fade-out effect will be applied to the previous music, and the fade-in effect will be applied to the current music, with a duration in milliseconds
+- `sound: Sound` - [Sound](./sound) 实例
+- `fade?: number` - 如果设置，将为上一个音乐应用淡出效果，并为当前音乐应用淡入效果，持续时间为毫秒
 
 ### action
 
-Add actions to the scene. Do not call this method more than once.
+将操作添加到场景。不要多次调用此方法。
 
 #### Overload 1 of 2
 
-- `actions: (Actions | Actions[])[]` - Actions to be executed
+- `actions: (Actions | Actions[])[]` - 将要执行的操作
 
 #### Overload 2 of 2
 
-This overload let you pass a function that receives the scene instance and returns the actions to be executed.
+这个重载允许您传递一个接收场景实例并返回要执行的操作的函数。
 
-In some cases, you may want to make a shortcut to the scene instance
+在某些情况下，您可能希望为场景实例创建一个快捷方式
 
 ```ts
 story.entry(
@@ -103,5 +95,5 @@ story.entry(
 );
 ```
 
-- `actions: ((scene: Scene) => Actions[])` - Actions to be executed
+- `actions: ((scene: Scene) => Actions[])` - 将要执行的操作
 

@@ -1,0 +1,34 @@
+import {Callout, Tabs} from 'nextra/components';
+
+# 句子
+
+句子是角色的一部分。它用于构建对话。
+
+构建句子：
+
+```ts
+import { Sentence } from 'narraleaf-react';
+
+const character = new Character("角色1");
+const sentence = new Sentence(character, [
+    "你好, ",
+    new Word("世界", {color: "#f00"}), // 有一些单词可以着色
+]);
+```
+
+or 
+
+```ts
+const sentence = new Sentence(character, "你好, 世界");
+```
+
+## 公共方法
+
+### constructor
+
+- `character: Character | null` - 如果为 null，则为旁白。旁白不在对话框中显示任何名称。
+- `(string | Word)[] | (string | Word)` - 句子的内容
+- `config?: Partial<SentenceConfig>` - [SentenceConfig](../../types/SentenceConfig)
+
+
+

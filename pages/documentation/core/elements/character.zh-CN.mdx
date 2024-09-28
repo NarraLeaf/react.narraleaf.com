@@ -1,42 +1,34 @@
 import {Callout, Tabs, Cards} from 'nextra/components';
 
-# Character
-
-<Callout type="warning" emoji="⚠️">
-    This page is under construction.
-</Callout>
-
-<Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
-</Callout>
+# 角色
 
 <Cards num={2}>
     <Cards.Card
-        title="Sentence"
+        title="句子"
         href="./character/sentence"
     />
     <Cards.Card
-        title="Word"
+        title="单词"
         href="./character/word"
     />
 </Cards>
 
-Character controls the dialogues of the character.
+角色控制角色的对话。
 
-**Note:** Character do not control the appearance of the character or image. For that, you can use [Image](./image). 
+**注意：** 角色不控制角色的外观。为此，您可以使用 [Image](./image)。
 
-## Public Method
+## 公共方法
 
 ### constructor
 
-- `name: string | null` - If null, then it is a narrator. Narrator do not show any name in the dialogue box.
+- `name: string | null` - 如果为 null，则为旁白。旁白不在对话框中显示任何名称。
 - `config?: DeepPartial<CharacterConfig>` - [CharacterConfig](../types/CharacterConfig)
 
 ### say
 
-#### Overload 1 of 3
+#### 重载 1 / 3
 
-Say a sentence.
+说一句话。
 
 ```typescript
 character
@@ -44,35 +36,35 @@ character
     .say("How are you?")
 ```
 
-- `content: string` - The content of the sentence
+- `content: string` - 句子的内容
 
-#### Overload 2 of 3
+#### 重载 2 / 3
 
-Use custom Sentence object.
+使用自定义句子对象。
 
 ```typescript
 character.say(
     new Sentence(character, [
-        "Hello, ",
-        new Word("world", {color: "#f00"}), // Some words can be colored
+        "你好, ",
+        new Word("世界", {color: "#f00"}), // 有一些单词可以着色
     ])
-) // will output "Hello, world" with "world" in red color
+) // 将输出“你好，世界”，“世界”为红色
 ```
 
-> **Note:** The dialogues's name will be the same as the sentence's name.
+> **注意：** 对话框的名称将与句子的名称相同。
 
-- `content: Sentence` - See [Sentence](./character/sentence)
+- `content: Sentence` - 见 [句子](./character/sentence)
 
-#### Overload 3 of 3
+#### 重载 3 / 3
 
-Use mixed content of string and Word object.
+使用字符串和 Word 对象的混合内容。
 
 ```typescript
 character.say([
-    "Hello, ",
-    new Word("world", {color: "#f00"}), // Some words can be colored
-]) // will output "Hello, world" with "world" in red color
+    "你好, ",
+    new Word("世界", {color: "#f00"}), // 有一些单词可以着色
+]) // 将输出“你好，世界”，“世界”为红色
 ```
 
-- `content: (string | Word)[]` - See [Word](./character/word)
+- `content: (string | Word)[]` - 见 [词语](./character/word)
 

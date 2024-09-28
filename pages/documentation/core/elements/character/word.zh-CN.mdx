@@ -1,0 +1,24 @@
+import {Callout, Tabs} from 'nextra/components';
+
+# 词语
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+词语是句子的一部分。它用于为文本添加样式。
+
+构建一个红色的词语：
+
+```ts
+import { Word } from 'narraleaf-react';
+
+const word = new Word("你好", {color: "#f00"});
+```
+
+## 公共方法
+
+### constructor
+
+- `text: string` - 词语的内容
+- `config?: Partial<WordConfig>` - [WordConfig](../../types/WordConfig)

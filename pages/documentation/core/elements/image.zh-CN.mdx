@@ -1,35 +1,27 @@
 import {Callout, Tabs} from 'nextra/components';
 
-# Image
+# 图片
 
-<Callout type="warning" emoji="⚠️">
-    This page is under construction.
-</Callout>
+图片对于视觉小说非常重要。它用于显示角色的外观。
 
-<Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
-</Callout>
+在NarraLeaf-React中，图片仅控制角色的外观。它不控制角色的对话。为此，您可以使用[Character](../character)。
 
-Image is very important for a visual novel. It is used to show the appearance of the character. 
-
-In NarraLeaf-React, Image only controls the appearance of the character. It does not control the dialogues of the character. For that, you can use [Character](../character).
-
-## Public Method
+## 公共方法
 
 ### constructor
 
-- `name: string` - The name of the image, it will be used for debugging purpose
+- `name: string` - 图片的名称，它将用于调试目的
 - `config?: DeepPartial<ImageConfig>` - [ImageConfig](../types/ImageConfig)
 
 ### dispose
 
-Generally, **you do not need to call this method**. This method is used to dispose the image.  
-Disposed image will not be shown in the screen for the rest of the story.
+通常，**您不需要调用此方法**。此方法用于停用图像。  
+停用后的图像将不会在剩余的故事中显示在屏幕上。
 
 ### setSrc
 
-- `src: string | StaticImageData` - The source of the image
-- `transition?: ITransition` - For ITransition, see [ITransition](../types/ITransition)
+- `src: string | StaticImageData` - 图像的来源
+- `transition?: ITransition` - 有关ITransition，请参见[过渡](../types/ITransition)
 
 ```typescript
 image.setSrc("your/image/src", new Fade(1000));
@@ -37,33 +29,33 @@ image.setSrc("your/image/src", new Fade(1000));
 
 ### applyTransform
 
-- `transform: Transform` - [Transform](../animation/transform)
+- `transform: Transform` - [变换](../animation/transform)
 
 ### show
 
-Show the image.
+显示图片。
 
-#### Overload 1 of 3
+#### 重载 1 / 3
 
-Show image immediately.
+立即显示图片。
 
 ```typescript
 image.show();
 ```
 
-#### Overload 2 of 3
+#### 重载 2 / 3
 
-Show image with custom transform.
+使用自定义变换显示图像。
 
-> **Note:** You have to add `alpha: 1` in the transform props to show the image.
+> **注意：**您必须在变换属性中添加`alpha: 1`以显示图像。
 
-- `options: Transform` - [Transform](../animation/transform)
+- `options: Transform` - [变换](../animation/transform)
 
-#### Overload 3 of 3
+#### 重载 3 / 3
 
-Show image with transform config. A transform with alpha:1 will be applied to the image.
+使用变换配置显示图像。一个带有alpha:1的变换将应用于图像。
 
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - See TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - 见 TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
 
 ```typescript
 image.show({
@@ -74,29 +66,29 @@ image.show({
 
 ### hide
 
-Hide the image.
+隐藏图片。
 
-#### Overload 1 of 3
+#### 重载 1 / 3
 
-Hide image immediately.
+立即隐藏图片。
 
 ```typescript
 image.hide();
 ```
 
-#### Overload 2 of 3
+#### 重载 2 / 3
 
-Hide image with custom transform.
+立即使用自定义变换隐藏图片。
 
-> **Note:** You have to add `alpha: 0` in the transform props to hide the image.
+> **注意：**您必须在变换属性中添加`alpha: 0`以隐藏图像。
 
-- `options: Transform` - [Transform](../animation/transform)
+- `options: Transform` - [变换](../animation/transform)
 
-#### Overload 3 of 3
+#### 重载 3 / 3
 
-Hide image with transform config. A transform with alpha:0 will be applied to the image.
+使用变换配置隐藏图像。一个带有alpha:0的变换将应用于图像。
 
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - See TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - 见 TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
 
 ```typescript
 image.hide({
@@ -107,7 +99,7 @@ image.hide({
 
 ### copy
 
-Copy the image.
+复制图像。
 
 ```typescript
 const newImage = image.copy();
