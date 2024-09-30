@@ -5,6 +5,7 @@
     "ImageConfig": "ImageConfig",
     "JumpConfig": "JumpConfig",
     "SceneConfig": "SceneConfig",
+    "ScriptCtx": "ScriptCtx",
     "SentenceConfig": "SentenceConfig",
     "SoundConfig": "SoundConfig",
     "SoundType": "SoundType",

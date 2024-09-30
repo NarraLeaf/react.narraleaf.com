@@ -10,3 +10,27 @@ import {Callout, Tabs} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
+`Script` allows you to execute scripts and interact with the game.
+
+For example, you can use `Script` to change the game state in the middle of the game.
+
+```typescript
+new Script(({gameState}) => {
+    gameState
+        .getStorable()
+        .getNamespace("game")
+        .set("coin", 0);
+});
+```
+
+## Public Methods
+
+### constructor
+
+- `handler: (ctx: ScriptCtx) => void` - When the script is executed, this handler will be called. The handler will receive a [ScriptCtx](../types/ScriptCtx) object.
+
+```typescript
+const script = new Script((ctx) => {
+    console.log(ctx.gameState);
+});
+```
