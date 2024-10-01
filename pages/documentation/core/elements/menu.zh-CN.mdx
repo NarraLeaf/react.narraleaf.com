@@ -1,6 +1,6 @@
 import {Callout, Tabs} from 'nextra/components';
 
-# Menu
+# 选项
 
 <Callout type="warning" emoji="⚠️">
     This page is under construction.
@@ -10,71 +10,69 @@ import {Callout, Tabs} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
-Menu lets you create a menu in your visual novel. It is used to navigate between different parts of the story.
+`菜单` 允许您在视觉小说中创建菜单。它用于在故事的不同部分之间导航。
 
 ```ts
-new Menu("What should I do?")
-    .choose("Go left", [
-        character1.say("I went left"),
+new Menu("我应该做什么？")
+    .choose("往左走", [
+        character1.say("我往左走了"),
         scene1.jumpTo(scene2)
     ])
-    .choose("Go right", [
-        character1.say("I went right")
+    .choose("往右走", [
+        character1.say("我往右走了")
     ])
 ```
 
-## Public Method
+## 公共方法
 
 ### constructor
 
-#### Overload 1 of 2
+#### 重载 1 / 2
 
-- `prompt: (string | Word)[] | (string | Word)` - The prompt of the menu
+- `prompt: (string | Word)[] | (string | Word)` - 菜单的提示
 - `config?: MenuConfig` - [MenuConfig](../types/MenuConfig)
 
-#### Overload 2 of 2
+#### 重载 2 / 2
 
-- `prompt: Sentence` - The prompt of the menu, See [Sentence](./character/sentence)
+- `prompt: Sentence` - 菜单的提示，见 [Sentence](./character/sentence)
 - `config?: MenuConfig` - [MenuConfig](../types/MenuConfig)
 
 ### choose
 
-#### Overload 1 of 3
+#### 重载 1 / 3
 
 ```ts
-new Menu("what should I do?")
+new Menu("我应该做什么？")
     .choose({
-        choice: "go left",
+        choice: "往左走",
         action: [
-            character1.say("I went left"),
+            character1.say("我往左走了"),
         ]
     })
 ```
 
-- `choice: MenuChoice` - The choice of the menu, See [MenuChoice](../types/MenuChoice)
+- `choice: MenuChoice` - 菜单的选择，见 [MenuChoice](../types/MenuChoice)
 
-#### Overload 2 of 3
+#### 重载 2 / 3
 
 ```ts
-new Menu("what should I do?")
-    .choose(new Sentence("go left"), [
-        character1.say("I went left"),
+new Menu("我应该做什么？")
+    .choose(new Sentence("往左走"), [
+        character1.say("我往左走了"),
     ])
 ```
 
-- `prompt: Sentence` - The prompt of the choice, See [Sentence](./character/sentence)
-- `action: ChainedActions` - The action of the choice, See [ChainedActions](../types/ChainedActions)
+- `prompt: Sentence` - 选择的提示，见 [Sentence](./character/sentence)
+- `action: ChainedActions` - 选择的操作，见 [ChainedActions](../types/ChainedActions)
 
-#### Overload 3 of 3
+#### 重载 3 / 3
 
 ```ts
-new Menu("what should I do?")
-    .choose("go left", [
-        character1.say("I went left"),
+new Menu("我应该做什么？")
+    .choose("往左走", [
+        character1.say("我往左走了"),
     ])
 ```
-
-- `prompt: UnSentencePrompt` - The prompt of the choice
-- `action: ChainedActions` - The action of the choice, See [ChainedActions](../types/ChainedActions)
-
+- `prompt: UnSentencePrompt` - 选择的提示
+- `action: ChainedActions` - 选择的操作，见 [ChainedActions](../types/ChainedActions)
 

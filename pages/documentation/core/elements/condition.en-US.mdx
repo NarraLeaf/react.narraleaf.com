@@ -10,3 +10,46 @@ import {Callout, Tabs} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
+`Condition` allows you to create conditional branches in your story.
+
+```typescript
+new Condition()
+    // check if the player has enough money
+    .If(({ storable }) => {
+        // you can access the game state, ex: storable
+        return (storable.getNamespace("name").get("coin") || 0) >= 10;
+    }, [
+        character1.say("you have enough money")
+    ])
+
+    .Else([
+        character1.say("you don't have enough money")
+    ])
+```
+
+> **Note:** To better unerstand the script, if you call these methods in wrong order, it will throw an error.
+> 
+> For example, you cannot call `ElseIf` before `If`.
+
+## Public Methods
+
+### constructor
+
+- `config?: ConditionConfig` - [ConditionConfig](../types/ConditionConfig)
+
+### If
+
+- `condition: Lambda | LambdaHandler<boolean>` - The condition to check. If the condition is true, the actions will be executed.
+See [Lambda](../types/Lambda) and [LambdaHandler](../types/LambdaHandler) for more information.
+- `action: ChainedActions` - [ChainedActions](../types/ChainedActions)
+
+### ElseIf
+
+- `condition: Lambda | LambdaHandler<boolean>`
+- `action: ChainedActions`
+
+### Else
+
+- `action: ChainedActions`
+
+

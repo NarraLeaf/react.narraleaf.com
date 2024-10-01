@@ -1,6 +1,6 @@
 import {Callout, Tabs} from 'nextra/components';
 
-# Control
+# 控制
 
 <Callout type="warning" emoji="⚠️">
     This page is under construction.
@@ -9,4 +9,64 @@ import {Callout, Tabs} from 'nextra/components';
 <Callout type="warning" emoji="⚠️">
     Beta feature, subject to change.
 </Callout>
+
+`控制`是一个类，它具有一些用于流程控制的实用方法。
+
+```typescript
+Control.do([
+    character1.say("hello"),
+
+    // 播放声音并同时摇动图像
+    Control.allAsync([
+        sound.play(),
+        shake(image1),
+    ]),
+]);
+```
+
+## 静态方法
+
+### do
+
+按顺序执行操作，等待每个操作完成
+
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- 返回 `ChainedControl` - 链式控制实例
+
+### doAsync
+
+按顺序执行操作，不等待操作完成
+
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- 返回 `ChainedControl` - 链式控制实例
+
+### any
+
+同时执行所有操作，等待任意一个操作完成
+
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- 返回 `ChainedControl` - 链式控制实例
+
+### all
+
+同时执行所有操作，等待所有操作完成
+
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- 返回 `ChainedControl` - 链式控制实例
+
+### allAsync
+
+同时执行所有操作，不等待所有操作完成
+
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- 返回 `ChainedControl` - 链式控制实例
+
+### repeat
+
+多次执行操作
+
+- `times: number` - 次数
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- 返回 `ChainedControl` - 链式控制实例
+
 

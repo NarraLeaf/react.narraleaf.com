@@ -12,7 +12,9 @@ import {Callout, Tabs} from 'nextra/components';
 
 ```typescript
 interface ScriptCtx {
-    script: Script;
     gameState: GameState;
+    game: Game;
+    liveGame: LiveGame;
+    storable: Storable;
 }
 ```

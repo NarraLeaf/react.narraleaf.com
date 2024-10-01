@@ -10,3 +10,63 @@ import {Callout, Tabs} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
+`Control` is a class that has some utility methods for flow control.
+
+```typescript
+Control.do([
+    character1.say("hello"),
+
+    // play sound and shake image at the same time
+    Control.allAsync([
+        sound.play(),
+        shake(image1),
+    ]),
+]);
+```
+
+## Static Method
+
+### do
+
+Execute actions **in order**, waiting for each action to complete
+
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- Returns `ChainedControl` - Chained Control instance
+
+### doAsync
+
+Execute actions **in order**, do not wait for this action to complete
+
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- Returns `ChainedControl` - Chained Control instance
+
+### any
+
+Execute all actions **at the same time**, waiting for any one action to complete
+
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- Returns `ChainedControl` - Chained Control instance
+
+### all
+
+Execute all actions **at the same time**, waiting for all actions to complete
+
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- Returns `ChainedControl` - Chained Control instance
+
+### allAsync
+
+Execute all actions **at the same time**, do not wait for all actions to complete
+
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- Returns `ChainedControl` - Chained Control instance
+
+### repeat
+
+Execute actions multiple times
+
+- `times: number` - times
+- `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- Returns `ChainedControl` - Chained Control instance
+
+

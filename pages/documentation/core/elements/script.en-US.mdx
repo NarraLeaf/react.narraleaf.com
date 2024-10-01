@@ -15,9 +15,8 @@ import {Callout, Tabs} from 'nextra/components';
 For example, you can use `Script` to change the game state in the middle of the game.
 
 ```typescript
-new Script(({gameState}) => {
-    gameState
-        .getStorable()
+new Script(({storable}) => {
+    storable
         .getNamespace("game")
         .set("coin", 0);
 });

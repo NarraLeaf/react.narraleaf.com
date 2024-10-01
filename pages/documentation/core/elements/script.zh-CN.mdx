@@ -1,6 +1,6 @@
 import {Callout, Tabs} from 'nextra/components';
 
-# Script
+# 脚本
 
 <Callout type="warning" emoji="⚠️">
     This page is under construction.
@@ -10,24 +10,23 @@ import {Callout, Tabs} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
-`Script` allows you to execute scripts and interact with the game.
+`脚本` 允许您执行脚本并与游戏进行交互。
 
-For example, you can use `Script` to change the game state in the middle of the game.
+例如，您可以使用 `Script` 在游戏中间更改游戏状态。
 
 ```typescript
-new Script(({gameState}) => {
-    gameState
-        .getStorable()
+new Script(({storable}) => {
+    storable
         .getNamespace("game")
         .set("coin", 0);
 });
 ```
 
-## Public Methods
+## 公共方法
 
 ### constructor
 
-- `handler: (ctx: ScriptCtx) => void` - When the script is executed, this handler will be called. The handler will receive a [ScriptCtx](../types/ScriptCtx) object.
+- `handler: (ctx: ScriptCtx) => void` - 当脚本被执行时，将调用此处理程序。处理程序将接收一个 [ScriptCtx](../types/ScriptCtx) 对象。
 
 ```typescript
 const script = new Script((ctx) => {
