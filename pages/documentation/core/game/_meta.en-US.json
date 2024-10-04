@@ -1,5 +1,6 @@
 {
     "game": "Game",
+    "game-state": "GameState",
     "live-game": "LiveGame",
-    "game-state": "GameState"
+    "storable": "Storable"
 }

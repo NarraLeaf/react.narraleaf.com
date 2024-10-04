@@ -1,0 +1,240 @@
+import {Callout, Tabs} from 'nextra/components';
+
+# GameConfig
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+```typescript
+type GameConfig = {
+    player: {
+        contentContainerId: string;
+        aspectRatio: number;
+        minWidth: number;
+        minHeight: number;
+        width: number | string;
+        height: number | string;
+        skipKey: string[];
+        skipInterval: number;
+    };
+    elements: {
+        say: {
+            nextKey: string[];
+            textInterval: number;
+            use: SayComponent;
+        };
+        img: {
+            slowLoadWarning: boolean;
+            slowLoadThreshold: number;
+        };
+        menu: {
+            use: MenuComponent;
+        };
+    };
+    elementStyles: {
+        say: {
+            container: string;
+            nameText: string;
+            textContainer: string;
+            textSpan: string;
+        };
+        menu: {
+            container: string;
+            choiceButton: string;
+            choiceButtonText: string;
+        };
+    };
+    app: {
+        debug: boolean;
+        logger: {
+            log: boolean;
+            info: boolean;
+            warn: boolean;
+            error: boolean;
+            debug: boolean;
+            trace: boolean;
+        };
+    };
+};
+```
+
+## player
+
+The player configuration, controls the player component.
+
+### contentContainerId
+
+The id of the container element, the player will create new elements using this id.
+
+### aspectRatio
+
+The aspect ratio of the game. Ex: 16/9, 4/3, 1/1
+
+### minWidth
+
+The minimum width of the player in pixels
+
+### minHeight
+
+The minimum height of the player in pixels
+
+### width
+
+<Callout type="warning" emoji="⚠️">
+    still under construction
+</Callout>
+
+### height
+
+<Callout type="warning" emoji="⚠️">
+    still under construction
+</Callout>
+
+### skipKey
+
+When player presses one of these keys, the game will skip the current action
+
+See [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
+
+### skipInterval
+
+The interval in milliseconds between each skip action.
+
+ex: 100ms means the player can skip 10 actions per second.
+
+higher value means faster skipping.
+
+## elements
+
+The elements configuration, controls the elements components.
+
+### say
+
+The say component configuration.
+
+#### nextKey
+
+When the player presses one of these keys, the game will show the next sentence
+
+See [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
+
+#### textInterval
+
+The speed of the text effect in milliseconds.
+
+higher value means slower text effect.
+
+default: 50
+
+#### use
+
+See [SayComponent](../types/SayComponent)
+
+### img
+
+The img component configuration.
+
+#### slowLoadWarning
+
+If true, the game will show a warning when loading takes longer than `elements.img.slowLoadThreshold`
+
+#### slowLoadThreshold
+
+<Callout type="warning" emoji="⚠️">
+    still under construction
+</Callout>
+
+### menu
+
+The menu component configuration.
+
+#### use
+
+See [MenuComponent](../types/MenuComponent)
+
+## elementStyles
+
+The element styles configuration, controls the styles of the elements components.
+
+### say
+
+The say component styles.
+
+#### container
+
+Custom class for the say container
+
+Ex: "rounded-md shadow-md" for rounded and shadowed container
+
+#### nameText
+
+Custom class for name text
+
+#### textContainer
+
+Custom class for text container
+
+#### textSpan
+
+Custom class for text span
+
+### menu
+
+The menu component styles.
+
+#### container
+
+Custom class for the menu container
+
+#### choiceButton
+
+Custom class for choice button
+
+#### choiceButtonText
+
+Custom class for choice button text
+
+## app
+
+The app configuration, controls the app.
+
+### debug
+
+If true, the app will run in debug mode.
+
+### logger
+
+The logger configuration.
+
+#### log
+
+If true, the logger will log messages.
+
+#### info
+
+If true, the logger will log info messages.
+
+#### warn
+
+If true, the logger will log warn messages.
+
+Default: true
+
+#### error
+
+If true, the logger will log error messages.
+
+Default: true
+
+#### debug
+
+If true, the logger will log debug messages.
+
+#### trace
+
+If true, the logger will log trace messages.
+
+
+
+

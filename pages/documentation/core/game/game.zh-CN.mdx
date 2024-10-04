@@ -6,3 +6,21 @@ import {Callout, Tabs} from 'nextra/components';
     This page is under construction.
 </Callout>
 
+Game is the main class that represents the game itself. It contains all the game's configuration and [LiveGame](./live-game)s
+
+## Public Methods
+
+### constructor
+
+- `config: DeepPartial<GameConfig>` - The game's configuration, see [GameConfig](../types/GameConfig)
+
+### useComponent\<T extends keyof ComponentsTypes\>
+
+For ComponentsTypes, see [ComponentsTypes](../types/ComponentsTypes)
+
+- `key: T` - The key of the component to use
+- `components: ComponentsTypes[T]` - The component configuration, see [ComponentsTypes](../types/ComponentsTypes)
+
+### getLiveGame
+
+- Returns `LiveGame` - the [LiveGame](./live-game) instance

@@ -1,0 +1,7 @@
+# StorableData
+
+```typescript
+type StorableData<K extends string = string> = {
+    [key in K]: number | boolean | string | StorableData | StorableData[] | undefined | null | Date;
+};
+```

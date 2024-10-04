@@ -1,0 +1,76 @@
+import {Callout, Tabs} from 'nextra/components';
+
+# Storable
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
+
+Storable allows you to store data in the game's state. Data stored in Storable will be saved and loaded with current game state.
+
+Data stored in Storable are separated by namespace. You can use the same key in different namespaces.  
+For example, you can store the player1's name in the `player1` namespace and the player2's name in the `player2` namespace.
+
+Namespace `game` is already defined and can store data, you can add your own by instantiating a new [Namespace](./storable/namespace).
+
+For example, create a new namespace `player1` and store the player1's name in it:
+
+```typescript
+type Player1Content = {
+    name: string;
+};
+
+const storable = game.getLiveGame().getStorable();
+
+// initialize a new namespace
+const player1namespace = new Namespace<Player1Content>();
+storable.addNamespace('player1', player1namespace);
+
+// set data from the namespace
+const namespace = storable.getNamespace<Player1Content>('player1');
+namespace.set('name', 'John Doe');
+
+// get data from the namespace
+const name = namespace.get('name');
+console.log(name); // John Doe
+```
+
+
+## Public Methods
+
+### addNamespace\<T extends NameSpaceContent\<keyof T\>\>
+
+- `namespace: Namespace<T>`
+- Returns `this`
+
+### getNamespace\<T extends NameSpaceContent\<keyof T\> = any\>
+
+- `key: string` - The namespace key
+- Returns `Namespace<T>`
+
+### setNamespace\<T extends NameSpaceContent\<keyof T\> = any\>
+
+- `key: string` - The namespace key
+- `namespace: Namespace<T>`
+- Returns `this`
+
+### getNamespaces
+
+- Returns `{ [key: string]: Namespace<any>; }`
+
+### keys
+
+- Returns `string[]`
+
+### values
+
+- Returns `Namespace<any>[]`
+
+### entries
+
+- Returns `[string, Namespace<any>][]`
+

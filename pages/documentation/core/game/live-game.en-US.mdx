@@ -6,3 +6,62 @@ import {Callout, Tabs} from 'nextra/components';
     This page is under construction.
 </Callout>
 
+LiveGame is the main class that represents the game's current state. 
+
+## Public Properties
+
+### game
+
+The [Game](./game) instance
+
+## Public Methods
+
+### getStorable
+
+Returns the [Storable](./storable) instance
+
+- Returns `Storable` - [Storable](./storable)
+
+### newGame
+
+Starts a new game
+
+- Returns `this`
+
+### deserialize
+
+Load a saved game
+
+After calling this method, the current game state will be lost, and the stage will trigger force reset
+
+> **Note: **Even if you change just a single line of script, the saved game might not be compatible with the new version
+
+Example:
+
+```typescript
+const savedGame = {
+    // ...saved game data
+};
+
+// use hook inside a component
+const {game} = useGame();
+
+// pass the saved game data to the game instance
+game.getLiveGame().deserialize(savedGame, {
+    gameState: YOUR_GAME_STATE
+});
+```
+
+- `savedGame: SavedGame` - [SavedGame](../types/SavedGame)
+- `ctx: { gameState: GameState; }` - Context, for GameState, see [GameState](./game-state)
+
+### serialize
+
+Serialize the current game state
+
+You can use this to save the game state to a file or a database
+
+> **Note: **Even if you change just a single line of script, the saved game might not be compatible with the new version
+
+- `ctx: { gameState: GameState; }` - Context, for GameState, see [GameState](./game-state)
+- Returns `SavedGame` - See [SavedGame](../types/SavedGame)`

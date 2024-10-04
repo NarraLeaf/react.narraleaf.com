@@ -1,0 +1,13 @@
+# MenuComponent
+
+```typescript
+interface MenuElementProps {
+    prompt: Sentence;
+    choices: Choice[];
+    afterChoose: (choice: Choice) => void;
+    state: GameState;
+}
+type MenuComponent = Components<MenuElementProps>;
+```
+
+For Components, see [Components](./Components)
