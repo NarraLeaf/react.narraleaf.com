@@ -47,13 +47,10 @@ const savedGame = {
 const {game} = useGame();
 
 // pass the saved game data to the game instance
-game.getLiveGame().deserialize(savedGame, {
-    gameState: YOUR_GAME_STATE
-});
+game.getLiveGame().deserialize(savedGame);
 ```
 
 - `savedGame: SavedGame` - [SavedGame](../types/SavedGame)
-- `ctx: { gameState: GameState; }` - Context, for GameState, see [GameState](./game-state)
 
 ### serialize
 
@@ -63,5 +60,4 @@ You can use this to save the game state to a file or a database
 
 > **Note: **Even if you change just a single line of script, the saved game might not be compatible with the new version
 
-- `ctx: { gameState: GameState; }` - Context, for GameState, see [GameState](./game-state)
 - Returns `SavedGame` - See [SavedGame](../types/SavedGame)`
