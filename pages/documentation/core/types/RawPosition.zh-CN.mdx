@@ -1,0 +1,56 @@
+# RawPosition
+
+```typescript
+type RawPosition = CommonPositionType | (Coord2DPosition & {
+    xalign?: never;
+    yalign?: never;
+}) | (AlignPosition & {
+    x: never;
+    y: never;
+});
+```
+
+For more information, see:
+- [CommonPositionType](./CommonPositionType)
+- [Coord2DPosition](./Coord2DPosition)
+- [AlignPosition](./AlignPosition)
+
+
+## Examples
+
+### Example 1
+
+```typescript
+const position: RawPosition = {
+    xalign: 0.5, // x: 50%
+    yalign: 0.3, // y: 30%
+};
+```
+
+### Example 2
+
+```typescript
+const position = {
+    x: 100, // x: 100px
+    y: "50%", // y: 50%
+};
+```
+
+### Example 3
+
+```typescript
+const position = CommonPosition.Positions.Left; // x: 33.3%, y: 50%
+```
+
+### Example 4
+
+```typescript
+const position = {
+    xalign: 0.5, // x: 50% + 10px
+    yalign: 0.3, // y: 30% + 20px
+    xoffset: 10,
+    yoffset: 20,
+};
+```
+
+

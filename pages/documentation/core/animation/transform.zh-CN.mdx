@@ -1,7 +1,164 @@
-import {Callout} from 'nextra/components';
+import {Callout, Cards} from 'nextra/components';
 
-# 变换
+# Transform
 
 <Callout type="warning" emoji="⚠️">
     This page is under construction.
 </Callout>
+
+Transform controls the appearance of an image, like position, rotation, and scale.
+
+An example of a transform:
+
+```typescript
+// The character will move up and down
+// (if `invertY` is true, the character will move down and up)
+new Transform<TransformDefinitions.ImageTransformProps>([
+    {
+        props: {
+            position: {
+                yoffset: -10, // move down/up 10 pixels in 120ms with easeOut
+            }
+        },
+        options: {
+            duration: 120,
+            ease: "easeOut",
+        }
+    },
+    {
+        props: {
+            position: {
+                yoffset: 0, // move back to the original position in 100ms with easeOut
+            }
+        },
+        options: {
+            duration: 100,
+            ease: "easeOut",
+        }
+    }
+], {
+    sync: false,
+}),
+```
+
+The first parameter of `Transform` is an array of sequences. The second parameter is an object that contains the options of the transform. 
+
+A sequence of transformations is made of `props` and `options`:
+
+1. `props` is an object that contains the properties of the transformation. Like `position`, `rotation`, and `scale`.
+2. `options` is an object that contains the options of the transformation. Like `duration` and `ease`.
+
+For more information about TransformDefinitions, see [TransformDefinitions](../types/TransformDefinitions).
+
+## Public Methods
+
+### constructor
+
+#### Overload 1 of 2
+
+This overload takes an array of sequences.
+
+Example: 
+    
+```typescript
+new Transform<TransformDefinitions.ImageTransformProps>([
+    {
+        props: {
+            position: {
+                xalign: 0.3, // go to left in 120ms with easeOut
+            }
+        },
+        options: {
+            duration: 120,
+            ease: "easeOut",
+        }
+    },
+    {
+        props: {
+            position: {
+                xalign: 0.6, // go to right in 100ms with easeOut
+            }
+        },
+        options: {
+            duration: 100,
+            ease: "easeOut",
+        }
+    }
+], {
+    sync: false, // do not wait for all sequences to finish
+});
+```
+
+- `sequences: TransformDefinitions.Sequence<T>[]` - See [TransformDefinitions](../types/TransformDefinitions).Sequence
+- `sequenceOptions?: Partial<TransformDefinitions.TransformConfig>` - See [TransformDefinitions](../types/TransformDefinitions).TransformConfig
+
+#### Overload 2 of 2
+
+This overload takes a single sequence.
+
+Example: 
+    
+```typescript
+new Transform<TransformDefinitions.ImageTransformProps>({
+    position: {
+        xalign: 0.3, // go to left in 120ms with easeOut
+    }
+}, {
+    duration: 120,
+    ease: "easeOut",
+});
+```
+
+- `props: SequenceProps<T>` - See [TransformDefinitions](../types/TransformDefinitions).SequenceProps
+- `options?: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).CommonTransformProps
+
+### repeat
+
+Repeat the transform.
+
+Example: 
+    
+```typescript
+transform
+  .repeat(2)
+  .repeat(3)
+// repeat 6 times
+```
+
+- `n: number` - The number of times to repeat the transform.
+- `return: this`
+
+### overwrite\<T extends keyof TransformersMap = any\>
+
+Overwrite a transformer
+
+Example: 
+
+```typescript
+transform.overwrite("position", (value) => {
+  return {left: value.x, top: value.y};
+});
+```
+
+**we don't recommend using this method**
+
+- `key: T` - The key of the transformer to overwrite. Can be one of the keys in [TransformersMap](../types/TransformersMap).
+- `transformer: (value: TransformersMap[T]) => TransformersMap[T]` - The transformer function.
+- `return: this`
+
+### copy
+
+Copy the transform.
+
+- `return: Transform<T>`
+
+## Next Steps
+
+<Cards num={1}>
+    <Cards.Card
+        title="Advanced Transform"
+        description="Advanced Transform"
+        href="./advanced-transform"
+        arrow
+    />
+</Cards>

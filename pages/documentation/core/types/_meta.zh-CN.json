@@ -1,4 +1,5 @@
 {
+    "AlignPosition": "AlignPosition",
     "IPosition": "IPosition",
     "ITransition": "ITransition",
     "ImageTransformProps": "ImageTransformProps",
@@ -19,7 +20,9 @@
     "CharacterMode": "CharacterMode",
     "ChainedActions": "ChainedActions",
     "Choice": "Choice",
+    "Coord2DPosition": "Coord2DPosition",
     "CommonImage": "CommonImage",
+    "CommonPositionType": "CommonPositionType",
     "CommonTransformProps": "CommonTransformProps",
     "Components": "Components",
     "ComponentsTypes": "ComponentsTypes",
@@ -30,5 +33,9 @@
     "BezierDefinition": "BezierDefinition",
     "MenuConfig": "MenuConfig",
     "MenuChoice": "MenuChoice",
-    "GameConfig": "GameConfig"
+    "GameConfig": "GameConfig",
+    "TransformDefinitions": "TransformDefinitions",
+    "TransformersMap": "TransformersMap",
+    "RawPosition": "RawPosition",
+    "OffsetPosition": "OffsetPosition"
 }

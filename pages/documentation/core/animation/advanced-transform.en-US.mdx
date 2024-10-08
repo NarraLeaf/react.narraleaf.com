@@ -1,0 +1,28 @@
+import {Callout} from 'nextra/components';
+
+# Advanced Transform
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+We are going to explain the advanced usage of the Transform class.
+
+Transform takes a series of sequences to create a complex transformation. Each sequence will be executed one by one.  
+
+## Sequence
+
+A single sequence is made of `props` and `options`.
+
+### Props
+
+Props is an object that contains the properties of the transformation.
+
+For image transformation, see [TransformDefinitions](../types/TransformDefinitions).ImageTransformProps
+
+#### Sync
+
+If `sync` for the single sequence is set to `false`, the next sequence will not wait for the current sequence to finish.  
+If `sync` for the whole transform is set to `false`, the sequences will be executed one by one, but the process will not wait for these sequences to finish.
+
+

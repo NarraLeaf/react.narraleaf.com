@@ -1,0 +1,55 @@
+# namespace TransformDefinitions
+
+```typescript
+import type { AnimationPlaybackControls, AnimationScope, AnimationSequence, DOMKeyframesDefinition, DynamicAnimationOptions, ElementOrSelector, MotionValue, ValueAnimationTransition } from "framer-motion";
+
+declare namespace TransformDefinitions {
+    type BezierDefinition = [number, number, number, number];
+    type CustomEasingFunction = (t: number) => number;
+    type EasingDefinition = CustomEasingFunction | BezierDefinition | "linear" | "easeIn" | "easeOut" | "easeInOut" | "circIn" | "circOut" | "circInOut" | "backIn" | "backOut" | "backInOut" | "anticipate";
+    type GenericKeyframesTarget<V> = [null, ...V[]] | V[];
+    type FramerAnimationScope<T> = AnimationScope<T>;
+    type FramerAnimate = {
+        <V>(from: V, to: V | GenericKeyframesTarget<V>, options?: ValueAnimationTransition<V> | undefined): AnimationPlaybackControls;
+        <V_1>(value: MotionValue<V_1>, keyframes: V_1 | GenericKeyframesTarget<V_1>, options?: ValueAnimationTransition<V_1> | undefined): AnimationPlaybackControls;
+        (value: ElementOrSelector, keyframes: DOMKeyframesDefinition, options?: DynamicAnimationOptions | undefined): AnimationPlaybackControls;
+        (sequence: AnimationSequence, options?: SequenceOptions | undefined): AnimationPlaybackControls;
+    };
+    type CommonTransformProps = {
+        duration: number;
+        ease: EasingDefinition;
+        delay: number;
+    } & {
+        sync: boolean;
+    };
+    type TransformConfig = {
+        sync: boolean;
+    };
+    type CommonSequenceProps = {
+        sync: boolean;
+        repeat: number;
+    };
+    type SceneBackgroundTransformProps = {
+        background: {
+            url: string;
+        } | color | null | undefined | StaticImageData;
+        backgroundOpacity: number;
+    };
+    type ImageTransformProps = CommonImage & {
+        display: boolean;
+        position: RawPosition | IPosition;
+    };
+    type Types = ImageTransformProps | SceneBackgroundTransformProps;
+    type SequenceProps<T> = DeepPartial<T>;
+    type SequenceOptions = Partial<CommonTransformProps>;
+    type Sequence<T> = {
+        props: SequenceProps<T>;
+        options: SequenceOptions;
+    };
+}
+```
+
+For more information, please see: 
+- [CommonImage](./CommonImage)
+- [RawPosition](./RawPosition)
+- [IPosition](./IPosition)
