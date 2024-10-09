@@ -54,6 +54,8 @@ For more information about TransformDefinitions, see [TransformDefinitions](../t
 
 ### constructor
 
+For more information, see [Advanced Transform](./advanced-transform).
+
 #### Overload 1 of 2
 
 This overload takes an array of sequences.
@@ -89,8 +91,8 @@ new Transform<TransformDefinitions.ImageTransformProps>([
 });
 ```
 
-- `sequences: TransformDefinitions.Sequence<T>[]` - See [TransformDefinitions](../types/TransformDefinitions).Sequence
-- `sequenceOptions?: Partial<TransformDefinitions.TransformConfig>` - See [TransformDefinitions](../types/TransformDefinitions).TransformConfig
+- `sequences: TransformDefinitions.Sequence<T>[]` - An array of [Sequence](./advanced-transform#sequence)
+- `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - See [Transform Config](./advanced-transform#transform-config)
 
 #### Overload 2 of 2
 
@@ -109,8 +111,8 @@ new Transform<TransformDefinitions.ImageTransformProps>({
 });
 ```
 
-- `props: SequenceProps<T>` - See [TransformDefinitions](../types/TransformDefinitions).SequenceProps
-- `options?: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).CommonTransformProps
+- `props: SequenceProps<T>` - A single [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
+- `options?: Partial<TransformDefinitions.CommonTransformProps>` - A single [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
 ### repeat
 

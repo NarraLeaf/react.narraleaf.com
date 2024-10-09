@@ -6,6 +6,10 @@ import {Callout} from 'nextra/components';
     This page is under construction.
 </Callout>
 
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
+
 We are going to explain the advanced usage of the Transform class.
 
 Transform takes a series of sequences to create a complex transformation. Each sequence will be executed one by one.  
@@ -14,13 +18,87 @@ Transform takes a series of sequences to create a complex transformation. Each s
 
 A single sequence is made of `props` and `options`.
 
+See [TransformDefinitions](../types/TransformDefinitions).[Sequence](../types/TransformDefinitions#Sequence)
+
+Here is an example of a sequence:
+
+```typescript
+{
+    props: {
+        // The character will move to the left and scale down at the same time
+        position: CommonPosition.Positions.Left,
+        scale: 0.3
+    },
+    options: {
+        // The transformation will take 1000ms
+        duration: 1000,
+
+        // The easing function is easeOut
+        ease: "easeOut"
+    }
+}
+```
+
 ### Props
 
 Props is an object that contains the properties of the transformation.
 
-#### Sync
+For image transformation, see [TransformDefinitions](../types/TransformDefinitions).[ImageTransformProps](../types/TransformDefinitions#ImageTransformProps).
+
+### Options
+
+Options is an object that contains the options of the transformation.
+
+For more information, see [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps).
+
+#### `sync`
 
 If `sync` for the single sequence is set to `false`, the next sequence will not wait for the current sequence to finish.  
+
+#### `duration`
+
+The duration of the transformation in milliseconds.
+
+#### `delay`
+
+<Callout type="warning" emoji="⚠️">
+    This feature is under construction.
+</Callout>
+
+#### `ease`
+
+Definition for easing function, or a built-in easing function name.
+
+See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+## Transform Config
+
+See [TransformDefinitions](../types/TransformDefinitions).[TransformConfig](../types/TransformDefinitions#TransformConfig)
+
+#### `sync`
+
 If `sync` for the whole transform is set to `false`, the sequences will be executed one by one, but the process will not wait for these sequences to finish.
 
+It is as same as the [Control.doAsync](../elements/control#doasync)
+
+## How does it work?
+
+NarraLeaf-React use [Framer Motion](https://www.framer.com/) to animate the elements. It follows the steps below:
+
+1. for each sequence
+    1. merge the previous props with the current props
+    2. convert the props to the style object
+    3. use `useAnimate` to animate the container of the element
+    4. if the sequence is not `sync`, go to the next sequence, otherwise wait for the current sequence to finish
+2. if the whole transform is not `sync`, the process will not wait for the sequences to finish
+
+### Custom Easing
+
+Read more about [Transition Ease](https://www.framer.com/motion/transition/###ease)
+
+### Custom Properties
+
+<Callout type="warning" emoji="⚠️">
+    This feature is under construction.
+</Callout>
 

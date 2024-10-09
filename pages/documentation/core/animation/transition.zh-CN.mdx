@@ -1,0 +1,63 @@
+import {Callout, Cards} from 'nextra/components';
+
+# Transition
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
+
+In NarraLeaf-React, transitions can be used on elements and scene background. For example, you can use transitions to transition images. 
+
+```typescript
+image.setSrc("image1.png", new Dissolve(3000))
+```
+
+There are some built-in transitions in NarraLeaf-React. If you want to custom your own transition, please see [Advanced Transition](./advanced-transition).
+
+## Built-in Transitions
+
+### Dissolve
+
+The current image will fade out, and the next image will fade in at the same time
+
+```typescript
+constructor(duration?: number, src?: string | NextJSStaticImageData | Scene);
+```
+
+### Fade
+
+The current image will fade out, and the next image will fade in
+
+```typescript
+constructor(duration?: number, src?: Scene | StaticImageData | string);
+```
+
+### FadeIn
+
+The next image will fade-in in a direction
+
+```typescript
+/**
+ * @param direction The direction the image will move from
+ * @param offset The distance the image will move (in pixels)
+ * @param duration The duration of the transition
+ * @param src The source of the next image
+ */
+constructor(direction: "left" | "right" | "top" | "bottom", offset: number, duration?: number, src?: Scene | StaticImageData | string);
+```
+
+## Next Steps
+
+<Cards num={1}>
+    <Cards.Card
+        title="Advanced Transition"
+        description="Advanced Transition"
+        href="./advanced-transition"
+        arrow
+    />
+</Cards>
+

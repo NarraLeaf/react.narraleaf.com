@@ -1,4 +1,6 @@
 {
     "transform": "变换",
-    "advanced-transform": "高级变换"
+    "advanced-transform": "高级变换",
+    "transition": "过渡",
+    "advanced-transition": "高级过渡"
 }
