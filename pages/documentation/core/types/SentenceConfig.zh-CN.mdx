@@ -4,10 +4,10 @@
 ```ts
 type SentenceConfig = {
     pause?: boolean | number;
-    voice: Sound | string | null | undefined;
-} & {
-    color: color;
-};
+    voice: Sound | null;
+    character: Character | null;
+} & Color & Font;
 ```
 
-For color, see [color](./color).
+For Color, see [color](./color#Color).
+For Font, see [Font](./Font).

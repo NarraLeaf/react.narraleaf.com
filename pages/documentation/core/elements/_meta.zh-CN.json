@@ -6,5 +6,6 @@
     "menu": "选项",
     "script": "脚本",
     "condition": "条件",
-    "control": "控制"
+    "control": "控制",
+    "text": "文本"
 }

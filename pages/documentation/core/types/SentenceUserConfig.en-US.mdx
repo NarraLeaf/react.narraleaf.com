@@ -1,0 +1,9 @@
+# SentenceUserConfig
+
+```typescript
+type SentenceUserConfig = Partial<Omit<SentenceConfig, "voice"> & {
+    voice: Sound | string | null | undefined;
+}>;
+```
+
+For SentenceConfig, see [SentenceConfig](./SentenceConfig).

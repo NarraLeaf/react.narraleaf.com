@@ -1,0 +1,9 @@
+# ITextTransition
+
+This type of transition is used to transition text elements.
+
+```typescript
+export interface ITextTransition<T extends ElementProp = SpanElementProp> extends ITransition<T> {
+    copy(): ITextTransition<T>;
+}
+```

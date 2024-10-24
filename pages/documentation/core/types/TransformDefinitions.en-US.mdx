@@ -29,17 +29,14 @@ declare namespace TransformDefinitions {
         sync: boolean;
         repeat: number;
     };
-    type SceneBackgroundTransformProps = {
-        background: {
-            url: string;
-        } | color | null | undefined | StaticImageData;
-        backgroundOpacity: number;
-    };
-    type ImageTransformProps = CommonImage & {
+    type ImageTransformProps = CommonDisplayable & {
         display: boolean;
-        position: RawPosition | IPosition;
+        position: CommonDisplayable["position"];
     };
-    type Types = ImageTransformProps | SceneBackgroundTransformProps;
+    type TextTransformProps = ImageTransformProps & {
+        fontColor: color;
+    };
+    type Types = ImageTransformProps | TextTransformProps | object;
     type SequenceProps<T> = DeepPartial<T>;
     type SequenceOptions = Partial<CommonTransformProps>;
     type Sequence<T> = {
@@ -50,6 +47,6 @@ declare namespace TransformDefinitions {
 ```
 
 For more information, please see: 
-- [CommonImage](./CommonImage)
+- [CommonDisplayable](./CommonDisplayable)
 - [RawPosition](./RawPosition)
 - [IPosition](./IPosition)

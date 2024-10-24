@@ -26,20 +26,20 @@ scene.action([
 - `name: string` - 场景名字，用于调试目的
 - `config?: DeepPartial<SceneConfig>` - [SceneConfig](../types/SceneConfig)
 
-### setBackground
+### setBackground (chain)
 
 设置场景的背景。如果提供了过渡效果，则背景将使用过渡效果更改。
 
 - `background: Background` - [Background](../types/Background)
 - `transition?: ITransition` - [Transition](../types/ITransition)
 
-### applyTransform
+### applyTransform (chain)
 
 应用变换到背景。通常用于抖动或缩放效果。
 
 - `transform: Transform<TransformDefinitions.ImageTransformProps>` - [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[ImageTransformProps](../types/TransformDefinitions#ImageTransformProps)\>
 
-### jumpTo
+### jumpTo (chain)
 
 跳转到另一个场景。如果提供了过渡效果，则场景将使用过渡效果更改。
 
@@ -48,7 +48,7 @@ scene.action([
 - `arg0: Scene` - 要跳转到的场景实例
 - `config: Partial<JumpConfig>` - [Jump Config](../types/JumpConfig)
 
-### sleep
+### sleep (chain)
 
 等待一段时间再执行下一个操作。
 
