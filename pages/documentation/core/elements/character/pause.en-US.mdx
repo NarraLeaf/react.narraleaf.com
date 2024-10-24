@@ -1,0 +1,57 @@
+import {Callout, Tabs} from 'nextra/components';
+
+# Pause
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+Pause allows you to create pause in sentences.
+
+```ts
+new Character("character 1")
+    .say([
+        "So you mean...",
+        Pause.wait(1000),
+        "I can do this?"
+    ])
+```
+
+or a pause that requires user to click to continue
+
+```ts
+new Character("character 1")
+    .say([
+        "I said: ",
+        Pause,
+        "I can do this!"
+    ])
+```
+
+These two are equivalent: 
+
+```ts
+new Pause({duration: 1000});
+// or
+Pause.wait(1000);
+```
+
+And the following are equivalent:
+
+```ts
+new Pause();
+// or
+Pause;
+```
+
+## Class
+
+```ts
+type PauseConfig = {
+    duration?: number;
+};
+declare class Pause {
+    static wait(duration: number): Pause;
+    constructor(config?: Partial<PauseConfig>);
+}
+```

@@ -19,6 +19,10 @@ import {Callout, Tabs, Cards} from 'nextra/components';
         title="Word"
         href="./character/word"
     />
+    <Cards.Card
+        title="Pause"
+        href="./character/pause"
+    />
 </Cards>
 
 Character controls the dialogues of the character.
@@ -32,7 +36,7 @@ Character controls the dialogues of the character.
 - `name: string | null` - If null, then it is a narrator. Narrator do not show any name in the dialogue box.
 - `config?: DeepPartial<CharacterConfig>` - [CharacterConfig](../types/CharacterConfig)
 
-### say
+### say (chain)
 
 #### Overload 1 of 3
 
@@ -40,11 +44,12 @@ Say a sentence.
 
 ```typescript
 character
-    .say("Hello, world!")
+    .say("Good morning!")
     .say("How are you?")
 ```
 
 - `content: string` - The content of the sentence
+- `config?: SentenceUserConfig` - [SentenceUserConfig](../types/SentenceUserConfig)
 
 #### Overload 2 of 3
 
@@ -53,8 +58,8 @@ Use custom Sentence object.
 ```typescript
 character.say(
     new Sentence(character, [
-        "Hello, ",
-        new Word("world", {color: "#f00"}), // Some words can be colored
+        "Good morning, I am ",
+        new Word("Alice", {color: "#f00"}), // Some words can be colored
     ])
 ) // will output "Hello, world" with "world" in red color
 ```
@@ -70,9 +75,22 @@ Use mixed content of string and Word object.
 ```typescript
 character.say([
     "Hello, ",
-    new Word("world", {color: "#f00"}), // Some words can be colored
-]) // will output "Hello, world" with "world" in red color
+    new Word("Alice", {color: "#f00"}), // Some words can be colored
+]) // will output "Hello, Alice" with "Alice" in red color
 ```
 
-- `content: (string | Word)[]` - See [Word](./character/word)
+- `content: SentencePrompt` - See [SentencePrompt](../types/SentencePrompt)
+- `config?: SentenceUserConfig` - [SentenceUserConfig](../types/SentenceUserConfig)
+
+### setName (chain)
+
+Set the name of the character.
+
+```typescript
+character
+    .setName("Alice (angry)")
+    .say("What do you want?")
+```
+
+- `name: string` - The name of the character
 

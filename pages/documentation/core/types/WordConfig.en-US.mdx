@@ -1,9 +1,25 @@
 # WordConfig
 
 ```typescript
-type WordConfig = {} & {
-    color: color;
-};
+type WordConfig = {
+    className?: string;
+    ruby?: string;
+} & Color & Font;
 ```
 
 For color, see [color](./color).
+For Font, see [Font](./Font).
+
+## ruby
+
+The `ruby` property is used to display ruby text. This is useful for displaying phonetic guides for Chinese characters.
+
+## className
+
+The `className` property is used to set the class name of the word.
+
+```typescript
+new Word({
+    className: 'bold',
+});
+```

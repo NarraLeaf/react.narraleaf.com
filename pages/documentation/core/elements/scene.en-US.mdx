@@ -34,20 +34,20 @@ This is only used when auto activation is not working
 
 This is only used when auto deactivation is not working
 
-### setBackground
+### setBackground (chain)
 
 Set background of the scene. If the transition is provided, the background will be changed with the transition effect.
 
 - `background: Background` - [Background](../types/Background)
 - `transition?: ITransition` - [Transition](../types/ITransition)
 
-### applyTransform
+### applyTransform (chain)
 
 Apply a transform to the background. Usually used for shaking or zooming effect.
 
 - `transform: Transform<TransformDefinitions.ImageTransformProps>` - [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[ImageTransformProps](../types/TransformDefinitions#ImageTransformProps)\>
 
-### jumpTo
+### jumpTo (chain)
 
 Jump to another scene. If the transition is provided, the scene will be changed with the transition effect.
 
@@ -56,7 +56,7 @@ Jump to another scene. If the transition is provided, the scene will be changed 
 - `arg0: Scene` - The Scene instance you want to jump to
 - `config: Partial<JumpConfig>` - [Jump Config](../types/JumpConfig)
 
-### sleep
+### sleep (chain)
 
 Sleep for a duration before executing the next action.
 

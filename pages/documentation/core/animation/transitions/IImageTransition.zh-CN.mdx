@@ -1,0 +1,20 @@
+# IImageTransition
+
+This type of transition is used to transition image elements.
+
+```typescript
+export interface IImageTransition<T extends ElementProp = ImgElementProp> extends ITransition<T> {
+    setSrc(src: ImageSrc | ImageColor): void;
+    copy(): IImageTransition<T>;
+}
+```
+
+## setSrc
+
+Sometimes we cannot know the image src immediately, so we need to set it later.
+
+```typescript
+setSrc(src: ImageSrc | ImageColor): void;
+```
+
+See [ImageSrc](../../types/ImageSrc) and [ImageColor](../../types/ImageColor) for more information.

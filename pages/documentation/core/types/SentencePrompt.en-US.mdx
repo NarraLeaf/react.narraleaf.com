@@ -1,0 +1,73 @@
+# SentencePrompt
+
+```typescript
+export type DynamicWord = (ctx: ScriptCtx) => DynamicWordResult;
+export type DynamicWordResult = string | Word | Pausing | (string | Word | Pausing)[];
+export type StaticWord<T extends string | DynamicWord | Pausing = string | DynamicWord | Pausing> = string | Pausing | Word<T>;
+export type SingleWord = StaticWord | DynamicWord;
+export type SentencePrompt = SingleWord[] | SingleWord;
+```
+
+## Examples
+
+1. Simple string sentence
+
+```typescript
+// "Hello, world!"
+const sentence: SentencePrompt = "Hello, world!";
+```
+
+2. Mixed string sentence
+
+```typescript
+// "Hello, world!" with "world" in red color
+const sentence: SentencePrompt = [
+    "Hello, ",
+    new Word("world", {color: "#f00"}), // a red word
+    "!"
+];
+```
+
+3. Pausing sentence
+
+```typescript
+// "Hello, ", pause for 1 second, "world" and wait until player click, "!"
+const sentence: SentencePrompt = [
+    "Hello, ",
+    Pause.wait(1000), // pause for 1 second
+    "world",
+    Pause, // wait until player click
+    "!"
+];
+```
+
+4. Dynamic sentence
+
+```typescript
+// "Hello, you have 100 coins!"
+const sentence: SentencePrompt = [
+    "Hello, ",
+    ({storable}) => {
+        return `you have ${storable.getNamespace("game").get("coin")} coins`
+    },
+    "!"
+];
+```
+
+5. Dynamic evaluated sentence
+
+```typescript
+// "Hello, you have 100 coins!" with "100" in red color
+const sentence: SentencePrompt = [
+    "Hello, ",
+    ({storable}) => {
+        return [
+            "you have ",
+            new Word(`${storable.getNamespace("game").get("coin")}`, {color: "#f00"}),
+            " coins"
+        ]
+    },
+    "!"
+];
+```
+

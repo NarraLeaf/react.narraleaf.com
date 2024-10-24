@@ -1,0 +1,153 @@
+import {Callout, Tabs} from 'nextra/components';
+
+# Text
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
+
+Text allows you to display text on the screen.
+
+For example: 
+
+```ts
+const t1 = new Text("After that, another story happened...", {
+    position: CommonPosition.Positions.Center,
+    fontColor: "#f00",
+    fontSize: 20,
+});
+
+// turn the background to black with fade effect
+// then show a text "After that, another story happened..."
+scene2.setBackground("#000", new Fade(1000));
+t1
+    .show({
+        duration: 1000,
+        ease: "easeInOut",
+    });
+```
+
+## Public Method
+
+### constructor
+
+#### Overload 1 of 2
+
+- `config: Partial<TextConfig>` - [TextConfig](../types/TextConfig)
+
+#### Overload 2 of 2
+
+- `text: string` - The content of the text
+- `config?: Partial<TextConfig>` - [TextConfig](../types/TextConfig)
+
+### applyTransform (chain)
+
+- `transform: Transform<TransformDefinitions.TextTransformProps>` - See [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
+
+### applyTransition (chain)
+
+- `transition: ITextTransition` - See [ITextTransition](../animation/transitions/ITextTransition)
+
+### show (chain)
+
+#### Overload 1 of 3
+
+Show the image immediately
+
+```ts
+text.show();
+```
+
+#### Overload 2 of 3
+
+Show the image with custom transform
+
+> **Note**: You need to add "opacity: 1" in the props to make the image visible
+
+```ts
+text.show(new Transform<TransformDefinitions.TextTransformProps>([
+    {
+        props: {
+            opacity: 1,
+        },
+        options: {
+            duration: 1000,
+            ease: "easeInOut",
+        },
+    }
+]));
+```
+
+- `options: Transform<TransformDefinitions.TextTransformProps>` - See [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
+
+#### Overload 3 of 3
+
+Show with transform config
+
+```ts
+text.show({
+    duration: 1000,
+    ease: "easeInOut",
+});
+```
+
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
+
+### hide (chain)
+
+#### Overload 1 of 3
+
+Hide the image immediately
+
+```ts
+text.hide();
+```
+
+#### Overload 2 of 3
+
+Hide the image with custom transform
+
+> **Note**: You need to add "opacity: 0" in the props to make the image invisible
+
+```ts
+text.hide(new Transform<TransformDefinitions.TextTransformProps>([
+    {
+        props: {
+            opacity: 0,
+        },
+        options: {
+            duration: 1000,
+            ease: "easeInOut",
+        },
+    }
+]));
+```
+
+- `options: Transform<TransformDefinitions.TextTransformProps>` - See [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
+
+#### Overload 3 of 3
+
+Hide with transform config
+
+```ts
+text.hide({
+    duration: 1000,
+    ease: "easeInOut",
+});
+```
+
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
+
+### setText (chain)
+
+- `text: string` - The content of the text
+
+### setFontSize (chain)
+
+- `fontSize: number` - The font size of the text in pixels
+- `duration?: number` - The duration of the transition in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function of the transition, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)

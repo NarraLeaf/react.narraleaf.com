@@ -26,14 +26,29 @@ or
 const sentence = new Sentence(character, "Hello, world");
 ```
 
+or
+
+```ts
+const sentence = new Sentence(character, [
+    ({storable}) => `Hello, ${storable.getNamespace("game").get("playerName")}`
+]);
+```
+
 ## Public Method
 
 ### constructor
 
 - `character: Character | null` - If null, then it is a narrator. Narrator do not show any name in the dialogue box.
-- `(string | Word)[] | (string | Word)` - The content of the sentence
+- `content: SentencePrompt` - See [SentencePrompt](../../types/SentencePrompt)
 - `config?: Partial<SentenceConfig>` - [SentenceConfig](../../types/SentenceConfig)
 
+### copy
 
+Copy the sentence
 
+```ts
+const sentence = new Sentence(character, "Hello, world");
+const sentence2 = sentence.copy();
+```
 
+- Returns: `Sentence`

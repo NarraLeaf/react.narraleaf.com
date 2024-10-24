@@ -2,10 +2,15 @@
 
 Transition effect is used to animate the Image or Scene when changing image or background of the scene.
 
+You cannot use `ITransition` to animate image, you have to use [IImageTransition](./IIImageTransition) instead.
+
 ```ts
+import React from "react";
+import type { AnimationPlaybackControls } from "framer-motion";
+
+type ElementProp<T extends Element = Element, U extends React.HTMLAttributes<T> = 
+    React.HTMLAttributes<T>> = React.JSX.IntrinsicAttributes & React.ClassAttributes<T> & React.HTMLAttributes<T> & U;
 interface ITransition<T extends ElementProp = Record<string, any>> {
-    events: EventDispatcher<EventTypes<[T[]]>>;
-    controller: AnimationPlaybackControls | null | undefined;
     start(onComplete?: () => void): void;
     toElementProps(): T[];
     copy(): ITransition<T>;
@@ -64,85 +69,81 @@ Returns a new instance of the transition effect.
 
 ## Public Property
 
-### events
-
-You don't need to override this property.
-
-### controller
-
-You don't need to override this property.
-
 ## Custom Transition
 
-You can create your own transition effect by implementing the [ITransition](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/type.ts) interface and extends the [Base](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/base.ts) class.
+You can create your own transition effect by implementing the `ITransition` interface and extends the [Base](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/baseTransitions.ts) class.
 
-Here is an example of [Dissolve.ts](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/dissolve.ts):
+Here is an example of [Dissolve.ts](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/imageTransitions/dissolve.ts):
 
 ```ts
-import {Base, ITransition} from 'narraleaf-react';
-
-type DissolveProps = {
-    style: {
-        opacity: number;
-    },
-    src?: string;
-};
-
 /**
  * @class Dissolve
  * @implements ITransition
- * @extends Base
+ * @extends BaseTransition
  * @description Dissolve transition effect
  */
-export class Dissolve extends Base<DissolveProps> implements ITransition<DissolveProps> {
-    private duration: number;
-    private opacity = 0;
-    private src: string | undefined;
+export class Dissolve extends BaseImageTransition<ImgElementProp> implements IImageTransition {
+    static Frames: [number, number] = [1, 0];
+    private readonly duration: number;
+    private state = {
+        opacity: 0,
+    };
+    private src?: ImageSrc | ImageColor;
+    private readonly easing: TransformDefinitions.EasingDefinition | undefined;
 
     /**
      * Image will dissolve from one image to another
      */
-    constructor(duration: number = 1000, src?: string) {
+    constructor(duration: number = 1000, easing?: TransformDefinitions.EasingDefinition) {
         super();
         this.duration = duration;
-        if (src) {
-            this.src = src;
-        }
+        this.easing = easing;
     }
 
-    setSrc(src: string) {
+    setSrc(src: ImageSrc | ImageColor | undefined): this {
         this.src = src;
+        return this;
     }
 
     public start(onComplete?: () => void): void {
-        this.state.opacity = 1;
+        this.state.opacity = Dissolve.Frames[0];
 
         this.requestAnimation({
-            start: 1,
-            end: 0,
+            start: Dissolve.Frames[0],
+            end: Dissolve.Frames[1],
             duration: this.duration
         }, {
-            onComplete,
+            onComplete: () => {
+                this.state.opacity = Dissolve.Frames[1];
+                if (onComplete) {
+                    onComplete();
+                }
+            },
             onUpdate: (value) => {
-                this.opacity = value;
-            }
+                this.state.opacity = value;
+            },
+        }, {
+            ease: this.easing,
         });
     }
 
-    public toElementProps() {
+    public toElementProps(): ImgElementProp[] {
         return [
             {
-                style: {opacity: this.opacity},
+                style: {opacity: this.state.opacity},
             },
             {
-                style: {opacity: 1 - this.opacity},
-                src: this.src,
-            }
+                style: {
+                    opacity: 1 - this.state.opacity,
+                    backgroundColor: Utils.isImageColor(this.src) ? toHex(this.src) : "",
+                },
+                src: Utils.isImageSrc(this.src) ? Utils.srcToString(this.src) : "",
+            },
         ];
     }
 
-    copy(): ITransition<DissolveProps> {
-        return new Dissolve(this.duration, this.src);
+    copy(): Dissolve {
+        return new Dissolve(this.duration, this.easing).setSrc(this.src);
     }
 }
 ```

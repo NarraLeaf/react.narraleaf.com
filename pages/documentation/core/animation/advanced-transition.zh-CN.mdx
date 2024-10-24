@@ -35,5 +35,17 @@ The method will return an array of element props, each element props will be use
 ### Why we don't use CSS animation?
 
 We could use CSS animation to animate the image directly, and the CSS animation may have a better performance. 
-However, we can use element props to create more complex transitions, and we can control every frame of the transition. 
+However, we can use element props to create more complex transitions, and we can control every frame of the transition, including the element properties. 
 And it is easy to learn and use.
+
+### ITransition, ITextTransition, and IImageTransition
+
+ITransition is the base interface of all transitions. Other interfaces are inherited from ITransition.
+
+ITextTransition is used to transition text elements, and IImageTransition is used to transition image elements.
+
+### Custom Transition
+
+You can create your own transition effect by implementing transition interfaces and extends a base class. 
+
+For example, if you want to create a new transition for image, you can implement the [IImageTransition](./transitions/IImageTransition) interface and extends the `BaseImageTransition` 

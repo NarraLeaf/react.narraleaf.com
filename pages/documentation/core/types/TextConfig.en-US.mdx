@@ -1,0 +1,58 @@
+# TextConfig
+
+```typescript
+type TextConfig = {
+    alignX: "left" | "center" | "right";
+    alignY: "top" | "center" | "bottom";
+    className?: string;
+    fontSize: number;
+    fontColor: color;
+    display: boolean;
+    text: string;
+} & CommonDisplayable;
+```
+
+For CommonDisplayable, see [CommonDisplayable](./CommonDisplayable).
+For color, see [color](./color#color).
+
+## alignX
+
+- Type: `"left" | "center" | "right"`
+
+The horizontal alignment of the text.
+
+## alignY
+
+- Type: `"top" | "center" | "bottom"`
+
+The vertical alignment of the text.
+
+## className
+
+- Type: `string`
+
+The class name of the text.
+
+## fontSize
+
+- Type: `number`
+
+The font size of the text.
+
+## fontColor
+
+- Type: [color](./color#color)
+
+The font color of the text.
+
+## display
+
+Do not use this field
+
+## text
+
+- Type: `string`
+
+Initial text content.
+
+
