@@ -1,8 +1,8 @@
 # ITransition
 
-Transition effect is used to animate the Image or Scene when changing image or background of the scene.
+过渡效果用于在更改图像或场景的背景时对图像或场景进行动画处理。
 
-You cannot use `ITransition` to animate image, you have to use [IImageTransition](./IIImageTransition) instead.
+您不能使用 `ITransition` 来动画化图像，而必须使用 [IImageTransition](./IIImageTransition) instead.
 
 ```ts
 import React from "react";
@@ -21,11 +21,11 @@ interface ITransition<T extends ElementProp = Record<string, any>> {
 
 ### start
 
-Start the transition effect.
+开始过渡效果。
 
-- `onComplete?: () => void` - Callback function that will be called when the transition is completed.
+- `onComplete?: () => void` - 过渡完成时调用的回调函数。
 
-> You can request animation by calling `Base.prototype.requestAnimation` if you extend the `Base` class.
+> 如果您扩展 `Base` 类，可以通过调用 `Base.prototype.requestAnimation` 请求动画。
 > 
 > ```ts
 > super.requestAnimation({
@@ -42,17 +42,17 @@ Start the transition effect.
 
 ### toElementProps
 
-Returns an array of ElementProps, each element represents the properties of the image element.  
+返回一个 ElementProps 数组，每个元素表示图像元素的属性。
 
-Here is an example of [Dissolve.ts](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/dissolve.ts): 
+下面是 [Dissolve.ts](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/dissolve.ts)的示例：
 
 ```ts
 public toElementProps(): (DissolveProps & ElementProp)[] {
     return [
-        { // for the first image
+        { // 第一个图像
             style: {opacity: this.state.opacity},
         },
-        { // for the second image
+        { // 第二个图像
             style: {opacity: 1 - this.state.opacity},
             src: this.src,
         }
@@ -60,20 +60,20 @@ public toElementProps(): (DissolveProps & ElementProp)[] {
 }
 ```
 
-When we dissolve the image, we actually render two images at the same time. The first image has an opacity of `this.state.opacity`, and the second image has an opacity of `1 - this.state.opacity`.  
-So that the first image will gradually disappear, and the second image will gradually appear.
+当我们溶解图像时，实际上是同时渲染两个图像。第一个图像的透明度为 `this.state.opacity`，第二个图像的透明度为 `1 - this.state.opacity`。
+因此，第一个图像会逐渐消失，而第二个图像会逐渐出现。
 
 ### copy
 
-Returns a new instance of the transition effect.
+返回过渡效果的新实例。
 
-## Public Property
+## 公共属性
 
-## Custom Transition
+## 自定义过渡
 
-You can create your own transition effect by implementing the `ITransition` interface and extends the [Base](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/baseTransitions.ts) class.
+您可以通过实现 `ITransition` 接口并扩展 [Base](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/baseTransitions.ts) 类来创建自己的过渡效果。
 
-Here is an example of [Dissolve.ts](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/imageTransitions/dissolve.ts):
+下面是 [Dissolve.ts](https://github.com/NarraLeaf/narraleaf-react/blob/master/src/game/nlcore/elements/transition/imageTransitions/dissolve.ts)的示例：
 
 ```ts
 /**

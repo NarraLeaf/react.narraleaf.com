@@ -1,6 +1,6 @@
 import {Callout, Cards} from 'nextra/components';
 
-# Transition
+# 过渡
 
 <Callout type="warning" emoji="⚠️">
     This page is under construction.
@@ -10,59 +10,59 @@ import {Callout, Cards} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
-In NarraLeaf-React, transitions can be used on elements and scene background. For example, you can use image transitions to transition images. 
+在 NarraLeaf-React 中，过渡可以用于元素和场景背景。例如，您可以使用图像过渡来切换图像。
 
 ```typescript
 image.setSrc("image1.png", new Dissolve(3000))
 ```
 
-Here is a list of transition types:
+以下是过渡类型的列表：
 1. [ImageTransition](./transitions/IImageTransition)
 2. [TextTransition](./transitions/ITextTransition)
 
-You can only apply specific transitions to specific elements. For example, you can only apply `IImageTransition` to `Image` elements
+您只能将特定的过渡应用于特定的元素。例如，您只能将 `IImageTransition` 应用于 `Image` 元素之上
 
-There are some built-in transitions in NarraLeaf-React. If you want to custom your own transition, please see [Advanced Transition](./advanced-transition).
+在 NarraLeaf-React 中有一些内置的过渡。如果您想自定义自己的过渡，请参见 [Advanced Transition](./advanced-transition).
 
-## Built-in Image Transitions
+## 内置图像过渡
 
 ### Dissolve
 
-The current image will fade out, and the next image will fade in at the same time
+当前图像将淡出，下一个图像将在同一时间淡入。
 
 ```typescript
 constructor(duration?: number, easing?: TransformDefinitions.EasingDefinition);
 ```
 
-See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+请参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 ### Fade
 
-The current image will fade out, and the next image will fade in
+当前图像将淡出，下一个图像将淡入。
 
 ```typescript
 constructor(duration?: number, ease?: TransformDefinitions.EasingDefinition);
 ```
 
-See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+请参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 ### FadeIn
 
-The next image will fade-in in a direction
+下一个图像将以一个方向淡入。
 
 ```typescript
 /**
- * @param direction The direction the image will move from
- * @param offset The distance the image will move (in pixels)
- * @param duration The duration of the transition
- * @param easing The easing function
- */
+ * @param direction 图像将从哪个方向移动
+ * @param offset 图像移动的距离（以像素为单位）
+ * @param duration 过渡的持续时间
+ * @param easing 缓动函数
+*/
 constructor(direction: "left" | "right" | "top" | "bottom", offset: number, duration?: number, easing?: TransformDefinitions.EasingDefinition);
 ```
 
-See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+请参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
-## Next Steps
+## 下一步
 
 <Cards num={1}>
     <Cards.Card

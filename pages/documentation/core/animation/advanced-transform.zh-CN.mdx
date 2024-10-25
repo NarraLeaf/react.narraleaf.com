@@ -1,6 +1,6 @@
 import {Callout} from 'nextra/components';
 
-# Advanced Transform
+# 高级变换
 
 <Callout type="warning" emoji="⚠️">
     This page is under construction.
@@ -10,17 +10,17 @@ import {Callout} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
-We are going to explain the advanced usage of the Transform class.
+我们将解释变换类的高级用法。
 
-Transform takes a series of sequences to create a complex transformation. Each sequence will be executed one by one.  
+Transform 接受一系列序列以创建复杂的变换。每个序列将逐一执行。
 
 ## Sequence
 
-A single sequence is made of `props` and `options`.
+单个序列由 `props` 和 `options` 组成。
 
-See [TransformDefinitions](../types/TransformDefinitions).[Sequence](../types/TransformDefinitions#Sequence)
+请参见 [TransformDefinitions](../types/TransformDefinitions).[Sequence](../types/TransformDefinitions#Sequence)
 
-Here is an example of a sequence:
+以下是一个序列的示例：
 
 ```typescript
 {
@@ -41,23 +41,23 @@ Here is an example of a sequence:
 
 ### Props
 
-Props is an object that contains the properties of the transformation.
+Props 是一个包含变换属性的对象。
 
-For image transformation, see [TransformDefinitions](../types/TransformDefinitions).[ImageTransformProps](../types/TransformDefinitions#ImageTransformProps).
+有关图像变换，请参见 [TransformDefinitions](../types/TransformDefinitions).[ImageTransformProps](../types/TransformDefinitions#ImageTransformProps).
 
 ### Options
 
-Options is an object that contains the options of the transformation.
+Options 是一个包含变换选项的对象。
 
-For more information, see [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps).
+有关更多信息，请参见 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps).
 
 #### `sync`
 
-If `sync` for the single sequence is set to `false`, the next sequence will not wait for the current sequence to finish.  
+如果单个序列的 `sync` 设置为 `false`，下一个序列将不会等待当前序列完成。
 
 #### `duration`
 
-The duration of the transformation in milliseconds.
+变换的持续时间，以毫秒为单位。
 
 #### `delay`
 
@@ -67,36 +67,36 @@ The duration of the transformation in milliseconds.
 
 #### `ease`
 
-Definition for easing function, or a built-in easing function name.
+缓动函数的定义，或内置缓动函数名称。
 
-See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+请参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
-## Transform Config
+## 变换配置
 
-See [TransformDefinitions](../types/TransformDefinitions).[TransformConfig](../types/TransformDefinitions#TransformConfig)
+请参见 [TransformDefinitions](../types/TransformDefinitions).[TransformConfig](../types/TransformDefinitions#TransformConfig)
 
 #### `sync`
 
-If `sync` for the whole transform is set to `false`, the sequences will be executed one by one, but the process will not wait for these sequences to finish.
+如果整个变换的 `sync` 设置为 `false`，序列将逐一执行，但过程不会等待这些序列完成。
 
-It is as same as the [Control.doAsync](../elements/control#doasync)
+这与 [Control.doAsync](../elements/control#doasync) 相同
 
 ## How does it work?
 
-NarraLeaf-React use [Framer Motion](https://www.framer.com/) to animate the elements. It follows the steps below:
+NarraLeaf-React 使用 [Framer Motion](https://www.framer.com/) 来展示元素动画。它遵循以下步骤：
 
-1. for each sequence
-    1. merge the previous props with the current props
-    2. convert the props to the style object
-    3. use `useAnimate` to animate the container of the element
-    4. if the sequence is not `sync`, go to the next sequence, otherwise wait for the current sequence to finish
-2. if the whole transform is not `sync`, the process will not wait for the sequences to finish
+1. 对于每个序列
+    1. 将上一个 props 与当前 props 合并
+    2. 将 props 转换为样式对象
+    3. 使用 `useAnimate` 动画化元素的容器
+    4. 如果序列不是 `sync`，则转到下一个序列，否则等待当前序列完成
+2. 如果整个变换不是 `sync`，则过程不会等待序列完成。
 
-### Custom Easing
+### 自定义缓动
 
-Read more about [Transition Ease](https://www.framer.com/motion/transition/###ease)
+了解更多关于 [过渡缓动](https://www.framer.com/motion/transition/###ease)
 
-### Custom Properties
+### 自定义属性
 
 <Callout type="warning" emoji="⚠️">
     This feature is under construction.

@@ -1,6 +1,6 @@
 # IImageTransition
 
-This type of transition is used to transition image elements.
+此类型的过渡用于转换图像元素。
 
 ```typescript
 export interface IImageTransition<T extends ElementProp = ImgElementProp> extends ITransition<T> {
@@ -11,10 +11,10 @@ export interface IImageTransition<T extends ElementProp = ImgElementProp> extend
 
 ## setSrc
 
-Sometimes we cannot know the image src immediately, so we need to set it later.
+有时我们无法立即知道图像的源，因此需要稍后设置。
 
 ```typescript
 setSrc(src: ImageSrc | ImageColor): void;
 ```
 
-See [ImageSrc](../../types/ImageSrc) and [ImageColor](../../types/ImageColor) for more information.
+有关更多信息，请参见 [ImageSrc](../../types/ImageSrc) 和 [ImageColor](../../types/ImageColor)
