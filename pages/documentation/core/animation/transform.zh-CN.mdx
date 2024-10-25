@@ -1,18 +1,18 @@
 import {Callout, Cards} from 'nextra/components';
 
-# Transform
+# 变换
 
 <Callout type="warning" emoji="⚠️">
     This page is under construction.
 </Callout>
 
-Transform controls the appearance of an image, like position, rotation, and scale.
+变换控制图像的外观，如位置、旋转和缩放。
 
-An example of a transform:
+变换的示例：
 
 ```typescript
-// The character will move up and down
-// (if `invertY` is true, the character will move down and up)
+// 角色将上下移动
+// （如果 `invertY` 为 true，角色将向下和向上移动）
 new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
@@ -41,33 +41,33 @@ new Transform<TransformDefinitions.ImageTransformProps>([
 }),
 ```
 
-The first parameter of `Transform` is an array of sequences. The second parameter is an object that contains the options of the transform. 
+`Transform` 的第一个参数是一个序列数组。第二个参数是一个包含变换选项的对象。
 
-A sequence of transformations is made of `props` and `options`:
+一系列变换由 `props` 和 `options` 组成：
 
-1. `props` is an object that contains the properties of the transformation. Like `position`, `rotation`, and `scale`.
-2. `options` is an object that contains the options of the transformation. Like `duration` and `ease`.
+1. `props` 是一个包含变换属性的对象，如 `position`、`rotation` 和 `scale`。
+2. `options` 是一个包含变换选项的对象，如 `duration` 和 `ease`。
 
-For more information about TransformDefinitions, see [TransformDefinitions](../types/TransformDefinitions).
+有关 TransformDefinitions 的更多信息，请参见 [TransformDefinitions](../types/TransformDefinitions).
 
-## Public Methods
+## 公共方法
 
-### constructor
+### 构造函数
 
-For more information, see [Advanced Transform](./advanced-transform).
+有关更多信息，请参见 [Advanced Transform](./advanced-transform).
 
-#### Overload 1 of 2
+#### 重载 1/2
 
-This overload takes an array of sequences.
+此重载接受一个序列数组。
 
-Example: 
+示例:
     
 ```typescript
 new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                xalign: 0.3, // go to left in 120ms with easeOut
+                xalign: 0.3, // 在 120 毫秒内向左移动，缓动为 easeOut
             }
         },
         options: {
@@ -78,7 +78,7 @@ new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                xalign: 0.6, // go to right in 100ms with easeOut
+                xalign: 0.6, // 在 100 毫秒内向右移动，缓动为 easeOut
             }
         },
         options: {
@@ -87,23 +87,23 @@ new Transform<TransformDefinitions.ImageTransformProps>([
         }
     }
 ], {
-    sync: false, // do not wait for all sequences to finish
+    sync: false, // 不等待所有序列完成
 });
 ```
 
-- `sequences: TransformDefinitions.Sequence<T>[]` - An array of [Sequence](./advanced-transform#sequence)
-- `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - See [Transform Config](./advanced-transform#transform-config)
+- `sequences: TransformDefinitions.Sequence<T>[]` - 一个 [Sequence](./advanced-transform#sequence) 数组
+- `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - 参见 [Transform Config](./advanced-transform#transform-config)
 
 #### Overload 2 of 2
 
-This overload takes a single sequence.
+此重载接受一个单一的序列。
 
-Example: 
+示例:
     
 ```typescript
 new Transform<TransformDefinitions.ImageTransformProps>({
     position: {
-        xalign: 0.3, // go to left in 120ms with easeOut
+        xalign: 0.3, // 在 120 毫秒内向左移动，缓动为 easeOut
     }
 }, {
     duration: 120,
@@ -111,30 +111,30 @@ new Transform<TransformDefinitions.ImageTransformProps>({
 });
 ```
 
-- `props: SequenceProps<T>` - A single [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
-- `options?: Partial<TransformDefinitions.CommonTransformProps>` - A single [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
+- `props: SequenceProps<T>` - 一个单一的 [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
+- `options?: Partial<TransformDefinitions.CommonTransformProps>` - 一个单一的 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
 ### repeat
 
-Repeat the transform.
+重复变换。
 
-Example: 
+示例：
     
 ```typescript
 transform
   .repeat(2)
   .repeat(3)
-// repeat 6 times
+// 重复六次
 ```
 
-- `n: number` - The number of times to repeat the transform.
+- `n: number`  - 重复变换的次数。
 - `return: this`
 
 ### overwrite\<T extends keyof TransformersMap = any\>
 
-Overwrite a transformer
+覆盖一个变换器
 
-Example: 
+示例：
 
 ```typescript
 transform.overwrite("position", (value) => {
@@ -142,19 +142,19 @@ transform.overwrite("position", (value) => {
 });
 ```
 
-**we don't recommend using this method**
+**我们不推荐使用此方法**
 
-- `key: T` - The key of the transformer to overwrite. Can be one of the keys in [TransformersMap](../types/TransformersMap).
-- `transformer: (value: TransformersMap[T]) => TransformersMap[T]` - The transformer function.
+- `key: T` - 要覆盖的变换器的键。可以是 [TransformersMap](../types/TransformersMap) 中的一个键。
+- `transformer: (value: TransformersMap[T]) => TransformersMap[T]` - 变换器函数。
 - `return: this`
 
 ### copy
 
-Copy the transform.
+复制变换。
 
 - `return: Transform<T>`
 
-## Next Steps
+## 下一步
 
 <Cards num={1}>
     <Cards.Card
