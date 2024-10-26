@@ -1,50 +1,50 @@
 import {Callout, Tabs} from 'nextra/components';
 
-# Pause
+# 暂停
 
 <Callout type="warning" emoji="⚠️">
     This page is under construction.
 </Callout>
 
-Pause allows you to create pause in sentences.
+暂停允许您在句子中创建停顿。
 
 ```ts
-new Character("character 1")
+new Character("角色 1")
     .say([
-        "So you mean...",
+        "所以你的意思是...",
         Pause.wait(1000),
-        "I can do this?"
+        "我可以这样做吗？"
     ])
 ```
 
-or a pause that requires user to click to continue
+或者是需要用户点击以继续的停顿
 
 ```ts
-new Character("character 1")
+new Character("角色 1")
     .say([
-        "I said: ",
+        "我说：",
         Pause,
-        "I can do this!"
+        "我可以这样做！"
     ])
 ```
 
-These two are equivalent: 
+这两者是等价的：
 
 ```ts
 new Pause({duration: 1000});
-// or
+// 或者
 Pause.wait(1000);
 ```
 
-And the following are equivalent:
+以下内容也是等价的：
 
 ```ts
 new Pause();
-// or
+// 或者
 Pause;
 ```
 
-## Class
+## 类
 
 ```ts
 type PauseConfig = {

@@ -10,19 +10,19 @@ import {Callout, Tabs} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
-Text allows you to display text on the screen.
+文本允许您在屏幕上显示文本。
 
-For example: 
+例如：
 
 ```ts
-const t1 = new Text("After that, another story happened...", {
+const t1 = new Text("之后，发生了另一个故事...", {
     position: CommonPosition.Positions.Center,
     fontColor: "#f00",
     fontSize: 20,
 });
 
-// turn the background to black with fade effect
-// then show a text "After that, another story happened..."
+// 将背景变为黑色并添加淡入效果
+// 然后显示文本 "之后，发生了另一个故事..."
 scene2.setBackground("#000", new Fade(1000));
 t1
     .show({
@@ -31,42 +31,42 @@ t1
     });
 ```
 
-## Public Method
+## 公共方法
 
-### constructor
+### 构造函数
 
-#### Overload 1 of 2
+#### 重载 1 / 2
 
 - `config: Partial<TextConfig>` - [TextConfig](../types/TextConfig)
 
-#### Overload 2 of 2
+#### 重载 2 / 2
 
-- `text: string` - The content of the text
+- `text: string` - 文本的内容
 - `config?: Partial<TextConfig>` - [TextConfig](../types/TextConfig)
 
-### applyTransform (chain)
+### applyTransform (链式调用)
 
-- `transform: Transform<TransformDefinitions.TextTransformProps>` - See [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
+- `transform: Transform<TransformDefinitions.TextTransformProps>` - 参见 [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
 
-### applyTransition (chain)
+### applyTransition (链式调用)
 
-- `transition: ITextTransition` - See [ITextTransition](../animation/transitions/ITextTransition)
+- `transition: ITextTransition` - 参见 [ITextTransition](../animation/transitions/ITextTransition)
 
-### show (chain)
+### show (链式调用)
 
-#### Overload 1 of 3
+#### 重载 1 / 3
 
-Show the image immediately
+立即显示文本
 
 ```ts
 text.show();
 ```
 
-#### Overload 2 of 3
+#### 重载 2 / 3
 
-Show the image with custom transform
+使用自定义变换显示文本
 
-> **Note**: You need to add "opacity: 1" in the props to make the image visible
+> **注意**: 您需要在属性中添加 "opacity: 1" 使文本可见
 
 ```ts
 text.show(new Transform<TransformDefinitions.TextTransformProps>([
@@ -82,11 +82,11 @@ text.show(new Transform<TransformDefinitions.TextTransformProps>([
 ]));
 ```
 
-- `options: Transform<TransformDefinitions.TextTransformProps>` - See [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
+- `options: Transform<TransformDefinitions.TextTransformProps>` - 参见 [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
 
-#### Overload 3 of 3
+#### 重载 3 / 3
 
-Show with transform config
+使用变换配置显示文本
 
 ```ts
 text.show({
@@ -95,23 +95,23 @@ text.show({
 });
 ```
 
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - 参见 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
-### hide (chain)
+### hide (链式调用)
 
-#### Overload 1 of 3
+#### 重载 1 / 3
 
-Hide the image immediately
+立即隐藏文本
 
 ```ts
 text.hide();
 ```
 
-#### Overload 2 of 3
+#### 重载 2 / 3
 
-Hide the image with custom transform
+使用自定义变换隐藏文本
 
-> **Note**: You need to add "opacity: 0" in the props to make the image invisible
+> **注意：**: 您需要在属性中添加 "opacity: 0" 使文本不可见
 
 ```ts
 text.hide(new Transform<TransformDefinitions.TextTransformProps>([
@@ -127,11 +127,11 @@ text.hide(new Transform<TransformDefinitions.TextTransformProps>([
 ]));
 ```
 
-- `options: Transform<TransformDefinitions.TextTransformProps>` - See [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
+- `options: Transform<TransformDefinitions.TextTransformProps>` - 参见 [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
 
-#### Overload 3 of 3
+#### 重载 3 / 3
 
-Hide with transform config
+使用变换配置隐藏文本
 
 ```ts
 text.hide({
@@ -140,14 +140,14 @@ text.hide({
 });
 ```
 
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - 参见 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
-### setText (chain)
+### setText (链式调用)
 
-- `text: string` - The content of the text
+- `text: string` - 文本的内容
 
-### setFontSize (chain)
+### setFontSize (链式调用)
 
-- `fontSize: number` - The font size of the text in pixels
-- `duration?: number` - The duration of the transition in milliseconds
-- `easing?: TransformDefinitions.EasingDefinition` - The easing function of the transition, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `fontSize: number` - 文本的字体大小（以像素为单位）
+- `duration?: number` - 过渡的持续时间（以毫秒为单位）
+- `easing?: TransformDefinitions.EasingDefinition` - 过渡的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
