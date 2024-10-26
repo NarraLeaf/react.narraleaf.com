@@ -2,7 +2,7 @@
 
 过渡效果用于在更改图像或场景的背景时对图像或场景进行动画处理。
 
-您不能使用 `ITransition` 来动画化图像，而必须使用 [IImageTransition](./IIImageTransition) instead.
+您不能使用 `ITransition` 来动画化图像，而必须使用 [IImageTransition](./IIImageTransition)
 
 ```ts
 import React from "react";
@@ -92,7 +92,7 @@ export class Dissolve extends BaseImageTransition<ImgElementProp> implements IIm
     private readonly easing: TransformDefinitions.EasingDefinition | undefined;
 
     /**
-     * Image will dissolve from one image to another
+     * 图像将从一张图像溶解到另一张图像
      */
     constructor(duration: number = 1000, easing?: TransformDefinitions.EasingDefinition) {
         super();
