@@ -17,7 +17,7 @@ new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                yoffset: -10, // move down/up 10 pixels in 120ms with easeOut
+                yoffset: -10, // 在 120 毫秒内向下/向上移动 10 像素，使用 easeOut
             }
         },
         options: {
@@ -28,7 +28,7 @@ new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                yoffset: 0, // move back to the original position in 100ms with easeOut
+                yoffset: 0, // 在 100 毫秒内返回到原始位置，使用 easeOut
             }
         },
         options: {
@@ -94,7 +94,7 @@ new Transform<TransformDefinitions.ImageTransformProps>([
 - `sequences: TransformDefinitions.Sequence<T>[]` - 一个 [Sequence](./advanced-transform#sequence) 数组
 - `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - 参见 [Transform Config](./advanced-transform#transform-config)
 
-#### Overload 2 of 2
+#### 重载2/2
 
 此重载接受一个单一的序列。
 

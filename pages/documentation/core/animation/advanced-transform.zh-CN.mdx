@@ -25,15 +25,15 @@ Transform 接受一系列序列以创建复杂的变换。每个序列将逐一�
 ```typescript
 {
     props: {
-        // The character will move to the left and scale down at the same time
+        // 角色将同时向左移动并缩小
         position: CommonPosition.Positions.Left,
         scale: 0.3
     },
     options: {
-        // The transformation will take 1000ms
+        // 转换将持续 1000 毫秒
         duration: 1000,
 
-        // The easing function is easeOut
+        // 缓动函数为 easeOut
         ease: "easeOut"
     }
 }
@@ -43,13 +43,13 @@ Transform 接受一系列序列以创建复杂的变换。每个序列将逐一�
 
 Props 是一个包含变换属性的对象。
 
-有关图像变换，请参见 [TransformDefinitions](../types/TransformDefinitions).[ImageTransformProps](../types/TransformDefinitions#ImageTransformProps).
+有关图像变换，请参见 [TransformDefinitions](../types/TransformDefinitions).[ImageTransformProps](../types/TransformDefinitions#ImageTransformProps)
 
 ### Options
 
 Options 是一个包含变换选项的对象。
 
-有关更多信息，请参见 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps).
+有关更多信息，请参见 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
 #### `sync`
 
