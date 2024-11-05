@@ -113,3 +113,30 @@ Copy the image.
 const newImage = image.copy();
 ```
 
+### addWearable
+
+Add a wearable to the image
+
+> Wearable is a feature that allows you to add an image that related to the main image. For example, you can add a hat to the character.
+> And that wearable image will move/scale/animate with the main image.
+
+- `children: Image | Image[]` - Wearable image or images
+- Returns `this`
+
+```typescript
+const childImage = new Image(/* ... */);
+
+image.addWearable(childImage);
+```
+
+### bindWearable
+
+Bind this image to a parent image as a wearable
+
+- `parent: Image` - Parent image
+- Returns `this`
+
+```typescript
+childImage.bindWearable(parentImage);
+```
+
