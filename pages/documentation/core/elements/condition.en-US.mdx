@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Condition
 
@@ -35,21 +35,39 @@ new Condition()
 
 ### constructor
 
+<Steps>
+
 - `config?: ConditionConfig` - [ConditionConfig](../types/ConditionConfig)
 
+</Steps>
+
+## Chainable Methods
+
 ### If
+
+<Steps>
 
 - `condition: Lambda | LambdaHandler<boolean>` - The condition to check. If the condition is true, the actions will be executed.
 See [Lambda](../types/Lambda) and [LambdaHandler](../types/LambdaHandler) for more information.
 - `action: ChainedActions` - [ChainedActions](../types/ChainedActions)
 
+</Steps>
+
 ### ElseIf
+
+<Steps>
 
 - `condition: Lambda | LambdaHandler<boolean>`
 - `action: ChainedActions`
 
+</Steps>
+
 ### Else
 
+<Steps>
+
 - `action: ChainedActions`
+
+</Steps>
 
 

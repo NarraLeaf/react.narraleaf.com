@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Text
 
@@ -35,6 +35,8 @@ t1
 
 ### constructor
 
+<Steps>
+
 #### Overload 1 of 2
 
 - `config: Partial<TextConfig>` - [TextConfig](../types/TextConfig)
@@ -44,15 +46,29 @@ t1
 - `text: string` - The content of the text
 - `config?: Partial<TextConfig>` - [TextConfig](../types/TextConfig)
 
-### applyTransform (chain)
+</Steps>
+
+## Chainable Method
+
+### applyTransform
+
+<Steps>
 
 - `transform: Transform<TransformDefinitions.TextTransformProps>` - See [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
 
-### applyTransition (chain)
+</Steps>
+
+### applyTransition
+
+<Steps>
 
 - `transition: ITextTransition` - See [ITextTransition](../animation/transitions/ITextTransition)
 
-### show (chain)
+</Steps>
+
+### show
+
+<Steps>
 
 #### Overload 1 of 3
 
@@ -97,7 +113,11 @@ text.show({
 
 - `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
-### hide (chain)
+</Steps>
+
+### hide
+
+<Steps>
 
 #### Overload 1 of 3
 
@@ -142,12 +162,22 @@ text.hide({
 
 - `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
-### setText (chain)
+</Steps>
+
+### setText
+
+<Steps>
 
 - `text: string` - The content of the text
 
-### setFontSize (chain)
+</Steps>
+
+### setFontSize
+
+<Steps>
 
 - `fontSize: number` - The font size of the text in pixels
 - `duration?: number` - The duration of the transition in milliseconds
 - `easing?: TransformDefinitions.EasingDefinition` - The easing function of the transition, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>

@@ -1,4 +1,4 @@
-import {Callout, Tabs, Cards} from 'nextra/components';
+import {Callout, Tabs, Cards, Steps} from 'nextra/components';
 
 # Character
 
@@ -33,10 +33,18 @@ Character controls the dialogues of the character.
 
 ### constructor
 
+<Steps>
+
 - `name: string | null` - If null, then it is a narrator. Narrator do not show any name in the dialogue box.
 - `config?: DeepPartial<CharacterConfig>` - [CharacterConfig](../types/CharacterConfig)
 
-### say (chain)
+</Steps>
+
+## Chainable Method
+
+### say
+
+<Steps>
 
 #### Overload 1 of 3
 
@@ -82,7 +90,11 @@ character.say([
 - `content: SentencePrompt` - See [SentencePrompt](../types/SentencePrompt)
 - `config?: SentenceUserConfig` - [SentenceUserConfig](../types/SentenceUserConfig)
 
-### setName (chain)
+</Steps>
+
+### setName
+
+<Steps>
 
 Set the name of the character.
 
@@ -93,4 +105,6 @@ character
 ```
 
 - `name: string` - The name of the character
+
+</Steps>
 

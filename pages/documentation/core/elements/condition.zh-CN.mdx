@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # 条件
 
@@ -10,7 +10,7 @@ import {Callout, Tabs} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
-[`Condition`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2Fd%3A%2Fprojects%2Forg%2Fnarraleaf%2Freact.narraleaf.com%2Fpages%2Fdocumentation%2Fcore%2Felements%2Fcondition.zh-CN.mdx%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A2%2C%22character%22%3A2%7D%7D%5D%2C%2232a26422-f92d-4b7b-b145-b4eb6fa04319%22%5D "Go to definition") 允许你在故事中创建条件分支。
+`Condition` 允许你在故事中创建条件分支。
 
 ```typescript
 new Condition()
@@ -29,25 +29,43 @@ new Condition()
 
 > **注意:** 为了更好地理解脚本，如果你以错误的顺序调用这些方法，它将抛出错误。
 > 
-> 例如，你不能在 [`If`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2Fd%3A%2Fprojects%2Forg%2Fnarraleaf%2Freact.narraleaf.com%2Fpages%2Fdocumentation%2Fcore%2Felements%2Fcondition.zh-CN.mdx%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A17%2C%22character%22%3A5%7D%7D%5D%2C%2232a26422-f92d-4b7b-b145-b4eb6fa04319%22%5D "Go to definition") 之前调用 [`ElseIf`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2Fd%3A%2Fprojects%2Forg%2Fnarraleaf%2Freact.narraleaf.com%2Fpages%2Fdocumentation%2Fcore%2Felements%2Fcondition.zh-CN.mdx%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A31%2C%22character%22%3A32%7D%7D%5D%2C%2232a26422-f92d-4b7b-b145-b4eb6fa04319%22%5D "Go to definition")。
+> 例如，你不能在 `If`之前调用`ElseIf`。
 
 ## 公共方法
 
 ### constructor
 
+<Steps>
+
 - `config?: ConditionConfig` - ConditionConfig
 
+</Steps>
+
+## 链式方法
+
 ### If
+
+<Steps>
 
 - `condition: Lambda | LambdaHandler<boolean>` - 要检查的条件。如果条件为真，将执行这些动作。
 参见 Lambda 和 LambdaHandler 了解更多信息。
 - `action: ChainedActions` - ChainedActions
 
+</Steps>
+
 ### ElseIf
+
+<Steps>
 
 - `condition: Lambda | LambdaHandler<boolean>`
 - `action: ChainedActions`
 
+</Steps>
+
 ### Else
 
+<Steps>
+
 - `action: ChainedActions`
+
+</Steps>

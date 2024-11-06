@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Image
 
@@ -18,15 +18,54 @@ In NarraLeaf-React, Image only controls the appearance of the character. It does
 
 ### constructor
 
+<Steps>
+
+#### Overload 1 of 2
+
 - `name: string` - The name of the image, it will be used for debugging purpose
 - `config?: DeepPartial<ImageConfig>` - [ImageConfig](../types/ImageConfig)
 
+#### Overload 2 of 2
+
+- `config?: DeepPartial<ImageConfig>` - [ImageConfig](../types/ImageConfig)
+
+```typescript
+const image = new Image("image-name", {
+    src: "your/image/src",
+    wearables: [new Image("wearable-image")],
+});
+```
+
+</Steps>
+
+### copy
+
+<Steps>
+
+Copy the image.
+
+- Returns `Image`
+
+```typescript
+const newImage = image.copy();
+```
+
+</Steps>
+
+## Chainable Method
+
 ### dispose
+
+<Steps>
 
 Generally, **you do not need to call this method**. This method is used to dispose the image.  
 Disposed image will not be shown in the screen for the rest of the story.
 
+</Steps>
+
 ### setSrc
+
+<Steps>
 
 - `src: string | StaticImageData` - The source of the image
 - `transition?: ITransition` - For ITransition, see [ITransition](../types/ITransition)
@@ -35,11 +74,19 @@ Disposed image will not be shown in the screen for the rest of the story.
 image.setSrc("your/image/src", new Fade(1000));
 ```
 
+</Steps>
+
 ### applyTransform
+
+<Steps>
 
 - `transform: Transform` - [Transform](../animation/transform)
 
+</Steps>
+
 ### show
+
+<Steps>
 
 Show the image.
 
@@ -72,7 +119,11 @@ image.show({
 });
 ```
 
+</Steps>
+
 ### hide
+
+<Steps>
 
 Hide the image.
 
@@ -105,15 +156,11 @@ image.hide({
 });
 ```
 
-### copy
-
-Copy the image.
-
-```typescript
-const newImage = image.copy();
-```
+</Steps>
 
 ### addWearable
+
+<Steps>
 
 Add a wearable to the image
 
@@ -129,7 +176,11 @@ const childImage = new Image(/* ... */);
 image.addWearable(childImage);
 ```
 
+</Steps>
+
 ### bindWearable
+
+<Steps>
 
 Bind this image to a parent image as a wearable
 
@@ -140,3 +191,4 @@ Bind this image to a parent image as a wearable
 childImage.bindWearable(parentImage);
 ```
 
+</Steps>

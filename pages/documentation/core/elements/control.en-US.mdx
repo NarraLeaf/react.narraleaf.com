@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Control
 
@@ -28,40 +28,62 @@ Control.do([
 
 ### do
 
+<Steps>
+
 Execute actions **in order**, waiting for each action to complete
 
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - Returns `ChainedControl` - Chained Control instance
 
+</Steps>
+
 ### doAsync
+
+<Steps>
 
 Execute actions **in order**, do not wait for this action to complete
 
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - Returns `ChainedControl` - Chained Control instance
 
+</Steps>
+
 ### any
+
+<Steps>
 
 Execute all actions **at the same time**, waiting for any one action to complete
 
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - Returns `ChainedControl` - Chained Control instance
 
+</Steps>
+
 ### all
+
+<Steps>
 
 Execute all actions **at the same time**, waiting for all actions to complete
 
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - Returns `ChainedControl` - Chained Control instance
 
+</Steps>
+
 ### allAsync
+
+<Steps>
 
 Execute all actions **at the same time**, do not wait for all actions to complete
 
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - Returns `ChainedControl` - Chained Control instance
 
+</Steps>
+
 ### repeat
+
+<Steps>
 
 Execute actions multiple times
 
@@ -69,4 +91,4 @@ Execute actions multiple times
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - Returns `ChainedControl` - Chained Control instance
 
-
+</Steps>

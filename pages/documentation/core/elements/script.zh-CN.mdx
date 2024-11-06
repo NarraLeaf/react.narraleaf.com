@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # 脚本
 
@@ -26,6 +26,8 @@ new Script(({storable}) => {
 
 ### constructor
 
+<Steps>
+
 - `handler: (ctx: ScriptCtx) => void` - 当脚本被执行时，将调用此处理程序。处理程序将接收一个 [ScriptCtx](../types/ScriptCtx) 对象。
 
 ```typescript
@@ -33,3 +35,5 @@ const script = new Script((ctx) => {
     console.log(ctx.gameState);
 });
 ```
+
+</Steps>

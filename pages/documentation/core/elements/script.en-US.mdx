@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Script
 
@@ -26,6 +26,8 @@ new Script(({storable}) => {
 
 ### constructor
 
+<Steps>
+
 - `handler: (ctx: ScriptCtx) => void` - When the script is executed, this handler will be called. The handler will receive a [ScriptCtx](../types/ScriptCtx) object.
 
 ```typescript
@@ -33,3 +35,5 @@ const script = new Script((ctx) => {
     console.log(ctx.gameState);
 });
 ```
+
+</Steps>

@@ -25,16 +25,23 @@ The wearables of the image. Wearables are the images that can be worn by the cha
 Same as `image.addWearable`
 
 ```typescript
-const child = new Image(/* ... */);
-
 // method 1
+const child = new Image({
+    isWearable: true,
+    /* ... */
+});
 const parent = new Image({
     src: "parent/image/src",
     wearables: [child]
 });
 
 // method 2
+const child = new Image(/* ... */);
 const parent = new Image(/* ... */).addWearable(child);
+
+// method 3
+const parent = new Image(/* ... */);
+const child = new Image(/* ... */).bindWearable(parent);
 ```
 
 ### isWearable

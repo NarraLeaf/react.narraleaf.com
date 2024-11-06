@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # 图片
 
@@ -10,15 +10,54 @@ import {Callout, Tabs} from 'nextra/components';
 
 ### constructor
 
-- `name: string` - 图片的名称，它将用于调试目的
+<Steps>
+
+#### Overload 1 of 2
+
+- `name: string` - The name of the image, it will be used for debugging purpose
 - `config?: DeepPartial<ImageConfig>` - [ImageConfig](../types/ImageConfig)
 
+#### Overload 2 of 2
+
+- `config?: DeepPartial<ImageConfig>` - [ImageConfig](../types/ImageConfig)
+
+```typescript
+const image = new Image("image-name", {
+    src: "your/image/src",
+    wearables: [new Image("wearable-image")],
+});
+```
+
+</Steps>
+
+### copy
+
+<Steps>
+
+复制图像。
+
+- Returns `Image`
+
+```typescript
+const newImage = image.copy();
+```
+
+</Steps>
+
+## 链式方法
+
 ### dispose
+
+<Steps>
 
 通常，**您不需要调用此方法**。此方法用于停用图像。  
 停用后的图像将不会在剩余的故事中显示在屏幕上。
 
+</Steps>
+
 ### setSrc
+
+<Steps>
 
 - `src: string | StaticImageData` - 图像的来源
 - `transition?: ITransition` - 有关ITransition，请参见[过渡](../types/ITransition)
@@ -27,11 +66,19 @@ import {Callout, Tabs} from 'nextra/components';
 image.setSrc("your/image/src", new Fade(1000));
 ```
 
+</Steps>
+
 ### applyTransform
+
+<Steps>
 
 - `transform: Transform` - [变换](../animation/transform)
 
+</Steps>
+
 ### show
+
+<Steps>
 
 显示图片。
 
@@ -64,7 +111,11 @@ image.show({
 });
 ```
 
+</Steps>
+
 ### hide
+
+<Steps>
 
 隐藏图片。
 
@@ -97,15 +148,11 @@ image.hide({
 });
 ```
 
-### copy
-
-复制图像。
-
-```typescript
-const newImage = image.copy();
-```
+</Steps>
 
 ### addWearable
+
+<Steps>
 
 Add a wearable to the image
 
@@ -121,7 +168,11 @@ const childImage = new Image(/* ... */);
 image.addWearable(childImage);
 ```
 
+</Steps>
+
 ### bindWearable
+
+<Steps>
 
 Bind this image to a parent image as a wearable
 
@@ -131,3 +182,5 @@ Bind this image to a parent image as a wearable
 ```typescript
 childImage.bindWearable(parentImage);
 ```
+
+</Steps>
