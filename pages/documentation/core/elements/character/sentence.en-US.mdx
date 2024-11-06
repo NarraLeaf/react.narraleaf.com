@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Sentence
 
@@ -38,11 +38,17 @@ const sentence = new Sentence(character, [
 
 ### constructor
 
+<Steps>
+
 - `character: Character | null` - If null, then it is a narrator. Narrator do not show any name in the dialogue box.
 - `content: SentencePrompt` - See [SentencePrompt](../../types/SentencePrompt)
 - `config?: Partial<SentenceConfig>` - [SentenceConfig](../../types/SentenceConfig)
 
+</Steps>
+
 ### copy
+
+<Steps>
 
 Copy the sentence
 
@@ -52,3 +58,5 @@ const sentence2 = sentence.copy();
 ```
 
 - Returns: `Sentence`
+
+</Steps>
