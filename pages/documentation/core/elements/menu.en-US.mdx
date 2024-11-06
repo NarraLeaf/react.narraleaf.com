@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Menu
 
@@ -27,6 +27,8 @@ new Menu("What should I do?")
 
 ### constructor
 
+<Steps>
+
 #### Overload 1 of 2
 
 - `prompt: (string | Word)[] | (string | Word)` - The prompt of the menu
@@ -37,7 +39,13 @@ new Menu("What should I do?")
 - `prompt: Sentence` - The prompt of the menu, See [Sentence](./character/sentence)
 - `config?: MenuConfig` - [MenuConfig](../types/MenuConfig)
 
+</Steps>
+
+## Chainable Method
+
 ### choose
+
+<Steps>
 
 #### Overload 1 of 3
 
@@ -77,4 +85,5 @@ new Menu("what should I do?")
 - `prompt: UnSentencePrompt` - The prompt of the choice
 - `action: ChainedActions` - The action of the choice, See [ChainedActions](../types/ChainedActions)
 
+</Steps>
 

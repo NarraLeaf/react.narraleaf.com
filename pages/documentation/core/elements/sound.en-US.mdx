@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Sound
 
@@ -23,6 +23,8 @@ There are 4 types of sound:
 
 ### constructor
 
+<Steps>
+
 #### Overload 1 of 2
 
 - `config?: DeepPartial<SoundConfig>` - See [SoundConfig](../types/SoundConfig)
@@ -31,7 +33,13 @@ There are 4 types of sound:
 
 - `src?: string` - The source of the sound
 
+</Steps>
+
+## Chainable Method
+
 ### play
+
+<Steps>
 
 Play the sound
 
@@ -46,13 +54,21 @@ scene.action([
 ]);
 ```
 
+</Steps>
+
 ### stop
+
+<Steps>
 
 Stop the sound. After stopping, the sound will go back to the beginning
 
 > **Note:** `backgroundMusic` cannot be stopped with this method
 
+</Steps>
+
 ### fade
+
+<Steps>
 
 Fade the sound
 
@@ -72,22 +88,40 @@ scene.action([
 ]);
 ```
 
+</Steps>
+
 ### setVolume
+
+<Steps>
 
 Set the volume of the sound
 
 - `volume: number` - Volume, from 0 to 1
 
+</Steps>
+
 ### setRate
+
+<Steps>
 
 Set the rate of the sound
 
 - `rate: number` - Rate, base is 1
 
+</Steps>
+
 ### pause
 
+<Steps>
+
 - `fade?: number` - Fade duration in milliseconds
+
+</Steps>
 
 ### resume
 
+<Steps>
+
 - `fade?: number` - Fade duration in milliseconds
+
+</Steps>

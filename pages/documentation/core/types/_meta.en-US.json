@@ -42,5 +42,6 @@
     "TransformDefinitions": "TransformDefinitions",
     "TransformersMap": "TransformersMap",
     "RawPosition": "RawPosition",
-    "OffsetPosition": "OffsetPosition"
+    "OffsetPosition": "OffsetPosition",
+    "PauseConfig": "PauseConfig"
 }

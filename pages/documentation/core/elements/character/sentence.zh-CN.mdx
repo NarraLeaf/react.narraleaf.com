@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # 句子
 
@@ -34,13 +34,19 @@ const sentence = new Sentence(character, [
 
 ### constructor
 
+<Steps>
+
 - `character: Character | null` - 如果为 null，则为旁白。旁白不在对话框中显示任何名称。
 - `content: SentencePrompt` - 见 [SentencePrompt](../../types/SentencePrompt)
 - `config?: Partial<SentenceConfig>` - [SentenceConfig](../../types/SentenceConfig)
 
+</Steps>
+
 ### copy
 
-复制一个句子
+<Steps>
+
+Copy the sentence
 
 ```ts
 const sentence = new Sentence(character, "Hello, world");
@@ -48,3 +54,5 @@ const sentence2 = sentence.copy();
 ```
 
 - Returns: `Sentence`
+
+</Steps>

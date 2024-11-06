@@ -4,5 +4,6 @@
     "quick-start": "Quick Start",
     "core": "Core",
     "custom": "Custom",
-    "migration": "Migration"
+    "migration": "Migration",
+    "info": "Changes, licenses and more"
 }

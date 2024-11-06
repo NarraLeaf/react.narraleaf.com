@@ -1,4 +1,4 @@
-import {Callout, Tabs, Cards} from 'nextra/components';
+import {Callout, Tabs, Cards, Steps} from 'nextra/components';
 
 # 角色
 
@@ -31,12 +31,20 @@ import {Callout, Tabs, Cards} from 'nextra/components';
 
 ## 公共方法
 
-### 构造函数
+### constructor
+
+<Steps>
 
 - `name: string | null` - 如果为 null，则为旁白。旁白在对话框中不显示任何名字。
 - `config?: DeepPartial<CharacterConfig>` - [CharacterConfig](../types/CharacterConfig)
 
-### say (链式调用)
+</Steps>
+
+## 链式方法
+
+### say
+
+<Steps>
 
 #### 重载 1 / 3
 
@@ -82,7 +90,11 @@ character.say([
 - `content: SentencePrompt` - 参见 [SentencePrompt](../types/SentencePrompt)
 - `config?: SentenceUserConfig` - [SentenceUserConfig](../types/SentenceUserConfig)
 
-### setName (链式调用)
+</Steps>
+
+### setName
+
+<Steps>
 
 Set the name of the character.
 
@@ -92,5 +104,7 @@ character
     .say("你想要什么？")
 ```
 
-- `name: string` - 角色的名字
+- `name: string` - The name of the character
+
+</Steps>
 

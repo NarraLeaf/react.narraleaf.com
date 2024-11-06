@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # 控制
 
@@ -26,6 +26,8 @@ Control.do([
 
 ## 静态方法
 
+<Steps>
+
 ### do
 
 按顺序执行操作，等待每个操作完成
@@ -33,35 +35,55 @@ Control.do([
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - 返回 `ChainedControl` - 链式控制实例
 
+</Steps>
+
 ### doAsync
+
+<Steps>
 
 按顺序执行操作，不等待操作完成
 
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - 返回 `ChainedControl` - 链式控制实例
 
+</Steps>
+
 ### any
+
+<Steps>
 
 同时执行所有操作，等待任意一个操作完成
 
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - 返回 `ChainedControl` - 链式控制实例
 
+</Steps>
+
 ### all
+
+<Steps>
 
 同时执行所有操作，等待所有操作完成
 
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - 返回 `ChainedControl` - 链式控制实例
 
+</Steps>
+
 ### allAsync
+
+<Steps>
 
 同时执行所有操作，不等待所有操作完成
 
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - 返回 `ChainedControl` - 链式控制实例
 
+</Steps>
+
 ### repeat
+
+<Steps>
 
 多次执行操作
 
@@ -69,4 +91,4 @@ Control.do([
 - `actions: ChainedActions` - [ChainedActions](../types/ChainedActions)
 - 返回 `ChainedControl` - 链式控制实例
 
-
+</Steps>

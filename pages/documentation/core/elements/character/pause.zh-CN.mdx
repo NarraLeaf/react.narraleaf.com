@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # 暂停
 
@@ -44,14 +44,23 @@ new Pause();
 Pause;
 ```
 
-## 类
+## Static Method
 
-```ts
-type PauseConfig = {
-    duration?: number;
-};
-declare class Pause {
-    static wait(duration: number): Pause;
-    constructor(config?: Partial<PauseConfig>);
-}
-```
+### wait
+
+<Steps>
+
+- `duration: number` - The duration of the pause in milliseconds
+- Returns: `Pause`
+
+</Steps>
+
+## Public Method
+
+### constructor
+
+<Steps>
+
+- `config?: Partial<PauseConfig>` - [PauseConfig](../types/PauseConfig)
+
+</Steps>

@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # 声音
 
@@ -23,6 +23,8 @@ import {Callout, Tabs} from 'nextra/components';
 
 ### constructor
 
+<Steps>
+
 #### Overload 1 of 2
 
 - `config?: DeepPartial<SoundConfig>` - See [SoundConfig](../types/SoundConfig)
@@ -31,7 +33,13 @@ import {Callout, Tabs} from 'nextra/components';
 
 - `src?: string` - The source of the sound
 
+</Steps>
+
+## 链式方法
+
 ### play
+
+<Steps>
 
 播放声音
 
@@ -46,13 +54,21 @@ scene.action([
 ]);
 ```
 
+</Steps>
+
 ### stop
+
+<Steps>
 
 停止声音。停止后，声音将回到开头
 
 > **注意：** `backgroundMusic` 不能使用这个方法停止
 
+</Steps>
+
 ### fade
+
+<Steps>
 
 渐变声音
 
@@ -72,22 +88,40 @@ scene.action([
 ]);
 ```
 
+</Steps>
+
 ### setVolume
+
+<Steps>
 
 设置声音的音量
 
 - `volume: number` - 音量，从0到1
 
+</Steps>
+
 ### setRate
+
+<Steps>
 
 设置声音的速率
 
 - `rate: number` - 速率，基数为1
 
+</Steps>
+
 ### pause
 
+<Steps>
+
 - `fade?: number` - 渐变持续时间（毫秒）
+
+</Steps>
 
 ### resume
 
+<Steps>
+
 - `fade?: number` - 渐变持续时间（毫秒）
+
+</Steps>

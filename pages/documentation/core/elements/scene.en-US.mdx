@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Scene
 
@@ -23,63 +23,16 @@ scene.action([
 
 ### constructor
 
+<Steps>
+
 - `name: string` - Name of the scene
 - `config?: DeepPartial<SceneConfig>` - [SceneConfig](../types/SceneConfig)
 
-### activate
-
-This is only used when auto activation is not working
-
-### deactivate
-
-This is only used when auto deactivation is not working
-
-### setBackground (chain)
-
-Set background of the scene. If the transition is provided, the background will be changed with the transition effect.
-
-- `background: Background` - [Background](../types/Background)
-- `transition?: ITransition` - [Transition](../types/ITransition)
-
-### applyTransform (chain)
-
-Apply a transform to the background. Usually used for shaking or zooming effect.
-
-- `transform: Transform<TransformDefinitions.ImageTransformProps>` - [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[ImageTransformProps](../types/TransformDefinitions#ImageTransformProps)\>
-
-### jumpTo (chain)
-
-Jump to another scene. If the transition is provided, the scene will be changed with the transition effect.
-
-> Note: The current scene will be disposed after jumping to another scene. The rest of the actions will not be executed.
-
-- `arg0: Scene` - The Scene instance you want to jump to
-- `config: Partial<JumpConfig>` - [Jump Config](../types/JumpConfig)
-
-### sleep (chain)
-
-Sleep for a duration before executing the next action.
-
-#### Overload 1 of 3
-
-- `ms: number` - Duration in milliseconds
-
-#### Overload 2 of 3
-
-- `promise: Promise<any>` - Promise to wait for
-
-#### Overload 3 of 3
-
-- `awaitable: Awaitable<any, any>` - unresolved [Awaitable](../types/Awaitable)
-
-### setBackgroundMusic
-
-Set background music of the scene.
-
-- `sound: Sound` - [Sound](./sound) instance
-- `fade?: number` - If set, the fade-out effect will be applied to the previous music, and the fade-in effect will be applied to the current music, with a duration in milliseconds
+</Steps>
 
 ### action
+
+<Steps>
 
 Add actions to the scene. Do not call this method more than once.
 
@@ -105,3 +58,87 @@ story.entry(
 
 - `actions: ((scene: Scene) => ChainedAction[])` - Actions to be executed, see [ChainedActions](../types/ChainedActions)
 
+</Steps>
+
+## Chainable Method
+
+### activate
+
+<Steps>
+
+This is only used when auto activation is not working
+
+</Steps>
+
+### deactivate
+
+<Steps>
+
+This is only used when auto deactivation is not working
+
+</Steps>
+
+### setBackground
+
+<Steps>
+
+Set background of the scene. If the transition is provided, the background will be changed with the transition effect.
+
+- `background: Background` - [Background](../types/Background)
+- `transition?: ITransition` - [Transition](../types/ITransition)
+
+</Steps>
+
+### applyTransform
+
+<Steps>
+
+Apply a transform to the background. Usually used for shaking or zooming effect.
+
+- `transform: Transform<TransformDefinitions.ImageTransformProps>` - [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[ImageTransformProps](../types/TransformDefinitions#ImageTransformProps)\>
+
+</Steps>
+
+### jumpTo
+
+<Steps>
+
+Jump to another scene. If the transition is provided, the scene will be changed with the transition effect.
+
+> Note: The current scene will be disposed after jumping to another scene. The rest of the actions will not be executed.
+
+- `arg0: Scene` - The Scene instance you want to jump to
+- `config: Partial<JumpConfig>` - [Jump Config](../types/JumpConfig)
+
+</Steps>
+
+### sleep
+
+<Steps>
+
+Sleep for a duration before executing the next action.
+
+#### Overload 1 of 3
+
+- `ms: number` - Duration in milliseconds
+
+#### Overload 2 of 3
+
+- `promise: Promise<any>` - Promise to wait for
+
+#### Overload 3 of 3
+
+- `awaitable: Awaitable<any, any>` - unresolved [Awaitable](../types/Awaitable)
+
+</Steps>
+
+### setBackgroundMusic
+
+<Steps>
+
+Set background music of the scene.
+
+- `sound: Sound` - [Sound](./sound) instance
+- `fade?: number` - If set, the fade-out effect will be applied to the previous music, and the fade-in effect will be applied to the current music, with a duration in milliseconds
+
+</Steps>

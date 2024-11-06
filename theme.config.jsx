@@ -1,6 +1,7 @@
 import LOGO from "./src/logo.tsx";
 
-export default {
+/**@type {import('nextra-theme-docs').DocsThemeConfig}*/
+const config = {
     logo: LOGO,
     project: {
         link: 'https://github.com/NarraLeaf/narraleaf-react'
@@ -29,5 +30,21 @@ export default {
     i18n: [
         { locale: 'en-US', text: 'English' },
         { locale: 'zh-CN', text: '中文' }
-    ]
-}
+    ],
+    footer: {
+        text: (
+            <span>
+                Copyright © {new Date().getFullYear()} NarraLeaf. Licensed under the MPL-2.0 License.{' '}
+                <a href="https://github.com/NarraLeaf" target="_blank">
+                    GitHub
+                </a>
+                .
+            </span>
+        ),
+    },
+    components: {
+        h4: (props) => <h4 className="nx-font-semibold nx-tracking-tight text-slate-300 dark:nx-text-slate-100 nx-mt-8 nx-text-xl" {...props} />,
+    },
+};
+
+export default config;

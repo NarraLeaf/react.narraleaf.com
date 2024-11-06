@@ -3,6 +3,8 @@
 ```typescript
 type ImageConfig = {
     src: string | StaticImageData;
+    wearables: Image[];
+    isWearable?: boolean;
 } & CommonDisplayable;
 ```
 
@@ -15,3 +17,39 @@ For CommonDisplayable, see [CommonDisplayable](./CommonDisplayable).
 ### src
 
 The source of the image. It can be a URL or a StaticImageData.
+
+### wearables
+
+The wearables of the image. Wearables are the images that can be worn by the character.
+
+Same as `image.addWearable`
+
+```typescript
+// method 1
+const child = new Image({
+    isWearable: true,
+    /* ... */
+});
+const parent = new Image({
+    src: "parent/image/src",
+    wearables: [child]
+});
+
+// method 2
+const child = new Image(/* ... */);
+const parent = new Image(/* ... */).addWearable(child);
+
+// method 3
+const parent = new Image(/* ... */);
+const child = new Image(/* ... */).bindWearable(parent);
+```
+
+### isWearable
+
+Whether the image is a wearable or not. Default is `false`.
+
+If you use `parent.addWearable(child)` or `child.bindWearable(parent)`
+, it will automatically set `isWearable` to `true`.
+
+> **Note:** You cannot use a wearable without setting `isWearable` to `true` or a parent image.
+

@@ -9,6 +9,9 @@ import { Callout, Tabs } from 'nextra/components';
 ```typescript
 type GameConfig = {
     player: {
+        /**
+         * The id of the container element for the game
+         */
         contentContainerId: string;
         /**
          * The aspect ratio of the game
@@ -16,74 +19,122 @@ type GameConfig = {
          */
         aspectRatio: number;
         /**
-         * The minimum width of the player in pixels
+         * The minimum width and height of the player in pixels
          */
         minWidth: number;
         /**
-         * The minimum height of the player in pixels
+         * The minimum width and height of the player in pixels
          */
         minHeight: number;
-        width: number | string;
-        height: number | string;
+        /**
+         * Base width of the player in pixels, Image scale will be calculated based on this value
+         *
+         * For 16/9, recommended value is 1920
+         */
+        width: number;
+        /**
+         * Base height of the player in pixels, Image scale will be calculated based on this value
+         *
+         * For 16/9, recommended value is 1080
+         */
+        height: number;
         /**
          * When player presses one of these keys, the game will skip the current action
-         * 
+         *
          * See [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
          */
         skipKey: React.KeyboardEvent["key"][];
         /**
-         * The interval in milliseconds between each skip action
-         * Ex: 100ms means the player can skip 10 actions per second
-         * Higher value means faster skipping
+         * The interval in milliseconds between each skip action.
+         * ex: 100ms means the player can skip 10 actions per second.
+         * higher value means faster skipping.
          */
         skipInterval: number;
+        /**
+         * The interval in milliseconds between each ratio update.
+         */
+        ratioUpdateInterval: number;
     };
     elements: {
         say: {
             /**
              * When the player presses one of these keys, the game will show the next sentence
-             * 
+             *
              * See [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
              */
             nextKey: React.KeyboardEvent["key"][];
             /**
-             * The speed of the text effect in milliseconds
-             * Higher value means slower text effect
-             * Default: 50
+             * The speed of the text effect in milliseconds.
+             * higher value means slower text effect.
+             * default: 50
              */
             textInterval: number;
             use: SayComponent;
-        };
+            /**
+             * If true, the game will scale the dialog to fit the screen
+             *
+             * Text will look smaller when this is enabled
+             */
+            useAspectScale: boolean;
+        },
         img: {
             /**
-             * If true, the game will show a warning when loading takes longer than `slowLoadThreshold`
+             * If true, the game will show a warning when loading takes longer than `elements.img.slowLoadThreshold`
              */
             slowLoadWarning: boolean;
-            /**
-             * The threshold time in milliseconds before triggering a slow load warning
-             */
             slowLoadThreshold: number;
+            /**
+             * If true, when you press [GameConfig.player.skipKey], the game will skip the image transform
+             */
             allowSkipTransform: boolean;
+            /**
+             * If true, when you press [GameConfig.player.skipKey], the game will skip the image transition
+             */
             allowSkipTransition: boolean;
-        };
+        },
         menu: {
             use: MenuComponent;
-        };
+        },
         background: {
+            /**
+             * If true, when you press [GameConfig.player.skipKey], the game will skip the background transform
+             */
             allowSkipTransform: boolean;
+            /**
+             * If true, when you press [GameConfig.player.skipKey], the game will skip the background transition
+             */
             allowSkipTransition: boolean;
-        };
+        },
         text: {
+            /**
+             * If true, when you press [GameConfig.player.skipKey], the game will skip the text transform
+             */
             allowSkipTransform: boolean;
+            /**
+             * If true, when you press [GameConfig.player.skipKey], the game will skip the text transition
+             */
             allowSkipTransition: boolean;
-        };
-    };
+            /**
+             * Base width of the dialog in pixels
+             *
+             * For 16/9, recommended value is 1920
+             */
+            width: number;
+            /**
+             * Base height of the dialog in pixels
+             *
+             * For 16/9, recommended value is 1080 * 0.2
+             */
+            height: number;
+        }
+    },
     elementStyles: {
         say: {
             /**
              * Custom class for the say container
-             * Ex: "rounded-md shadow-md" for a rounded and shadowed container
+             * Ex: "rounded-md shadow-md" for rounded and shadowed container
              */
+            contentContainerClassName: string;
             containerClassName: string;
             nameTextClassName: string;
             textContainerClassName: string;
@@ -91,19 +142,23 @@ type GameConfig = {
             /**
              * The default font family for the text
              * Ex: "Arial, sans-serif"
+             *
+             * See [Font family](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family)
              */
             fontFamily?: React.CSSProperties["fontFamily"];
             /**
              * Font size for the text
+             *
+             * See [Font size](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
              */
             fontSize?: React.CSSProperties["fontSize"];
             rubyClassName: string;
-        };
+        },
         menu: {
             containerClassName: string;
             choiceButtonClassName: string;
             choiceButtonTextClassName: string;
-        };
+        }
     };
     app: {
         debug: boolean;
@@ -117,6 +172,11 @@ type GameConfig = {
             error: boolean;
             debug: boolean;
             trace: boolean;
-        };
+        },
+        /**
+         * If true, the game will show the inspector when you hover over the element
+         */
+        inspector: boolean;
     };
 };
+```

@@ -21,7 +21,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/documentation/_app.jsx"  ],
+, "pages/documentation/_app.jsx", "theme.config.jsx"  ],
   "exclude": [
     "node_modules"
   ]
