@@ -76,7 +76,11 @@ type GameConfig = {
              * Text will look smaller when this is enabled
              */
             useAspectScale: boolean;
-        },
+            /**
+             * The delay in milliseconds before the game automatically shows the next sentence
+             */
+            autoForwardDelay: number;
+        };
         img: {
             /**
              * If true, the game will show a warning when loading takes longer than `elements.img.slowLoadThreshold`
@@ -91,10 +95,10 @@ type GameConfig = {
              * If true, when you press [GameConfig.player.skipKey], the game will skip the image transition
              */
             allowSkipTransition: boolean;
-        },
+        };
         menu: {
             use: MenuComponent;
-        },
+        };
         background: {
             /**
              * If true, when you press [GameConfig.player.skipKey], the game will skip the background transform
@@ -104,7 +108,7 @@ type GameConfig = {
              * If true, when you press [GameConfig.player.skipKey], the game will skip the background transition
              */
             allowSkipTransition: boolean;
-        },
+        };
         text: {
             /**
              * If true, when you press [GameConfig.player.skipKey], the game will skip the text transform
@@ -126,8 +130,8 @@ type GameConfig = {
              * For 16/9, recommended value is 1080 * 0.2
              */
             height: number;
-        }
-    },
+        };
+    };
     elementStyles: {
         say: {
             /**
@@ -153,12 +157,12 @@ type GameConfig = {
              */
             fontSize?: React.CSSProperties["fontSize"];
             rubyClassName: string;
-        },
+        };
         menu: {
             containerClassName: string;
             choiceButtonClassName: string;
             choiceButtonTextClassName: string;
-        }
+        };
     };
     app: {
         debug: boolean;
@@ -172,7 +176,7 @@ type GameConfig = {
             error: boolean;
             debug: boolean;
             trace: boolean;
-        },
+        };
         /**
          * If true, the game will show the inspector when you hover over the element
          */

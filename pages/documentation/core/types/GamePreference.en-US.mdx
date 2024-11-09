@@ -1,0 +1,20 @@
+# GamePreference
+
+```typescript
+type GamePreference = {
+    autoForward: boolean;
+    skip: boolean;
+};
+```
+
+## autoForward
+
+Whether to automatically forward the game.
+
+When enabled, the game will automatically forward to the next sentence when the current sentence is finished.
+
+The game will wait for a duration of [GameConfig.elements.say.autoForwardDelay](./GameConfig#autoForwardDelay) before forwarding.
+
+## skip
+
+When enable, player can skip the current sentence by pressing the [GameConfig.elements.say.nextKey](./GameConfig#nextKey).

@@ -2,5 +2,6 @@
     "game": "Game",
     "game-state": "GameState",
     "live-game": "LiveGame",
-    "storable": "Storable"
+    "storable": "Storable",
+    "preference": "Preference"
 }

@@ -38,10 +38,12 @@
     "MenuConfig": "MenuConfig",
     "MenuChoice": "MenuChoice",
     "GameConfig": "GameConfig",
+    "GamePreference": "GamePreference",
     "TextConfig": "TextConfig",
     "TransformDefinitions": "TransformDefinitions",
     "TransformersMap": "TransformersMap",
     "RawPosition": "RawPosition",
     "OffsetPosition": "OffsetPosition",
-    "PauseConfig": "PauseConfig"
+    "PauseConfig": "PauseConfig",
+    "PreferenceEventToken": "PreferenceEventToken"
 }
