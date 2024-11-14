@@ -1,0 +1,59 @@
+import { Callout } from 'nextra/components';
+
+# GameProviders
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+GameProviders component is used to provide the game instance to the components.
+
+You have to wrap the `Player` component with the `GameProviders` component. 
+
+## Usage
+
+Import the `GameProviders` component from the NarraLeaf-React library.
+
+```tsx
+import { GameProviders } from "narraleaf-react";
+```
+
+Wrap the `Player` component with the `GameProviders` component.
+
+```tsx
+<GameProviders>
+    <Player ... />
+</GameProviders>
+```
+
+### Using defined game instance
+
+If you want to use a defined game instance, you can pass the `game` prop to the `GameProviders` component.
+
+```tsx
+"use client";
+
+import { Game, GameProviders, Player } from "narraleaf-react";
+import { useState } from "react";
+
+export default function Page() {
+    // pass your game config here
+    const [game] = useState(new Game({}));
+
+    return (
+        <GameProviders game={game}>
+            <Player ... />
+        </GameProviders>
+    );
+}
+```
+
+## Props
+
+### game
+
+The [Game](../core/game/game) instance that you want to use.
+
+### children
+
+The children components that you want to wrap with the `GameProviders` component.

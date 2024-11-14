@@ -1,0 +1,74 @@
+import { Callout } from 'nextra/components';
+
+# Player
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+Player component is used to play the story. 
+
+> Note: You have to wrap the `Player` component with the [GameProviders](./game-providers) component to provide the game instance.
+
+If you are creating a story using abstract classes, please check the [Core](/documentation/core) documentation.
+
+## Example
+
+This is a basic example of how to use the `Player` component:
+
+```tsx
+"use client";
+
+import { GameProviders, Player } from "narraleaf-react";
+import { useState } from "react";
+import { story } from "./my-story";
+
+export default function Page() {
+    return (
+        <GameProviders>
+            <Player story={story} onReady={({ liveGame }) => {
+                liveGame.newGame();
+            }}
+                width="100vw"
+                height="100vh"
+            />
+        </GameProviders>
+    );
+}
+```
+
+## Props
+
+### story
+
+The story object that you want to play.
+
+### width
+
+The width of the player.
+
+### height
+
+The height of the player.
+
+### className
+
+The class name of the player.
+
+### onReady
+
+A callback function that is called when the player is ready. It returns the [ScriptCtx](../core/types/ScriptCtx) object.
+
+### onEnd
+
+Called when the player ends.
+
+This callback is called when the story ends.
+
+### children
+
+The children of the player.
+
+You can pass the children to the player.
+
+For example, you can use [Top.Left](./position-utils) and [HBox](./hbox) components to create your own quick menu. 
