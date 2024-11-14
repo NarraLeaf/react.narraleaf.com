@@ -1,0 +1,75 @@
+import { Callout } from 'nextra/components';
+
+# Player
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+Player is a part of the NarraLeaf-React framework that includes some react components to play the story.
+
+If you are creating a story using abstract classes, please check the [Core](/documentation/core) documentation.
+
+If you are looking for the `Player` component, you can find it [here](/documentation/player/player).
+
+## Quick Start
+
+If you did not have a story yet, you can create a story using the `Story` class and export it.
+Please read the [Core](/documentation/core) documentation to learn how to create a story.
+
+This is a basic example of how to use the `Player` component:
+
+```tsx
+"use client";
+
+import { GameProviders, Player } from "narraleaf-react";
+import { useState } from "react";
+import { story } from "./my-story";
+
+export default function Page() {
+    return (
+        <GameProviders>
+            <Player story={story} onReady={({ liveGame }) => {
+                liveGame.newGame();
+            }}
+                width="100vw"
+                height="100vh"
+            />
+        </GameProviders>
+    );
+}
+```
+
+Let us explain the code above:
+
+### 1. import the necessary components from the NarraLeaf-React library.
+
+```tsx
+import { GameProviders, Player } from "narraleaf-react";
+```
+
+These components are required to create a game.
+`GameProviders` is a context provider that provides the game instance to the components. `Player` is the component
+that plays the story.
+
+### 2. render `GameProviders` and `Player` components.
+
+```tsx
+<GameProviders>
+    <Player story={story} onReady={({ liveGame }) => {
+        liveGame.newGame();
+    }}
+        width="100vw"
+        height="100vh"
+    >
+    </Player>
+</GameProviders>
+```
+
+You have to wrap the `Player` component with the `GameProviders` component.
+The `Player` component takes the `story` prop, which is the story you want to play.
+The `onReady` prop is a callback function that is called when the game is ready to start.
+You can start the game by calling the `newGame` method of the `liveGame` object.
+
+`width` and `height` are the width and height of the `Player` component. The player will scale to fit the given width and height.
+

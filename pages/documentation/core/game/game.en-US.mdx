@@ -8,6 +8,18 @@ import {Callout, Tabs} from 'nextra/components';
 
 Game is the main class that represents the game itself. It contains all the game's configuration and [LiveGame](./live-game)s
 
+## Public Properties
+
+### preference
+
+the [Preference](./preference/preference) instance
+
+- `Preference<GamePreference>` - See [GamePreference](../types/GamePreference)
+
+```typescript
+game.preference.setPreference("autoForward", true);
+```
+
 ## Public Methods
 
 ### constructor

@@ -2,7 +2,9 @@
     
     "introduction": "Introduction",
     "quick-start": "Quick Start",
+    "basic": "Basic",
     "core": "Core",
+    "player": "Player",
     "custom": "Custom",
     "migration": "Migration",
     "info": "Changes, licenses and more"

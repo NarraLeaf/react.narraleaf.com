@@ -6,3 +6,11 @@
   --tw-text-opacity: 1;
   color: rgba(156, 163, 175, var(--tw-text-opacity));
 }
+
+.absolute {
+  position: absolute;
+}
+
+.font-large {
+  font-size: 3.25rem;
+}

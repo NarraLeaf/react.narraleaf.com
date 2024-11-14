@@ -1,0 +1,123 @@
+import {Callout, Steps} from 'nextra/components';
+
+# Preference\<T extends Record\<string, string | boolean | number | null | undefined\>\>
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
+
+Preference allows you to control some game behaviors, such as auto-forward mode.
+
+For a list of preference keys, see [GamePreference](../../types/GamePreference).
+
+## Public Methods
+
+### constructor
+
+<Steps>
+
+- `settings: T` - The default preference settings
+
+</Steps>
+
+### setPreference\<K extends Extract\<keyof T, string\>\>
+
+Set a preference.
+
+<Steps>
+
+```typescript
+game.preference.setPreference("autoForward", true);
+```
+
+- `key: K` - The preference key
+- `value: T[K]` - The preference value
+- Returns `void`
+
+</Steps>
+
+### getPreference\<K extends Extract\<keyof T, string\>\>
+
+Get a preference.
+
+<Steps>
+
+```typescript
+const autoForward = game.preference.getPreference("autoForward");
+```
+
+- `key: K` - The preference key
+- Returns `T[K]`
+
+</Steps>
+
+### getPreferences
+
+Get all preferences.
+
+<Steps>
+
+- Returns `T`
+
+</Steps>
+
+### onPreferenceChange\<U extends Extract\<keyof T, string\>\>
+
+Listen to preference changes.
+
+<Steps>
+
+#### Overload 1 / 1
+
+```typescript
+game.preference.onPreferenceChange("autoForward", value => {
+    console.log(`Auto-forward mode is ${value ? "enabled" : "disabled"}`);
+});
+```
+
+- `key: U` - The preference key
+- `listener: (value: T[U]) => void`
+- Returns `PreferenceEventToken` - See [PreferenceEventToken](../types/PreferenceEventToken)
+
+#### Overload 2 / 2
+
+- `listener: (key: Extract<keyof T, string>, value: T[Extract<keyof T, string>]) => void`
+
+</Steps>
+
+### importPreferences
+
+Import preferences
+
+> Note: This will override the existing preferences, and trigger the change event
+
+<Steps>
+
+```typescript
+game.preference.importPreferences({
+    autoForward: true,
+});
+```
+
+- `preferences: Partial<T>`
+- Returns `void`
+
+</Steps>
+
+### exportPreferences
+
+Export preferences
+
+<Steps>
+
+```typescript
+const preferences = game.preference.exportPreferences();
+```
+
+- Returns `Partial<T>`
+
+</Steps>
