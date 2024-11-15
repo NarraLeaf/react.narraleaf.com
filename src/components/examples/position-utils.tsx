@@ -1,5 +1,4 @@
 import { Top, Center, Bottom, Game, GameProviders, Player, Scene, Story } from "narraleaf-react";
-import { Bleed } from "nextra-theme-docs";
 import { useState } from "react";
 
 const scene = new Scene("example-scene-position-utils", {
@@ -9,7 +8,12 @@ scene.action([]);
 const story = new Story("example-story-position-utils").entry(scene);
 
 export default function ExamplePositionUtils() {
-    const [game] = useState(() => new Game({}));
+    const [game] = useState(() => new Game({
+        player: {
+            minHeight: 120,
+            minWidth: 120,
+        }
+    }));
     return (
         <div
             style={{

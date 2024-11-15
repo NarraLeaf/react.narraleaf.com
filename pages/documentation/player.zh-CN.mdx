@@ -3,21 +3,22 @@ import { Callout } from 'nextra/components';
 # Player
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+此页面正在建设中。
 </Callout>
 
-Player is a part of the NarraLeaf-React framework that includes some react components to play the story.
+Player 是 NarraLeaf-React 框架的一部分，其中包含一些用于播放故事的反应组件。
 
-If you are creating a story using abstract classes, please check the [Core](/documentation/core) documentation.
+如果您使用抽象类创建故事，请查看 [Core](/documentation/core) 文档。
 
-If you are looking for the `Player` component, you can find it [here](/documentation/player/player).
+如果您正在寻找 `Player` 组件，您可以在 [此处](/documentation/player/player) 找到它。
 
-## Quick Start
+## 快速入门
 
-If you did not have a story yet, you can create a story using the `Story` class and export it.
-Please read the [Core](/documentation/core) documentation to learn how to create a story.
+如果您还没有故事，您可以使用 `Story` 类创建故事并将其导出。
 
-This is a basic example of how to use the `Player` component:
+请阅读 [Core](/documentation/core) 文档以了解如何创建故事。
+
+这是如何使用 `Player` 组件的基本示例：
 
 ```tsx
 "use client";
@@ -40,19 +41,18 @@ export default function Page() {
 }
 ```
 
-Let us explain the code above:
+让我们解释一下上面的代码：
 
-### 1. import the necessary components from the NarraLeaf-React library.
+### 1. 从 NarraLeaf-React 库导入必要的组件。
 
 ```tsx
 import { GameProviders, Player } from "narraleaf-react";
 ```
 
-These components are required to create a game.
-`GameProviders` is a context provider that provides the game instance to the components. `Player` is the component
-that plays the story.
+这些组件是创建游戏所必需的。
+`GameProviders` 是一个上下文提供程序，它为组件提供游戏实例。 `Player` 是播放故事的组件。
 
-### 2. render `GameProviders` and `Player` components.
+### 2. 渲染 `GameProviders` 和 `Player` 组件。
 
 ```tsx
 <GameProviders>
@@ -66,10 +66,13 @@ that plays the story.
 </GameProviders>
 ```
 
-You have to wrap the `Player` component with the `GameProviders` component.
-The `Player` component takes the `story` prop, which is the story you want to play.
-The `onReady` prop is a callback function that is called when the game is ready to start.
-You can start the game by calling the `newGame` method of the `liveGame` object.
+您必须使用 `GameProviders` 组件包装 `Player` 组件。
 
-`width` and `height` are the width and height of the `Player` component. The player will scale to fit the given width and height.
+`Player` 组件采用 `story` 属性，即您想要播放的故事。
+
+`onReady` 属性是一个回调函数，当游戏准备开始时调用。
+
+您可以通过调用 `liveGame` 对象的 `newGame` 方法来启动游戏。
+
+`width` 和 `height` 是 `Player` 组件的宽度和高度。播放器将会缩放以适应给定的宽度和高度。
 
