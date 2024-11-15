@@ -46,7 +46,7 @@ import {Callout, Tabs, Cards, Steps} from 'nextra/components';
 
 <Steps>
 
-#### 重载 1 / 3
+#### 重载 1 / 4
 
 说一句话。
 
@@ -59,7 +59,7 @@ character
 - `content: string` - 句子的内容
 - `config?: SentenceUserConfig` - [SentenceUserConfig](../types/SentenceUserConfig)
 
-#### 重载 2 / 3
+#### 重载 2 / 4
 
 使用自定义句子对象。
 
@@ -76,7 +76,7 @@ character.say(
 
 - `content: Sentence` - 参见 [Sentence](./character/sentence)
 
-#### 重载 3 / 3
+#### 重载 3 / 4
 
 使用字符串和 Word 对象的混合内容。
 
@@ -89,6 +89,17 @@ character.say([
 
 - `content: SentencePrompt` - 参见 [SentencePrompt](../types/SentencePrompt)
 - `config?: SentenceUserConfig` - [SentenceUserConfig](../types/SentenceUserConfig)
+
+#### Overload 4 of 4
+
+Use short-hand for SentencePrompt.
+
+```typescript
+character.say`Hello, ${Word.color("Alice", "#f00")}!` // will output "Hello, Alice" with "Alice" in red color
+```
+
+- `texts: TemplateStringsArray` - The template string array
+- `...words: SingleWord[]` - [SingleWord](../types/SentencePrompt#SingleWord)
 
 </Steps>
 
