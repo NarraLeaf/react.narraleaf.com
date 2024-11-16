@@ -1,0 +1,113 @@
+# Show Image
+
+To show an image, you need to use the [Image](../core/elements/image) element.
+
+## Define an Image
+
+You can construct an image by providing the [ImageConfig](../core/types/ImageConfig) object.
+
+```typescript
+import {Image} from "narraleaf-react";
+
+const character1Happy = new Image("character1_happy", {
+    src: "https://YOUR_IMAGE_URL",
+    scale: 0.5,
+    position: {
+        yalign: 0.3,
+        xalign: 0.5,
+    },
+});
+```
+
+This image will be displayed at the left side of the screen with a scale of 0.5.
+
+## Show the Image
+
+You can show the image by adding actions to the scene.
+
+```typescript
+scene1.action([
+    character1Happy.show(),
+]);
+```
+
+The image will be displayed on the screen immediately.
+
+You can show the image with ease. 
+
+```typescript
+scene1.action([
+    character1Happy.show({
+        ease: "easeInOut",
+        duration: 1000,
+    }),
+]);
+```
+
+## Hide the Image
+
+You can hide the image by adding actions to the scene.
+
+```typescript
+scene1.action([
+    character1Happy.hide(),
+]);
+```
+
+The image will be hidden from the screen immediately.
+
+You can hide the image with ease. 
+
+```typescript
+scene1.action([
+    character1Happy.hide({
+        ease: "easeInOut",
+        duration: 1000,
+    }),
+]);
+```
+
+## Change the Image
+
+You can change the image by updating the image source.
+
+```typescript
+scene1.action([
+    character1Happy.setSrc("https://NEW_IMAGE_URL"),
+]);
+```
+
+or with a [transition](../core/animation/transition).
+
+```typescript
+import {Fade} from "narraleaf-react";
+
+scene1.action([
+    character1Happy.setSrc("https://NEW_IMAGE_URL", new Fade(300)),
+]);
+```
+
+## Animate the Image
+
+You can animate the image with [Transform](../core/animation/transform).
+
+```typescript
+import {Transform, CommonPosition} from "narraleaf-react";
+
+// Move the image to the right side of the screen
+scene1.action([
+    character1Happy.applyTransform(new Transform<TransformDefinitions.ImageTransformProps>([
+        {
+            props: {
+                position: CommonPosition.Positions.Right,
+            },
+            options: {
+                duration: 120,
+                ease: "easeOut",
+            }
+        }
+    ])),
+]);
+```
+
+The image will move to the right side of the screen with a duration of 120 milliseconds and ease out effect.
