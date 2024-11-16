@@ -1,0 +1,65 @@
+# Sound
+
+In NarraLeaf-React, you can play sounds by using the [Sound](../core/elements/sound) element.
+
+```typescript
+const sound = new Sound({
+    src: "https://YOUR_SOUND_URL.mp3",
+    volume: 0.5, // 0.0 to 1.0
+    loop: true, // loop the sound
+    sync: false, // do not wait for the sound to finish
+});
+```
+
+## Play Sound
+
+You can play the sound by adding it to the scene.
+
+```typescript
+scene1.action([
+    sound.play(), // If the sound is sync, the scene will wait for the sound to finish
+]);
+```
+
+## Sound Actions
+
+You can pause/resume/fade/stop/setVolume/setRate the sound.
+
+```typescript
+scene1.action([
+    sound.pause(),
+    character1.say`The sound is paused`,
+    sound.resume(),
+    character1.say`The sound is resumed`,
+]);
+```
+
+For more information about the Sound, please read the [Sound](../core/elements/sound) documentation.
+
+## Background Music
+
+You can add the music to the scene, the scene will automatically play the music when it starts.
+
+```typescript
+const scene = new Scene("scene 1", {
+    backgroundMusic: YOUR_SOUND_INSTANCE,
+    backgroundMusicFade: 1000, // if specified, when the scene changes, the music will fade in/out in 1000ms
+});
+```
+
+## Sound Effects
+
+You can easily create a sound effect with these configurations.
+
+```typescript
+const soundEffect = new Sound({
+    src: "https://YOUR_SOUND_URL.mp3",
+    sync: false,
+});
+
+scene1.action([
+    soundEffect.play(),
+]);
+```
+
+When the sound effect is played, it will not wait for the sound to finish.

@@ -2,5 +2,9 @@
   "create-scene": "Create a Scene",
   "add-actions": "Add Actions",
   "show-dialog": "Show Dialog",
-  "show-image": "Show Image"
+  "show-image": "Show Image",
+  "make-choices": "Make Choices",
+  "conditional": "Conditional",
+  "sound": "Sound",
+  "voice": "Voice"
 }

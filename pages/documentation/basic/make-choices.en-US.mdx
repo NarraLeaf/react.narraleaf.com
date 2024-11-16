@@ -1,0 +1,33 @@
+# Make Choices
+
+You can crerate a menu with choices by using the [Menu](../core/elements/menu) element.
+
+```typescript
+const narrator = new Character(null);
+
+scene.action([
+    new Menu("What should I do?")
+        .choose("Go left", [
+            narrator.say("You went left."),
+            /* ... */
+            scene.jump(scene_went_left),
+        ])
+        .choose("Go right", [
+            narrator.say("You went right."),
+            /* ... */
+            scene.jump(scene_went_right),
+        ]);
+]);
+```
+
+You can show the menu prompt with a custom [Sentence](../core/elements/sentence).
+
+```typescript
+// Show the menu prompt with a custom sentence
+new Menu(new Sentence("What should I do?", {italic: true})) // "What should I do?" with italic style
+    .choose(new Sentence([
+        "Go ", new Word("left", {bold: true}) // "Go left" with "left" in bold style
+    ]), [
+        /* ... */
+    ])
+```

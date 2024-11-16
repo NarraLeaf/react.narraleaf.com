@@ -1,6 +1,10 @@
 {
-  "create-scene": "Create a Scene",
-  "add-actions": "Add Actions",
-  "show-dialog": "Show Dialog",
-  "show-image": "Show Image"
+  "create-scene": "创建场景",
+  "add-actions": "添加动作",
+  "show-dialog": "显示对话",
+  "show-image": "显示图片",
+  "make-choices": "作出选择",
+  "conditional": "条件",
+  "sound": "声音",
+  "voice": "配音"
 }
