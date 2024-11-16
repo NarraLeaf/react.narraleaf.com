@@ -1,0 +1,24 @@
+# Voice
+
+You can add a voice to a sentence by using the `voice` config:
+
+```typescript
+new Sentence("hello", {
+    voice: "https://YOUR_VOICE_URL.mp3",
+});
+```
+
+Or use an existing sound instance:
+
+```typescript
+import {SoundType} from "narraleaf-react";
+
+const voice = new Sound({
+    src: "https://YOUR_VOICE_URL.mp3",
+    type: SoundType.voice,
+});
+
+new Sentence("hello", {
+    voice,
+});
+```

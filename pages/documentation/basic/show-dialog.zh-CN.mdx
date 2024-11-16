@@ -1,0 +1,50 @@
+# Show Dialog
+
+To show a dialog, you can use a [Character](../core/elements/character) element. 
+
+```typescript
+import { Scene, Character } from "narraleaf-react";
+
+// Create a scene
+const scene1 = new Scene("scene 1 - wake up", {
+    // ...
+});
+
+// Create a character
+const character1 = new Character("John Smith");
+
+// Add actions to the scene
+scene1.action([
+    character1
+        .say`Hello, World!`
+        .say`Good morning!`,
+]);
+```
+
+The character with the name "John Smith" will say "Hello, World!" and "Good morning!".
+
+You can add some customization to the dialog by using the [Word](../core/elements/word) and the [Sentence](../core/elements/sentence) element.
+
+```typescript
+character1.say`Hello, my name is ${Word.bold("John")}!`; // will output "Hello, my name is John!" with "John" in bold
+```
+
+You can also construct a complex dialog using these elements.
+
+```typescript
+character1.say(new Sentence([
+    `You have `,
+    new Word(
+        (ctx) => ctx.storable.getNamespace("game").get("coin"),
+        { color: "red" }
+    ),
+    ` coins`
+    // "you have <player coin> coins" with the coin number in red
+]));
+```
+
+For more information about constructing a sentence, you can read the [Sentence](../core/elements/sentence) documentation.
+
+In this example, the character will say "Hello, my name is John" with the word "John" in red.
+
+You can read more about the [Character](../core/elements/character) element in the documentation.

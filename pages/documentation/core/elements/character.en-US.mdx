@@ -46,7 +46,7 @@ Character controls the dialogues of the character.
 
 <Steps>
 
-#### Overload 1 of 3
+#### Overload 1 of 4
 
 Say a sentence.
 
@@ -59,7 +59,7 @@ character
 - `content: string` - The content of the sentence
 - `config?: SentenceUserConfig` - [SentenceUserConfig](../types/SentenceUserConfig)
 
-#### Overload 2 of 3
+#### Overload 2 of 4
 
 Use custom Sentence object.
 
@@ -76,7 +76,7 @@ character.say(
 
 - `content: Sentence` - See [Sentence](./character/sentence)
 
-#### Overload 3 of 3
+#### Overload 3 of 4
 
 Use mixed content of string and Word object.
 
@@ -89,6 +89,17 @@ character.say([
 
 - `content: SentencePrompt` - See [SentencePrompt](../types/SentencePrompt)
 - `config?: SentenceUserConfig` - [SentenceUserConfig](../types/SentenceUserConfig)
+
+#### Overload 4 of 4
+
+Use short-hand for SentencePrompt.
+
+```typescript
+character.say`Hello, ${Word.color("Alice", "#f00")}!` // will output "Hello, Alice" with "Alice" in red color
+```
+
+- `texts: TemplateStringsArray` - The template string array
+- `...words: SingleWord[]` - [SingleWord](../types/SentencePrompt#SingleWord)
 
 </Steps>
 

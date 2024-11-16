@@ -1,0 +1,26 @@
+# Add Actions
+
+Actions are the most important part of a scene. They are the things that make the story interactive.
+
+You can simply add actions to the scene:
+
+```typescript
+const scene1 = new Scene("scene 1 - wake up", {
+    // ...
+});
+const scene2 = new Scene("scene 2 - breakfast", {
+    // ...
+});
+
+scene1.action([
+    // ...
+    scene1.jump(scene2),
+]);
+```
+
+The `action` method accepts an array of actions. You can use [elements](../core/elements) to create actions.
+
+`scene1.jump` will create a jump action. It will jump to the next scene when the action is executed.
+
+> Note: actions after the jump action will not be executed.
+

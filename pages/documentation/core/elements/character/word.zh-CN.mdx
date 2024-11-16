@@ -1,28 +1,82 @@
 import {Callout, Tabs, Steps} from 'nextra/components';
 
-# 词语
+# Word\<T extends string | DynamicWord | Pausing = string | DynamicWord | Pausing\>
 
 <Callout type="warning" emoji="⚠️">
     This page is under construction.
 </Callout>
 
-词语是句子的一部分。它用于为文本添加样式。
+Word is a part of the Sentence. It is used to style the text.
 
-构建一个红色的词语：
+Constructing a red word:
 
 ```ts
 import { Word } from 'narraleaf-react';
 
-const word = new Word("你好", {color: "#f00"});
+const word = new Word("Hello", {color: "#f00"});
 ```
 
-## 公共方法
+Constructing a word with ruby text:
+
+```ts
+const word = new Word("你好", {ruby: "nǐ hǎo"});
+```
+
+Constructing a dynamic word:
+
+```ts
+// This word will be executed when it is displayed
+const word = new Word((ctx) => 
+    `You have ${ctx.storable.getNamespace("game").get("coin")} coins`
+, {color: "#f00"});
+```
+
+## Static Method
+
+### isWord
+
+<Steps>
+
+- `obj: any` - The object to check
+- Returns `true` if the object is an instance of `Word`, otherwise `false`.
+
+</Steps>
+
+### color
+
+<Steps>
+
+- `text: string | Word` - The text or Word instance to color
+- `color: color` - The color to apply, see [Color](../../types/color)
+- Returns a new `Word` instance with the specified color.
+
+</Steps>
+
+### bold
+
+<Steps>
+
+- `text: string | Word` - The text or Word instance to make bold
+- Returns a new `Word` instance with bold formatting.
+
+</Steps>
+
+### italic
+
+<Steps>
+
+- `text: string | Word` - The text or Word instance to italicize
+- Returns a new `Word` instance with italic formatting.
+
+</Steps>
+
+## Public Method
 
 ### constructor
 
 <Steps>
 
-- `text: string` - 词语的内容
+- `text: T` - The content of the word
 - `config?: Partial<WordConfig>` - [WordConfig](../../types/WordConfig)
 
 </Steps>

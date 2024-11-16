@@ -1,0 +1,32 @@
+# Conditional
+
+You can create a conditional statement by using the [Condition](../core/elements/condition) element.
+
+```typescript
+scene1.action([
+    new Condition()
+        .If((ctx) => ctx.storable.getNamespace("game").get("flag"), [
+            character1.say("You have the flag!")
+        ])
+])
+```
+
+In the condition statement, the game context is provided, you can learn more about the [ScriptCtx](../core/types/ScriptCtx) object.
+
+You can only have **1 If Statement** and **1 Else Statement** in a condition statement,
+but you can have **multiple Else If Statements**.
+
+```typescript
+scene1.action([
+    new Condition()
+        .If(/* ... */, [/* ... */])
+
+        .ElseIf(/* ... */, [/* ... */])
+        .ElseIf(/* ... */, [/* ... */])
+        .ElseIf(/* ... */, [/* ... */])
+
+        .Else(/* ... */, [/* ... */])
+])
+```
+
+> Note: If you put these statements in the wrong order, the condition will throw an error.
