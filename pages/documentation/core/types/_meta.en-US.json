@@ -43,6 +43,7 @@
     "TransformDefinitions": "TransformDefinitions",
     "TransformersMap": "TransformersMap",
     "RawPosition": "RawPosition",
+    "RichImageUserConfig": "RichImageUserConfig",
     "OffsetPosition": "OffsetPosition",
     "PauseConfig": "PauseConfig",
     "PreferenceEventToken": "PreferenceEventToken"

@@ -6,8 +6,56 @@ type SentenceConfig = {
     pause?: boolean | number;
     voice: Sound | null;
     character: Character | null;
+    voiceId: string | number | null;
 } & Color & Font;
 ```
 
 For Color, see [color](./color#Color).
 For Font, see [Font](./Font).
+
+## voice
+
+The voice that will say the sentence.
+
+If you specify the voice, the voiceId will be ignored.
+
+```ts
+character1.say("hello!", {
+    voice: new Sound({
+        src: "/your/path/to/voice.mp3"
+    })
+});
+```
+
+## voiceId
+
+VoiceId is a unique identifier for the voice. It can be a string or a number.
+
+For example, if you have a lot of voice files, you can use the voiceId to identify the voice.
+
+```ts
+const voiceScene = new Scene("voice-scene", {
+    voices: {
+        "a_1_1": "/your/path/to/voice.mp3"
+    }
+});
+
+voiceScene.action([
+    character1
+        .say("hello!", {
+            voiceId: "a_1_1"
+        }),
+]);
+```
+
+Or you can use a handler to generate the voiceId.
+
+```ts
+const voiceScene = new Scene("voice-scene", {
+    voices: (id) => `/static/game/sound/bgm/${id}.mp3`
+});
+```
+
+## character
+
+The character that will say the sentence. Using this property will override the previous character.
