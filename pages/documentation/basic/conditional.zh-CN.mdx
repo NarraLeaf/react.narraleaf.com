@@ -5,8 +5,8 @@ You can create a conditional statement by using the [Condition](../core/elements
 ```typescript
 scene1.action([
     new Condition()
-        .If((ctx) => ctx.storable.getNamespace("game").get("flag"), [
-            character1.say("You have the flag!")
+        .If((ctx) => ctx.storable.getNamespace("game").get("coin") >= 50, [
+            character1.say("You have enough coin!")
         ])
 ])
 ```
@@ -30,3 +30,14 @@ scene1.action([
 ```
 
 > Note: If you put these statements in the wrong order, the condition will throw an error.
+
+[Persistent](../core/elements/persistent) is a good way to store data in the game context.
+
+```typescript
+scene.action([
+    Condition
+        .If(persis.isTrue("flag"), [
+            character1.say("Flag is true")
+        ])
+]);
+```
