@@ -5,6 +5,11 @@ type ImageConfig = {
     src: string | StaticImageData;
     wearables: Image[];
     isWearable?: boolean;
+    name?: string;
+    /**
+     * If set to false, the image won't be initialized unless you call `init` method
+     */
+    autoInit: boolean;
 } & CommonDisplayable;
 ```
 
@@ -52,4 +57,8 @@ If you use `parent.addWearable(child)` or `child.bindWearable(parent)`
 , it will automatically set `isWearable` to `true`.
 
 > **Note:** You cannot use a wearable without setting `isWearable` to `true` or a parent image.
+
+### autoInit
+
+If set to false, the image won't be initialized unless you call `init` method.
 

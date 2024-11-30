@@ -45,32 +45,37 @@ console.log(name); // John Doe
 ### addNamespace\<T extends NameSpaceContent\<keyof T\>\>
 
 - `namespace: Namespace<T>`
-- `return this`
+- Returns `this`
 
 ### getNamespace\<T extends NameSpaceContent\<keyof T\> = any\>
 
 - `key: string` - The namespace key
-- `return Namespace<T>`
+- Returns `Namespace<T>`
 
 ### setNamespace\<T extends NameSpaceContent\<keyof T\> = any\>
 
 - `key: string` - The namespace key
 - `namespace: Namespace<T>`
-- `return: this`
+- Returns `this`
 
 ### getNamespaces
 
-- `return: { [key: string]: Namespace<any>; }`
+- Returns `{ [key: string]: Namespace<any>; }`
+
+### hasNamespace
+
+- `key: string`
+- Returns `boolean`
 
 ### keys
 
-- `return: string[]`
+- Returns `string[]`
 
 ### values
 
-- `return: Namespace<any>[]`
+- Returns `Namespace<any>[]`
 
 ### entries
 
-- `return: [string, Namespace<any>][]`
+- Returns `[string, Namespace<any>][]`
 

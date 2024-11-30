@@ -60,6 +60,17 @@ story.entry(
 
 </Steps>
 
+### inherit
+
+<Steps>
+
+Inherit the configuration from another scene. Current scene's configuration will override the inherited configuration.
+
+- `scene: Scene` - The Scene instance to inherit from
+- Returns `this`
+
+</Steps>
+
 ## 链式方法
 
 ### setBackground
@@ -91,7 +102,7 @@ story.entry(
 
 > 注意：跳转到另一个场景后，当前场景将被停用。其余的操作将不会被执行。
 
-- `arg0: Scene` - 要跳转到的场景实例
+- `scene: Scene | string` - The Scene instance or the name of the scene to jump to
 - `config: Partial<JumpConfig>` - [Jump Config](../types/JumpConfig)
 
 </Steps>

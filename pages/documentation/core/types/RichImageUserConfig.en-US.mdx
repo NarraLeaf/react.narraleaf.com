@@ -1,0 +1,19 @@
+# RichImageUserConfig
+
+```typescript
+type TagGroupDefinition = string[][];
+type TagSrcResolver<T extends TagGroupDefinition> = (...tags: SelectElementFromEach<T>) => string;
+type RichImageUserConfig<T extends TagGroupDefinition | null> = ImageConfig & {} & (T extends null ? {
+    src: string | StaticImageData;
+    tag?: never;
+} : T extends TagGroupDefinition ? {
+    src: TagSrcResolver<T>;
+    tag: TagDefinitions<T>;
+} : never);
+```
+
+The configuration of the rich image.
+
+If you are using tag-based image, you need to provide the tag definitions and the tag source resolver.
+
+For ImageConfig, see [ImageConfig](./ImageConfig).

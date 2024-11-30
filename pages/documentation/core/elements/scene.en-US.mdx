@@ -60,6 +60,17 @@ story.entry(
 
 </Steps>
 
+### inherit
+
+<Steps>
+
+Inherit the configuration from another scene. Current scene's configuration will override the inherited configuration.
+
+- `scene: Scene` - The Scene instance to inherit from
+- Returns `this`
+
+</Steps>
+
 ## Chainable Method
 
 ### activate
@@ -107,7 +118,7 @@ Jump to another scene. If the transition is provided, the scene will be changed 
 
 > Note: The current scene will be disposed after jumping to another scene. The rest of the actions will not be executed.
 
-- `arg0: Scene` - The Scene instance you want to jump to
+- `scene: Scene | string` - The Scene instance or the name of the scene to jump to
 - `config: Partial<JumpConfig>` - [Jump Config](../types/JumpConfig)
 
 </Steps>

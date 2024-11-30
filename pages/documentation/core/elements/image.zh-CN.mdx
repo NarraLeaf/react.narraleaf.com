@@ -1,30 +1,90 @@
 import {Callout, Tabs, Steps} from 'nextra/components';
 
-# 图片
+# Image
 
-图片对于视觉小说非常重要。它用于显示角色的外观。
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
 
-在NarraLeaf-React中，图片仅控制角色的外观。它不控制角色的对话。为此，您可以使用[Character](../character)。
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
 
-## 公共方法
+Image is very important for a visual novel. It is used to show the appearance of the character. 
+
+In NarraLeaf-React, Image only controls the appearance of the character. It does not control the dialogues of the character. For that, you can use [Character](../character).
+
+## Public Method
 
 ### constructor
 
 <Steps>
 
-#### Overload 1 of 2
+<Callout type="warning" emoji="⚠️">
+    You cannot mix tag-based image and src-based image in the same image.
+</Callout>
 
-- `name: string` - The name of the image, it will be used for debugging purpose
-- `config?: DeepPartial<ImageConfig>` - [ImageConfig](../types/ImageConfig)
+- `config: Partial<RichImageUserConfig<T>>` -Image config - [RichImageUserConfig](../types/RichImageUserConfig#RichImageUserConfig)
 
-#### Overload 2 of 2
+#### Tag-based Image
 
-- `config?: DeepPartial<ImageConfig>` - [ImageConfig](../types/ImageConfig)
+For example, if you have an image that has tags like `happy`, `sad`, `angry`, you can use tag-based image.
+
+Here is an example of tag-based image.
+
+```typescript
+const image = new Image({
+    tag: {
+        groups: [
+            ["happy", "sad", "angry"],
+            ["shirt", "jacket", "t-shirt"],
+            ["trousers", "skirt", "shorts"],
+        ],
+        defaults: ["happy", "shirt", "trousers"],
+    } as const,
+    src: (emotion, top, bottom) => `https://your/image/src/${emotion}_${top}_${bottom}.png`,
+});
+// The default image will be `https://your/image/src/happy_shirt_trousers.png`
+```
+
+<Callout type="warning" emoji="⚠️">
+
+**Note:** You cannot have two identical tags in the same group or in different groups.
+
+```typescript
+const image = new Image({
+    tag: {
+        groups: [
+            ["a", "b", "c"],
+            ["1", "2", "3"],
+            ["a"], // INVALID, tag "a" is already in the first group
+            ["x", "y", "y"], // INVALID, tag "y" is duplicated
+        ],
+        defaults: ["a"], // INVALID, default definition must have a full set of tags
+    } as const,
+    /* ... */
+});
+```
+</Callout>
+
+#### Src-based Image
+
+If you don't have tags, you can use src-based image.
+
+```typescript
+const image = new Image({
+    src: "https://your/image/src.png",
+});
+```
+
+#### Wearable Image
+
+You can add some wearables to the image.
 
 ```typescript
 const image = new Image("image-name", {
-    src: "your/image/src",
-    wearables: [new Image("wearable-image")],
+    /* ... */
+    wearables: [new Image(/* ... */)],
 });
 ```
 
@@ -34,7 +94,7 @@ const image = new Image("image-name", {
 
 <Steps>
 
-复制图像。
+Copy the image.
 
 - Returns `Image`
 
@@ -44,14 +104,14 @@ const newImage = image.copy();
 
 </Steps>
 
-## 链式方法
+## Chainable Method
 
 ### dispose
 
 <Steps>
 
-通常，**您不需要调用此方法**。此方法用于停用图像。  
-停用后的图像将不会在剩余的故事中显示在屏幕上。
+Generally, **you do not need to call this method**. This method is used to dispose the image.  
+Disposed image will not be shown in the screen for the rest of the story.
 
 </Steps>
 
@@ -59,11 +119,45 @@ const newImage = image.copy();
 
 <Steps>
 
-- `src: string | StaticImageData` - 图像的来源
-- `transition?: ITransition` - 有关ITransition，请参见[过渡](../types/ITransition)
+- `src: string | StaticImageData` - The source of the image
+- `transition?: ITransition` - For ITransition, see [ITransition](../types/ITransition)
 
 ```typescript
 image.setSrc("your/image/src", new Fade(1000));
+```
+
+</Steps>
+
+### setAppearance
+
+<Steps>
+
+Set the appearance of the image.
+
+> **Note:** Use a full set of tags if possible, this will help the lib to predict the next appearance.
+
+- `tags: TagGroupDefinition ? FlexibleTuple<SelectElementFromEach<Tags>> : string[]` - Tags of the image
+- `transition?: IImageTransition` - For IImageTransition, see [IImageTransition](../types/IImageTransition)
+
+```typescript
+// happy, shirt, trousers
+const image = new Image({
+    tag: {
+        groups: [
+            ["happy", "sad", "angry"],
+            ["shirt", "jacket", "t-shirt"],
+            ["trousers", "skirt", "shorts"],
+        ],
+        defaults: ["happy", "shirt", "trousers"],
+    } as const,
+    /* ... */
+});
+
+//  happy , [jacket], [t-shirt]
+image.setAppearance(["jacket", "t-shirt"], new Fade(1000));
+
+// [angry],  jacket ,  t-shirt
+image.setAppearance(["angry"], new Fade(1000));
 ```
 
 </Steps>
@@ -72,7 +166,7 @@ image.setSrc("your/image/src", new Fade(1000));
 
 <Steps>
 
-- `transform: Transform` - [变换](../animation/transform)
+- `transform: Transform` - [Transform](../animation/transform)
 
 </Steps>
 
@@ -80,29 +174,29 @@ image.setSrc("your/image/src", new Fade(1000));
 
 <Steps>
 
-显示图片。
+Show the image.
 
-#### 重载 1 / 3
+#### Overload 1 of 3
 
-立即显示图片。
+Show image immediately.
 
 ```typescript
 image.show();
 ```
 
-#### 重载 2 / 3
+#### Overload 2 of 3
 
-使用自定义变换显示图像。
+Show image with custom transform.
 
-> **注意：**您必须在变换属性中添加`alpha: 1`以显示图像。
+> **Note:** You have to add `alpha: 1` in the transform props to show the image.
 
-- `options: Transform` - [变换](../animation/transform)
+- `options: Transform` - [Transform](../animation/transform)
 
-#### 重载 3 / 3
+#### Overload 3 of 3
 
-使用变换配置显示图像。一个带有alpha:1的变换将应用于图像。
+Show image with transform config. A transform with alpha:1 will be applied to the image.
 
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - 见 TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - See TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
 
 ```typescript
 image.show({
@@ -117,29 +211,29 @@ image.show({
 
 <Steps>
 
-隐藏图片。
+Hide the image.
 
-#### 重载 1 / 3
+#### Overload 1 of 3
 
-立即隐藏图片。
+Hide image immediately.
 
 ```typescript
 image.hide();
 ```
 
-#### 重载 2 / 3
+#### Overload 2 of 3
 
-立即使用自定义变换隐藏图片。
+Hide image with custom transform.
 
-> **注意：**您必须在变换属性中添加`alpha: 0`以隐藏图像。
+> **Note:** You have to add `alpha: 0` in the transform props to hide the image.
 
-- `options: Transform` - [变换](../animation/transform)
+- `options: Transform` - [Transform](../animation/transform)
 
-#### 重载 3 / 3
+#### Overload 3 of 3
 
-使用变换配置隐藏图像。一个带有alpha:0的变换将应用于图像。
+Hide image with transform config. A transform with alpha:0 will be applied to the image.
 
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - 见 TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - See TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
 
 ```typescript
 image.hide({

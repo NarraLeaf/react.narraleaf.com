@@ -1,0 +1,90 @@
+import {Callout, Tabs, Steps} from 'nextra/components';
+
+# Story
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
+
+`Story` is the main entry point for creating a story.
+
+```ts
+import { Story } from 'narraleaf-react';
+
+const story = new Story("story name");
+const scene1 = new Scene("scene 1");
+
+story.entry(scene1);
+```
+
+## Public Method
+
+### constructor
+
+<Steps>
+
+- `name: string` - Name of the story
+- `config: StoryConfig = {}` - _In Development_
+
+</Steps>
+
+### entry
+
+<Steps>
+
+- `scene: Scene` - The first scene to be executed
+- Returns `this`
+
+</Steps>
+
+### registerScene
+
+Scenes that are registered can be accessed by their name. For exmaple, you can jump to a scene by its name.
+
+```ts
+const scene1 = new Scene("scene 1");
+const scene2 = new Scene("scene 2");
+
+scene1.action([
+    scene1.jump("scene 2") // use string instead of scene instance
+]);
+
+const story = new Story("story name");
+story.registerScene("scene 2", scene2);
+
+```
+
+<Steps>
+
+#### Overload 1 of 2
+
+- `scene: Scene` - The scene to be registered
+
+#### Overload 2 of 2
+
+This overload allows you to pass the scene alias and the scene instance.
+
+- `name: string` - Name of the scene
+- `scene: Scene` - The scene to be registered
+
+</Steps>
+
+### registerPersistent
+
+You have to register the persistent to make it available in the story.
+
+```ts
+const story = new Story("story name");
+const persis = new Persistent</* ... */>("persis", /* ... */);
+
+story.registerPersistent(persistent);
+
+const scene1 = new Scene("scene 1");
+scene1.action([
+    persis.set(/* ... */, /* ... */)
+]);
+```

@@ -13,7 +13,7 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 `Condition` 允许你在故事中创建条件分支。
 
 ```typescript
-new Condition()
+Condition
     // 检查玩家是否有足够的钱
     .If(({ storable }) => {
         // 你可以访问游戏状态，例如：storable
@@ -31,27 +31,36 @@ new Condition()
 > 
 > 例如，你不能在 `If`之前调用`ElseIf`。
 
-## 公共方法
-
-### constructor
-
-<Steps>
-
-- `config?: ConditionConfig` - ConditionConfig
-
-</Steps>
-
-## 链式方法
+## Static Methods
 
 ### If
 
 <Steps>
 
-- `condition: Lambda | LambdaHandler<boolean>` - 要检查的条件。如果条件为真，将执行这些动作。
-参见 Lambda 和 LambdaHandler 了解更多信息。
-- `action: ChainedActions` - ChainedActions
+- `condition: Lambda | LambdaHandler<boolean>` - The condition to check. If the condition is true, the actions will be executed. See [Lambda](../types/Lambda) and [LambdaHandler](../types/LambdaHandler) for more information.
+- `action: ChainedActions` - [ChainedActions](../types/ChainedActions)
+
+```typescript
+Condition.If(({ storable }) => {
+    return (storable.getNamespace("name").get("coin") || 0) >= 10;
+}, [
+    character1.say("you have enough money")
+])
+```
 
 </Steps>
+
+## Public Methods
+
+### constructor
+
+<Steps>
+
+- `config?: ConditionConfig` - [ConditionConfig](../types/ConditionConfig)
+
+</Steps>
+
+## Chainable Methods
 
 ### ElseIf
 

@@ -20,19 +20,71 @@ In NarraLeaf-React, Image only controls the appearance of the character. It does
 
 <Steps>
 
-#### Overload 1 of 2
+<Callout type="warning" emoji="⚠️">
+    You cannot mix tag-based image and src-based image in the same image.
+</Callout>
 
-- `name: string` - The name of the image, it will be used for debugging purpose
-- `config?: DeepPartial<ImageConfig>` - [ImageConfig](../types/ImageConfig)
+- `config: Partial<RichImageUserConfig<T>>` -Image config - [RichImageUserConfig](../types/RichImageUserConfig#RichImageUserConfig)
 
-#### Overload 2 of 2
+#### Tag-based Image
 
-- `config?: DeepPartial<ImageConfig>` - [ImageConfig](../types/ImageConfig)
+For example, if you have an image that has tags like `happy`, `sad`, `angry`, you can use tag-based image.
+
+Here is an example of tag-based image.
+
+```typescript
+const image = new Image({
+    tag: {
+        groups: [
+            ["happy", "sad", "angry"],
+            ["shirt", "jacket", "t-shirt"],
+            ["trousers", "skirt", "shorts"],
+        ],
+        defaults: ["happy", "shirt", "trousers"],
+    } as const,
+    src: (emotion, top, bottom) => `https://your/image/src/${emotion}_${top}_${bottom}.png`,
+});
+// The default image will be `https://your/image/src/happy_shirt_trousers.png`
+```
+
+<Callout type="warning" emoji="⚠️">
+
+**Note:** You cannot have two identical tags in the same group or in different groups.
+
+```typescript
+const image = new Image({
+    tag: {
+        groups: [
+            ["a", "b", "c"],
+            ["1", "2", "3"],
+            ["a"], // INVALID, tag "a" is already in the first group
+            ["x", "y", "y"], // INVALID, tag "y" is duplicated
+        ],
+        defaults: ["a"], // INVALID, default definition must have a full set of tags
+    } as const,
+    /* ... */
+});
+```
+</Callout>
+
+#### Src-based Image
+
+If you don't have tags, you can use src-based image.
+
+```typescript
+const image = new Image({
+    src: "https://your/image/src.png",
+});
+```
+
+#### Wearable Image
+
+You can add some wearables to the image.
 
 ```typescript
 const image = new Image("image-name", {
-    src: "your/image/src",
-    wearables: [new Image("wearable-image")],
+    /* ... */
+    wearables: [new Image(/* ... */)],
 });
 ```
 
@@ -72,6 +124,40 @@ Disposed image will not be shown in the screen for the rest of the story.
 
 ```typescript
 image.setSrc("your/image/src", new Fade(1000));
+```
+
+</Steps>
+
+### setAppearance
+
+<Steps>
+
+Set the appearance of the image.
+
+> **Note:** Use a full set of tags if possible, this will help the lib to predict the next appearance.
+
+- `tags: TagGroupDefinition ? FlexibleTuple<SelectElementFromEach<Tags>> : string[]` - Tags of the image
+- `transition?: IImageTransition` - For IImageTransition, see [IImageTransition](../types/IImageTransition)
+
+```typescript
+// happy, shirt, trousers
+const image = new Image({
+    tag: {
+        groups: [
+            ["happy", "sad", "angry"],
+            ["shirt", "jacket", "t-shirt"],
+            ["trousers", "skirt", "shorts"],
+        ],
+        defaults: ["happy", "shirt", "trousers"],
+    } as const,
+    /* ... */
+});
+
+//  happy , [jacket], [t-shirt]
+image.setAppearance(["jacket", "t-shirt"], new Fade(1000));
+
+// [angry],  jacket ,  t-shirt
+image.setAppearance(["angry"], new Fade(1000));
 ```
 
 </Steps>
