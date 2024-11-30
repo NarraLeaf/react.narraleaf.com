@@ -1,0 +1,26 @@
+# Play Story
+
+After creating a abstract story, you can play it using react components. 
+
+```tsx
+"use client";
+
+import { GameProviders, Player } from "narraleaf-react";
+import { story } from "./my-story"; // Import your story here
+
+export default function Page() {
+    return (
+        <GameProviders>
+            <Player story={story} onReady={({ liveGame }) => {
+                liveGame.newGame(); // when the player is ready, start the game
+            }}
+                width="100vw" // screen width
+                height="100vh" // screen height
+            />
+        </GameProviders>
+    );
+}
+```
+
+The [GameProviders](../player/game-providers) component is required to play the story. It provides the context for the player and hooks to work.
+You can use hooks inside the GameProviders component to interact with the game instance.

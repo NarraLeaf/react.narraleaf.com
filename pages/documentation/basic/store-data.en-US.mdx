@@ -1,0 +1,47 @@
+# Store Data
+
+You can use [Persistent](../core/elements/persistent) to store data in the game context.
+
+```typescript
+type PersisData = {
+    flag: boolean;
+    coin: number;
+    name: string;
+    // ...
+};
+const persis = new Persistent<PersisData>("persis", {
+    flag: false,
+    coin: 0,
+    name: "John Smith",
+    // ...
+});
+
+const scene1 = new Scene("scene1");
+scene1.action([
+    persis.set("coin", 50)
+]);
+```
+
+> **Note:** The stored content must be **serializable**, for more information, see [Persistent](../core/elements/persistent).
+
+You can save the game data including the persistent data to anywhere you want, such as local storage, server, or cloud storage.
+
+```typescript
+const {game} = useGame();
+
+const data = game.getLiveGame().serialize();
+console.log(data);
+```
+
+And you can load the game data anytime you want.
+
+```typescript
+const {game} = useGame();
+
+const data = /* ... */;
+game.getLiveGame().deserialize(data);
+```
+
+> **Note:** After loading the game data, current game data will be lost.
+
+
