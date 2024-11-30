@@ -1,0 +1,167 @@
+import {Callout, Tabs, Steps} from 'nextra/components';
+
+# Persistent\<T extends PersistentContent\>
+
+在过去，我们只能通过Script修改Sotrable的状态，但是Persistent提供了一组实用方法来轻松控制流程。
+
+Persistent需要一个命名空间的**名字**和**初始状态**。**相同名字的Persistent会共享相同的状态。**
+
+<Callout type="warning" emoji="⚠️">
+    命名空间不能是已存在的内置命名空间（内置命名空间包括："game"）
+</Callout>
+
+```typescript
+type PersisData = {
+    flag: boolean;
+    coin: number;
+    name: string;
+    // ...
+};
+const persis = new Persistent<PersisData>("persis", {
+    flag: false,
+    coin: 0,
+    name: "John Smith",
+    // ...
+});
+```
+
+> **注意：** 储存内容必须是**可序列化**的，NarraLeaf-React支持的可序列化值包括：
+> - `string`
+> - `number`
+> - `boolean`
+> - `object`: 键为`string`，值为上述可序列化值
+> - `array`: 元素为上述可序列化值
+> - `undefined`
+> - `null`
+> - `Date`: 标准JavaScript日期对象
+
+如果脚本内容包含Persistent，则必须要将其注册到[Story](./story)中。
+    
+```typescript
+story.registerPersistent(persis);
+```
+
+## Public Methods
+
+### constructor
+
+<Steps>
+
+- `namespace: string` - 命名空间的名字
+- `defaultContent: T` - 初始状态
+
+</Steps>
+
+### equals\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - 状态的键
+- `value: T[K]` - 状态的值
+- Returns: `Lambda`
+
+```typescript
+scene.action([
+    Condition
+        .If(persis.equals("name", "John Smith"), [
+            character1.say("Hello, John Smith!")
+        ])
+]);
+```
+
+</Steps>
+
+### notEquals\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - 状态的键
+- `value: T[K]` - 状态的值
+- Returns: `Lambda`
+
+</Steps>
+
+### isTrue\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - 状态的键
+- Returns: `Lambda`
+
+```typescript
+scene.action([
+    Condition
+        .If(persis.isTrue("flag"), [
+            character1.say("Flag is true")
+        ])
+]);
+```
+
+</Steps>
+
+### isFalse\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - 状态的键
+- Returns: `Lambda`
+
+</Steps>
+
+### isNotNull\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - 状态的键
+- Returns: `Lambda`
+
+</Steps>
+
+### toWords\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - 状态的键
+- Returns: `Word<DynamicWord>`
+
+```typescript
+character.say`You have ${persis.toWords("coin")} coins`;
+```
+
+</Steps>
+
+### conditional
+
+<Steps>
+
+- `condition: Lambda<boolean> | LambdaHandler<boolean>`
+- `ifTrue: DynamicWordResult`
+- `ifFalse: DynamicWordResult`
+- Returns: `Word`
+
+```typescript
+character.say`Your flag is ${persis.conditional(
+    persis.isTrue("flag"),
+    "true",
+    "false"
+)}`;
+```
+
+</Steps>
+
+## Chainable Methods
+
+### set\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - 状态的键
+- `value: T[K]` - 状态的值
+
+```typescript
+scene.action([
+    persis.set("coin", 10)
+]);
+```
+
+</Steps>

@@ -44,3 +44,14 @@ namespace.set('name', 'Jane Smith');
 - `key: Key` - The key of the value to get
 - Returns `T[Key]`
 
+### equals\<Key extends keyof T = any\>
+
+- `key: Key` - The key of the value to compare
+- `value: T[Key]` - The value to compare
+- Returns `boolean`
+
+### assign
+
+- `values: Partial<T>` - The content to assign
+- Returns `this`
+

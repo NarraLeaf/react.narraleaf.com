@@ -1,0 +1,168 @@
+import {Callout, Tabs, Steps} from 'nextra/components';
+
+# Persistent\<T extends PersistentContent\>
+
+In the past, we could only modify the state of Storable through Script, but Persistent provides a set of useful methods to easily control the flow.
+
+Persistent requires the **name** and **initial state** of a namespace. **Persistent with the same name will share the same state.**
+
+<Callout type="warning" emoji="⚠️">
+    The namespace cannot be an existing built-in namespace (built-in namespaces include: "game")
+</Callout>
+
+```typescript
+type PersisData = {
+    flag: boolean;
+    coin: number;
+    name: string;
+    // ...
+};
+const persis = new Persistent<PersisData>("persis", {
+    flag: false,
+    coin: 0,
+    name: "John Smith",
+    // ...
+});
+```
+
+> **Note:** The stored content must be **serializable**, the serializable values supported by NarraLeaf-React include:
+> - `string`
+> - `number`
+> - `boolean`
+> - `object`: key is `string`, value is the above serializable value
+> - `array`: elements are the above serializable value
+> - `undefined`
+> - `null`
+> - `Date`: standard JavaScript date object
+
+If the script content contains Persistent, it must be registered with [Story](./story).
+
+```typescript
+story.registerPersistent(persis);
+```
+
+## Public Methods
+
+### constructor
+
+<Steps>
+
+- `namespace: string` - the name of the namespace
+- `defaultContent: T` - initial state
+
+</Steps>
+
+### equals\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - the key of the state
+- `value: T[K]` - the value of the state
+- Returns: `Lambda`
+
+```typescript
+scene.action([
+    Condition
+        .If(persis.equals("name", "John Smith"), [
+            character1.say("Hello, John Smith!")
+        ])
+]);
+```
+
+</Steps>
+
+### notEquals\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - the key of the state
+- `value: T[K]` - the value of the state
+- Returns: `Lambda`
+
+</Steps>
+
+### isTrue\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - the key of the state
+- Returns: `Lambda`
+
+```typescript
+scene.action([
+    Condition
+        .If(persis.isTrue("flag"), [
+            character1.say("Flag is true")
+        ])
+]);
+```
+
+</Steps>
+
+### isFalse\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - the key of the state
+- Returns: `Lambda`
+
+</Steps>
+
+### isNotNull\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - the key of the state
+- Returns: `Lambda`
+
+</Steps>
+
+### toWords\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - the key of the state
+- Returns: `Word<DynamicWord>`
+
+```typescript
+character.say`You have ${persis.toWords("coin")} coins`;
+```
+
+</Steps>
+
+### conditional
+
+<Steps>
+
+- `condition: Lambda<boolean> | LambdaHandler<boolean>`
+- `ifTrue: DynamicWordResult`
+- `ifFalse: DynamicWordResult`
+- Returns: `Word`
+
+```typescript
+character.say`Your flag is ${persis.conditional(
+    persis.isTrue("flag"),
+    "true",
+    "false"
+)}`;
+```
+
+</Steps>
+
+## Chainable Methods
+
+### set\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+- `key: K` - the key of the state
+- `value: T[K]` - the value of the state
+
+```typescript
+scene.action([
+    persis.set("coin", 10)
+]);
+```
+
+</Steps>
+
