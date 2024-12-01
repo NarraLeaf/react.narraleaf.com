@@ -11,13 +11,12 @@ import {Callout, Cards} from 'nextra/components';
 变换的示例：
 
 ```typescript
-// 角色将上下移动
-// （如果 `invertY` 为 true，角色将向下和向上移动）
+// The character will move down and up
 new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                yoffset: -10, // 在 120 毫秒内向下/向上移动 10 像素，使用 easeOut
+                yoffset: -10, // move down 10 pixels in 120ms with easeOut
             }
         },
         options: {
@@ -28,7 +27,7 @@ new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                yoffset: 0, // 在 100 毫秒内返回到原始位置，使用 easeOut
+                yoffset: 0, // move back to the original position in 100ms with easeOut
             }
         },
         options: {

@@ -11,13 +11,12 @@ Transform controls the appearance of an image, like position, rotation, and scal
 An example of a transform:
 
 ```typescript
-// The character will move up and down
-// (if `invertY` is true, the character will move down and up)
+// The character will move down and up
 new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                yoffset: -10, // move down/up 10 pixels in 120ms with easeOut
+                yoffset: -10, // move down 10 pixels in 120ms with easeOut
             }
         },
         options: {

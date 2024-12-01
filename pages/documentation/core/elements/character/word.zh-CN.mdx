@@ -27,7 +27,7 @@ Constructing a dynamic word:
 ```ts
 // This word will be executed when it is displayed
 const word = new Word((ctx) => 
-    `You have ${ctx.storable.getNamespace("game").get("coin")} coins`
+    `Now it is ${new Date().toLocaleTimeString()}`
 , {color: "#f00"});
 ```
 

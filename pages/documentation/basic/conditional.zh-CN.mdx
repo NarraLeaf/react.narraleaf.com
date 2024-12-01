@@ -4,9 +4,10 @@ You can create a conditional statement by using the [Condition](../core/elements
 
 ```typescript
 scene1.action([
-    new Condition()
-        .If((ctx) => ctx.storable.getNamespace("game").get("coin") >= 50, [
-            character1.say("You have enough coin!")
+    Condition
+        // if (persistent.get("favoriteTea") === "green")
+        .If(persistent.equals("favoriteTea", "green"), [
+            character1.say`You like green tea!`
         ])
 ])
 ```
@@ -18,7 +19,7 @@ but you can have **multiple Else If Statements**.
 
 ```typescript
 scene1.action([
-    new Condition()
+    Condition
         .If(/* ... */, [/* ... */])
 
         .ElseIf(/* ... */, [/* ... */])
@@ -34,7 +35,13 @@ scene1.action([
 [Persistent](../core/elements/persistent) is a good way to store data in the game context.
 
 ```typescript
+const persis = new Persistent<{ flag: boolean; }>("persis", { flag: false });
+```
+
+```typescript
 scene.action([
+    persis.set("flag", true),
+
     Condition
         .If(persis.isTrue("flag"), [
             character1.say("Flag is true")

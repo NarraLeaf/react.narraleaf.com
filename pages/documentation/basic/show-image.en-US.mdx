@@ -8,7 +8,9 @@ You can construct an image by providing the [ImageConfig](../core/types/ImageCon
 
 ```typescript
 import {Image} from "narraleaf-react";
+```
 
+```typescript
 const character1Happy = new Image("character1_happy", {
     src: "https://YOUR_IMAGE_URL",
     scale: 0.5,
@@ -69,6 +71,8 @@ scene1.action([
 
 ## Change the Image
 
+### Src-based Image
+
 You can change the image by updating the image source.
 
 ```typescript
@@ -81,11 +85,48 @@ or with a [transition](../core/animation/transition).
 
 ```typescript
 import {Fade} from "narraleaf-react";
+```
 
+```typescript
 scene1.action([
     character1Happy.setSrc("https://NEW_IMAGE_URL", new Fade(300)),
 ]);
 ```
+
+### Use Tag-based Image
+
+You can use the tag-based image to show the image.
+
+> Note: The tag-based image is a feature that allows you to change the image appearance by providing tags.
+>
+> You can't mix the tag-based image configuration with the normal image configuration.  
+> Normal image configuration don't have the `tag` property, and its `src` property should be a string.
+
+```typescript
+import {Image} from "narraleaf-react";
+```
+
+```typescript
+const image = new Image({
+    tag: {
+        groups: [
+            ["happy", "sad", "angry"], // group 1
+            ["shirt", "jacket", "t-shirt"], // group 2
+            ["trousers", "skirt", "shorts"], // group 3
+        ],
+        defaults: ["happy", "shirt", "trousers"], // default appearance
+    } as const,
+    src: (emotion, top, bottom) => `https://your/image/src/${emotion}_${top}_${bottom}.png`, // image source
+});
+// The default image will be `https://your/image/src/happy_shirt_trousers.png`
+
+scene1.action([
+    image.show(),
+    image.setAppearance(["angry", "shorts"], new Fade(1000)), // change the image to `https://your/image/src/angry_shirt_shorts.png`
+]);
+```
+
+Read more about tag-based image, please read the [Image](../core/elements/image) documentation.
 
 ## Animate the Image
 
@@ -93,21 +134,26 @@ You can animate the image with [Transform](../core/animation/transform).
 
 ```typescript
 import {Transform, CommonPosition} from "narraleaf-react";
+```
 
+```typescript
 // Move the image to the right side of the screen
 scene1.action([
-    character1Happy.applyTransform(new Transform<TransformDefinitions.ImageTransformProps>([
-        {
-            props: {
-                position: CommonPosition.Positions.Right,
-            },
-            options: {
-                duration: 120,
-                ease: "easeOut",
-            }
-        }
-    ])),
+    character1Happy.applyTransform(new Transform({
+        position: "right",
+    }, {
+        duration: 120,
+        ease: "easeOut",
+    })),
+]);
+
+// or
+
+scene1.action([
+    character1Happy.applyTransform(Transform.left(120, "easeOut")),
 ]);
 ```
 
 The image will move to the right side of the screen with a duration of 120 milliseconds and ease out effect.
+
+For more information about the Transform, please check the [Transform](../core/animation/transform) documentation.

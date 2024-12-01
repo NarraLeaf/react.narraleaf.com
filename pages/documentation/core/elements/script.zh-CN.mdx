@@ -12,14 +12,12 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 `脚本` 允许您执行脚本并与游戏进行交互。
 
-例如，您可以使用 `Script` 在游戏中间更改游戏状态。
-
 ```typescript
-new Script(({storable}) => {
-    storable
-        .getNamespace("game")
-        .set("coin", 0);
-});
+scene.action([
+    new Script((ctx) => {
+        console.log("This script is being executed.");
+    })
+]);
 ```
 
 ## 公共方法

@@ -9,7 +9,9 @@ You can define a scene by creating a `Scene` instance:
 
 ```typescript
 import { Scene } from "narraleaf-react";
+```
 
+```typescript
 const scene = new Scene("scene 1 - wake up", {
     background: "<your background image url>",
 });
@@ -17,7 +19,7 @@ const scene = new Scene("scene 1 - wake up", {
 
 The first parameter of the scene constructor should be a name, this name is used to identify the scene.
 
-> Note: the name may overlap with other scenes.
+> Note: the name should be unique.
 
 The second parameter is an optional configuration. You can find the config doc [here](../core/types/SceneConfig).
 

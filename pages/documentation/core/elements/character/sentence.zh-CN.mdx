@@ -9,25 +9,28 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 ```ts
 import { Sentence } from 'narraleaf-react';
 
-const character = new Character("角色1");
-const sentence = new Sentence(character, [
-    "你好, ",
-    new Word("世界", {color: "#f00"}), // 有一些单词可以着色
-]);
+const character = new Character("character 1");
+const sentence = new Sentence([
+    "Hello, ",
+    Word.color("world", "#f00") // words can be colored,
+], {
+    character,
+});
 ```
 
-or 
+或
 
 ```ts
-const sentence = new Sentence(character, "你好, 世界");
+const sentence = new Sentence("Hello, world");
 ```
 
-or
+或
 
 ```ts
-const sentence = new Sentence(character, [
-    ({storable}) => `Hello, ${storable.getNamespace("game").get("playerName")}`
+const sentence = new Sentence([
+    "Hello, ", persis.get("playerName"), "!"
 ]);
+
 ```
 
 ## 公共方法
@@ -36,9 +39,8 @@ const sentence = new Sentence(character, [
 
 <Steps>
 
-- `character: Character | null` - 如果为 null，则为旁白。旁白不在对话框中显示任何名称。
-- `content: SentencePrompt` - 见 [SentencePrompt](../../types/SentencePrompt)
-- `config?: Partial<SentenceConfig>` - [SentenceConfig](../../types/SentenceConfig)
+- `text: SentencePrompt` - See [SentencePrompt](../../types/SentencePrompt)
+- `config?: Partial<SentenceUserConfig>` - [SentenceUserConfig](../../types/SentenceConfig#SentenceUserConfig)
 
 </Steps>
 
@@ -49,7 +51,7 @@ const sentence = new Sentence(character, [
 Copy the sentence
 
 ```ts
-const sentence = new Sentence(character, "Hello, world");
+const sentence = new Sentence("Hello, world");
 const sentence2 = sentence.copy();
 ```
 
