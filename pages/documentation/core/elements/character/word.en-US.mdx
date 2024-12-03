@@ -27,7 +27,7 @@ Constructing a dynamic word:
 ```ts
 // This word will be executed when it is displayed
 const word = new Word((ctx) => 
-    `You have ${ctx.storable.getNamespace("game").get("coin")} coins`
+    `Now it is ${new Date().toLocaleTimeString()}`
 , {color: "#f00"});
 ```
 
@@ -78,5 +78,15 @@ const word = new Word((ctx) =>
 
 - `text: T` - The content of the word
 - `config?: Partial<WordConfig>` - [WordConfig](../../types/WordConfig)
+
+</Steps>
+
+### toString
+
+<Steps>
+
+If the word is a string, it will return the string. Otherwise, it will return an empty string.
+
+- Returns `string`
 
 </Steps>

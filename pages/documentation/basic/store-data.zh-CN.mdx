@@ -17,8 +17,11 @@ const persis = new Persistent<PersisData>("persis", {
 });
 
 const scene1 = new Scene("scene1");
+const char1 = new Character("John Smith");
 scene1.action([
-    persis.set("coin", 50)
+    persis.set("coin", 50),
+
+    char1.say`You have ${persis.get("coin")} coins!`,
 ]);
 ```
 
@@ -27,8 +30,10 @@ scene1.action([
 You can save the game data including the persistent data to anywhere you want, such as local storage, server, or cloud storage.
 
 ```typescript
-const {game} = useGame();
+const {game} = useGame(); // call this hook in a React component
 
+// ex, if the player click your component
+// you can save the game data to local storage
 const data = game.getLiveGame().serialize();
 console.log(data);
 ```

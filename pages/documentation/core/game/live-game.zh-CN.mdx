@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # LiveGame
 
@@ -18,17 +18,27 @@ The [Game](./game) instance
 
 ### getStorable
 
+<Steps>
+
 Returns the [Storable](./storable) instance
 
 - `return: Storable` - [Storable](./storable)
 
+</Steps>
+
 ### newGame
+
+<Steps>
 
 Starts a new game
 
 - `return this`
 
+</Steps>
+
 ### deserialize
+
+<Steps>
 
 Load a saved game
 
@@ -52,7 +62,11 @@ game.getLiveGame().deserialize(savedGame);
 
 - `savedGame: SavedGame` - [SavedGame](../types/SavedGame)
 
+</Steps>
+
 ### serialize
+
+<Steps>
 
 Serialize the current game state
 
@@ -61,3 +75,48 @@ You can use this to save the game state to a file or a database
 > **Note: **Even if you change just a single line of script, the saved game might not be compatible with the new version
 
 - `return: SavedGame` - See [SavedGame](../types/SavedGame)`
+
+</Steps>
+
+### onCharacterPrompt
+
+<Steps>
+
+Called when a character says something
+
+- `fc: (event: LiveGameEvent["event:character.prompt"]) => void` - See [LiveGameEvent](../types/LiveGameEvent#event%3Acharacter.prompt)
+- Returns `LiveGameEventToken` - See [LiveGameEventToken](../types/LiveGameEventToken)
+
+```typescript
+const {game} = useGame();
+const [texts, setTexts] = useState<string[]>([]);
+
+useEffect(() => {
+    const token = game.getLiveGame().onCharacterPrompt((event) => {
+        setTexts((prevTexts) => [...prevTexts, event.text]);
+    });
+
+    return () => {
+        token.cancel();
+    };
+}, []);
+
+return (
+    <div>
+        {/* Your Text Log */}
+    </div>
+);
+```
+
+</Steps>
+
+### onMenuChoose
+
+<Steps>
+
+Called when a menu is completed
+
+- `fc: (event: LiveGameEvent["event:menu.choose"]) => void` - See [LiveGameEvent](../types/LiveGameEvent#event%3Amenu.choose)
+- Returns `LiveGameEventToken` - See [LiveGameEventToken](../types/LiveGameEventToken)
+
+</Steps>

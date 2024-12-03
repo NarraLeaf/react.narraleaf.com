@@ -1,0 +1,30 @@
+# LiveGameEvent
+
+```typescript
+type LiveGameEvent = {
+    "event:character.prompt": [{
+        /**
+         * The character who says the sentence
+         */
+        character: Character | null,
+        /**
+         * The sentence said by the character
+         */
+        sentence: Sentence,
+        /**
+         * The text of the sentence
+         */
+        text: string;
+    }];
+    "event:menu.choose": [{
+        /**
+         * The sentence selected by the player
+         */
+        sentence: Sentence,
+        /**
+         * The text of the sentence
+         */
+        text: string;
+    }];
+};
+```

@@ -8,6 +8,9 @@ type SentenceConfig = {
     character: Character | null;
     voiceId: string | number | null;
 } & Color & Font;
+type SentenceUserConfig = Partial<Omit<SentenceConfig, "voice"> & {
+    voice: Sound | string | null | undefined;
+}>;
 ```
 
 For Color, see [color](./color#Color).

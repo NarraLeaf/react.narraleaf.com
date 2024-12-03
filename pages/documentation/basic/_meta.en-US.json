@@ -2,11 +2,11 @@
   "create-scene": "Create a Scene",
   "add-actions": "Add Actions",
   "show-dialog": "Show Dialog",
-  "show-image": "Show Image",
-  "play-story": "Play Story",
+  "show-image": "Show Images",
+  "play-story": "Play the Story",
   "make-choices": "Make Choices",
+  "sound": "Play Sounds",
   "store-data": "Store Data",
   "conditional": "Conditional",
-  "sound": "Sound",
-  "voice": "Voice"
+  "voice": "Play Voices"
 }

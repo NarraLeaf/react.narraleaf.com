@@ -19,6 +19,34 @@ scene.action([
 ]);
 ```
 
+## Public Properties
+
+### local
+
+<Steps>
+
+`scene.local` is a [Persistent](./persistent) instance that is local to the scene.
+It is used to store the temporary data that is only available in the scene.
+
+Local data doesn't need to be registered or initialised, but it is 'undefined' before it is used.
+
+> Data in local will be discarded when the scene is exited.
+
+```ts
+scene.action([
+    new Menu("Which coffee do you want?")
+        .choose("Latte", [
+            scene.local.set("coffee", "latte"),
+        ])
+        .choose("Cappuccino", [
+            scene.local.set("coffee", "cappuccino"),
+        ]),
+    character1.say`You chose ${scene.local.get("coffee")} coffee`,
+]);
+```
+
+</Steps>
+
 ## Public Method
 
 ### constructor

@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Storable
 
@@ -11,6 +11,8 @@ import {Callout, Tabs} from 'nextra/components';
 </Callout>
 
 Storable allows you to store data in the game's state. Data stored in Storable will be saved and loaded with current game state.
+
+> If you are looking for creating actions to operate data, you can use [Persistent](../elements/persistent) abstraction.
 
 Data stored in Storable are separated by namespace. You can use the same key in different namespaces.  
 For example, you can store the player1's name in the `player1` namespace and the player2's name in the `player2` namespace.
@@ -44,38 +46,79 @@ console.log(name); // John Doe
 
 ### addNamespace\<T extends NameSpaceContent\<keyof T\>\>
 
+<Steps>
+
 - `namespace: Namespace<T>`
 - Returns `this`
 
+</Steps>
+
 ### getNamespace\<T extends NameSpaceContent\<keyof T\> = any\>
+
+<Steps>
 
 - `key: string` - The namespace key
 - Returns `Namespace<T>`
 
+</Steps>
+
 ### setNamespace\<T extends NameSpaceContent\<keyof T\> = any\>
+
+<Steps>
 
 - `key: string` - The namespace key
 - `namespace: Namespace<T>`
 - Returns `this`
 
+</Steps>
+
 ### getNamespaces
+
+<Steps>
 
 - Returns `{ [key: string]: Namespace<any>; }`
 
+</Steps>
+
 ### hasNamespace
+
+<Steps>
 
 - `key: string`
 - Returns `boolean`
 
+</Steps>
+
+### removeNamespace
+
+<Steps>
+
+- `key: string`
+- Returns `this`
+
+</Steps>
+
 ### keys
+
+<Steps>
 
 - Returns `string[]`
 
+</Steps>
+
 ### values
+
+<Steps>
 
 - Returns `Namespace<any>[]`
 
+</Steps>
+
 ### entries
 
+<Steps>
+
 - Returns `[string, Namespace<any>][]`
+
+</Steps>
 

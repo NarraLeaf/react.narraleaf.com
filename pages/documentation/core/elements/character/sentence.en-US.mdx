@@ -14,24 +14,27 @@ Constructing a sentence:
 import { Sentence } from 'narraleaf-react';
 
 const character = new Character("character 1");
-const sentence = new Sentence(character, [
+const sentence = new Sentence([
     "Hello, ",
-    new Word("world", {color: "#f00"}), // Some words can be colored
-]);
+    Word.color("world", "#f00") // words can be colored,
+], {
+    character,
+});
 ```
 
 or 
 
 ```ts
-const sentence = new Sentence(character, "Hello, world");
+const sentence = new Sentence("Hello, world");
 ```
 
 or
 
 ```ts
-const sentence = new Sentence(character, [
-    ({storable}) => `Hello, ${storable.getNamespace("game").get("playerName")}`
+const sentence = new Sentence([
+    "Hello, ", persis.get("playerName"), "!"
 ]);
+
 ```
 
 ## Public Method
@@ -40,9 +43,8 @@ const sentence = new Sentence(character, [
 
 <Steps>
 
-- `character: Character | null` - If null, then it is a narrator. Narrator do not show any name in the dialogue box.
-- `content: SentencePrompt` - See [SentencePrompt](../../types/SentencePrompt)
-- `config?: Partial<SentenceConfig>` - [SentenceConfig](../../types/SentenceConfig)
+- `text: SentencePrompt` - See [SentencePrompt](../../types/SentencePrompt)
+- `config?: Partial<SentenceUserConfig>` - [SentenceUserConfig](../../types/SentenceConfig#SentenceUserConfig)
 
 </Steps>
 
@@ -53,7 +55,7 @@ const sentence = new Sentence(character, [
 Copy the sentence
 
 ```ts
-const sentence = new Sentence(character, "Hello, world");
+const sentence = new Sentence("Hello, world");
 const sentence2 = sentence.copy();
 ```
 

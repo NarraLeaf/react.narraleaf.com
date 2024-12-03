@@ -12,14 +12,12 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 `Script` allows you to execute scripts and interact with the game.
 
-For example, you can use `Script` to change the game state in the middle of the game.
-
 ```typescript
-new Script(({storable}) => {
-    storable
-        .getNamespace("game")
-        .set("coin", 0);
-});
+scene.action([
+    new Script((ctx) => {
+        console.log("This script is being executed.");
+    })
+]);
 ```
 
 ## Public Methods

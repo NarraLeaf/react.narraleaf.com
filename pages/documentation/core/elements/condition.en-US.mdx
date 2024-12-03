@@ -14,16 +14,48 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 ```typescript
 Condition
-    // check if the player has enough money
-    .If(({ storable }) => {
-        // you can access the game state, ex: storable
-        return (storable.getNamespace("name").get("coin") || 0) >= 10;
+    .If((ctx) => {
+        return // your condition here
     }, [
-        character1.say("you have enough money")
+        character1.say`the condition is true`,
     ])
 
     .Else([
-        character1.say("you don't have enough money")
+        character1.say`the condition is false`,
+    ])
+```
+
+In usual cases, you may want to determine flags, or check the value of a variable. You can use [Perdidtent](./persistent) to do this.
+
+```typescript
+type PersistentData = {
+    coin: number;
+    flag: boolean;
+    hobby: string;
+};
+
+const persis = new Persistent<PersistentData>("persis", {
+    coin: 0,
+    flag: false,
+    hobby: "coding",
+});
+
+// check if the player has enough coins
+Condition
+    .If(persis.evaluate("coin", (coin) => coin < 50), [
+        character1.say("you don't have enough coins"),
+    ])
+
+// check if the player has a flag
+Condition
+    .If(persis.isTrue("coin"), [
+        character1.say("you have the flag"),
+    ])
+
+// check if the player has a hobby
+Condition
+    .If(persis.equals("hobby", "coding"), [
+        character1.say("you like coding"),
     ])
 ```
 
