@@ -1,0 +1,69 @@
+import { Tabs, Steps } from 'nextra/components';
+
+# Installation
+
+## Requirements
+
+- [React 16](https://reactjs.org/) or later
+
+## As Dependency
+
+The easiest way to use the library is to install it as a dependency in your project.
+
+<Steps>
+
+### Install NarraLeaf-React
+
+To install NarraLeaf-React, run the following command in your project directory:
+
+<Tabs items={['npm', 'yarn', 'pnpm']}>
+    <Tabs.Tab>
+        ```bash
+        npm install narraleaf-react
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+        ```bash
+        yarn add narraleaf-react
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+        ```bash
+        pnpm add narraleaf-react
+        ```
+    </Tabs.Tab>
+</Tabs>
+
+This will install NarraLeaf-React in your project.
+
+### Set up GameProviders
+
+To use NarraLeaf-React, you need to set up the GameProviders in your app.
+
+```tsx
+// 1. Mark your file as a client file
+"use client";
+
+// 2. Import the GameProviders component
+import { GameProviders } from 'narraleaf-react';
+
+export default function App() {
+
+    // 3. Wrap your app content with the GameProviders component
+    return (
+        <GameProviders>
+            {/* Your app content */}
+        </GameProviders>
+    );
+}
+```
+
+### Start your journey
+
+Now you are ready to start your journey with NarraLeaf-React.
+
+Write you Visual Novel script and provide it to the Game component.
+
+Read more about creating abstract Visual Novel scripts in the [Basic](./basic) section.
+
+</Steps>

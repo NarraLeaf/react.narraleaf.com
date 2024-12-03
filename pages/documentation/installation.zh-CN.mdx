@@ -1,0 +1,69 @@
+import { Tabs, Steps } from 'nextra/components';
+
+# 安装
+
+## 要求
+
+- [React 16](https://reactjs.org/) 或更高版本
+
+## 作为依赖项
+
+使用库的最简单方法是将其安装为项目的依赖项。
+
+<Steps>
+
+### 安装 NarraLeaf-React
+
+要安装 NarraLeaf-React，请在项目目录中运行以下命令：
+
+<Tabs items={['npm', 'yarn', 'pnpm']}>
+    <Tabs.Tab>
+        ```bash
+        npm install narraleaf-react
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+        ```bash
+        yarn add narraleaf-react
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+        ```bash
+        pnpm add narraleaf-react
+        ```
+    </Tabs.Tab>
+</Tabs>
+
+这将在您的项目中安装 NarraLeaf-React。
+
+### 设置 GameProviders
+
+要使用 NarraLeaf-React，您需要在应用程序中设置 GameProviders。
+
+```tsx
+// 1. 将文件标记为客户端文件
+"use client";
+
+// 2. 导入 GameProviders 组件
+import { GameProviders } from 'narraleaf-react';
+
+export default function App() {
+
+    // 3. 使用 GameProviders 组件包装您的应用程序内容
+    return (
+        <GameProviders>
+            {/* 您的应用程序内容 */}
+        </GameProviders>
+    );
+}
+```
+
+# 开始你的旅程
+
+现在你已经准备好和NarraLeaf-React开始你的旅程了！
+
+编写你的视觉小说脚本并且将其提供给游戏组件。
+
+你可以在[基础](./basic)部分了解有关创建抽象视觉小说脚本的更多信息。
+
+</Steps>
