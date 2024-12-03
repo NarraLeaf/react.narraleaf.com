@@ -17,8 +17,11 @@ const persis = new Persistent<PersisData>("persis", {
 });
 
 const scene1 = new Scene("scene1");
+const char1 = new Character("John Smith");
 scene1.action([
-    persis.set("coin", 50)
+    persis.set("coin", 50),
+
+    char1.say`You have ${persis.get("coin")} coins!`,
 ]);
 ```
 

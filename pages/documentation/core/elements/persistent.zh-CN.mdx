@@ -2,12 +2,12 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Persistent\<T extends PersistentContent\>
 
-在过去，我们只能通过Script修改Sotrable的状态，但是Persistent提供了一组实用方法来轻松控制流程。
+In the past, we could only modify the state of Storable through Script, but Persistent provides a set of useful methods to easily control the flow.
 
-Persistent需要一个命名空间的**名字**和**初始状态**。**相同名字的Persistent会共享相同的状态。**
+Persistent requires the **name** and **initial state** of a namespace. **Persistent with the same name will share the same state.**
 
 <Callout type="warning" emoji="⚠️">
-    命名空间不能是已存在的内置命名空间（内置命名空间包括："game"）
+    The namespace cannot be an existing built-in namespace (built-in namespaces include: "game")
 </Callout>
 
 ```typescript
@@ -25,18 +25,18 @@ const persis = new Persistent<PersisData>("persis", {
 });
 ```
 
-> **注意：** 储存内容必须是**可序列化**的，NarraLeaf-React支持的可序列化值包括：
+> **Note:** The stored content must be **serializable**, the serializable values supported by NarraLeaf-React include:
 > - `string`
 > - `number`
 > - `boolean`
-> - `object`: 键为`string`，值为上述可序列化值
-> - `array`: 元素为上述可序列化值
+> - `object`: key is `string`, value is the above serializable value
+> - `array`: elements are the above serializable value
 > - `undefined`
 > - `null`
-> - `Date`: 标准JavaScript日期对象
+> - `Date`: standard JavaScript date object
 
-如果脚本内容包含Persistent，则必须要将其注册到[Story](./story)中。
-    
+If the script content contains Persistent, it must be registered with [Story](./story).
+
 ```typescript
 story.registerPersistent(persis);
 ```
@@ -47,8 +47,8 @@ story.registerPersistent(persis);
 
 <Steps>
 
-- `namespace: string` - 命名空间的名字
-- `defaultContent: T` - 初始状态
+- `namespace: string` - the name of the namespace
+- `defaultContent: T` - initial state
 
 </Steps>
 
@@ -56,9 +56,9 @@ story.registerPersistent(persis);
 
 <Steps>
 
-- `key: K` - 状态的键
-- `value: T[K]` - 状态的值
-- Returns: `Lambda`
+- `key: K` - the key of the state
+- `value: T[K]` - the value of the state
+- Returns: `Lambda<boolean>`
 
 ```typescript
 scene.action([
@@ -75,9 +75,9 @@ scene.action([
 
 <Steps>
 
-- `key: K` - 状态的键
-- `value: T[K]` - 状态的值
-- Returns: `Lambda`
+- `key: K` - the key of the state
+- `value: T[K]` - the value of the state
+- Returns: `Lambda<boolean>`
 
 </Steps>
 
@@ -85,8 +85,8 @@ scene.action([
 
 <Steps>
 
-- `key: K` - 状态的键
-- Returns: `Lambda`
+- `key: K` - the key of the state
+- Returns: `Lambda<boolean>`
 
 ```typescript
 scene.action([
@@ -103,8 +103,8 @@ scene.action([
 
 <Steps>
 
-- `key: K` - 状态的键
-- Returns: `Lambda`
+- `key: K` - the key of the state
+- Returns: `Lambda<boolean>`
 
 </Steps>
 
@@ -112,8 +112,8 @@ scene.action([
 
 <Steps>
 
-- `key: K` - 状态的键
-- Returns: `Lambda`
+- `key: K` - the key of the state
+- Returns: `Lambda<boolean>`
 
 </Steps>
 
@@ -121,11 +121,26 @@ scene.action([
 
 <Steps>
 
-- `key: K` - 状态的键
+- `key: K` - the key of the state
 - Returns: `Word<DynamicWord>`
 
 ```typescript
 character.say`You have ${persis.toWords("coin")} coins`;
+```
+
+</Steps>
+
+### get\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+Alias of `get`
+
+- `key: K` - the key of the state
+- Returns: `Word<DynamicWord>`
+
+```typescript
+character.say`Your have ${persis.get("coin")} coins`;
 ```
 
 </Steps>
@@ -149,14 +164,37 @@ character.say`Your flag is ${persis.conditional(
 
 </Steps>
 
+### evaluate\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+Evaluate the state with a JavaScript function
+
+- `key: K` - the key of the state
+- `fn: (value: T[K]) => boolean` - a JavaScript function to evaluate the state
+- Returns `Lambda<boolean>`
+
+```typescript
+scene.action([
+    Condition
+        .If(persis.evaluate("coin", (coin) => coin < 10), [
+            character1.say`You don't have enough coins!`
+        ])
+]);
+```
+
+</Steps>
+
 ## Chainable Methods
 
 ### set\<K extends StringKeyOf\<T\>\>
 
 <Steps>
 
-- `key: K` - 状态的键
-- `value: T[K]` - 状态的值
+#### Overload 1 of 2
+
+- `key: K` - the key of the state
+- `value: T[K]` - the value of the state
 
 ```typescript
 scene.action([
@@ -164,4 +202,16 @@ scene.action([
 ]);
 ```
 
+#### Overload 2 of 2
+
+- `key: K` - the key of the state
+- `handler: (value: T[K]) => T[K])` - the handler to modify the value
+
+```typescript
+scene.action([
+    persis.set("coin", (coin) => coin + 10) // coin will increase by 10
+]);
+```
+
 </Steps>
+

@@ -1,4 +1,4 @@
-import {Callout, Cards} from 'nextra/components';
+import {Callout, Cards, Steps} from 'nextra/components';
 
 # Transform
 
@@ -49,9 +49,46 @@ A sequence of transformations is made of `props` and `options`:
 
 For more information about TransformDefinitions, see [TransformDefinitions](../types/TransformDefinitions).
 
+## Static Methods
+
+### left
+
+<Steps>
+
+Move the image to the left side of the stage. 
+
+- `duration: number` - The duration of the movement in milliseconds.
+- `easing?: TransformDefinitions.EasingDefinition` - See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### right
+
+<Steps>
+
+Move the image to the right side of the stage.
+
+- `duration: number` - The duration of the movement in milliseconds.
+- `easing?: TransformDefinitions.EasingDefinition` - See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### center
+
+<Steps>
+
+Move the image to the center of the stage.
+
+- `duration: number` - The duration of the movement in milliseconds.
+- `easing?: TransformDefinitions.EasingDefinition` - See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
 ## Public Methods
 
 ### constructor
+
+<Steps>
 
 For more information, see [Advanced Transform](./advanced-transform).
 
@@ -113,7 +150,11 @@ new Transform<TransformDefinitions.ImageTransformProps>({
 - `props: SequenceProps<T>` - A single [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
 - `options?: Partial<TransformDefinitions.CommonTransformProps>` - A single [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
+</Steps>
+
 ### repeat
+
+<Steps>
 
 Repeat the transform.
 
@@ -129,7 +170,11 @@ transform
 - `n: number` - The number of times to repeat the transform.
 - `return: this`
 
+</Steps>
+
 ### overwrite\<T extends keyof TransformersMap = any\>
+
+<Steps>
 
 Overwrite a transformer
 
@@ -147,11 +192,17 @@ transform.overwrite("position", (value) => {
 - `transformer: (value: TransformersMap[T]) => TransformersMap[T]` - The transformer function.
 - `return: this`
 
+</Steps>
+
 ### copy
+
+<Steps>
 
 Copy the transform.
 
 - `return: Transform<T>`
+
+</Steps>
 
 ## Next Steps
 

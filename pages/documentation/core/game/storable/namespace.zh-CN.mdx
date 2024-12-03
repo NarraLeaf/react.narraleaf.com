@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Namespace\<T extends NameSpaceContent\<keyof T\>\>
 
@@ -22,11 +22,17 @@ Namespace is a class that represents a namespace of a [Storable](../storable)
 
 ### constructor
 
+<Steps>
+
 - `name: string` - Human-readable name of the namespace
 - `initContent: T` - Initial content of the namespace
 - `key?: string` - The namespace key, default is the name
 
+</Steps>
+
 ### set\<Key extends keyof T\>
+
+<Steps>
 
 Example:
 ```typescript
@@ -39,19 +45,33 @@ namespace.set('name', 'Jane Smith');
 - `value: T[Key]` - The value to set
 - Returns `this`
 
+</Steps>
+
 ### get\<Key extends keyof T = any\>
+
+<Steps>
 
 - `key: Key` - The key of the value to get
 - Returns `T[Key]`
 
+</Steps>
+
 ### equals\<Key extends keyof T = any\>
+
+<Steps>
 
 - `key: Key` - The key of the value to compare
 - `value: T[Key]` - The value to compare
 - Returns `boolean`
 
+</Steps>
+
 ### assign
+
+<Steps>
 
 - `values: Partial<T>` - The content to assign
 - Returns `this`
+
+</Steps>
 

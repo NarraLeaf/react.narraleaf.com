@@ -35,11 +35,15 @@ const persis = new Persistent<PersisData>("persis", {
 > - `null`
 > - `Date`: standard JavaScript date object
 
+<Callout type="warning" emoji="⚠️">
+
 If the script content contains Persistent, it must be registered with [Story](./story).
 
 ```typescript
 story.registerPersistent(persis);
 ```
+
+</Callout>
 
 ## Public Methods
 
@@ -58,7 +62,7 @@ story.registerPersistent(persis);
 
 - `key: K` - the key of the state
 - `value: T[K]` - the value of the state
-- Returns: `Lambda`
+- Returns: `Lambda<boolean>`
 
 ```typescript
 scene.action([
@@ -77,7 +81,7 @@ scene.action([
 
 - `key: K` - the key of the state
 - `value: T[K]` - the value of the state
-- Returns: `Lambda`
+- Returns: `Lambda<boolean>`
 
 </Steps>
 
@@ -86,7 +90,7 @@ scene.action([
 <Steps>
 
 - `key: K` - the key of the state
-- Returns: `Lambda`
+- Returns: `Lambda<boolean>`
 
 ```typescript
 scene.action([
@@ -104,7 +108,7 @@ scene.action([
 <Steps>
 
 - `key: K` - the key of the state
-- Returns: `Lambda`
+- Returns: `Lambda<boolean>`
 
 </Steps>
 
@@ -113,7 +117,7 @@ scene.action([
 <Steps>
 
 - `key: K` - the key of the state
-- Returns: `Lambda`
+- Returns: `Lambda<boolean>`
 
 </Steps>
 
@@ -126,6 +130,21 @@ scene.action([
 
 ```typescript
 character.say`You have ${persis.toWords("coin")} coins`;
+```
+
+</Steps>
+
+### get\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+Alias of `get`
+
+- `key: K` - the key of the state
+- Returns: `Word<DynamicWord>`
+
+```typescript
+character.say`Your have ${persis.get("coin")} coins`;
 ```
 
 </Steps>
@@ -149,11 +168,34 @@ character.say`Your flag is ${persis.conditional(
 
 </Steps>
 
+### evaluate\<K extends StringKeyOf\<T\>\>
+
+<Steps>
+
+Evaluate the state with a JavaScript function
+
+- `key: K` - the key of the state
+- `fn: (value: T[K]) => boolean` - a JavaScript function to evaluate the state
+- Returns `Lambda<boolean>`
+
+```typescript
+scene.action([
+    Condition
+        .If(persis.evaluate("coin", (coin) => coin < 10), [
+            character1.say`You don't have enough coins!`
+        ])
+]);
+```
+
+</Steps>
+
 ## Chainable Methods
 
 ### set\<K extends StringKeyOf\<T\>\>
 
 <Steps>
+
+#### Overload 1 of 2
 
 - `key: K` - the key of the state
 - `value: T[K]` - the value of the state
@@ -161,6 +203,17 @@ character.say`Your flag is ${persis.conditional(
 ```typescript
 scene.action([
     persis.set("coin", 10)
+]);
+```
+
+#### Overload 2 of 2
+
+- `key: K` - the key of the state
+- `handler: (value: T[K]) => T[K])` - the handler to modify the value
+
+```typescript
+scene.action([
+    persis.set("coin", (coin) => coin + 10) // coin will increase by 10
 ]);
 ```
 

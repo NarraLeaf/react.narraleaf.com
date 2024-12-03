@@ -10,6 +10,8 @@
     "Lambda": "Lambda",
     "LambdaCtx": "LambdaCtx",
     "LambdaHandler": "LambdaHandler",
+    "LiveGameEvent": "LiveGameEvent",
+    "LiveGameEventToken": "LiveGameEventToken",
     "SayComponent": "SayComponent",
     "SavedGame": "SavedGame",
     "SceneConfig": "SceneConfig",
