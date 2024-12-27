@@ -1,0 +1,21 @@
+# useGame
+
+```typescript
+function useGame(): GameContextType;
+```
+
+- For GameContextType, see [GameContextType](../../types/GameContextType).
+
+## Usage
+
+```typescript
+import {useGame} from "narraleaf-react";
+````
+
+```typescript
+const { game } = useGame();
+
+useEffect(() => {
+    game.getLiveGame().newGame();
+}, [game]);
+```
