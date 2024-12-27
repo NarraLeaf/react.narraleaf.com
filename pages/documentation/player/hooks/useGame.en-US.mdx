@@ -1,0 +1,28 @@
+# useGame
+
+You can access the game object using this hook.
+
+> **Note**: this hook can only be used in a component that is a descendant of [GameProvider](../game-providers).
+
+```typescript
+function useGame(): GameContextType;
+```
+
+- For GameContextType, see [GameContextType](../../core/types/GameContextType).
+
+## Usage
+
+```typescript
+import {useGame} from "narraleaf-react";
+```
+
+```typescript
+function myComponent() {
+    const { game } = useGame();
+
+    useEffect(() => {
+        game.getLiveGame().newGame();
+    }, [game]);
+}
+```
+

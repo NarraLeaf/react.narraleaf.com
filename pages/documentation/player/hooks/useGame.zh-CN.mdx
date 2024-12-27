@@ -1,0 +1,26 @@
+# useGame
+
+你可以使用这个钩子访问游戏对象.
+
+> **注**: 这个钩子只能使用于 [GameProvider](../game-providers) 的后代组件中.
+
+```typescript
+function useGame(): GameContextType;
+```
+
+- 了解 GameContextType, 参见 [GameContextType](../../core/types/GameContextType).
+
+## Usage
+
+```typescript
+import {useGame} from "narraleaf-react";
+````
+
+```typescript
+const { game } = useGame();
+
+useEffect(() => {
+    game.getLiveGame().newGame();
+}, [game]);
+```
+

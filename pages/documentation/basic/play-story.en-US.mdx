@@ -14,8 +14,8 @@ export default function Page() {
             <Player story={story} onReady={({ liveGame }) => {
                 liveGame.newGame(); // when the player is ready, start the game
             }}
-                width="100vw" // screen width
-                height="100vh" // screen height
+                width="100%" // full width
+                height="100%" // full height
             />
         </GameProviders>
     );

@@ -1,0 +1,65 @@
+# Manage Preferences
+
+Preferences are settings that control the behavior of the player, e.g. auto-forwarding, skipping, etc.
+
+The easiest way to manage preferences is to use the `usePreference` hook.
+
+- for a list of preferences, see [GamePreference](../core/types/GamePreference).
+
+```tsx
+import { usePreference } from "narraleaf-react";
+```
+
+```tsx
+function AutoForwardButton() {
+    const [autoForward, setAutoForward] = usePreference("autoForward");
+
+    function triggerAutoForward() {
+        setAutoForward(current => !current);
+    }
+
+    return (
+        <div>
+            Auto Forward: {autoForward ? "Enabled" : "Disabled"}
+            
+            <button onClick={triggerAutoForward}>
+                Toggle Auto Forward
+            </button>
+        </div>
+    );
+}
+```
+
+## Example
+
+Here is an example of how to create an Auto Forward toggle button.
+
+```tsx
+import { usePreference, Top } from "narraleaf-react";
+
+const story = /* your story here */;
+
+function App() {
+    return (
+        <div style={{width: "100%", height: "100%"}}>
+            <GameProviders game={game}>
+                <Player
+                    story={story}
+                    width="100%"
+                    height="100%"
+                    onReady={({liveGame}) => {
+                        liveGame.newGame();
+                    }}
+                >
+
+                    <Top.Left>
+                        <AutoForwardButton /> {/* Add the AutoForwardButton component here */}
+                    </Top.Left>
+
+                </Player>
+            </GameProviders>
+        </div>
+    );
+}
+
+
