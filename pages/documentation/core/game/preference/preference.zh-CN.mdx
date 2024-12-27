@@ -121,3 +121,18 @@ const preferences = game.preference.exportPreferences();
 - Returns `Partial<T>`
 
 </Steps>
+
+### togglePreference\<K extends BooleanValueKeyOf\<T\>\>
+
+Toggle a boolean preference.
+
+<Steps>
+
+    ```typescript
+    game.preference.togglePreference("autoForward");
+    ```
+
+    - Returns `void`
+
+</Steps>
+

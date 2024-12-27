@@ -8,5 +8,6 @@
   "sound": "Play Sounds",
   "store-data": "Store Data",
   "conditional": "Conditional",
-  "voice": "Play Voices"
+  "voice": "Play Voices",
+  "manage-preferences": "Manage Preferences"
 }

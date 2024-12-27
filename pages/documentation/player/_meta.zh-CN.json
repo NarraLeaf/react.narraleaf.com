@@ -1,6 +1,7 @@
 {
     "player": "Player",
-    "game-providers": "Game Providers",
-    "position-utils": "Position Utils",
-    "box-utils": "Box Utils"
+    "game-providers": "GameProviders",
+    "position-utils": "定位实用组件",
+    "box-utils": "盒子实用组件",
+    "hooks": "钩子"
 }

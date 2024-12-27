@@ -1,48 +1,52 @@
 # namespace TransformDefinitions
 
 ```typescript
-import type { AnimationPlaybackControls, AnimationScope, AnimationSequence, DOMKeyframesDefinition, DynamicAnimationOptions, ElementOrSelector, MotionValue, ValueAnimationTransition } from "framer-motion";
+namespace TransformDefinitions {
+    export type BezierDefinition = [number, number, number, number];
+    export type CustomEasingFunction = (t: number) => number;
+    export type EasingDefinition =
+        CustomEasingFunction
+        | BezierDefinition
+        | "linear"
+        | "easeIn"
+        | "easeOut"
+        | "easeInOut"
+        | "circIn"
+        | "circOut"
+        | "circInOut"
+        | "backIn"
+        | "backOut"
+        | "backInOut"
+        | "anticipate";
 
-declare namespace TransformDefinitions {
-    type BezierDefinition = [number, number, number, number];
-    type CustomEasingFunction = (t: number) => number;
-    type EasingDefinition = CustomEasingFunction | BezierDefinition | "linear" | "easeIn" | "easeOut" | "easeInOut" | "circIn" | "circOut" | "circInOut" | "backIn" | "backOut" | "backInOut" | "anticipate";
-    type GenericKeyframesTarget<V> = [null, ...V[]] | V[];
-    type FramerAnimationScope<T> = AnimationScope<T>;
-    type FramerAnimate = {
-        <V>(from: V, to: V | GenericKeyframesTarget<V>, options?: ValueAnimationTransition<V> | undefined): AnimationPlaybackControls;
-        <V_1>(value: MotionValue<V_1>, keyframes: V_1 | GenericKeyframesTarget<V_1>, options?: ValueAnimationTransition<V_1> | undefined): AnimationPlaybackControls;
-        (value: ElementOrSelector, keyframes: DOMKeyframesDefinition, options?: DynamicAnimationOptions | undefined): AnimationPlaybackControls;
-        (sequence: AnimationSequence, options?: SequenceOptions | undefined): AnimationPlaybackControls;
-    };
-    type CommonTransformProps = {
+    export type CommonTransformProps = {
         duration: number;
         ease: EasingDefinition;
         delay: number;
     } & {
         sync: boolean;
     };
-    type TransformConfig = {
+    export type TransformConfig = {
         sync: boolean;
-    };
-    type CommonSequenceProps = {
+    }
+    export type CommonSequenceProps = {
         sync: boolean;
         repeat: number;
-    };
-    type ImageTransformProps = CommonDisplayable & {
+    }
+    export type ImageTransformProps = CommonDisplayable & {
         display: boolean;
         position: CommonDisplayable["position"];
     };
-    type TextTransformProps = ImageTransformProps & {
+    export type TextTransformProps = ImageTransformProps & {
         fontColor: color;
     };
-    type Types = ImageTransformProps | TextTransformProps | object;
-    type SequenceProps<T> = DeepPartial<T>;
-    type SequenceOptions = Partial<CommonTransformProps>;
-    type Sequence<T> = {
-        props: SequenceProps<T>;
-        options: SequenceOptions;
-    };
+    export type Types = ImageTransformProps | TextTransformProps | object;
+    export type SequenceProps<T> = DeepPartial<T>;
+    export type SequenceOptions = Partial<CommonTransformProps>;
+    export type Sequence<T> = {
+        props: SequenceProps<T>,
+        options: SequenceOptions
+    }
 }
 ```
 
@@ -50,3 +54,4 @@ For more information, please see:
 - [CommonDisplayable](./CommonDisplayable)
 - [RawPosition](./RawPosition)
 - [IPosition](./IPosition)
+- [color](./color)

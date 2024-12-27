@@ -1,4 +1,4 @@
-import { Callout, Tabs } from 'nextra/components';
+import { Callout } from 'nextra/components';
 
 # GameConfig
 
@@ -92,6 +92,10 @@ type GameConfig = {
          * Cursor height in pixels
          */
         cursorHeight: number;
+        /**
+         * Show overflowed content
+         */
+        showOverflow: boolean;
     };
     elements: {
         say: {
