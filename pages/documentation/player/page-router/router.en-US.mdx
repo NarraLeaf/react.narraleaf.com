@@ -1,0 +1,59 @@
+# Router
+
+Router is used to navigate between pages.
+
+```tsx
+import { useRouter } from "narraleaf-react";
+```
+
+## Public Methods
+
+### push
+
+Navigate to a page by its id.
+
+```tsx
+router.push("about");
+```
+
+The Game will navigate to the page with the id `about`.
+
+```tsx
+<Page id="about">
+    {/* These elements will be displayed */}
+    {/* Your content */}
+</Page>
+```
+
+- `id: string` - The id of the page.
+- Returns `this`
+
+### back
+
+Navigate to the previous page.
+
+This method will do nothing if there is no previous page.
+
+- Returns `this`
+
+### forward
+
+Navigate to the next page.
+
+This method will do nothing if there is no next page.
+
+- Returns `this`
+
+### cleanHistory
+
+Clean the navigation history.
+
+- Returns `this`
+
+### getCurrentId
+
+Get the current page id.
+
+- Returns `string`
+
+

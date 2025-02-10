@@ -3,5 +3,6 @@
     "game-providers": "GameProviders",
     "position-utils": "定位实用组件",
     "box-utils": "盒子实用组件",
-    "hooks": "钩子"
+    "hooks": "钩子",
+    "page-router": "页面路由"
 }
