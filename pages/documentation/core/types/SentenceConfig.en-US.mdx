@@ -2,15 +2,12 @@
 # SentenceConfig
 
 ```ts
-type SentenceConfig = {
-    pause?: boolean | number;
-    voice: Sound | null;
+type SentenceConfig = Partial<Omit<SentenceConfig, "voice"> & {
     character: Character | null;
     voiceId: string | number | null;
-} & Color & Font;
-type SentenceUserConfig = Partial<Omit<SentenceConfig, "voice"> & {
-    voice: Sound | string | null | undefined;
-}>;
+    color: Color;
+    voice: Sound | string | null | undefined
+} & Font>;
 ```
 
 For Color, see [color](./color#Color).

@@ -10,6 +10,8 @@ import {Callout, Tabs, Steps} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
+> This class extends [Displayble](./Displayable)
+
 Image is very important for a visual novel. It is used to show the appearance of the character. 
 
 In NarraLeaf-React, Image only controls the appearance of the character. It does not control the dialogues of the character. For that, you can use [Character](../character).
@@ -24,7 +26,7 @@ In NarraLeaf-React, Image only controls the appearance of the character. It does
     You cannot mix tag-based image and src-based image in the same image.
 </Callout>
 
-- `config: Partial<RichImageUserConfig<T>>` -Image config - [RichImageUserConfig](../types/RichImageUserConfig#RichImageUserConfig)
+- `config: Partial<IImageUserConfig>` - Image config, see [IImageUserConfig](../types/IImageUserConfig)
 
 #### Tag-based Image
 
@@ -34,15 +36,15 @@ Here is an example of tag-based image.
 
 ```typescript
 const image = new Image({
-    tag: {
+    src: {
         groups: [
             ["happy", "sad", "angry"],
             ["shirt", "jacket", "t-shirt"],
             ["trousers", "skirt", "shorts"],
         ],
         defaults: ["happy", "shirt", "trousers"],
+        resolve: (emotion, top, bottom) => `https://your/image/src/${emotion}_${top}_${bottom}.png`
     } as const,
-    src: (emotion, top, bottom) => `https://your/image/src/${emotion}_${top}_${bottom}.png`,
 });
 // The default image will be `https://your/image/src/happy_shirt_trousers.png`
 ```
@@ -53,7 +55,7 @@ const image = new Image({
 
 ```typescript
 const image = new Image({
-    tag: {
+    src: {
         groups: [
             ["a", "b", "c"],
             ["1", "2", "3"],
@@ -82,11 +84,15 @@ const image = new Image({
 You can add some wearables to the image.
 
 ```typescript
-const image = new Image("image-name", {
+const child = new Image({
     /* ... */
-    wearables: [new Image(/* ... */)],
 });
+const parent = new Image({
+    /* ... */
+}).wear(child);
 ```
+
+> **Note:** The image can only have one parent.
 
 </Steps>
 
@@ -104,40 +110,38 @@ const newImage = image.copy();
 
 </Steps>
 
-## Chainable Method
-
-### dispose
+### useLayer
 
 <Steps>
 
-Generally, **you do not need to call this method**. This method is used to dispose the image.  
-Disposed image will not be shown in the screen for the rest of the story.
+Use a layer for the image
 
-</Steps>
-
-### setSrc
-
-<Steps>
-
-- `src: string | StaticImageData` - The source of the image
-- `transition?: ITransition` - For ITransition, see [ITransition](../types/ITransition)
+- `layer: Layer` - [Layer](./layer)
 
 ```typescript
-image.setSrc("your/image/src", new Fade(1000));
+const layer = new Layer(/* ... */);
+
+image.useLayer(layer);
 ```
 
 </Steps>
 
-### setAppearance
+## Chainable Method
+
+### char
 
 <Steps>
 
-Set the appearance of the image.
+Set the figure of the character
 
-> **Note:** Use a full set of tags if possible, this will help the lib to predict the next appearance.
+- `src: ImageSrc | Color | SelectElementFromEach<Tags> | FlexibleTuple<SelectElementFromEach<Tags>>` - The source of the image
+- `transition?: ImageTransition` - For Transition, see [Transition](../animation/transition)
 
-- `tags: TagGroupDefinition ? FlexibleTuple<SelectElementFromEach<Tags>> : string[]` - Tags of the image
-- `transition?: IImageTransition` - For IImageTransition, see [IImageTransition](../types/IImageTransition)
+```typescript
+image.char("your/image/src", new Fade(1000));
+```
+
+or for tag-based image
 
 ```typescript
 // happy, shirt, trousers
@@ -162,88 +166,6 @@ image.setAppearance(["angry"], new Fade(1000));
 
 </Steps>
 
-### applyTransform
-
-<Steps>
-
-- `transform: Transform` - [Transform](../animation/transform)
-
-</Steps>
-
-### show
-
-<Steps>
-
-Show the image.
-
-#### Overload 1 of 3
-
-Show image immediately.
-
-```typescript
-image.show();
-```
-
-#### Overload 2 of 3
-
-Show image with custom transform.
-
-> **Note:** You have to add `alpha: 1` in the transform props to show the image.
-
-- `options: Transform` - [Transform](../animation/transform)
-
-#### Overload 3 of 3
-
-Show image with transform config. A transform with alpha:1 will be applied to the image.
-
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - See TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
-
-```typescript
-image.show({
-    duration: 1000,
-    ease: "easeInOut",
-});
-```
-
-</Steps>
-
-### hide
-
-<Steps>
-
-Hide the image.
-
-#### Overload 1 of 3
-
-Hide image immediately.
-
-```typescript
-image.hide();
-```
-
-#### Overload 2 of 3
-
-Hide image with custom transform.
-
-> **Note:** You have to add `alpha: 0` in the transform props to hide the image.
-
-- `options: Transform` - [Transform](../animation/transform)
-
-#### Overload 3 of 3
-
-Hide image with transform config. A transform with alpha:0 will be applied to the image.
-
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - See TransformDefinitions.[CommonTransformProps](../types/CommonTransformProps)
-
-```typescript
-image.hide({
-    duration: 1000,
-    ease: "easeInOut",
-});
-```
-
-</Steps>
-
 ### addWearable
 
 <Steps>
@@ -264,6 +186,14 @@ image.addWearable(childImage);
 
 </Steps>
 
+### wear
+
+<Steps>
+
+Alias of `addWearable`
+
+</Steps>
+
 ### bindWearable
 
 <Steps>
@@ -276,5 +206,13 @@ Bind this image to a parent image as a wearable
 ```typescript
 childImage.bindWearable(parentImage);
 ```
+
+</Steps>
+
+### asWearableOf
+
+<Steps>
+
+Alias of `bindWearable`
 
 </Steps>

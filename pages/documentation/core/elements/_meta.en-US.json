@@ -9,5 +9,7 @@
     "control": "Control",
     "text": "Text",
     "persistent": "Persistent",
-    "story": "Story"
+    "story": "Story",
+    "displayable": "Displayable",
+    "layer": "Layer"
 }

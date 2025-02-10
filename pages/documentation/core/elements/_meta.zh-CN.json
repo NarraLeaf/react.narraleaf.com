@@ -9,5 +9,7 @@
     "control": "控制",
     "text": "文本",
     "persistent": "持久化",
-    "story": "故事"
+    "story": "故事",
+    "displayable": "可视组件",
+    "layer": "图层"
 }

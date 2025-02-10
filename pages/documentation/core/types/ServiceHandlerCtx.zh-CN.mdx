@@ -1,0 +1,9 @@
+# ServiceHandlerCtx
+
+```typescript
+type ServiceHandlerCtx = ScriptCtx & {
+    onAbort: (handler: () => void) => void;
+};
+```
+
+For ScriptCtx, see [ScriptCtx](./ScriptCtx).

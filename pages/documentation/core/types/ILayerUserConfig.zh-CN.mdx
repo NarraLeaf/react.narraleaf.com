@@ -1,0 +1,15 @@
+# ILayerUserConfig
+
+```typescript
+interface ILayerUserConfig extends CommonDisplayableConfig {
+    /**
+     * The z-index of the layer, higher z-index will be rendered on top of the lower z-index, allows negative values.
+     *
+     * **Note**: the default background layer has a z-index of -1, and the default displayable layer has a z-index of 0.
+     */
+    zIndex: number;
+}
+```
+
+For CommonDisplayableConfig, see [CommonDisplayableConfig](./CommonDisplayableConfig)
+
