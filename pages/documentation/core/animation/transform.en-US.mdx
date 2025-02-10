@@ -36,7 +36,7 @@ new Transform<TransformDefinitions.ImageTransformProps>([
         }
     }
 ], {
-    sync: false,
+    repeat: 2,
 }),
 ```
 
@@ -47,7 +47,9 @@ A sequence of transformations is made of `props` and `options`:
 1. `props` is an object that contains the properties of the transformation. Like `position`, `rotation`, and `scale`.
 2. `options` is an object that contains the options of the transformation. Like `duration` and `ease`.
 
-For more information about TransformDefinitions, see [TransformDefinitions](../types/TransformDefinitions).
+## Transform Properties
+
+For a list of properties, see [TransformDefinitions](../types/TransformDefinitions).
 
 ## Static Methods
 
@@ -97,11 +99,9 @@ Apply the transform immediately.
 
 ## Public Methods
 
-### constructor
+### constructor\<T extends TransformDefinitions.Types\>
 
 <Steps>
-
-For more information, see [Advanced Transform](./advanced-transform).
 
 #### Overload 1 of 2
 
@@ -134,12 +134,12 @@ new Transform<TransformDefinitions.ImageTransformProps>([
         }
     }
 ], {
-    sync: false, // do not wait for all sequences to finish
+    repeat: 2,
 });
 ```
 
-- `sequences: TransformDefinitions.Sequence<T>[]` - An array of [Sequence](./advanced-transform#sequence)
-- `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - See [Transform Config](./advanced-transform#transform-config)
+- `sequences: TransformDefinitions.Sequence<T>[]` - An array of Sequence
+- `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - Transform Config
 
 #### Overload 2 of 2
 
@@ -183,28 +183,6 @@ transform
 
 </Steps>
 
-### overwrite\<T extends keyof TransformersMap = any\>
-
-<Steps>
-
-Overwrite a transformer
-
-Example: 
-
-```typescript
-transform.overwrite("position", (value) => {
-  return {left: value.x, top: value.y};
-});
-```
-
-**we don't recommend using this method**
-
-- `key: T` - The key of the transformer to overwrite. Can be one of the keys in [TransformersMap](../types/TransformersMap).
-- `transformer: (value: TransformersMap[T]) => TransformersMap[T]` - The transformer function.
-- `return: this`
-
-</Steps>
-
 ### copy
 
 <Steps>
@@ -215,13 +193,3 @@ Copy the transform.
 
 </Steps>
 
-## Next Steps
-
-<Cards num={1}>
-    <Cards.Card
-        title="Advanced Transform"
-        description="Advanced Transform"
-        href="./advanced-transform"
-        arrow
-    />
-</Cards>

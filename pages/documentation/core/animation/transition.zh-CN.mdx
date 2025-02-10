@@ -10,66 +10,22 @@ import {Callout, Cards} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
-在 NarraLeaf-React 中，过渡可以用于元素和场景背景。例如，您可以使用图像过渡来切换图像。
+In NarraLeaf-React, transitions can be used on specific elements to create visual effects. 
 
-```typescript
-image.setSrc("image1.png", new Dissolve(3000))
+## Example
+
+```tsx
+import { Dissolve } from "narraleaf-react";
 ```
 
-以下是过渡类型的列表：
-1. [ImageTransition](./transitions/IImageTransition)
-2. [TextTransition](./transitions/ITextTransition)
-
-您只能将特定的过渡应用于特定的元素。例如，您只能将 `IImageTransition` 应用于 `Image` 元素之上
-
-在 NarraLeaf-React 中有一些内置的过渡。如果您想自定义自己的过渡，请参见 [Advanced Transition](./advanced-transition).
-
-## 内置图像过渡
-
-### Dissolve
-
-当前图像将淡出，下一个图像将在同一时间淡入。
-
-```typescript
-constructor(duration?: number, easing?: TransformDefinitions.EasingDefinition);
+```tsx
+image.char("image1.jpg", new Dissolve(3000, "linear"));
 ```
 
-请参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
-### Fade
+## Built-in Transitions
 
-当前图像将淡出，下一个图像将淡入。
+### Image Transitions
 
-```typescript
-constructor(duration?: number, ease?: TransformDefinitions.EasingDefinition);
-```
-
-请参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
-
-### FadeIn
-
-下一个图像将以一个方向淡入。
-
-```typescript
-/**
- * @param direction 图像将从哪个方向移动
- * @param offset 图像移动的距离（以像素为单位）
- * @param duration 过渡的持续时间
- * @param easing 缓动函数
-*/
-constructor(direction: "left" | "right" | "top" | "bottom", offset: number, duration?: number, easing?: TransformDefinitions.EasingDefinition);
-```
-
-请参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
-
-## 下一步
-
-<Cards num={1}>
-    <Cards.Card
-        title="Advanced Transition"
-        description="Advanced Transition"
-        href="./advanced-transition"
-        arrow
-    />
-</Cards>
-
+- [Dissolve](./dissolve)
+- [Fade](./fade)

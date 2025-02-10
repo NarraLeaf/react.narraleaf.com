@@ -28,6 +28,7 @@
     "Choice": "Choice",
     "Coord2DPosition": "Coord2DPosition",
     "CommonDisplayable": "CommonDisplayable",
+    "CommonDisplayableConfig": "CommonDisplayableConfig",
     "CommonPositionType": "CommonPositionType",
     "CommonTransformProps": "CommonTransformProps",
     "Components": "Components",
