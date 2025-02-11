@@ -179,6 +179,31 @@ scene.action([
 ]);
 ```
 
+### Accessing Service
+
+After creating the service, you need to register it in the game.
+
+```typescript
+const story = new Story(/* ... */);
+story.registerService("gallery", gallery);
+```
+
+And you can access the service using ctx.
+
+```tsx
+// ex. in a component
+const {game} = useGame();
+const liveGame = game.getLiveGame();
+
+const gallery = liveGame.story?.getService<Gallery>("gallery");
+
+return (
+    {gallery && gallery.unlocked.map((name) => (
+        <div key={name}>{name}</div>
+    ))}
+);
+```
+
 ## Public Methods
 
 ### onAction\<K extends StringKeyOf\<Content\>\>

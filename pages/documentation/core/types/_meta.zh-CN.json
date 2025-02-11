@@ -11,6 +11,7 @@
     "ITextUserConfig": "ITextUserConfig",
     "ISceneUserConfig": "ISceneUserConfig",
     "ISoundUserConfig": "ISoundUserConfig",
+    "IStoryConfig": "IStoryConfig",
     "JumpConfig": "JumpConfig",
     "Lambda": "Lambda",
     "LambdaCtx": "LambdaCtx",

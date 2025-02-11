@@ -11,37 +11,12 @@ import {Callout, Tabs} from 'nextra/components';
 </Callout>
 
 ```typescript
-type ElementStateRaw = Record<string, any>;
-type RawData<T> = {
-    id: string;
-    data: T;
-};
-type PlayerStateData = {
-    scenes: {
-        sceneId: string;
-        elements: {
-            images: string[];
-        };
-    }[];
-};
 interface SavedGame {
     name: string;
     meta: {
         created: number;
         updated: number;
     };
-    game: {
-        store: {
-            [key: string]: StorableData;
-        };
-        elementStates: RawData<ElementStateRaw>[];
-        stage: PlayerStateData;
-        currentAction: string | null;
-    };
+    game: Record<string, any>;
 }
 ```
-
-For StoredData, see [StorableData](./StorableData)
-
-
-

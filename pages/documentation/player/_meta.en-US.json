@@ -1,8 +1,6 @@
 {
     "player": "Player",
     "game-providers": "GameProviders",
-    "position-utils": "Position Utils",
-    "box-utils": "Box Utils",
     "hooks": "Hooks",
     "page-router": "Page Router"
 }

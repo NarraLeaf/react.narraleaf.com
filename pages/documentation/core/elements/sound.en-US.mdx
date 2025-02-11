@@ -12,13 +12,6 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 Sound controls the sound of the game
 
-There are 4 types of sound:
-
-1. soundEffect
-2. music
-3. voice
-4. backgroundMusic
-
 ## Public Method
 
 ### constructor
@@ -27,7 +20,7 @@ There are 4 types of sound:
 
 #### Overload 1 of 2
 
-- `config?: DeepPartial<SoundConfig>` - See [SoundConfig](../types/SoundConfig)
+- `config?: Partial<ISoundUserConfig>` - See [ISoundUserConfig](../types/ISoundUserConfig)
 
 #### Overload 2 of 2
 
@@ -43,16 +36,16 @@ There are 4 types of sound:
 
 Play the sound
 
-> **Note:** `backgroundMusic` cannot be played with this method
-
 ```ts
 const sound = new Sound({
     src: 'sound.mp3',
 });
 scene.action([
-    sound.play(),
+    sound.play(1000), // play and fade in 1 second
 ]);
 ```
+
+- `duration?: number` - Fade duration in milliseconds
 
 </Steps>
 
@@ -62,7 +55,7 @@ scene.action([
 
 Stop the sound. After stopping, the sound will go back to the beginning
 
-> **Note:** `backgroundMusic` cannot be stopped with this method
+- `duration?: number` - Fade duration in milliseconds
 
 </Steps>
 
@@ -97,6 +90,7 @@ scene.action([
 Set the volume of the sound
 
 - `volume: number` - Volume, from 0 to 1
+- `duration?: number` - Fade duration in milliseconds
 
 </Steps>
 
@@ -114,7 +108,7 @@ Set the rate of the sound
 
 <Steps>
 
-- `fade?: number` - Fade duration in milliseconds
+- `duration?: number` - Fade duration in milliseconds
 
 </Steps>
 

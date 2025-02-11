@@ -14,6 +14,10 @@ LiveGame is the main class that represents the game's current state.
 
 The [Game](./game) instance
 
+### story
+
+The current [Story](../elements/story) instance
+
 ## Public Methods
 
 ### getStorable
@@ -118,5 +122,111 @@ Called when a menu is completed
 
 - `fc: (event: LiveGameEvent["event:menu.choose"]) => void` - See [LiveGameEvent](../types/LiveGameEvent#event%3Amenu.choose)
 - Returns `LiveGameEventToken` - See [LiveGameEventToken](../types/LiveGameEventToken)
+
+</Steps>
+
+### capturePng
+
+<Steps>
+
+Capture the game screenshot, will only include the player element
+
+Returns a PNG image base64-encoded data URL
+
+```typescript
+const {game} = useGame();
+
+function handleButtonClick() {
+    game.getLiveGame().capturePng().then((dataUrl) => {
+        // do something with the dataUrl
+    });
+}
+```
+
+- Returns `Promise<string>`
+
+</Steps>
+
+### captureJpeg
+
+<Steps>
+
+Capture the game screenshot, will only include the player element
+
+Returns compressed JPEG image data URL
+
+- Returns `Promise<string>`
+
+</Steps>
+
+### captureSvg
+
+<Steps>
+
+Capture the game screenshot, will only include the player element
+
+Returns an SVG data URL
+
+- Returns `Promise<string>`
+
+</Steps>
+
+### capturePngBlob
+
+<Steps>
+
+Capture the game screenshot, will only include the player element
+
+Returns a PNG image blob
+
+- Returns `Promise<Blob | null>`
+
+</Steps>
+
+### requestFullScreen
+
+<Steps>
+
+Request full screen on Chrome/Safari/Firefox/IE/Edge/Opera, the player element will be full screen
+
+**Note**: this method should be called in response to a user gesture (for example, a click event)
+
+Safari iOS and Webview iOS aren't supported, for more information, see [MDN-requestFullscreen](https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen)
+
+- `options?: FullscreenOptions | undefined`
+- Returns `Promise<void> | void`
+
+</Steps>
+
+### exitFullScreen
+
+<Steps>
+
+Exit full screen
+
+- Returns `Promise<void> | void`
+
+</Steps>
+
+### onPlayerEvent
+
+<Steps>
+
+Listen to the events of the player element
+
+```typescript
+const {game} = useGame();
+
+useEffect(() => {
+    return game.getLiveGame().onPlayerEvent("click", (event) => {
+        // do something
+    }).cancel;
+}, []);
+```
+
+- `type: K` - The event type
+- `listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any` - The event listener
+- `options?: boolean | AddEventListenerOptions`
+- Returns `LiveGameEventToken`
 
 </Steps>
