@@ -1,7 +1,4 @@
 {
     "transform": "Transform",
-    "transition": "Transition",
-    "advanced-transform": "Advanced Transform",
-    "advanced-transition": "Advanced Transition",
-    "transitions": "Transitions"
+    "transition": "Transition"
 }

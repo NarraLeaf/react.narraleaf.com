@@ -2,7 +2,8 @@
 
 ```ts
 type JumpConfig = {
-    transition: ITransition;
+    transition: ImageTransition;
+    unloadScene: boolean;
 };
 ```
 
@@ -10,5 +11,13 @@ type JumpConfig = {
 
 The transition effect when jumping to another scene.
 
-See [ITransition](./ITransition).
+For a list of image transitions, see [Transition](../animation/transition)
+
+## unloadScene
+
+> Default: `true`
+
+Unload the current scene when jumping to another scene.
+
+This property is not recommended to be used in most cases. 
 

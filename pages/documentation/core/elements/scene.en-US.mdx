@@ -2,6 +2,16 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Scene
 
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
+
+> This class extends [Displayble](./displayable)
+
 Scene contains multiple actions that can be performed on the scene. 
 
 For example, you can add a [Character](./character) Action to the scene
@@ -47,6 +57,45 @@ scene.action([
 
 </Steps>
 
+### background
+
+<Steps>
+
+This property is used to access the background [Image](./image) instance of the scene.
+
+```ts
+scene.background
+    .char("background.png", new Dissolve(1000, "linear"))
+```
+
+</Steps>
+
+### backgroundLayer
+
+<Steps>
+
+This property is used to access the background layer of the scene.  
+This layer contains the background image of the scene.
+
+```ts
+scene.backgroundLayer.opacity(0.5, 1000, "linear")
+```
+
+</Steps>
+
+### displayableLayer
+
+<Steps>
+
+This property is used to access the displayable layer of the scene.  
+This layer contains all the displayables that don't belong to any specific layer.
+
+```ts
+scene.displayableLayer.opacity(0.5, 1000, "linear")
+```
+
+</Steps>
+
 ## Public Method
 
 ### constructor
@@ -54,7 +103,7 @@ scene.action([
 <Steps>
 
 - `name: string` - Name of the scene
-- `config?: DeepPartial<SceneConfig>` - [SceneConfig](../types/SceneConfig)
+- `config?: Partial<ISceneUserConfig>` - [ISceneUserConfig](../types/IsceneUserConfig)
 
 </Steps>
 
@@ -85,56 +134,43 @@ story.entry(
 ```
 
 - `actions: ((scene: Scene) => ChainedAction[])` - Actions to be executed, see [ChainedActions](../types/ChainedActions)
-
-</Steps>
-
-### inherit
-
-<Steps>
-
-Inherit the configuration from another scene. Current scene's configuration will override the inherited configuration.
-
-- `scene: Scene` - The Scene instance to inherit from
 - Returns `this`
 
 </Steps>
 
+### preloadImage
+
+<Steps>
+
+Manually register image sources
+
+- `src: string | string[]` - The URL of the image or an array of URLs
+- Returns `this`
+
+</Steps>
+
+
 ## Chainable Method
-
-### activate
-
-<Steps>
-
-This is only used when auto activation is not working
-
-</Steps>
-
-### deactivate
-
-<Steps>
-
-This is only used when auto deactivation is not working
-
-</Steps>
 
 ### setBackground
 
 <Steps>
 
+Alias of `scene.background.char`.
+
 Set background of the scene. If the transition is provided, the background will be changed with the transition effect.
 
-- `background: Background` - [Background](../types/Background)
-- `transition?: ITransition` - [Transition](../types/ITransition)
+```typescript
+scene.action([
+    scene.setBackground("background.png")
 
-</Steps>
+    // is equivalent to
+    scene.background.char("background.png")
+]);
+```
 
-### applyTransform
-
-<Steps>
-
-Apply a transform to the background. Usually used for shaking or zooming effect.
-
-- `transform: Transform<TransformDefinitions.ImageTransformProps>` - [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[ImageTransformProps](../types/TransformDefinitions#ImageTransformProps)\>
+- `background: Color | ImageSrc` - See [Color](../types/color) or [ImageSrc](../types/imageSrc)
+- `transition?: ImageTransition` - For ImageTransition, see [Transition](../animation/transition)
 
 </Steps>
 
@@ -157,17 +193,19 @@ Jump to another scene. If the transition is provided, the scene will be changed 
 
 Sleep for a duration before executing the next action.
 
-#### Overload 1 of 3
+```typescript
+scene.action([
+    scene.sleep(1000)
+]);
+```
+
+#### Overload 1 of 2
 
 - `ms: number` - Duration in milliseconds
 
-#### Overload 2 of 3
+#### Overload 2 of 2
 
 - `promise: Promise<any>` - Promise to wait for
-
-#### Overload 3 of 3
-
-- `awaitable: Awaitable<any, any>` - unresolved [Awaitable](../types/Awaitable)
 
 </Steps>
 

@@ -1,0 +1,30 @@
+# CommonDisplayableConfig
+
+```typescript
+type CommonDisplayableConfig = {
+    /**
+     * Scale of the element, between 0 and 1
+     * @default 1
+     */
+    scale?: number;
+    /**
+     * Rotation of the element, in degrees
+     * @default 0
+     */
+    rotation?: number;
+    /**
+     * Position of the element
+     * @default {@link CommonPosition.Positions.Center}
+     */
+    position?: RawPosition | IPosition;
+    /**
+     * Opacity of the element, between 0 and 1
+     * @default 1
+     */
+    opacity?: number;
+    /**
+     * Alt text of the element
+     */
+    alt?: string;
+};
+```

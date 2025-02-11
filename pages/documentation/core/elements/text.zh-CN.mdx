@@ -10,165 +10,74 @@ import {Callout, Tabs, Steps} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
-文本允许您在屏幕上显示文本。
+> This class extends [Displayble](./displayable)
 
-例如：
+Text allows you to display text on the screen.
+
+For example: 
 
 ```ts
-const t1 = new Text("之后，发生了另一个故事...", {
+const t1 = new Text("After that, another story happened...", {
     position: CommonPosition.Positions.Center,
     fontColor: "#f00",
     fontSize: 20,
 });
 
-// 将背景变为黑色并添加淡入效果
-// 然后显示文本 "之后，发生了另一个故事..."
-scene2.setBackground("#000", new Fade(1000));
-t1
-    .show({
+// turn the background to black with fade effect
+// then show a text "After that, another story happened..."
+scene2.action([
+    scene2.setBackground("#000", new Fade(1000)),
+    t1.show({
         duration: 1000,
         ease: "easeInOut",
-    });
+    }),
+
+    // wait for 1000 milliseconds
+    Control.sleep(1000),
+
+    // hide the text
+    t1.hide({
+        duration: 1000,
+        ease: "easeInOut",
+    }),
+]);
 ```
 
-## 公共方法
+## Public Method
 
 ### constructor
 
 <Steps>
 
-#### 重载 1 / 2
+#### Overload 1 of 2
 
-- `config: Partial<TextConfig>` - [TextConfig](../types/TextConfig)
+- `config: Partial<ITextUserConfig>` - [ITextUserConfig](../types/ITextUserConfig)
 
-#### 重载 2 / 2
+#### Overload 2 of 2
 
-- `text: string` - 文本的内容
-- `config?: Partial<TextConfig>` - [TextConfig](../types/TextConfig)
+- `text: string` - The content of the text
+- `config?: Partial<ITextUserConfig>` - [ITextUserConfig](../types/ITextUserConfig)
+
+</Steps>
+
+### useLayer
+
+<Steps>
+
+set the [Layer](./layer) of the text
+
+- `layer: Layer` - The layer to use
+- Returns `this`
 
 </Steps>
 
 ## Chainable Method
 
-### applyTransform
-
-<Steps>
-
-- `transform: Transform<TransformDefinitions.TextTransformProps>` - 参见 [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
-
-</Steps>
-
-### applyTransition
-
-<Steps>
-
-- `transition: ITextTransition` - 参见 [ITextTransition](../animation/transitions/ITextTransition)
-
-</Steps>
-
-### show
-
-<Steps>
-
-#### 重载 1 / 3
-
-立即显示文本
-
-```ts
-text.show();
-```
-
-#### 重载 2 / 3
-
-使用自定义变换显示文本
-
-> **注意**: 您需要在属性中添加 "opacity: 1" 使文本可见
-
-```ts
-text.show(new Transform<TransformDefinitions.TextTransformProps>([
-    {
-        props: {
-            opacity: 1,
-        },
-        options: {
-            duration: 1000,
-            ease: "easeInOut",
-        },
-    }
-]));
-```
-
-- `options: Transform<TransformDefinitions.TextTransformProps>` - 参见 [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
-
-#### 重载 3 / 3
-
-使用变换配置显示文本
-
-```ts
-text.show({
-    duration: 1000,
-    ease: "easeInOut",
-});
-```
-
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - 参见 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
-
-</Steps>
-
-### hide
-
-<Steps>
-
-#### 重载 1 / 3
-
-立即隐藏文本
-
-```ts
-text.hide();
-```
-
-#### 重载 2 / 3
-
-使用自定义变换隐藏文本
-
-> **注意：**: 您需要在属性中添加 "opacity: 0" 使文本不可见
-
-```ts
-text.hide(new Transform<TransformDefinitions.TextTransformProps>([
-    {
-        props: {
-            opacity: 0,
-        },
-        options: {
-            duration: 1000,
-            ease: "easeInOut",
-        },
-    }
-]));
-```
-
-- `options: Transform<TransformDefinitions.TextTransformProps>` - 参见 [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
-
-#### 重载 3 / 3
-
-使用变换配置隐藏文本
-
-```ts
-text.hide({
-    duration: 1000,
-    ease: "easeInOut",
-});
-```
-
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - 参见 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
-
-</Steps>
-
 ### setText
 
 <Steps>
 
-- `text: string` - 文本的内容
+- `text: string` - The content of the text
 
 </Steps>
 
@@ -176,8 +85,30 @@ text.hide({
 
 <Steps>
 
+```ts
+// set the font size of the text to 20 pixels with transition
+element.setFontSize(20, 1000, "easeInOut");
+```
+
 - `fontSize: number` - The font size of the text in pixels
 - `duration?: number` - The duration of the transition in milliseconds
 - `easing?: TransformDefinitions.EasingDefinition` - The easing function of the transition, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 </Steps>
+
+### setFontColor
+
+<Steps>
+
+```ts
+// set the font color of the text to red with transition
+element.setFontColor("#f00", 1000, "easeInOut");
+```
+
+- `color: Color` - See [Color](../types/color)
+- `duration?: number` - The duration of the transition in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function of the transition, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+

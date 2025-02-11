@@ -1,0 +1,51 @@
+import { Steps } from "nextra/components";
+
+# Layer
+
+> This class extends [Displayble](./displayable)
+
+You can manage the layers of the displayables by using the `Layer` class.
+
+## Usage
+
+```typescript
+import {Layer} from "narraleaf-react";
+```
+
+```typescript
+const layer = new Layer("layer name", {
+    zIndex: 1
+});
+
+const scene = new Scene("scene with layers", {
+    layers: [layer] // register the layer to the scene
+});
+
+const image = new Image({ /* ... */}).useLayer(layer); // link the image to the layer
+```
+
+```typescript
+layer.opacity(0.5, 1000, "linear"); // change the opacity of the layer, all elements linked to the layer will be affected
+```
+
+## Public Methods
+
+### constructor
+
+<Steps>
+
+- `name?: string` - The name of the layer
+- `config?: Partial<ILayerUserConfig>` - The configuration of the layer, see [ILayerUserConfig](../types/ILayerUserConfig)
+
+</Steps>
+
+### include
+
+<Steps>
+
+Include the displayable to the layer.
+
+- `elements: (Image | Text)[] | Image | Text` - The displayable to include, ex. [Image](./image), [Text](./text)
+- Returns `this`
+
+</Steps>

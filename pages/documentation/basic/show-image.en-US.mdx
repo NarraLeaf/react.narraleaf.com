@@ -77,7 +77,7 @@ You can change the image by updating the image source.
 
 ```typescript
 scene1.action([
-    character1Happy.setSrc("https://NEW_IMAGE_URL"),
+    character1Happy.char("https://NEW_IMAGE_URL"),
 ]);
 ```
 
@@ -89,7 +89,7 @@ import {Fade} from "narraleaf-react";
 
 ```typescript
 scene1.action([
-    character1Happy.setSrc("https://NEW_IMAGE_URL", new Fade(300)),
+    character1Happy.char("https://NEW_IMAGE_URL", new Fade(300)),
 ]);
 ```
 
@@ -122,7 +122,7 @@ const image = new Image({
 
 scene1.action([
     image.show(),
-    image.setAppearance(["angry", "shorts"], new Fade(1000)), // change the image to `https://your/image/src/angry_shirt_shorts.png`
+    image.char(["angry", "shorts"], new Fade(1000)), // change the image to `https://your/image/src/angry_shirt_shorts.png`
 ]);
 ```
 
@@ -139,7 +139,7 @@ import {Transform, CommonPosition} from "narraleaf-react";
 ```typescript
 // Move the image to the right side of the screen
 scene1.action([
-    character1Happy.applyTransform(new Transform({
+    character1Happy.transform(new Transform({
         position: "right",
     }, {
         duration: 120,
@@ -150,7 +150,7 @@ scene1.action([
 // or
 
 scene1.action([
-    character1Happy.applyTransform(Transform.left(120, "easeOut")),
+    character1Happy.transform(Transform.left(120, "easeOut")),
 ]);
 ```
 

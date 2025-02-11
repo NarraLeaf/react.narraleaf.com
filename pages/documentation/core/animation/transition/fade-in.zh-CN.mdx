@@ -1,0 +1,23 @@
+# FadeIn
+
+> This transition is designed for [Image](../../elements/image) elements.
+
+Fade in from the current image to the next image.  
+The next image will fade in.
+
+## Usage
+
+```tsx
+import { FadeIn } from "narraleaf-react";
+
+image.char("image1.jpg", new FadeIn(3000));
+```
+
+## Public Methods
+
+### constructor
+
+- `duration: number` - The duration of the transition in milliseconds
+- `startPos: [xOffset: number, yOffset: number]` - The starting position of the image, default is `[0, 0]`. For example, `[50, 50]` will start the image 50 pixels to the right and 50 pixels up.
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function, see [TransformDefinitions](../../types/TransformDefinitions).[EasingDefinition](../../types/TransformDefinitions#EasingDefinition)
+

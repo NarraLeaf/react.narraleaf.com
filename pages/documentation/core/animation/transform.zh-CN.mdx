@@ -36,7 +36,7 @@ new Transform<TransformDefinitions.ImageTransformProps>([
         }
     }
 ], {
-    sync: false,
+    repeat: 2,
 }),
 ```
 
@@ -47,7 +47,9 @@ new Transform<TransformDefinitions.ImageTransformProps>([
 1. `props` 是一个包含变换属性的对象，如 `position`、`rotation` 和 `scale`。
 2. `options` 是一个包含变换选项的对象，如 `duration` 和 `ease`。
 
-有关 TransformDefinitions 的更多信息，请参见 [TransformDefinitions](../types/TransformDefinitions).
+## Transform Properties
+
+For a list of properties, see [TransformDefinitions](../types/TransformDefinitions).
 
 ## Static Methods
 
@@ -97,7 +99,7 @@ Move the image to the center of the stage.
 
 ## Public Methods
 
-### constructor
+### constructor\<T extends TransformDefinitions.Types\>
 
 <Steps>
 
@@ -134,12 +136,12 @@ new Transform<TransformDefinitions.ImageTransformProps>([
         }
     }
 ], {
-    sync: false, // do not wait for all sequences to finish
+    repeat: 2,
 });
 ```
 
-- `sequences: TransformDefinitions.Sequence<T>[]` - An array of [Sequence](./advanced-transform#sequence)
-- `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - See [Transform Config](./advanced-transform#transform-config)
+- `sequences: TransformDefinitions.Sequence<T>[]` - An array of Sequence
+- `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - Transform Config
 
 #### Overload 2 of 2
 
@@ -183,28 +185,6 @@ transform
 
 </Steps>
 
-### overwrite\<T extends keyof TransformersMap = any\>
-
-<Steps>
-
-Overwrite a transformer
-
-Example: 
-
-```typescript
-transform.overwrite("position", (value) => {
-  return {left: value.x, top: value.y};
-});
-```
-
-**we don't recommend using this method**
-
-- `key: T` - The key of the transformer to overwrite. Can be one of the keys in [TransformersMap](../types/TransformersMap).
-- `transformer: (value: TransformersMap[T]) => TransformersMap[T]` - The transformer function.
-- `return: this`
-
-</Steps>
-
 ### copy
 
 <Steps>
@@ -214,14 +194,3 @@ Copy the transform.
 - `return: Transform<T>`
 
 </Steps>
-
-## Next Steps
-
-<Cards num={1}>
-    <Cards.Card
-        title="Advanced Transform"
-        description="Advanced Transform"
-        href="./advanced-transform"
-        arrow
-    />
-</Cards>

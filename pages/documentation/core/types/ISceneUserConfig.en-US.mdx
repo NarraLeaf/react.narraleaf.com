@@ -1,0 +1,32 @@
+# ISceneUserConfig
+
+```typescript
+interface ISceneUserConfig {
+    /**
+     * Background music
+     */
+    backgroundMusic: Sound | null;
+    /**
+     * Background music fade duration, in milliseconds
+     */
+    backgroundMusicFade: number;
+    /**
+     * Voice map or a function that returns the voice URL
+     */
+    voices?: VoiceIdMap | VoiceSrcGenerator;
+    /**
+     * Background src, can be a {@link Color} or an {@link Image}
+     */
+    background: ImageSrc | Color;
+    /**
+     * An array of {@link Layer}s
+     */
+    layers: Layer[];
+}
+```
+
+- For Sound, see [Sound](../elements/sound)
+- For VoiceIdMap and VoiceSrcGenerator, see [ISoundUserConfig](./ISoundUserConfig).
+- For ImageSrc, see [ImageSrc](./ImageSrc).
+- For Color, see [Color](./color).
+- For Layer, see [Layer](../elements/layer).

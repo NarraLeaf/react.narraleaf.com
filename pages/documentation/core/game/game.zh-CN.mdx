@@ -36,3 +36,28 @@ For ComponentsTypes, see [ComponentsTypes](../types/ComponentsTypes)
 ### getLiveGame
 
 - `return: LiveGame` - the [LiveGame](./live-game) instance
+
+### configure
+
+Assign a new configuration to the game
+
+```typescript
+const { game } = useGame();
+
+useEffect(() => {
+    game.configure({
+        app: {
+            debug: true,
+            logger: true,
+        },
+        player: {
+            ratioUpdateInterval: 0, // update the player size immediately
+
+            /* cursor */
+            cursor: "cursor.jpeg",
+            cursorHeight: 60,
+            cursorWidth: 60,
+        }
+    });
+}, []);
+```

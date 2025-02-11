@@ -1,0 +1,172 @@
+import {Steps} from "nextra/components";
+
+# Displayable
+
+Displayable defines all the properties and methods that a displayable element should have. Displayable elements are elements that can be displayed on the screen.  
+Ex. Image, Text
+
+## Chainable Methods
+
+### pos
+
+<Steps>
+
+Transform the element to a new position.
+
+```typescript
+element.pos({
+    xalign: 0.3
+}, 1000, "linear"); // Move the element to x: 0.3 in 1000ms with linear ease.
+```
+
+- `position: CommonDisplayableConfig["position"]` - The new position of the element, see [CommonDisplayableConfig](../types/CommonDisplayable#position)
+- `duration?: number` - The duration of the transform in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### scale
+
+<Steps>
+
+Scale the element.
+
+```typescript
+element.scale(2, 1000, "easeInOut"); // Scale the element to 2x in 1000ms with easeInOut ease.
+```
+
+- `scale: number` - The new scale of the element, between 0 and 1
+- `duration?: number` - The duration of the transform in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### rotate
+
+<Steps>
+
+Rotate the element.
+
+```typescript
+element.rotate(90, 1000, "easeInOut"); // Rotate the element to 90 degrees in 1000ms with easeInOut ease.
+```
+
+- `angle: number` - The new angle of the element in degrees
+- `duration?: number` - The duration of the transform in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### opacity
+
+<Steps>
+
+Change the opacity of the element.
+
+```typescript
+element.opacity(0.5, 1000, "easeInOut"); // Change the opacity of the element to 0.5 in 1000ms with easeInOut ease.
+```
+
+- `opacity: number` - The new opacity of the element, between 0 and 1
+- `duration?: number` - The duration of the transform in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### transform
+
+<Steps>
+
+Apply a custom transform to the element.
+
+```typescript
+element.transform(new Transform(
+    /* Transform Definitions */
+));
+```
+
+- `transform: Transform` - The custom transform to apply to the element, see [Transform](../animation/transform)
+
+</Steps>
+
+### show
+
+<Steps>
+
+#### Overload 1 of 3
+
+Show the element immediately.
+
+```typescript
+element.show();
+```
+
+#### Overload 2 of 3
+
+Show the element with custom transform.
+
+```typescript
+element.show({
+    /* Transform Definitions */
+});
+```
+
+- `options: Transform` - The custom transform to apply to the element, see [Transform](../animation/transform)
+
+#### Overload 3 of 3
+
+Show the element with transform config. A transform with alpha:1 will be applied to the element.
+
+```typescript
+element.show({
+    duration: 1000,
+    ease: "easeInOut",
+});
+```
+
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
+
+</Steps>
+
+### hide
+
+<Steps>
+
+#### Overload 1 of 3
+
+Hide the element immediately.
+
+```typescript
+element.hide();
+```
+
+#### Overload 2 of 3
+
+Hide the element with custom transform.
+
+```typescript
+element.hide({
+    /* Transform Definitions */
+});
+```
+
+- `options: Transform` - The custom transform to apply to the element, see [Transform](../animation/transform)
+
+#### Overload 3 of 3
+
+Hide the element with transform config. A transform with alpha:0 will be applied to the element.
+
+```typescript
+element.hide({
+    duration: 1000,
+    ease: "easeInOut",
+});
+```
+
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
+
+</Steps>
+
+
+
+

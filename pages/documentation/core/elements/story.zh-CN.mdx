@@ -28,7 +28,7 @@ story.entry(scene1);
 <Steps>
 
 - `name: string` - Name of the story
-- `config: StoryConfig = {}` - _In Development_
+- `config: IStoryConfig` - See [IStoryConfig](../types/IStoryConfig)
 
 </Steps>
 
@@ -43,6 +43,8 @@ story.entry(scene1);
 
 ### registerScene
 
+<Steps>
+
 Scenes that are registered can be accessed by their name. For exmaple, you can jump to a scene by its name.
 
 ```ts
@@ -55,14 +57,12 @@ scene1.action([
 
 const story = new Story("story name");
 story.registerScene("scene 2", scene2);
-
 ```
-
-<Steps>
 
 #### Overload 1 of 2
 
 - `scene: Scene` - The scene to be registered
+- Returns `this`
 
 #### Overload 2 of 2
 
@@ -70,10 +70,13 @@ This overload allows you to pass the scene alias and the scene instance.
 
 - `name: string` - Name of the scene
 - `scene: Scene` - The scene to be registered
+- Returns `this`
 
 </Steps>
 
 ### registerPersistent
+
+<Steps>
 
 You have to register the persistent to make it available in the story.
 
@@ -88,3 +91,46 @@ scene1.action([
     persis.set(/* ... */, /* ... */)
 ]);
 ```
+
+- `persistent: Persistent<any>` - The [Persistent](../elements/persistent) to be registered
+- Returns `this`
+
+</Steps>
+
+### registerService
+
+<Steps>
+
+Register a service. For more information, see [Service](../elements/service).
+
+```ts
+const story = new Story(/* ... */);
+const gallery = new Gallery(/* ... */);
+
+story.registerService("gallery", gallery);
+```
+
+- `name: string` - Name of the service
+- `service: Service<any>` - The [Service](../elements/service) to be registered
+- Returns `this`
+
+</Steps>
+
+### getService\<T extends Service\>
+
+<Steps>
+
+Get the service by its name. Throws an error if the service is not found.
+
+```tsx
+const {game} = useGame();
+const liveGame = game.getLiveGame();
+
+const gallery = liveGame.story?.getService<Gallery>("gallery");
+```
+
+- `name: string` - Name of the service
+- Returns `T`
+
+</Steps>
+

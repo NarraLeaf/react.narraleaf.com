@@ -1,0 +1,21 @@
+# Dissolve
+
+> This transition is designed for [Image](../../elements/image) elements.
+
+Dissolve from the current image to the next image.  
+The current image will fade out, and the next image will fade in at the same time.
+
+## Usage
+
+```tsx
+import { Dissolve } from "narraleaf-react";
+
+image.char("image1.jpg", new Dissolve(3000));
+```
+
+## Public Methods
+
+### constructor
+
+- `duration: number` - The duration of the transition in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function, see [TransformDefinitions](../../types/TransformDefinitions).[EasingDefinition](../../types/TransformDefinitions#EasingDefinition)

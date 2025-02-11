@@ -1,0 +1,63 @@
+# Page
+
+Page is used to display the content of a page.
+
+```tsx
+import { Page } from "narraleaf-react";
+```
+
+```tsx
+<Page id="about">
+    {/* These elements will be displayed */}
+    {/* Your content */}
+</Page>
+```
+
+## Props
+
+### id
+
+The unique id of the page.
+
+- Type: `string`
+
+### children
+
+The content of the page.
+
+- Type: `React.ReactNode`
+
+### className
+
+The class name of the page.
+
+- Type: `string`
+
+### style
+
+The CSS style of the page.
+
+- Type: `React.CSSProperties`
+
+### ...rest
+
+extends `HTMLMotionProps<"div">`
+
+You can pass motion props to the page.  
+This motion behavior is provided by [Motion](https://motion.dev/).
+
+- Type: `HTMLMotionProps<"div">`
+
+For example, you can add transitions between pages. 
+
+```tsx
+<Page
+    id="about"
+
+    // Motion props
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1, transition: { duration: 1 } }}
+    exit={{ opacity: 0, transition: { duration: 1 } }}
+>
+    ...
+</Page>

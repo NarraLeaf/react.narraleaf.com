@@ -1,0 +1,91 @@
+# Page Router
+
+In NarraLeaf-React 0.3.0, we introduced the new way to customize the user interface of the player.  
+Your UI content is now abstracted into pages, and you can navigate between them using the Page Router API.
+
+Elements in a page will be scaled to fit the player's size.
+
+## Example
+
+```tsx
+import { Page, Player, useRouter } from "narraleaf-react";
+```
+
+```tsx
+function GameApp() {
+    // Get the router instance
+    const router = useRouter();
+
+    return (
+        <Player
+            router={router}
+        >
+            {/* Your pages */}
+            <Page id="about" className="...">
+                <span>about</span>
+            </Page>
+
+            <Page id="contact" className="...">
+                <span>contact</span>
+            </Page>
+        </Player>
+    );
+}
+```
+
+## Page Router API
+
+### useRouter
+
+In Page Router API, a router instance is used to navigate between pages.  
+You can get the router instance by using the `useRouter` hook.
+
+```tsx
+import { useEffect } from "react";
+import { useRouter } from "narraleaf-react";
+```
+
+```tsx
+const router = useRouter();
+
+// you can navigate to a page by using the `router` instance
+useEffect(() => {
+    router.push("about");
+    router.back();
+    router.forward();
+    router.cleanHistory();
+}, []);
+
+// and access the current page id
+console.log(router.getCurrentId());
+```
+
+After getting the router instance, you need to pass it to the `Player` component.
+
+```tsx
+<Player
+    router={router}
+>
+    {/* Your pages */}
+</Player>
+```
+
+For more information, please check [Router](./page-router/router) and [useRouter](./hooks/useRouter).
+
+### Page
+
+Page is used to define the content of a page.
+
+```tsx
+import { Page } from "narraleaf-react";
+```
+
+```tsx
+<Page id="about" className="...">
+    <span>about</span>
+    <p>...</p>
+</Page>
+```
+
+For more information, please check [Page](./page-router/page).
+
