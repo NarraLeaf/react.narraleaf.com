@@ -56,5 +56,6 @@
     "Origins": "Origins",
     "OffsetPosition": "OffsetPosition",
     "PauseConfig": "PauseConfig",
-    "PreferenceEventToken": "PreferenceEventToken"
+    "PreferenceEventToken": "PreferenceEventToken",
+    "FadeOptions": "FadeOptions"
 }

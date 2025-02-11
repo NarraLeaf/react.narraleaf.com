@@ -2,7 +2,7 @@
 
 ```ts
 type ChainedAction = Proxied<GameElement, Chained<LogicAction.Actions>>;
-type ChainedActions = (ChainedAction | ChainedAction[] | Actions | Actions[])[];
+type ChainedActions = (Proxied<LogicAction.GameElement, Chained<LogicAction.Actions>> | LogicAction.Actions)[];
 ```
 
 Example:
