@@ -11,5 +11,6 @@
     "persistent": "Persistent",
     "story": "Story",
     "displayable": "Displayable",
-    "layer": "Layer"
+    "layer": "Layer",
+    "service": "Service"
 }

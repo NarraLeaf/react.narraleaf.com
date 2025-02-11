@@ -10,7 +10,7 @@ import {Callout, Tabs, Steps} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
-> This class extends [Displayble](./Displayable)
+> This class extends [Displayble](./displayable)
 
 Image is very important for a visual novel. It is used to show the appearance of the character. 
 
@@ -81,7 +81,8 @@ const image = new Image({
 
 #### Wearable Image
 
-You can add some wearables to the image.
+You can add some wearables to the image.  
+The wearable image will move/scale/animate with the main image.
 
 ```typescript
 const child = new Image({
@@ -135,7 +136,7 @@ image.useLayer(layer);
 Set the figure of the character
 
 - `src: ImageSrc | Color | SelectElementFromEach<Tags> | FlexibleTuple<SelectElementFromEach<Tags>>` - The source of the image
-- `transition?: ImageTransition` - For Transition, see [Transition](../animation/transition)
+- `transition?: ImageTransition` - For ImageTransition, see [Transition](../animation/transition)
 
 ```typescript
 image.char("your/image/src", new Fade(1000));

@@ -1,0 +1,39 @@
+# ITextUserConfig
+
+```typescript
+interface ITextUserConfig extends CommonDisplayableConfig {
+    /**
+     * Where to align the text horizontally
+     * @default "center"
+     */
+    alignX: "left" | "center" | "right";
+    /**
+     * Where to align the text vertically
+     * @default "center"
+     */
+    alignY: "top" | "center" | "bottom";
+    className?: string;
+    /**
+     * The font size of the text, see [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
+     *
+     * **Only supports px unit**
+     * @default 16
+     */
+    fontSize: number;
+    /**
+     * The color of the text, supports {@link Color} and hex string
+     * @default "#000000"
+     */
+    fontColor: Color;
+    /**
+     * The text content
+     */
+    text: string;
+    /**
+     * Layer of the text
+     */
+    layer?: Layer;
+}
+```
+
+For CommonDisplayableConfig, see [CommonDisplayableConfig](./CommonDisplayableConfig).

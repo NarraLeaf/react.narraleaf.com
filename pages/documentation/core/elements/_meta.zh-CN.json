@@ -11,5 +11,6 @@
     "persistent": "持久化",
     "story": "故事",
     "displayable": "可视组件",
-    "layer": "图层"
+    "layer": "图层",
+    "service": "服务"
 }

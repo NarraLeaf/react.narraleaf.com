@@ -10,6 +10,8 @@ import {Callout, Tabs, Steps} from 'nextra/components';
     Beta feature, subject to change.
 </Callout>
 
+> This class extends [Displayble](./displayable)
+
 Text allows you to display text on the screen.
 
 For example: 
@@ -23,12 +25,22 @@ const t1 = new Text("After that, another story happened...", {
 
 // turn the background to black with fade effect
 // then show a text "After that, another story happened..."
-scene2.setBackground("#000", new Fade(1000));
-t1
-    .show({
+scene2.action([
+    scene2.setBackground("#000", new Fade(1000)),
+    t1.show({
         duration: 1000,
         ease: "easeInOut",
-    });
+    }),
+
+    // wait for 1000 milliseconds
+    Control.sleep(1000),
+
+    // hide the text
+    t1.hide({
+        duration: 1000,
+        ease: "easeInOut",
+    }),
+]);
 ```
 
 ## Public Method
@@ -39,130 +51,27 @@ t1
 
 #### Overload 1 of 2
 
-- `config: Partial<TextConfig>` - [TextConfig](../types/TextConfig)
+- `config: Partial<ITextUserConfig>` - [ITextUserConfig](../types/ITextUserConfig)
 
 #### Overload 2 of 2
 
 - `text: string` - The content of the text
-- `config?: Partial<TextConfig>` - [TextConfig](../types/TextConfig)
+- `config?: Partial<ITextUserConfig>` - [ITextUserConfig](../types/ITextUserConfig)
+
+</Steps>
+
+### useLayer
+
+<Steps>
+
+set the [Layer](./layer) of the text
+
+- `layer: Layer` - The layer to use
+- Returns `this`
 
 </Steps>
 
 ## Chainable Method
-
-### applyTransform
-
-<Steps>
-
-- `transform: Transform<TransformDefinitions.TextTransformProps>` - See [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
-
-</Steps>
-
-### applyTransition
-
-<Steps>
-
-- `transition: ITextTransition` - See [ITextTransition](../animation/transitions/ITextTransition)
-
-</Steps>
-
-### show
-
-<Steps>
-
-#### Overload 1 of 3
-
-Show the image immediately
-
-```ts
-text.show();
-```
-
-#### Overload 2 of 3
-
-Show the image with custom transform
-
-> **Note**: You need to add "opacity: 1" in the props to make the image visible
-
-```ts
-text.show(new Transform<TransformDefinitions.TextTransformProps>([
-    {
-        props: {
-            opacity: 1,
-        },
-        options: {
-            duration: 1000,
-            ease: "easeInOut",
-        },
-    }
-]));
-```
-
-- `options: Transform<TransformDefinitions.TextTransformProps>` - See [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
-
-#### Overload 3 of 3
-
-Show with transform config
-
-```ts
-text.show({
-    duration: 1000,
-    ease: "easeInOut",
-});
-```
-
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
-
-</Steps>
-
-### hide
-
-<Steps>
-
-#### Overload 1 of 3
-
-Hide the image immediately
-
-```ts
-text.hide();
-```
-
-#### Overload 2 of 3
-
-Hide the image with custom transform
-
-> **Note**: You need to add "opacity: 0" in the props to make the image invisible
-
-```ts
-text.hide(new Transform<TransformDefinitions.TextTransformProps>([
-    {
-        props: {
-            opacity: 0,
-        },
-        options: {
-            duration: 1000,
-            ease: "easeInOut",
-        },
-    }
-]));
-```
-
-- `options: Transform<TransformDefinitions.TextTransformProps>` - See [Transform](../animation/transform)\<[TransformDefinitions](../types/TransformDefinitions).[TextTransformProps](../types/TransformDefinitions#TextTransformProps)>
-
-#### Overload 3 of 3
-
-Hide with transform config
-
-```ts
-text.hide({
-    duration: 1000,
-    ease: "easeInOut",
-});
-```
-
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
-
-</Steps>
 
 ### setText
 
@@ -176,8 +85,30 @@ text.hide({
 
 <Steps>
 
+```ts
+// set the font size of the text to 20 pixels with transition
+element.setFontSize(20, 1000, "easeInOut");
+```
+
 - `fontSize: number` - The font size of the text in pixels
 - `duration?: number` - The duration of the transition in milliseconds
 - `easing?: TransformDefinitions.EasingDefinition` - The easing function of the transition, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 </Steps>
+
+### setFontColor
+
+<Steps>
+
+```ts
+// set the font color of the text to red with transition
+element.setFontColor("#f00", 1000, "easeInOut");
+```
+
+- `color: Color` - See [Color](../types/color)
+- `duration?: number` - The duration of the transition in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function of the transition, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+

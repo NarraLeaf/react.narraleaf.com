@@ -2,15 +2,14 @@
 # SentenceConfig
 
 ```ts
-type SentenceConfig = Partial<Omit<SentenceConfig, "voice"> & {
+type SentenceConfig = Partial<{
     character: Character | null;
-    voiceId: string | number | null;
     color: Color;
+    voiceId: string | number | null;
     voice: Sound | string | null | undefined
 } & Font>;
 ```
 
-For Color, see [color](./color#Color).
 For Font, see [Font](./Font).
 
 ## voice
@@ -59,3 +58,25 @@ const voiceScene = new Scene("voice-scene", {
 ## character
 
 The character that will say the sentence. Using this property will override the previous character.
+
+## color
+
+The color of the sentence.
+
+```ts
+new Sentence("hello!", {
+    color: "red"
+});
+
+new Sentence("hello!", {
+    color: "#ff0000"
+});
+
+new Sentence("hello!", {
+    color: {
+        r: 255,
+        g: 0,
+        b: 0
+    }
+});
+```

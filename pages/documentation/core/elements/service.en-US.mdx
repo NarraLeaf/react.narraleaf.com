@@ -1,0 +1,232 @@
+import {Steps} from "nextra/components";
+
+# Service
+
+Service is a special abstract class that is used to create custom actions, behaviors, or any other custom logic that can be shared across multiple scenes.
+
+To use it, you need to extend and fully implement the abstract methods.
+
+```typescript
+import {Service} from "narraleaf-react";
+```
+
+## Example
+
+Here is an example of a custom service that implements a simple gallery service.
+
+```typescript
+type GalleryActions = {
+    "add": [name: string]
+};
+
+class Gallery extends Service<GalleryActions> {
+    // custom data
+    unlocked: string[] = [];
+
+    constructor() {
+        super();
+
+        // register the action handler
+        this.onAction("add", (ctx: ServiceHandlerCtx, name: string) => {
+            console.log("Adding", name);
+            this.unlocked.push(name);
+        })
+    }
+
+    /* Implement the serialize and deserialize methods */
+    serialize(): Record<string, any> | null {
+        return {
+            unlocked: this.unlocked
+        };
+    }
+    deserialize(data: Record<string, any>): void {
+        this.unlocked = data.unlocked;
+    }
+
+    /* Custom service logic */
+    add(name: string) {
+        // trigger the action
+        return this.action("add", name);
+    }
+}
+```
+
+and we can use this service in the game:
+
+```typescript
+const gallery = new Gallery();
+
+myScene.action([
+    gallery
+        .add("image1")
+        .add("image2")
+        .add("image3"),
+]);
+
+```
+
+## Creating Custom Service
+
+### Implementing Service
+
+To implement a service, you need to extend the `Service` class and implement the abstract methods.
+
+```typescript
+class MyCustomService extends Service {
+    /**
+     * Serialize the service to data
+     *
+     * **Note**: data must be JSON serializable, return null if nothing needs to be saved
+     */
+    serialize(): Record<string, any> | null {
+        return null;
+    }
+
+    /**
+     * Load data to the service
+     * @param data data exported from toData
+     */
+    deserialize(data: Record<string, any>): void {
+    }
+}
+```
+
+### Registering Actions
+
+To register actions, you need to use the `onAction` method.  
+All registration should be done in the constructor.
+
+```typescript
+class MyCustomService extends Service {
+    constructor() {
+        super();
+
+        this.onAction("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
+            // custom logic
+        });
+    }
+}
+```
+
+For ServiceHandlerCtx, see [ServiceHandlerCtx](../types/ServiceHandlerCtx).
+
+To enable type checking, you can define the action types.
+
+```typescript
+type MyCustomActions = {
+    "myAction": [arg0: string, arg1: number]
+};
+
+class MyCustomService extends Service<MyCustomActions> {
+    constructor() {
+        super();
+
+        this.onAction("myAction", (ctx: ServiceHandlerCtx, arg0: string, arg1: number) => {
+            // custom logic
+        });
+    }
+}
+```
+
+### Async Actions
+
+If you need to perform async operations, you can return a promise.  
+But for future use, you should make the action abortable.
+
+```typescript
+this.onAction("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
+    const abortController = new AbortController();
+    const { signal } = abortController;
+    const promise = fetch("https://example.com", { signal }); // some async operation
+
+    ctx.onAbort(() => {
+        abortController.abort(); // abort the async operation
+    });
+
+    return promise; // if you return a promise, the game will wait for the promise to resolve
+});
+```
+
+### Trigger Action
+
+To trigger an action, you can use the `action` method.
+
+```typescript
+const service = new MyCustomService();
+
+scene.action([
+    service.action("myAction", "foo", 123)
+]);
+```
+
+or you can wrap the action in a method.
+
+```typescript
+class MyCustomService extends Service<MyCustomActions> {
+    myAction(arg0: string, arg1: number) {
+        return this.action("myAction", arg0, arg1);
+    }
+}
+
+const service = new MyCustomService();
+
+scene.action([
+    service.myAction("foo", 123),
+
+    service
+        .myAction("foo", 123)  // actions are wrapped and chainable
+        .myAction("bar", 456), // the game will manage the chain behavior automatically
+]);
+```
+
+## Public Methods
+
+### onAction\<K extends StringKeyOf\<Content\>\>
+
+<Steps>
+
+Register an action handler.
+
+```typescript
+type MyCustomActions = {
+    "myAction": [arg0: string, arg1: number]
+};
+
+class MyCustomService extends Service<MyCustomActions> {
+    constructor() {
+        super();
+
+        this.onAction<"myAction">("myAction", (ctx: ServiceHandlerCtx, arg0: string, arg1: number) => {
+            // custom logic
+        });
+    }
+}
+```
+
+- `key: K` - The action key
+- `handler: ServiceHandler<Content[K]>` - For ServiceHandler, see [ServiceHandlerCtx](../types/ServiceHandlerCtx)
+- Returns `this`
+
+</Steps>
+
+## Chainable Methods
+
+### action\<K extends StringKeyOf\<Content\>\>
+
+<Steps>
+
+Trigger an action.
+
+```typescript
+const service = new MyCustomService();
+
+scene.action([
+    service.action<"myAction">("myAction", "foo", 123)
+]);
+```
+
+- `key: K` - The action key
+- `...args: Content[K]` - The action arguments
+
+</Steps>
+

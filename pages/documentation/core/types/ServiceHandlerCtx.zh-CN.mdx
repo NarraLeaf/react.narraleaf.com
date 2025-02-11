@@ -7,3 +7,29 @@ type ServiceHandlerCtx = ScriptCtx & {
 ```
 
 For ScriptCtx, see [ScriptCtx](./ScriptCtx).
+
+## Abortify
+
+Service action should be abortable for future use.
+
+To make an action abortable, you can use the `onAbort` method.
+
+```typescript
+class MyCustomService extends Service {
+    constructor() {
+        super();
+
+        this.onAction("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
+            const abortController = new AbortController();
+            const { signal } = abortController;
+            const promise = fetch("https://example.com", { signal }); // some async operation
+
+            ctx.onAbort(() => {
+                abortController.abort(); // abort the async operation
+            });
+
+            return promise; // if you return a promise, the game will wait for the promise to resolve
+        });
+    }
+}
+```

@@ -1,14 +1,19 @@
+import {Callout} from "nextra/components";
+
 # ITransition
+
+<Callout type="warning" emoji="⚠️">
+    Deprecated interface
+</Callout>
 
 Transition effect is used to animate the Image or Scene when changing image or background of the scene.
 
 ```ts
-interface ITransition<T extends ElementProp = {}> {
+interface ITransition<T extends ElementProp = Record<string, any>> {
     events: EventDispatcher<EventTypes<[T[]]>>;
     controller: AnimationPlaybackControls | null | undefined;
     start(onComplete?: () => void): void;
     toElementProps(): T[];
-    setSrc(src: string): void;
     copy(): ITransition<T>;
 }
 ```
@@ -35,14 +40,6 @@ Start the transition effect.
 >     }
 > });
 > ```
-
-
-### setSrc
-
-Set the source of the image element.  
-Some transition won't get the src immediately when instantiated. 
-Instead, when it is using in the scene, the src will be set by scene. 
-So we need to provide a method to set the src.
 
 ### toElementProps
 
