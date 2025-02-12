@@ -35,7 +35,7 @@ function AutoForwardButton() {
 以下是如何创建一个自动前进切换按钮的示例。
 
 ```tsx
-import { usePreference, Top } from "narraleaf-react";
+import { usePreference, Stage } from "narraleaf-react";
 
 const story = /* 你的故事在这里 */;
 
@@ -52,9 +52,9 @@ function App() {
                     }}
                 >
 
-                    <Top.Left>
+                    <Stage>
                         <AutoForwardButton /> {/* 在此处添加 AutoForwardButton 组件 */}
-                    </Top.Left>
+                    </Stage>
 
                 </Player>
             </GameProviders>
