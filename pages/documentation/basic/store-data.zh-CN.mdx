@@ -1,6 +1,6 @@
-# Store Data
+# 存储数据
 
-You can use [Persistent](../core/elements/persistent) to store data in the game context.
+你可以使用 [Persistent](../core/elements/persistent) 在游戏上下文中存储数据。
 
 ```typescript
 type PersisData = {
@@ -12,33 +12,33 @@ type PersisData = {
 const persis = new Persistent<PersisData>("persis", {
     flag: false,
     coin: 0,
-    name: "John Smith",
+    name: "约翰·史密斯",
     // ...
 });
 
-const scene1 = new Scene("scene1");
-const char1 = new Character("John Smith");
+const scene1 = new Scene("场景1");
+const char1 = new Character("约翰·史密斯");
 scene1.action([
     persis.set("coin", 50),
 
-    char1.say`You have ${persis.get("coin")} coins!`,
+    char1.say`你有 ${persis.get("coin")} 个硬币！`,
 ]);
 ```
 
-> **Note:** The stored content must be **serializable**, for more information, see [Persistent](../core/elements/persistent).
+> **注意：** 存储的内容必须是 **可序列化的**，更多信息请参见 [Persistent](../core/elements/persistent).
 
-You can save the game data including the persistent data to anywhere you want, such as local storage, server, or cloud storage.
+你可以将包括持久数据在内的游戏数据保存到你想要的任何地方，例如本地存储、服务器或云存储。
 
 ```typescript
-const {game} = useGame(); // call this hook in a React component
+const {game} = useGame(); // 在 React 组件中调用此钩子
 
-// ex, if the player click your component
-// you can save the game data to local storage
+// 例如，如果玩家点击了你的组件
+// 你可以将游戏数据保存到本地存储
 const data = game.getLiveGame().serialize();
 console.log(data);
 ```
 
-And you can load the game data anytime you want.
+你可以随时加载游戏数据。
 
 ```typescript
 const {game} = useGame();
@@ -47,6 +47,6 @@ const data = /* ... */;
 game.getLiveGame().deserialize(data);
 ```
 
-> **Note:** After loading the game data, current game data will be lost.
+> **注意：** 加载游戏数据后，当前游戏数据将丢失。
 
 

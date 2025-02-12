@@ -1,26 +1,26 @@
-# Play Story
+# 播放故事
 
-After creating a abstract story, you can play it using react components. 
+创建抽象故事后，你可以使用 React 组件来播放它。
 
 ```tsx
 "use client";
 
 import { GameProviders, Player } from "narraleaf-react";
-import { story } from "./my-story"; // Import your story here
+import { story } from "./my-story"; // 在此处导入你的故事
 
 export default function Page() {
     return (
         <GameProviders>
             <Player story={story} onReady={({ liveGame }) => {
-                liveGame.newGame(); // when the player is ready, start the game
+                liveGame.newGame(); // 当播放器准备就绪时，开始游戏
             }}
-                width="100%" // full width
-                height="100%" // full height
+                width="100%" // 全宽
+                height="100%" // 全高
             />
         </GameProviders>
     );
 }
 ```
 
-The [GameProviders](../player/game-providers) component is required to play the story. It provides the context for the player and hooks to work.
-You can use hooks inside the GameProviders component to interact with the game instance.
+[GameProviders](../player/game-providers) 组件是播放故事所必需的。它为播放器和钩子提供了上下文。
+你可以在 GameProviders 组件内部使用钩子来与游戏实例进行交互。

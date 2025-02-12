@@ -1,41 +1,40 @@
+# 创建场景
 
-# Create a Scene
+[Scene](../core/elements/scene) 是 NarraLeaf-React 的基本元素。它定义了一段时间以及背景。
 
-[Scene](../core/elements/scene) is the basic element of NarraLeaf-React. It defines a period of time and background.
+## 定义场景
 
-## Define a Scene
-
-You can define a scene by creating a `Scene` instance:
+你可以通过创建一个 `Scene` 实例来定义场景：
 
 ```typescript
 import { Scene } from "narraleaf-react";
 ```
 
 ```typescript
-const scene = new Scene("scene 1 - wake up", {
-    background: "<your background image url>",
+const scene = new Scene("场景 1 - 醒来", {
+    background: "<你的图片链接>",
 });
 ```
 
-The first parameter of the scene constructor should be a name, this name is used to identify the scene.
+场景构造函数的第一个参数应该是一个名称，这个名称用于标识场景。
 
-> Note: the name should be unique.
+> 注意：名称应该是唯一的。
 
-The second parameter is an optional configuration. You can find the config doc [here](../core/types/SceneConfig).
+第二个参数是一个可选的配置。你可以在[这里](../core/types/SceneConfig)找到配置文档 
 
-> Tips: you can use a pure color background through the `background` config
+> 提示：你可以通过 background 配置使用纯色背景
 >
 > ```typescript
-> const scene = new Scene("scene 1 - wake up", {
+> const scene = new Scene("场景 1 - 醒来", {
 >     background: "#f0f0f0",
 > });
 > ```
 >
-> If you are using Next.js, you can import an image using loader:
+> 如果你使用的是 Next.js，你可以使用加载器导入图片：
 >
 > ```typescript
 > import youImage from "./your-image.png";
 >
-> const scene = new Scene("scene 1 - wake up", {
+> const scene = new Scene("场景 1 - 醒来", {
 >     background: youImage,
 > });

@@ -1,59 +1,59 @@
-# Sound
+# 声音
 
-In NarraLeaf-React, you can play sounds by using the [Sound](../core/elements/sound) element.
+在 NarraLeaf-React 中，你可以使用 [Sound](../core/elements/sound) 元素播放声音。
 
 ```typescript
 const sound = new Sound({
-    src: "https://YOUR_SOUND_URL.mp3",
-    volume: 0.5, // 0.0 to 1.0
-    loop: true, // loop the sound
-    sync: false, // do not wait for the sound to finish
+    src: "https://你的声音链接.mp3",
+    volume: 0.5, // 0.0 到 1.0
+    loop: true, // 循环播放声音
+    sync: false, // 不等待声音播放完毕
 });
 ```
 
-## Play Sound
+## 播放声音
 
-You can play the sound by adding it to the scene.
+你可以通过将声音添加到场景中来播放它。
 
 ```typescript
 scene1.action([
-    sound.play(), // If the sound is sync, the scene will wait for the sound to finish
+    sound.play(), // 如果声音是同步的，场景将等待声音播放完毕
 ]);
 ```
 
-## Sound Actions
+## 声音操作
 
-You can pause/resume/fade/stop/setVolume/setRate the sound.
+你可以暂停/恢复/淡入淡出/停止/设置音量/设置播放速率。
 
 ```typescript
 scene1.action([
     sound.pause(),
-    character1.say`The sound is paused`,
+    character1.say`声音已暂停`,
     sound.resume(),
-    character1.say`The sound is resumed`,
+    character1.say`声音已恢复`,
 ]);
 ```
 
-For more information about the Sound, please read the [Sound](../core/elements/sound) documentation.
+有关声音的更多信息，请阅读 [Sound](../core/elements/sound) 文档。
 
-## Background Music
+## 背景音乐
 
-You can add the music to the scene, the scene will automatically play the music when it starts.
+你可以将音乐添加到场景中，场景开始时将自动播放音乐。
 
 ```typescript
-const scene = new Scene("scene 1", {
+const scene = new Scene("场景 1", {
     backgroundMusic: YOUR_SOUND_INSTANCE,
-    backgroundMusicFade: 1000, // if specified, when the scene changes, the music will fade in/out in 1000ms
+    backgroundMusicFade: 1000, // 如果指定，当场景切换时，音乐将在 1000 毫秒内淡入/淡出
 });
 ```
 
-## Sound Effects
+## 音效
 
-You can easily create a sound effect with these configurations.
+你可以使用这些配置轻松创建音效。
 
 ```typescript
 const soundEffect = new Sound({
-    src: "https://YOUR_SOUND_URL.mp3",
+    src: "https://你的音效链接.mp3",
     sync: false,
 });
 
@@ -62,4 +62,4 @@ scene1.action([
 ]);
 ```
 
-When the sound effect is played, it will not wait for the sound to finish.
+当音效播放时，它不会等待声音播放完毕。

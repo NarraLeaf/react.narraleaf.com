@@ -1,21 +1,22 @@
-# Conditional
+# 条件
 
-You can create a conditional statement by using the [Condition](../core/elements/condition) element.
+你可以通过使用 [条件](../core/elements/condition) 元素来创建一个条件语句。
 
 ```typescript
 scene1.action([
     Condition
         // if (persistent.get("favoriteTea") === "green")
         .If(persistent.equals("favoriteTea", "green"), [
-            character1.say`You like green tea!`
+            character1.say`你喜欢绿茶！`
         ])
 ])
 ```
 
-In the condition statement, the game context is provided, you can learn more about the [ScriptCtx](../core/types/ScriptCtx) object.
+在条件语句中，提供了游戏上下文，你可以了解更多关于 [ScriptCtx](../core/types/ScriptCtx) 对象的信息。
 
-You can only have **1 If Statement** and **1 Else Statement** in a condition statement,
-but you can have **multiple Else If Statements**.
+在一个条件语句中，你只能有 **1 个 If 语句** 和 **1 个 Else 语句**
+
+但是可以有 **多个 Else If 语句**。
 
 ```typescript
 scene1.action([
@@ -30,9 +31,9 @@ scene1.action([
 ])
 ```
 
-> Note: If you put these statements in the wrong order, the condition will throw an error.
+> 注意：如果你将这些语句的顺序放错，条件语句将抛出错误。
 
-[Persistent](../core/elements/persistent) is a good way to store data in the game context.
+[Persistent](../core/elements/persistent) 是在游戏上下文中存储数据的好方式。
 
 ```typescript
 const persis = new Persistent<{ flag: boolean; }>("persis", { flag: false });
@@ -44,7 +45,7 @@ scene.action([
 
     Condition
         .If(persis.isTrue("flag"), [
-            character1.say("Flag is true")
+            character1.say("该标志为真")
         ])
 ]);
 ```
