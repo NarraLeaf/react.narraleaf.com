@@ -1,10 +1,10 @@
-# Manage Preferences
+# 管理偏好设置
 
-Preferences are settings that control the behavior of the player, e.g. auto-forwarding, skipping, etc.
+偏好设置是控制玩家行为的设置，例如自动前进、跳过等。
 
-The easiest way to manage preferences is to use the `usePreference` hook.
+管理偏好设置的最简单方法是使用 `usePreference` 钩子。
 
-- for a list of preferences, see [GamePreference](../core/types/GamePreference).
+- 有关偏好设置的列表，请参见 [GamePreference](../core/types/GamePreference).
 
 ```tsx
 import { usePreference } from "narraleaf-react";
@@ -20,24 +20,24 @@ function AutoForwardButton() {
 
     return (
         <div>
-            Auto Forward: {autoForward ? "Enabled" : "Disabled"}
+            自动前进: {autoForward ? "已启用" : "已禁用"}
             
             <button onClick={triggerAutoForward}>
-                Toggle Auto Forward
+                切换自动前进
             </button>
         </div>
     );
 }
 ```
 
-## Example
+## 示例
 
-Here is an example of how to create an Auto Forward toggle button.
+以下是如何创建一个自动前进切换按钮的示例。
 
 ```tsx
 import { usePreference, Top } from "narraleaf-react";
 
-const story = /* your story here */;
+const story = /* 你的故事在这里 */;
 
 function App() {
     return (
@@ -53,7 +53,7 @@ function App() {
                 >
 
                     <Top.Left>
-                        <AutoForwardButton /> {/* Add the AutoForwardButton component here */}
+                        <AutoForwardButton /> {/* 在此处添加 AutoForwardButton 组件 */}
                     </Top.Left>
 
                 </Player>
@@ -61,5 +61,4 @@ function App() {
         </div>
     );
 }
-
-
+```
