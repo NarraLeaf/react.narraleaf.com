@@ -35,7 +35,7 @@ function AutoForwardButton() {
 Here is an example of how to create an Auto Forward toggle button.
 
 ```tsx
-import { usePreference, Top } from "narraleaf-react";
+import { usePreference, Stage } from "narraleaf-react";
 
 const story = /* your story here */;
 
@@ -52,9 +52,9 @@ function App() {
                     }}
                 >
 
-                    <Top.Left>
+                    <Stage>
                         <AutoForwardButton /> {/* Add the AutoForwardButton component here */}
-                    </Top.Left>
+                    </Stage>
 
                 </Player>
             </GameProviders>
