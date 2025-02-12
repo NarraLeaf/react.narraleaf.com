@@ -1,14 +1,14 @@
-# Add Actions
+# 添加操作
 
-Actions are the most important part of a scene. They are the things that make the story interactive.
+动作是场景中最重要的部分。它们是使故事具有互动性的元素。
 
-You can simply add actions to the scene:
+你可以简单地向场景添加动作：
 
 ```typescript
-const scene1 = new Scene("scene 1 - wake up", {
+const scene1 = new Scene("场景 1 - 醒来", {
     // ...
 });
-const scene2 = new Scene("scene 2 - breakfast", {
+const scene2 = new Scene("场景 2 - 早餐", {
     // ...
 });
 
@@ -18,9 +18,8 @@ scene1.action([
 ]);
 ```
 
-The `action` method accepts an array of actions. You can use [elements](../core/elements) to create actions.
+`action` 方法接受一个动作数组。你可以使用 [元素](../core/elements) 来创建动作。
 
-`scene1.jump` will create a jump action. It will jump to the next scene when the action is executed.
+`scene1.jump` 将创建一个跳转动作。当动作执行时，它将跳转到下一个场景。
 
-> Note: actions after the jump action will not be executed.
-
+> 注意：跳转动作之后的动作将不会被执行。

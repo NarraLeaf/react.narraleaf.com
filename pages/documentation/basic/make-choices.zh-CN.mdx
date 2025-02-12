@@ -1,47 +1,47 @@
-# Make Choices
+# 做出选择
 
-You can crerate a menu with choices by using the [Menu](../core/elements/menu) element.
+你可以使用 [Menu](../core/elements/menu) 元素创建一个带有选择的菜单。
 
 ```typescript
 const narrator = new Character(null);
 
 /**
- * What should I do?
- * - Go left
- *    ~> *You went left.*
- *    ~> jump to scene "scene_went_left"
+ * 我该怎么办？
+ * - 向左走
+ *    ~> *你向左走了。*
+ *    ~> 跳转到场景 "scene_went_left"
  * 
- * - Go right
- *    ~> *You went right.*
- *    ~> jump to scene "scene_went_right"
+ * - 向右走
+ *    ~> *你向右走了。*
+ *    ~> 跳转到场景 "scene_went_right"
  */
 
 scene.action([
-    new Menu("What should I do?")
+    new Menu("我该怎么办？")
 
-        .choose("Go left", [
-            narrator.say("You went left."),
+        .choose("向左走", [
+            narrator.say("你向左走了。"),
             /* ... */
             scene.jump(scene_went_left),
         ])
 
-        .choose("Go right", [
-            narrator.say("You went right."),
+        .choose("向右走", [
+            narrator.say("你向右走了。"),
             /* ... */
             scene.jump(scene_went_right),
         ]);
 ]);
 ```
 
-You can show the menu prompt with a custom [Sentence](../core/elements/sentence).
+你可以使用自定义的 [Sentence](../core/elements/sentence) 来显示菜单提示。
 
 ```typescript
-// Show the menu prompt with a custom sentence
+// 使用自定义句子显示菜单提示
 new Menu(
-    new Sentence("What should I do?", {italic: true})  // "What should I do?" with italic style
+    new Sentence("我该怎么办？", {italic: true})  // "我该怎么办？" 使用斜体样式
 ).choose(
     new Sentence([
-        "Go ", Word.bold("left")) // "Go left" with "left" in bold style
+        "向", Word.bold("左"), "走" // "向左走" 中的 "左" 使用粗体样式
     ]
 ), [
     /* ... */

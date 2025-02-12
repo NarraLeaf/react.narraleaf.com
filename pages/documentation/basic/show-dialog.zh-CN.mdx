@@ -1,50 +1,50 @@
-# Show Dialog
+# 显示对话框
 
-To show a dialog, you can use a [Character](../core/elements/character) element. 
+要显示对话框，你可以使用 [Character](../core/elements/character) 元素 
 
 ```typescript
 import { Scene, Character } from "narraleaf-react";
 ```
 
 ```typescript
-// Create a scene
-const scene1 = new Scene("scene 1 - wake up", {
+// 创建一个场景
+const scene1 = new Scene("场景 1 - 醒来", {
     // ...
 });
 
-// Create a character
-const character1 = new Character("John Smith");
+// 创建一个角色
+const character1 = new Character("约翰·史密斯");
 
-// Add actions to the scene
+// 向场景添加动作
 scene1.action([
     character1
-        .say`Hello, World!`
-        .say`Good morning!`,
+        .say`你好，世界！`
+        .say`早上好！`,
 ]);
 ```
 
-The character with the name "John Smith" will say "Hello, World!" and "Good morning!".
+名为 "约翰·史密斯" 的角色将会说 "你好，世界！" 和 "早上好！"。
 
-You can add some customization to the dialog by using the [Word](../core/elements/word) and the [Sentence](../core/elements/sentence) element.
+你可以使用 [Word](../core/elements/word) 和 [Sentence](../core/elements/sentence) 元素为对话框添加一些自定义内容。
 
 ```typescript
-character1.say`Hello, my name is ${Word.bold("John")}!`; // will output "Hello, my name is John!" with "John" in bold
+character1.say`你好，我的名字是 ${Word.bold("约翰")}！`; // 将输出 "你好，我的名字是 约翰！" 并且 "约翰" 以粗体显示
 ```
 
-You can also construct a complex dialog using these elements.
+你还可以使用这些元素构建复杂的对话框。
 
 ```typescript
 character1.say(new Sentence([
-    `Now it is `,
+    `现在是 `,
     new Word(
         (ctx) => new Date().toLocaleTimeString(),
         { color: "red" }
     ),
-])); // will output "Now it is 12:00:00 PM" with "12:00:00 PM" in red
+])); // 将输出 "现在是 12:00:00 PM" 并且 "12:00:00 PM" 以红色显示
 ```
 
-For more information about constructing a sentence, you can read the [Sentence](../core/elements/sentence) documentation.
+有关构建句子的更多信息，你可以阅读 [Sentence](../core/elements/sentence) 文档。
 
-In this example, the character will say "Now it is " and the current time in red.
+在这个例子中，角色将会说 "现在是" 并以红色显示当前时间。
 
-You can read more about the [Character](../core/elements/character) element in the documentation.
+你可以在文档中阅读更多关于 [Character](../core/elements/character) 元素的信息。

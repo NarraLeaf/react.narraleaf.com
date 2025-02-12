@@ -1,23 +1,23 @@
-# Voice
+# 语音
 
-You can add a voice to a sentence by using the `voice` config:
+你可以通过使用 `voice` 配置为句子添加语音：
 
 ```typescript
-new Sentence("hello", {
-    voice: "https://YOUR_VOICE_URL.mp3",
+new Sentence("你好", {
+    voice: "https://你的语音链接.mp3",
 });
 ```
 
-Or use an existing sound instance:
+或者使用现有的声音实例：
 
 ```typescript
 import {SoundType} from "narraleaf-react";
 
 const voice = new Sound({
-    src: "https://YOUR_VOICE_URL.mp3",
+    src: "https://你的语音链接.mp3",
 });
 
-new Sentence("hello", {
+new Sentence("你好", {
     voice,
 });
 ```

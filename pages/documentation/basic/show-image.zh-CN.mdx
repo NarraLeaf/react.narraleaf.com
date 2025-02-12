@@ -1,10 +1,10 @@
-# Show Image
+# 显示图片
 
-To show an image, you need to use the [Image](../core/elements/image) element.
+要显示图片，你需要使用 [Image](../core/elements/image) 元素。
 
-## Define an Image
+## 定义图片
 
-You can construct an image by providing the [ImageConfig](../core/types/ImageConfig) object.
+你可以通过提供 [ImageConfig](../core/types/ImageConfig) 对象来构建图片。
 
 ```typescript
 import {Image} from "narraleaf-react";
@@ -12,7 +12,7 @@ import {Image} from "narraleaf-react";
 
 ```typescript
 const character1Happy = new Image("character1_happy", {
-    src: "https://YOUR_IMAGE_URL",
+    src: "https://你的图片链接",
     scale: 0.5,
     position: {
         yalign: 0.3,
@@ -21,11 +21,11 @@ const character1Happy = new Image("character1_happy", {
 });
 ```
 
-This image will be displayed at the left side of the screen with a scale of 0.5.
+这张图片将以 0.5 的比例显示在屏幕的左侧。
 
-## Show the Image
+## 显示图片
 
-You can show the image by adding actions to the scene.
+你可以通过向场景添加动作来显示图片。
 
 ```typescript
 scene1.action([
@@ -33,9 +33,9 @@ scene1.action([
 ]);
 ```
 
-The image will be displayed on the screen immediately.
+图片将立即显示在屏幕上。
 
-You can show the image with ease. 
+你可以使用缓动效果显示图片。
 
 ```typescript
 scene1.action([
@@ -46,9 +46,9 @@ scene1.action([
 ]);
 ```
 
-## Hide the Image
+## 隐藏图片
 
-You can hide the image by adding actions to the scene.
+你可以通过向场景添加动作来隐藏图片。
 
 ```typescript
 scene1.action([
@@ -56,9 +56,9 @@ scene1.action([
 ]);
 ```
 
-The image will be hidden from the screen immediately.
+图片将立即从屏幕上隐藏。
 
-You can hide the image with ease. 
+你可以使用缓动效果隐藏图片。
 
 ```typescript
 scene1.action([
@@ -69,19 +69,19 @@ scene1.action([
 ]);
 ```
 
-## Change the Image
+## 更改图片
 
-### Src-based Image
+### 基于 Src 的图片
 
-You can change the image by updating the image source.
+你可以通过更新图片源来更改图片。
 
 ```typescript
 scene1.action([
-    character1Happy.char("https://NEW_IMAGE_URL"),
+    character1Happy.char("https://新图片链接"),
 ]);
 ```
 
-or with a [transition](../core/animation/transition).
+或者使用 [transition](../core/animation/transition)。
 
 ```typescript
 import {Fade} from "narraleaf-react";
@@ -89,18 +89,18 @@ import {Fade} from "narraleaf-react";
 
 ```typescript
 scene1.action([
-    character1Happy.char("https://NEW_IMAGE_URL", new Fade(300)),
+    character1Happy.char("https://新图片链接", new Fade(300)),
 ]);
 ```
 
-### Use Tag-based Image
+### 使用基于标签的图片
 
-You can use the tag-based image to show the image.
+你可以使用基于标签的图片来显示图片。
 
-> Note: The tag-based image is a feature that allows you to change the image appearance by providing tags.
+> 注意：基于标签的图片是一项功能，允许你通过提供标签来更改图片外观。
 >
-> You can't mix the tag-based image configuration with the normal image configuration.  
-> Normal image configuration don't have the `tag` property, and its `src` property should be a string.
+> 你不能将基于标签的图片配置与普通图片配置混合使用。
+> 普通图片配置没有 `tag` 属性，其 `src` 属性应为字符串。
 
 ```typescript
 import {Image} from "narraleaf-react";
@@ -110,34 +110,34 @@ import {Image} from "narraleaf-react";
 const image = new Image({
     tag: {
         groups: [
-            ["happy", "sad", "angry"], // group 1
-            ["shirt", "jacket", "t-shirt"], // group 2
-            ["trousers", "skirt", "shorts"], // group 3
+            ["happy", "sad", "angry"], // 组 1
+            ["shirt", "jacket", "t-shirt"], // 组 2
+            ["trousers", "skirt", "shorts"], // 组 3
         ],
-        defaults: ["happy", "shirt", "trousers"], // default appearance
+        defaults: ["happy", "shirt", "trousers"], // 默认外观
     } as const,
-    src: (emotion, top, bottom) => `https://your/image/src/${emotion}_${top}_${bottom}.png`, // image source
+    src: (emotion, top, bottom) => `https://你的/图片/路径/${emotion}_${top}_${bottom}.png`, // 图片源
 });
-// The default image will be `https://your/image/src/happy_shirt_trousers.png`
+// 默认图片将是 `https://你的/图片/路径/happy_shirt_trousers.png`
 
 scene1.action([
     image.show(),
-    image.char(["angry", "shorts"], new Fade(1000)), // change the image to `https://your/image/src/angry_shirt_shorts.png`
+    image.char(["angry", "shorts"], new Fade(1000)), // 将图片更改为 `https://你的/图片/路径/angry_shirt_shorts.png`
 ]);
 ```
 
-Read more about tag-based image, please read the [Image](../core/elements/image) documentation.
+有关基于标签的图片的更多信息，请阅读e [Image](../core/elements/image) 文档.
 
-## Animate the Image
+## 动画化图片
 
-You can animate the image with [Transform](../core/animation/transform).
+你可以使用 [Transform](../core/animation/transform) 对图片进行动画处理。
 
 ```typescript
 import {Transform, CommonPosition} from "narraleaf-react";
 ```
 
 ```typescript
-// Move the image to the right side of the screen
+// 将图片移动到屏幕右侧
 scene1.action([
     character1Happy.transform(new Transform({
         position: "right",
@@ -147,13 +147,13 @@ scene1.action([
     })),
 ]);
 
-// or
+// 或者
 
 scene1.action([
     character1Happy.transform(Transform.left(120, "easeOut")),
 ]);
 ```
 
-The image will move to the right side of the screen with a duration of 120 milliseconds and ease out effect.
+图片将以 120 毫秒的持续时间和缓出效果移动到屏幕右侧。
 
-For more information about the Transform, please check the [Transform](../core/animation/transform) documentation.
+有关 Transform 的更多信息，请查看 [Transform](../core/animation/transform) 文档.
