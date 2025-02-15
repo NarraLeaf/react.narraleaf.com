@@ -1,20 +1,20 @@
 import {Callout, Tabs, Steps} from 'nextra/components';
 
-# Scene
+# 场景
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    本页面正在建设中
 </Callout>
 
 <Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
+    测试功能，可能会有变动
 </Callout>
 
-> This class extends [Displayble](./displayable)
+> 该类继承自 [Displayble](./displayable)
 
-Scene contains multiple actions that can be performed on the scene. 
+Scene 包含可以在场景上执行的多个操作
 
-For example, you can add a [Character](./character) Action to the scene
+例如，你可以向场景添加一个 [Character](./character) 操作
 
 ```ts
 import { Scene } from 'narraleaf-react';
@@ -29,29 +29,29 @@ scene.action([
 ]);
 ```
 
-## Public Properties
+## 公共属性
 
 ### local
 
 <Steps>
 
-`scene.local` is a [Persistent](./persistent) instance that is local to the scene.
-It is used to store the temporary data that is only available in the scene.
+`scene.local` 是一个 [Persistent](./persistent) 实例，仅限于场景内使用
+它用于存储仅在场景中可用的临时数据
 
-Local data doesn't need to be registered or initialised, but it is 'undefined' before it is used.
+本地数据不需要注册或初始化，但在使用前是“未定义”的
 
-> Data in local will be discarded when the scene is exited.
+> 当场景退出时，本地数据将被丢弃
 
 ```ts
 scene.action([
-    new Menu("Which coffee do you want?")
-        .choose("Latte", [
+    new Menu("你想喝哪种咖啡？")
+        .choose("拿铁", [
             scene.local.set("coffee", "latte"),
         ])
-        .choose("Cappuccino", [
+        .choose("卡布奇诺", [
             scene.local.set("coffee", "cappuccino"),
         ]),
-    character1.say`You chose ${scene.local.get("coffee")} coffee`,
+    character1.say`你选择了 ${scene.local.get("coffee")} 咖啡`,
 ]);
 ```
 
@@ -61,7 +61,7 @@ scene.action([
 
 <Steps>
 
-This property is used to access the background [Image](./image) instance of the scene.
+此属性用于访问场景的背景 [Image](./image) 实例
 
 ```ts
 scene.background
@@ -74,8 +74,8 @@ scene.background
 
 <Steps>
 
-This property is used to access the background layer of the scene.  
-This layer contains the background image of the scene.
+此属性用于访问场景的背景层  
+该层包含场景的背景图像
 
 ```ts
 scene.backgroundLayer.opacity(0.5, 1000, "linear")
@@ -87,8 +87,8 @@ scene.backgroundLayer.opacity(0.5, 1000, "linear")
 
 <Steps>
 
-This property is used to access the displayable layer of the scene.  
-This layer contains all the displayables that don't belong to any specific layer.
+此属性用于访问场景的可显示层  
+该层包含所有不属于任何特定层的可显示对象
 
 ```ts
 scene.displayableLayer.opacity(0.5, 1000, "linear")
@@ -96,13 +96,13 @@ scene.displayableLayer.opacity(0.5, 1000, "linear")
 
 </Steps>
 
-## Public Method
+## 公共方法
 
 ### constructor
 
 <Steps>
 
-- `name: string` - Name of the scene
+- `name: string` - 场景名称
 - `config?: Partial<ISceneUserConfig>` - [ISceneUserConfig](../types/IsceneUserConfig)
 
 </Steps>
@@ -111,17 +111,17 @@ scene.displayableLayer.opacity(0.5, 1000, "linear")
 
 <Steps>
 
-Add actions to the scene. Do not call this method more than once.
+向场景添加操作。不要多次调用此方法
 
-#### Overload 1 of 2
+#### 重载 1 of 2
 
-- `actions: (ChainableAction | ChainableAction[])[]` - Actions to be executed, see [ChainedActions](../types/ChainedActions)
+- `actions: (ChainableAction | ChainableAction[])[]` - 要执行的操作，参见 [ChainedActions](../types/ChainedActions)
 
-#### Overload 2 of 2
+#### 重载 2 of 2
 
-This overload let you pass a function that receives the scene instance and returns the actions to be executed.
+此重载允许你传递一个函数，该函数接收场景实例并返回要执行的操作
 
-In some cases, you may want to make a shortcut to the scene instance
+在某些情况下，你可能希望为场景实例创建一个快捷方式
 
 ```ts
 story.entry(
@@ -133,8 +133,8 @@ story.entry(
 );
 ```
 
-- `actions: ((scene: Scene) => ChainedAction[])` - Actions to be executed, see [ChainedActions](../types/ChainedActions)
-- Returns `this`
+- `actions: ((scene: Scene) => ChainedAction[])` - 要执行的操作，参见 [ChainedActions](../types/ChainedActions)
+- 返回 `this`
 
 </Steps>
 
@@ -142,35 +142,34 @@ story.entry(
 
 <Steps>
 
-Manually register image sources
+手动注册图像源
 
-- `src: string | string[]` - The URL of the image or an array of URLs
-- Returns `this`
+- `src: string | string[]` - 图像的 URL 或 URL 数组
+- 返回 `this`
 
 </Steps>
 
-
-## Chainable Method
+## 可链式方法
 
 ### setBackground
 
 <Steps>
 
-Alias of `scene.background.char`.
+`scene.background.char` 的别名
 
-Set background of the scene. If the transition is provided, the background will be changed with the transition effect.
+设置场景的背景。如果提供了过渡效果，背景将以过渡效果更改
 
 ```typescript
 scene.action([
     scene.setBackground("background.png")
 
-    // is equivalent to
+    // 等同于
     scene.background.char("background.png")
 ]);
 ```
 
-- `background: Color | ImageSrc` - See [Color](../types/color) or [ImageSrc](../types/imageSrc)
-- `transition?: ImageTransition` - For ImageTransition, see [Transition](../animation/transition)
+- `background: Color | ImageSrc` - 参见 [Color](../types/color) 以及 [ImageSrc](../types/imageSrc)
+- `transition?: ImageTransition` - 对于 ImageTransition，参见 [Transition](../animation/transition)
 
 </Steps>
 
@@ -178,12 +177,12 @@ scene.action([
 
 <Steps>
 
-Jump to another scene. If the transition is provided, the scene will be changed with the transition effect.
+跳转到另一个场景。如果提供了过渡效果，场景将以过渡效果更改
 
-> Note: The current scene will be disposed after jumping to another scene. The rest of the actions will not be executed.
+> 注意：跳转到另一个场景后，当前场景将被释放。剩余的操作将不会执行
 
-- `scene: Scene | string` - The Scene instance or the name of the scene to jump to
-- `config: Partial<JumpConfig>` - [Jump Config](../types/JumpConfig)
+- `scene: Scene | string` - 要跳转到的场景实例或场景名称
+- `config: Partial<JumpConfig>` - [跳转配置](../types/JumpConfig)
 
 </Steps>
 
@@ -191,7 +190,7 @@ Jump to another scene. If the transition is provided, the scene will be changed 
 
 <Steps>
 
-Sleep for a duration before executing the next action.
+在执行下一个操作之前休眠一段时间
 
 ```typescript
 scene.action([
@@ -199,13 +198,13 @@ scene.action([
 ]);
 ```
 
-#### Overload 1 of 2
+#### 重载 1 / 2
 
-- `ms: number` - Duration in milliseconds
+- `ms: number` - 以毫秒为单位的持续时间
 
-#### Overload 2 of 2
+#### 重载 2 / 2
 
-- `promise: Promise<any>` - Promise to wait for
+- `promise: Promise<any>` - 要等待的 Promise
 
 </Steps>
 
@@ -213,9 +212,9 @@ scene.action([
 
 <Steps>
 
-Set background music of the scene.
+设置场景的背景音乐
 
-- `sound: Sound` - [Sound](./sound) instance
-- `fade?: number` - If set, the fade-out effect will be applied to the previous music, and the fade-in effect will be applied to the current music, with a duration in milliseconds
+- `sound: Sound` - [Sound](./sound) 实例
+- `fade?: number` - 如果设置，将对之前的音乐应用淡出效果，并对当前音乐应用淡入效果，持续时间为毫秒
 
 </Steps>

@@ -1,41 +1,41 @@
 import { Steps } from "nextra/components";
 
-# Layer
+# 图层
 
-> This class extends [Displayble](./displayable)
+> 此类继承自 [Displayble](./displayable)
 
-You can manage the layers of the displayables by using the `Layer` class.
+你可以使用 `Layer` 类来管理可显示元素的图层。
 
-## Usage
+## 用法
 
 ```typescript
 import {Layer} from "narraleaf-react";
 ```
 
 ```typescript
-const layer = new Layer("layer name", {
+const layer = new Layer("图层名称", {
     zIndex: 1
 });
 
-const scene = new Scene("scene with layers", {
-    layers: [layer] // register the layer to the scene
+const scene = new Scene("带有图层的场景", {
+    layers: [layer] // 将图层注册到场景中
 });
 
-const image = new Image({ /* ... */}).useLayer(layer); // link the image to the layer
+const image = new Image({ /* ... */}).useLayer(layer); // 将图像链接到图层
 ```
 
 ```typescript
-layer.opacity(0.5, 1000, "linear"); // change the opacity of the layer, all elements linked to the layer will be affected
+layer.opacity(0.5, 1000, "linear"); // 更改图层的不透明度，所有链接到图层的元素都会受到影响
 ```
 
-## Public Methods
+## 公共方法
 
 ### constructor
 
 <Steps>
 
-- `name?: string` - The name of the layer
-- `config?: Partial<ILayerUserConfig>` - The configuration of the layer, see [ILayerUserConfig](../types/ILayerUserConfig)
+- `name?: string` - 图层的名称
+- `config?: Partial<ILayerUserConfig>` - 图层的配置，参见 [ILayerUserConfig](../types/ILayerUserConfig)
 
 </Steps>
 
@@ -43,9 +43,9 @@ layer.opacity(0.5, 1000, "linear"); // change the opacity of the layer, all elem
 
 <Steps>
 
-Include the displayable to the layer.
+将可显示元素包含到图层中
 
-- `elements: (Image | Text)[] | Image | Text` - The displayable to include, ex. [Image](./image), [Text](./text)
-- Returns `this`
+- `elements: (Image | Text)[] | Image | Text` - T要包含的可显示元素，例如 [Image](./image), [Text](./text)
+- 返回 `this`
 
 </Steps>

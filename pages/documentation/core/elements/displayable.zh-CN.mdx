@@ -1,11 +1,11 @@
 import {Steps} from "nextra/components";
 
-# Displayable
+# 可显示元素
 
-Displayable defines all the properties and methods that a displayable element should have. Displayable elements are elements that can be displayed on the screen.  
-Ex. Image, Text
+可显示元素定义了所有可显示元素应具有的属性和方法。可显示元素是指可以在屏幕上显示的元素。
+例如：图像、文本
 
-## Chainable Methods
+## 链式方法
 
 ### pos
 
@@ -14,14 +14,14 @@ Ex. Image, Text
 Transform the element to a new position.
 
 ```typescript
-element.pos({
+    element.pos({
     xalign: 0.3
-}, 1000, "linear"); // Move the element to x: 0.3 in 1000ms with linear ease.
+}, 1000, "linear"); // 在 1000 毫秒内以线性缓动将元素移动到 x: 0.3
 ```
 
-- `position: CommonDisplayableConfig["position"]` - The new position of the element, see [CommonDisplayableConfig](../types/CommonDisplayable#position)
-- `duration?: number` - The duration of the transform in milliseconds
-- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `position: CommonDisplayableConfig["position"]` - 元素的新位置，参见 [CommonDisplayableConfig](../types/CommonDisplayable#position)
+- `duration?: number` - 变换的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 使用的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 </Steps>
 
@@ -29,15 +29,15 @@ element.pos({
 
 <Steps>
 
-Scale the element.
+缩放元素
 
 ```typescript
-element.scale(2, 1000, "easeInOut"); // Scale the element to 2x in 1000ms with easeInOut ease.
+element.scale(2, 1000, "easeInOut"); // 在 1000 毫秒内以 easeInOut 缓动将元素缩放到 2 倍
 ```
 
-- `scale: number` - The new scale of the element, between 0 and 1
-- `duration?: number` - The duration of the transform in milliseconds
-- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `scale: number` - 元素的新缩放比例，介于 0 和 1 之间
+- `duration?: number` - 变换的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 使用的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 </Steps>
 
@@ -45,15 +45,15 @@ element.scale(2, 1000, "easeInOut"); // Scale the element to 2x in 1000ms with e
 
 <Steps>
 
-Rotate the element.
+旋转元素
 
 ```typescript
-element.rotate(90, 1000, "easeInOut"); // Rotate the element to 90 degrees in 1000ms with easeInOut ease.
+    element.rotate(90, 1000, "easeInOut"); // 在 1000 毫秒内以 easeInOut 缓动将元素旋转到 90 度
 ```
 
-- `angle: number` - The new angle of the element in degrees
-- `duration?: number` - The duration of the transform in milliseconds
-- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `angle: number` - 元素的新角度，以度为单位
+- `duration?: number` - 变换的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 使用的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 </Steps>
 
@@ -61,15 +61,15 @@ element.rotate(90, 1000, "easeInOut"); // Rotate the element to 90 degrees in 10
 
 <Steps>
 
-Change the opacity of the element.
+更改元素的不透明度
 
 ```typescript
-element.opacity(0.5, 1000, "easeInOut"); // Change the opacity of the element to 0.5 in 1000ms with easeInOut ease.
+    element.opacity(0.5, 1000, "easeInOut"); // 在 1000 毫秒内以 easeInOut 缓动将元素的不透明度更改为 0.5
 ```
 
-- `opacity: number` - The new opacity of the element, between 0 and 1
-- `duration?: number` - The duration of the transform in milliseconds
-- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `opacity: number` - 元素的新不透明度，介于 0 和 1 之间
+- `duration?: number` - 变换的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 使用的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 </Steps>
 
@@ -77,15 +77,15 @@ element.opacity(0.5, 1000, "easeInOut"); // Change the opacity of the element to
 
 <Steps>
 
-Apply a custom transform to the element.
+对元素应用自定义变换
 
 ```typescript
 element.transform(new Transform(
-    /* Transform Definitions */
+/* 变换定义 */
 ));
 ```
 
-- `transform: Transform` - The custom transform to apply to the element, see [Transform](../animation/transform)
+- `transform: Transform` - 应用于元素的自定义变换，参见 [Transform](../animation/transform)
 
 </Steps>
 
@@ -93,29 +93,29 @@ element.transform(new Transform(
 
 <Steps>
 
-#### Overload 1 of 3
+#### 重载 1 / 3
 
-Show the element immediately.
+立即显示元素
 
 ```typescript
 element.show();
 ```
 
-#### Overload 2 of 3
+#### 重载 2 / 3
 
-Show the element with custom transform.
+使用自定义变换显示元素
 
 ```typescript
 element.show({
-    /* Transform Definitions */
+    /* 变换定义 */
 });
 ```
 
-- `options: Transform` - The custom transform to apply to the element, see [Transform](../animation/transform)
+- `options: Transform` - 应用于元素的自定义变换，参见 [Transform](../animation/transform)
 
-#### Overload 3 of 3
+#### 重载 3 / 3
 
-Show the element with transform config. A transform with alpha:1 will be applied to the element.
+使用变换配置显示元素。将应用一个 alpha:1 的变换到元素
 
 ```typescript
 element.show({
@@ -124,7 +124,7 @@ element.show({
 });
 ```
 
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - 参见 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
 </Steps>
 
@@ -132,29 +132,29 @@ element.show({
 
 <Steps>
 
-#### Overload 1 of 3
+#### 重载 1 / 3
 
-Hide the element immediately.
+立即隐藏元素
 
 ```typescript
 element.hide();
 ```
 
-#### Overload 2 of 3
+#### 重载 2 / 3
 
-Hide the element with custom transform.
+使用自定义变换隐藏元素
 
 ```typescript
 element.hide({
-    /* Transform Definitions */
+    /* 变换定义 */
 });
 ```
 
-- `options: Transform` - The custom transform to apply to the element, see [Transform](../animation/transform)
+- `options: Transform` - 应用于元素的自定义变换，参见 [Transform](../animation/transform)
 
-#### Overload 3 of 3
+#### 重载 3 / 3
 
-Hide the element with transform config. A transform with alpha:0 will be applied to the element.
+使用变换配置隐藏元素。将应用一个 alpha:0 的变换到元素
 
 ```typescript
 element.hide({
@@ -163,7 +163,7 @@ element.hide({
 });
 ```
 
-- `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - 参见 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
 </Steps>
 

@@ -3,11 +3,11 @@ import {Callout, Tabs, Cards, Steps} from 'nextra/components';
 # 角色
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    此页面正在建设中
 </Callout>
 
 <Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
+    测试功能，可能会发生变化
 </Callout>
 
 <Cards num={2}>
@@ -90,15 +90,15 @@ character.say([
 - `content: SentencePrompt` - 参见 [SentencePrompt](../types/SentencePrompt)
 - `config?: SentenceUserConfig` - [SentenceUserConfig](../types/SentenceUserConfig)
 
-#### Overload 4 of 4
+#### 重载 4 / 4
 
-Use short-hand for SentencePrompt.
+使用 SentencePrompt 的简写形式。
 
 ```typescript
-character.say`Hello, ${Word.color("Alice", "#f00")}!` // will output "Hello, Alice" with "Alice" in red color
+    character.say`你好，${Word.color("艾丽斯", "#f00")}！` // 将输出 "你好，艾丽斯"，其中 "艾丽斯" 为红色
 ```
 
-- `texts: TemplateStringsArray` - The template string array
+- `texts: TemplateStringsArray` - 模板字符串数组
 - `...words: SingleWord[]` - [SingleWord](../types/SentencePrompt#SingleWord)
 
 </Steps>
@@ -107,7 +107,7 @@ character.say`Hello, ${Word.color("Alice", "#f00")}!` // will output "Hello, Ali
 
 <Steps>
 
-Set the name of the character.
+    设置角色的名称。
 
 ```typescript
 character
@@ -115,7 +115,7 @@ character
     .say("你想要什么？")
 ```
 
-- `name: string` - The name of the character
+- `name: string` - 角色的名称
 
 </Steps>
 
