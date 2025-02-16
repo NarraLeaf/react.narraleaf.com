@@ -3,12 +3,12 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 # Word\<T extends string | DynamicWord | Pausing = string | DynamicWord | Pausing\>
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    此页面正在建设中
 </Callout>
 
-Word is a part of the Sentence. It is used to style the text.
+Word 是句子的一部分。它用于为文本添加样式。
 
-Constructing a red word:
+构建一个红色的单词：
 
 ```ts
 import { Word } from 'narraleaf-react';
@@ -16,13 +16,13 @@ import { Word } from 'narraleaf-react';
 const word = new Word("Hello", {color: "#f00"});
 ```
 
-Constructing a word with ruby text:
+构建一个带有注音的单词：
 
 ```ts
 const word = new Word("你好", {ruby: "nǐ hǎo"});
 ```
 
-Constructing a dynamic word:
+构建一个动态单词：
 
 ```ts
 // This word will be executed when it is displayed
@@ -31,14 +31,14 @@ const word = new Word((ctx) =>
 , {color: "#f00"});
 ```
 
-## Static Method
+## 静态方法
 
 ### isWord
 
 <Steps>
 
-- `obj: any` - The object to check
-- Returns `true` if the object is an instance of `Word`, otherwise `false`.
+- `obj: any` - 要检查的对象
+- 如果对象是 `Word` 的实例，则返回 `true`，否则返回 `false`。
 
 </Steps>
 
@@ -46,9 +46,9 @@ const word = new Word((ctx) =>
 
 <Steps>
 
-- `text: string | Word` - The text or Word instance to color
-- `color: Color` - The color to apply, see [Color](../../types/color#Color)
-- Returns a new `Word` instance with the specified color.
+- `text: string | Word` - 要着色的文本或 Word 实例
+- `color: Color` - 要应用的颜色，参见 [Color](../../types/color#Color)
+- 返回一个具有指定颜色的新 `Word` 实例
 
 </Steps>
 
@@ -56,8 +56,8 @@ const word = new Word((ctx) =>
 
 <Steps>
 
-- `text: string | Word` - The text or Word instance to make bold
-- Returns a new `Word` instance with bold formatting.
+- `text: string | Word` - 要加粗的文本或 Word 实例
+- 返回一个具有加粗格式的新 `Word` 实例
 
 </Steps>
 
@@ -65,18 +65,18 @@ const word = new Word((ctx) =>
 
 <Steps>
 
-- `text: string | Word` - The text or Word instance to italicize
-- Returns a new `Word` instance with italic formatting.
+- `text: string | Word` - 要斜体化的文本或 Word 实例
+- 返回一个具有斜体格式的新 `Word` 实例
 
 </Steps>
 
-## Public Method
+## 公共方法
 
-### constructor
+### 构造函数
 
 <Steps>
 
-- `text: T` - The content of the word
+- `text: T` - 单词的内容
 - `config?: Partial<WordConfig>` - [WordConfig](../../types/WordConfig)
 
 </Steps>
@@ -85,8 +85,8 @@ const word = new Word((ctx) =>
 
 <Steps>
 
-If the word is a string, it will return the string. Otherwise, it will return an empty string.
+    如果单词是字符串，则返回该字符串。否则，返回一个空字符串
 
-- Returns `string`
+- 返回 `string`
 
 </Steps>

@@ -1,18 +1,18 @@
 import {Steps} from "nextra/components";
 
-# Service
+# 服务
 
-Service is a special abstract class that is used to create custom actions, behaviors, or any other custom logic that can be shared across multiple scenes.
+Service 是一个特殊的抽象类，用于创建自定义操作、行为或任何可以在多个场景之间共享的自定义逻辑
 
-To use it, you need to extend and fully implement the abstract methods.
+要使用它，您需要继承并完全实现抽象方法
 
 ```typescript
 import {Service} from "narraleaf-react";
 ```
 
-## Example
+## 示例
 
-Here is an example of a custom service that implements a simple gallery service.
+以下是一个实现简单画廊服务的自定义服务示例
 
 ```typescript
 type GalleryActions = {
@@ -20,20 +20,20 @@ type GalleryActions = {
 };
 
 class Gallery extends Service<GalleryActions> {
-    // custom data
+    // 自定义数据
     unlocked: string[] = [];
 
     constructor() {
         super();
 
-        // register the action handler
+        // 注册操作处理程序
         this.onAction("add", (ctx: ServiceHandlerCtx, name: string) => {
-            console.log("Adding", name);
+            console.log("添加", name);
             this.unlocked.push(name);
         })
     }
 
-    /* Implement the serialize and deserialize methods */
+    /* 实现 serialize 和 deserialize 方法 */
     serialize(): Record<string, any> | null {
         return {
             unlocked: this.unlocked
@@ -43,15 +43,15 @@ class Gallery extends Service<GalleryActions> {
         this.unlocked = data.unlocked;
     }
 
-    /* Custom service logic */
+    /* 自定义服务逻辑 */
     add(name: string) {
-        // trigger the action
+        // 触发操作
         return this.action("add", name);
     }
 }
 ```
 
-and we can use this service in the game:
+我们可以在游戏中使用此服务：
 
 ```typescript
 const gallery = new Gallery();
@@ -65,36 +65,36 @@ myScene.action([
 
 ```
 
-## Creating Custom Service
+## 创建自定义服务
 
-### Implementing Service
+### 实现服务
 
-To implement a service, you need to extend the `Service` class and implement the abstract methods.
+要实现服务，您需要继承 `Service` 类并实现抽象方法
 
 ```typescript
 class MyCustomService extends Service {
     /**
-     * Serialize the service to data
+     * 将服务序列化为数据
      *
-     * **Note**: data must be JSON serializable, return null if nothing needs to be saved
+     * **注意**：数据必须是 JSON 可序列化的，如果不需要保存则返回 null
      */
     serialize(): Record<string, any> | null {
         return null;
     }
 
     /**
-     * Load data to the service
-     * @param data data exported from toData
+     * 将数据加载到服务中
+     * @param data 从 toData 导出的数据
      */
     deserialize(data: Record<string, any>): void {
     }
 }
 ```
 
-### Registering Actions
+### 注册操作
 
-To register actions, you need to use the `onAction` method.  
-All registration should be done in the constructor.
+要注册操作，您需要使用 `onAction` 方法  
+所有注册都应在构造函数中完成
 
 ```typescript
 class MyCustomService extends Service {
@@ -102,15 +102,15 @@ class MyCustomService extends Service {
         super();
 
         this.onAction("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
-            // custom logic
+            // 自定义逻辑
         });
     }
 }
 ```
 
-For ServiceHandlerCtx, see [ServiceHandlerCtx](../types/ServiceHandlerCtx).
+有关 ServiceHandlerCtx 的详细信息，请参见 [ServiceHandlerCtx](../types/ServiceHandlerCtx)
 
-To enable type checking, you can define the action types.
+要启用类型检查，您可以定义操作类型
 
 ```typescript
 type MyCustomActions = {
@@ -122,34 +122,34 @@ class MyCustomService extends Service<MyCustomActions> {
         super();
 
         this.onAction("myAction", (ctx: ServiceHandlerCtx, arg0: string, arg1: number) => {
-            // custom logic
+            // 自定义逻辑
         });
     }
 }
 ```
 
-### Async Actions
+### 异步操作
 
-If you need to perform async operations, you can return a promise.  
-But for future use, you should make the action abortable.
+如果您需要执行异步操作，可以返回一个 promise  
+但为了将来使用，您应该使操作可中止
 
 ```typescript
 this.onAction("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
     const abortController = new AbortController();
     const { signal } = abortController;
-    const promise = fetch("https://example.com", { signal }); // some async operation
+    const promise = fetch("https://example.com", { signal }); // 一些异步操作
 
     ctx.onAbort(() => {
-        abortController.abort(); // abort the async operation
+        abortController.abort(); // 中止异步操作
     });
 
-    return promise; // if you return a promise, the game will wait for the promise to resolve
+    return promise; // 如果您返回一个 promise，游戏将等待 promise 解析
 });
 ```
 
-### Trigger Action
+### 触发操作
 
-To trigger an action, you can use the `action` method.
+要触发操作，您可以使用 `action` 方法
 
 ```typescript
 const service = new MyCustomService();
@@ -159,7 +159,7 @@ scene.action([
 ]);
 ```
 
-or you can wrap the action in a method.
+或者您可以将操作包装在一个方法中
 
 ```typescript
 class MyCustomService extends Service<MyCustomActions> {
@@ -174,24 +174,24 @@ scene.action([
     service.myAction("foo", 123),
 
     service
-        .myAction("foo", 123)  // actions are wrapped and chainable
-        .myAction("bar", 456), // the game will manage the chain behavior automatically
+        .myAction("foo", 123)  // 操作被包装并可链式调用
+        .myAction("bar", 456), // 游戏将自动管理链式行为
 ]);
 ```
 
-### Accessing Service
+### 访问服务
 
-After creating the service, you need to register it in the game.
+创建服务后，您需要在游戏中注册它
 
 ```typescript
 const story = new Story(/* ... */);
 story.registerService("gallery", gallery);
 ```
 
-And you can access the service using ctx.
+您可以使用 ctx 访问服务
 
 ```tsx
-// ex. in a component
+// 例如，在组件中
 const {game} = useGame();
 const liveGame = game.getLiveGame();
 
@@ -204,13 +204,13 @@ return (
 );
 ```
 
-## Public Methods
+## 公共方法
 
 ### onAction\<K extends StringKeyOf\<Content\>\>
 
 <Steps>
 
-Register an action handler.
+注册一个操作处理程序
 
 ```typescript
 type MyCustomActions = {
@@ -222,25 +222,25 @@ class MyCustomService extends Service<MyCustomActions> {
         super();
 
         this.onAction<"myAction">("myAction", (ctx: ServiceHandlerCtx, arg0: string, arg1: number) => {
-            // custom logic
+            // 自定义逻辑
         });
     }
 }
 ```
 
-- `key: K` - The action key
-- `handler: ServiceHandler<Content[K]>` - For ServiceHandler, see [ServiceHandlerCtx](../types/ServiceHandlerCtx)
-- Returns `this`
+- `key: K` - 操作键
+- `handler: ServiceHandler<Content[K]>` - 有关 ServiceHandler 的详细信息，请参见 [ServiceHandlerCtx](../types/ServiceHandlerCtx)
+- 返回 `this`
 
 </Steps>
 
-## Chainable Methods
+## 可链式方法
 
 ### action\<K extends StringKeyOf\<Content\>\>
 
 <Steps>
 
-Trigger an action.
+触发一个操作
 
 ```typescript
 const service = new MyCustomService();
@@ -250,8 +250,7 @@ scene.action([
 ]);
 ```
 
-- `key: K` - The action key
-- `...args: Content[K]` - The action arguments
+- `key: K` - 操作键
+- `...args: Content[K]` - 操作参数
 
 </Steps>
-

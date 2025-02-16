@@ -3,32 +3,32 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 # Story
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    本页面正在建设中
 </Callout>
 
 <Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
+    测试功能，可能会有变动
 </Callout>
 
-`Story` is the main entry point for creating a story.
+`Story` 是创建故事的主要入口点
 
 ```ts
 import { Story } from 'narraleaf-react';
 
-const story = new Story("story name");
-const scene1 = new Scene("scene 1");
+const story = new Story("故事名称");
+const scene1 = new Scene("场景 1");
 
 story.entry(scene1);
 ```
 
-## Public Method
+## 公共方法
 
 ### constructor
 
 <Steps>
 
-- `name: string` - Name of the story
-- `config: IStoryConfig` - See [IStoryConfig](../types/IStoryConfig)
+- `name: string` - 故事的名称
+- `config: IStoryConfig` - 参见 [IStoryConfig](../types/IStoryConfig)
 
 </Steps>
 
@@ -36,8 +36,8 @@ story.entry(scene1);
 
 <Steps>
 
-- `scene: Scene` - The first scene to be executed
-- Returns `this`
+- `scene: Scene` - 要执行的第一个场景
+- 返回 `this`
 
 </Steps>
 
@@ -45,32 +45,32 @@ story.entry(scene1);
 
 <Steps>
 
-Scenes that are registered can be accessed by their name. For exmaple, you can jump to a scene by its name.
+注册的场景可以通过其名称访问。例如，您可以通过名称跳转到某个场景
 
 ```ts
-const scene1 = new Scene("scene 1");
-const scene2 = new Scene("scene 2");
+const scene1 = new Scene("场景 1");
+const scene2 = new Scene("场景 2");
 
 scene1.action([
-    scene1.jump("scene 2") // use string instead of scene instance
+    scene1.jump("场景 2") // 使用字符串而不是场景实例
 ]);
 
-const story = new Story("story name");
-story.registerScene("scene 2", scene2);
+const story = new Story("故事名称");
+story.registerScene("场景 2", scene2);
 ```
 
-#### Overload 1 of 2
+#### 重载 1 / 2
 
-- `scene: Scene` - The scene to be registered
-- Returns `this`
+- `scene: Scene` - 要注册的场景
+- 返回 `this`
 
-#### Overload 2 of 2
+#### 重载 2 / 2
 
-This overload allows you to pass the scene alias and the scene instance.
+此重载允许您传递场景别名和场景实例
 
-- `name: string` - Name of the scene
-- `scene: Scene` - The scene to be registered
-- Returns `this`
+- `name: string` - 场景的名称
+- `scene: Scene` - 要注册的场景
+- 返回 `this`
 
 </Steps>
 
@@ -78,22 +78,22 @@ This overload allows you to pass the scene alias and the scene instance.
 
 <Steps>
 
-You have to register the persistent to make it available in the story.
+您必须注册持久化对象以使其在故事中可用
 
 ```ts
-const story = new Story("story name");
+const story = new Story("故事名称");
 const persis = new Persistent</* ... */>("persis", /* ... */);
 
 story.registerPersistent(persistent);
 
-const scene1 = new Scene("scene 1");
+const scene1 = new Scene("场景 1");
 scene1.action([
     persis.set(/* ... */, /* ... */)
 ]);
 ```
 
-- `persistent: Persistent<any>` - The [Persistent](../elements/persistent) to be registered
-- Returns `this`
+- `persistent: Persistent<any>` - 要注册的 [Persistent](../elements/persistent)
+- 返回 `this`
 
 </Steps>
 
@@ -101,7 +101,7 @@ scene1.action([
 
 <Steps>
 
-Register a service. For more information, see [Service](../elements/service).
+注册一个服务。有关更多信息，请参见 [Service](../elements/service)
 
 ```ts
 const story = new Story(/* ... */);
@@ -110,9 +110,9 @@ const gallery = new Gallery(/* ... */);
 story.registerService("gallery", gallery);
 ```
 
-- `name: string` - Name of the service
-- `service: Service<any>` - The [Service](../elements/service) to be registered
-- Returns `this`
+- `name: string` - 服务的名称
+- `service: Service<any>` - 要注册的 [Service](../elements/service)
+- 返回 `this`
 
 </Steps>
 
@@ -120,7 +120,7 @@ story.registerService("gallery", gallery);
 
 <Steps>
 
-Get the service by its name. Throws an error if the service is not found.
+通过名称获取服务。如果未找到服务，则抛出错误
 
 ```tsx
 const {game} = useGame();
@@ -129,8 +129,7 @@ const liveGame = game.getLiveGame();
 const gallery = liveGame.story?.getService<Gallery>("gallery");
 ```
 
-- `name: string` - Name of the service
-- Returns `T`
+- `name: string` - 服务的名称
+- 返回 `T`
 
 </Steps>
-

@@ -1,51 +1,51 @@
 import {Callout, Tabs, Steps} from 'nextra/components';
 
-# Sound
+# 声音
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    本页面正在建设中
 </Callout>
 
 <Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
+    测试功能，可能会有变动
 </Callout>
 
-Sound controls the sound of the game
+Sound 控制游戏中的声音
 
-## Public Method
+## 公共方法
 
 ### constructor
 
 <Steps>
 
-#### Overload 1 of 2
+#### 重载 1 / 2
 
-- `config?: Partial<ISoundUserConfig>` - See [ISoundUserConfig](../types/ISoundUserConfig)
+- `config?: Partial<ISoundUserConfig>` - 参见 [ISoundUserConfig](../types/ISoundUserConfig)
 
-#### Overload 2 of 2
+#### 重载 2 / 2
 
-- `src?: string` - The source of the sound
+- `src?: string` - 声音的源文件路径
 
 </Steps>
 
-## Chainable Method
+## 可链式方法
 
 ### play
 
 <Steps>
 
-Play the sound
+播放声音
 
-```ts
+``ts
 const sound = new Sound({
     src: 'sound.mp3',
 });
 scene.action([
-    sound.play(1000), // play and fade in 1 second
+    sound.play(1000), // 播放并淡入 1 秒
 ]);
-```
+``
 
-- `duration?: number` - Fade duration in milliseconds
+- `duration?: number` - 淡入淡出持续时间（以毫秒为单位）
 
 </Steps>
 
@@ -53,9 +53,9 @@ scene.action([
 
 <Steps>
 
-Stop the sound. After stopping, the sound will go back to the beginning
+停止声音。停止后，声音将回到开头
 
-- `duration?: number` - Fade duration in milliseconds
+- `duration?: number` - 淡入淡出持续时间（以毫秒为单位）
 
 </Steps>
 
@@ -63,13 +63,13 @@ Stop the sound. After stopping, the sound will go back to the beginning
 
 <Steps>
 
-Fade the sound
+淡入淡出声音
 
-- `start: number | undefined` - Start volume, from 0 to 1, default is current volume
-- `end: number` - End volume, from 0 to 1
-- `duration: number` - Duration in milliseconds
+- `start: number | undefined` - 起始音量，从 0 到 1，默认为当前音量
+- `end: number` - 结束音量，从 0 到 1
+- `duration: number` - 持续时间（以毫秒为单位）
 
-```ts
+``ts
 const sound = new Sound({
     src: 'sound.mp3',
     volume: 0,
@@ -77,9 +77,9 @@ const sound = new Sound({
 scene.action([
     sound
         .play()
-        .fade(0, 1, 1000), // fade in 1 second
+        .fade(0, 1, 1000), // 淡入 1 秒
 ]);
-```
+``
 
 </Steps>
 
@@ -87,10 +87,10 @@ scene.action([
 
 <Steps>
 
-Set the volume of the sound
+设置声音的音量
 
-- `volume: number` - Volume, from 0 to 1
-- `duration?: number` - Fade duration in milliseconds
+- `volume: number` - 音量，从 0 到 1
+- `duration?: number` - 淡入淡出持续时间（以毫秒为单位）
 
 </Steps>
 
@@ -98,9 +98,9 @@ Set the volume of the sound
 
 <Steps>
 
-Set the rate of the sound
+设置声音的播放速率
 
-- `rate: number` - Rate, base is 1
+- `rate: number` - 速率，基准为 1
 
 </Steps>
 
@@ -108,7 +108,7 @@ Set the rate of the sound
 
 <Steps>
 
-- `duration?: number` - Fade duration in milliseconds
+- `duration?: number` - 淡入淡出持续时间（以毫秒为单位）
 
 </Steps>
 
@@ -116,6 +116,6 @@ Set the rate of the sound
 
 <Steps>
 
-- `fade?: number` - Fade duration in milliseconds
+- `fade?: number` - 淡入淡出持续时间（以毫秒为单位）
 
 </Steps>

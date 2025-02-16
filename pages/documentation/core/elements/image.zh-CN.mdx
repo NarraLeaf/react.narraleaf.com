@@ -1,68 +1,68 @@
 import {Callout, Tabs, Steps} from 'nextra/components';
 
-# Image
+# 图像
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    此页面正在建设中
 </Callout>
 
 <Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
+    测试功能，可能会发生变化
 </Callout>
 
-> This class extends [Displayble](./displayable)
+> 此类继承自 [Displayble](./displayable)
 
-Image is very important for a visual novel. It is used to show the appearance of the character. 
+图像对于视觉小说非常重要。它用于显示角色的外观
 
-In NarraLeaf-React, Image only controls the appearance of the character. It does not control the dialogues of the character. For that, you can use [Character](../character).
+在 NarraLeaf-React 中，图像仅控制角色的外观。它不控制角色的对话。为此，你可以使用 [Character](../character)
 
-## Public Method
+## 公共方法
 
-### constructor
+### 构造函数
 
 <Steps>
 
 <Callout type="warning" emoji="⚠️">
-    You cannot mix tag-based image and src-based image in the same image.
+    你不能在同一图像中混合使用基于标签的图像和基于 src 的图像
 </Callout>
 
-- `config: Partial<IImageUserConfig>` - Image config, see [IImageUserConfig](../types/IImageUserConfig)
+- `config: Partial<IImageUserConfig>` - 图像配置，参见 [IImageUserConfig](../types/IImageUserConfig)
 
 #### Tag-based Image
 
-For example, if you have an image that has tags like `happy`, `sad`, `angry`, you can use tag-based image.
+例如，如果你有一个带有 `happy`、`sad`、`angry` 等标签的图像，你可以使用基于标签的图像
 
-Here is an example of tag-based image.
+以下是一个基于标签的图像的示例
 
 ```typescript
 const image = new Image({
     src: {
         groups: [
-            ["happy", "sad", "angry"],
-            ["shirt", "jacket", "t-shirt"],
-            ["trousers", "skirt", "shorts"],
+        ["happy", "sad", "angry"],
+        ["shirt", "jacket", "t-shirt"],
+        ["trousers", "skirt", "shorts"],
         ],
         defaults: ["happy", "shirt", "trousers"],
-        resolve: (emotion, top, bottom) => `https://your/image/src/${emotion}_${top}_${bottom}.png`
+        resolve: (emotion, top, bottom) => `https://你的/图片/路径/${emotion}_${top}_${bottom}.png`
     } as const,
 });
-// The default image will be `https://your/image/src/happy_shirt_trousers.png`
+// 默认图片将是 `https://你的/图片/路径/happy_shirt_trousers.png`
 ```
 
 <Callout type="warning" emoji="⚠️">
 
-**Note:** You cannot have two identical tags in the same group or in different groups.
+**注意:** 你不能在同一组或不同组中有两个相同的标签
 
 ```typescript
 const image = new Image({
     src: {
         groups: [
-            ["a", "b", "c"],
-            ["1", "2", "3"],
-            ["a"], // INVALID, tag "a" is already in the first group
-            ["x", "y", "y"], // INVALID, tag "y" is duplicated
+        ["a", "b", "c"],
+        ["1", "2", "3"],
+        ["a"], // 无效，标签 "a" 已在第一组中
+        ["x", "y", "y"], // 无效，标签 "y" 重复
         ],
-        defaults: ["a"], // INVALID, default definition must have a full set of tags
+        defaults: ["a"], // 无效，默认定义必须包含完整的标签集
     } as const,
     /* ... */
 });
@@ -71,18 +71,18 @@ const image = new Image({
 
 #### Src-based Image
 
-If you don't have tags, you can use src-based image.
+如果你没有标签，你可以使用基于 src 的图像
 
 ```typescript
 const image = new Image({
-    src: "https://your/image/src.png",
+    src: "https://你的/图片/路径.png",
 });
 ```
 
 #### Wearable Image
 
-You can add some wearables to the image.  
-The wearable image will move/scale/animate with the main image.
+你可以为图像添加一些可穿戴物品
+可穿戴图像将随主图像一起移动/缩放/动画
 
 ```typescript
 const child = new Image({
@@ -93,7 +93,7 @@ const parent = new Image({
 }).wear(child);
 ```
 
-> **Note:** The image can only have one parent.
+> **注意:** 图像只能有一个父图像
 
 </Steps>
 
@@ -101,9 +101,9 @@ const parent = new Image({
 
 <Steps>
 
-Copy the image.
+复制图像
 
-- Returns `Image`
+- 返回 `Image`
 
 ```typescript
 const newImage = image.copy();
@@ -115,9 +115,9 @@ const newImage = image.copy();
 
 <Steps>
 
-Use a layer for the image
+为图像使用图层
 
-- `layer: Layer` - [Layer](./layer)
+- `layer: Layer` - [图层](./layer)
 
 ```typescript
 const layer = new Layer(/* ... */);
@@ -127,22 +127,22 @@ image.useLayer(layer);
 
 </Steps>
 
-## Chainable Method
+## 链式方法
 
 ### char
 
 <Steps>
 
-Set the figure of the character
+设置角色的形象
 
-- `src: ImageSrc | Color | SelectElementFromEach<Tags> | FlexibleTuple<SelectElementFromEach<Tags>>` - The source of the image
-- `transition?: ImageTransition` - For ImageTransition, see [Transition](../animation/transition)
+- `src: ImageSrc | Color | SelectElementFromEach<Tags> | FlexibleTuple<SelectElementFromEach<Tags>>` - 图像的源
+- `transition?: ImageTransition` - 对于 ImageTransition，参见 [Transition](../animation/transition)
 
 ```typescript
-image.char("your/image/src", new Fade(1000));
+image.char("你的/图片/路径", new Fade(1000));
 ```
 
-or for tag-based image
+或对于基于标签的图像
 
 ```typescript
 // happy, shirt, trousers
@@ -171,13 +171,13 @@ image.char(["angry"], new Fade(1000));
 
 <Steps>
 
-Add a wearable to the image
+为图像添加可穿戴物品
 
-> Wearable is a feature that allows you to add an image that related to the main image. For example, you can add a hat to the character.
-> And that wearable image will move/scale/animate with the main image.
+> 可穿戴物品是一项功能，允许你添加与主图像相关的图像。例如，你可以为角色添加一顶帽子
+> 并且该可穿戴图像将随主图像一起移动/缩放/动画
 
-- `children: Image | Image[]` - Wearable image or images
-- Returns `this`
+- `children: Image | Image[]` - 可穿戴图像或图像数组
+- 返回 `this`
 
 ```typescript
 const childImage = new Image(/* ... */);
@@ -191,7 +191,7 @@ image.addWearable(childImage);
 
 <Steps>
 
-Alias of `addWearable`
+`addWearable` 的别名
 
 </Steps>
 
@@ -199,10 +199,10 @@ Alias of `addWearable`
 
 <Steps>
 
-Bind this image to a parent image as a wearable
+将此图像作为可穿戴物品绑定到父图像
 
-- `parent: Image` - Parent image
-- Returns `this`
+- `parent: Image` - 父图像
+- 返回 `this`
 
 ```typescript
 childImage.bindWearable(parentImage);
