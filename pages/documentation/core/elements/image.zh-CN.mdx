@@ -28,7 +28,7 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 - `config: Partial<IImageUserConfig>` - 图像配置，参见 [IImageUserConfig](../types/IImageUserConfig)
 
-#### 基于标签的图像
+#### Tag-based Image
 
 例如，如果你有一个带有 `happy`、`sad`、`angry` 等标签的图像，你可以使用基于标签的图像
 
@@ -69,7 +69,7 @@ const image = new Image({
 ```
 </Callout>
 
-#### 基于 Src 的图像
+#### Src-based Image
 
 如果你没有标签，你可以使用基于 src 的图像
 
@@ -79,7 +79,7 @@ const image = new Image({
 });
 ```
 
-#### 可穿戴图像
+#### Wearable Image
 
 你可以为图像添加一些可穿戴物品
 可穿戴图像将随主图像一起移动/缩放/动画
@@ -97,7 +97,7 @@ const parent = new Image({
 
 </Steps>
 
-### 复制
+### copy
 
 <Steps>
 
@@ -111,7 +111,7 @@ const newImage = image.copy();
 
 </Steps>
 
-### 使用图层
+### useLayer
 
 <Steps>
 
