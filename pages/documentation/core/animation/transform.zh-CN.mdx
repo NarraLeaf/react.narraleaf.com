@@ -3,20 +3,20 @@ import {Callout, Cards, Steps} from 'nextra/components';
 # 变换
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    此页面正在建设中
 </Callout>
 
-变换控制图像的外观，如位置、旋转和缩放。
+变换控制图像的外观，如位置、旋转和缩放
 
 变换的示例：
 
 ```typescript
-// The character will move down and up
+// 角色将上下移动
 new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                yoffset: -10, // move down 10 pixels in 120ms with easeOut
+                yoffset: -10, // 在 120 毫秒内向下移动 10 像素，使用 easeOut
             }
         },
         options: {
@@ -27,7 +27,7 @@ new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                yoffset: 0, // move back to the original position in 100ms with easeOut
+                yoffset: 0, // 在 100 毫秒内移回原始位置，使用 easeOut
             }
         },
         options: {
@@ -40,27 +40,27 @@ new Transform<TransformDefinitions.ImageTransformProps>([
 }),
 ```
 
-`Transform` 的第一个参数是一个序列数组。第二个参数是一个包含变换选项的对象。
+`Transform` 的第一个参数是一个序列数组。第二个参数是一个包含变换选项的对象
 
 一系列变换由 `props` 和 `options` 组成：
 
-1. `props` 是一个包含变换属性的对象，如 `position`、`rotation` 和 `scale`。
-2. `options` 是一个包含变换选项的对象，如 `duration` 和 `ease`。
+1. `props` 是一个包含变换属性的对象，如 `position`、`rotation` 和 `scale`
+2. `options` 是一个包含变换选项的对象，如 `duration` 和 `ease`
 
-## Transform Properties
+## 变换属性
 
-For a list of properties, see [TransformDefinitions](../types/TransformDefinitions).
+有关属性列表，请参见 [TransformDefinitions](../types/TransformDefinitions)
 
-## Static Methods
+## 静态方法
 
 ### left
 
 <Steps>
 
-Move the image to the left side of the stage. 
+将图像移动到舞台的左侧
 
-- `duration: number` - The duration of the movement in milliseconds.
-- `easing?: TransformDefinitions.EasingDefinition` - See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `duration: number` - 移动的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 </Steps>
 
@@ -68,10 +68,10 @@ Move the image to the left side of the stage.
 
 <Steps>
 
-Move the image to the right side of the stage.
+将图像移动到舞台的右侧
 
-- `duration: number` - The duration of the movement in milliseconds.
-- `easing?: TransformDefinitions.EasingDefinition` - See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `duration: number` - 移动的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 </Steps>
 
@@ -79,10 +79,10 @@ Move the image to the right side of the stage.
 
 <Steps>
 
-Move the image to the center of the stage.
+将图像移动到舞台的中心
 
-- `duration: number` - The duration of the movement in milliseconds.
-- `easing?: TransformDefinitions.EasingDefinition` - See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `duration: number` - 移动的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 </Steps>
 
@@ -90,33 +90,33 @@ Move the image to the center of the stage.
 
 <Steps>
 
-    Apply the transform immediately.
+立即应用变换
 
-    - `props: SequenceProps<T>` - A single [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
-    - Returns `Transform<T>`
+- `props: SequenceProps<T>` - 单个 [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
+- 返回 `Transform<T>`
 
 </Steps>
 
-## Public Methods
+## 公共方法
 
 ### constructor\<T extends TransformDefinitions.Types\>
 
 <Steps>
 
-For more information, see [Advanced Transform](./advanced-transform).
+有关更多信息，请参见 [高级变换](./advanced-transform)
 
-#### Overload 1 of 2
+#### 重载 1 / 2
 
-This overload takes an array of sequences.
+此重载接受一个序列数组
 
-Example: 
-    
+示例：
+
 ```typescript
 new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                xalign: 0.3, // go to left in 120ms with easeOut
+                xalign: 0.3, // 在 120 毫秒内向左移动，使用 easeOut
             }
         },
         options: {
@@ -127,7 +127,7 @@ new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                xalign: 0.6, // go to right in 100ms with easeOut
+                xalign: 0.6, // 在 100 毫秒内向右移动，使用 easeOut
             }
         },
         options: {
@@ -140,19 +140,19 @@ new Transform<TransformDefinitions.ImageTransformProps>([
 });
 ```
 
-- `sequences: TransformDefinitions.Sequence<T>[]` - An array of Sequence
-- `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - Transform Config
+- `sequences: TransformDefinitions.Sequence<T>[]` - 序列数组
+- `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - 变换配置
 
-#### Overload 2 of 2
+#### 重载 2 / 2
 
-This overload takes a single sequence.
+此重载接受单个序列
 
-Example: 
-    
+示例：
+
 ```typescript
 new Transform<TransformDefinitions.ImageTransformProps>({
     position: {
-        xalign: 0.3, // go to left in 120ms with easeOut
+        xalign: 0.3, // 在 120 毫秒内向左移动，使用 easeOut
     }
 }, {
     duration: 120,
@@ -160,8 +160,8 @@ new Transform<TransformDefinitions.ImageTransformProps>({
 });
 ```
 
-- `props: SequenceProps<T>` - A single [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
-- `options?: Partial<TransformDefinitions.CommonTransformProps>` - A single [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
+- `props: SequenceProps<T>` - 单个 [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
+- `options?: Partial<TransformDefinitions.CommonTransformProps>` - 单个 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
 </Steps>
 
@@ -169,18 +169,18 @@ new Transform<TransformDefinitions.ImageTransformProps>({
 
 <Steps>
 
-Repeat the transform.
+重复变换
 
-Example: 
-    
+示例：
+
 ```typescript
 transform
   .repeat(2)
   .repeat(3)
-// repeat 6 times
+// 重复 6 次
 ```
 
-- `n: number` - The number of times to repeat the transform.
+- `n: number` - 重复变换的次数
 - `return: this`
 
 </Steps>
@@ -189,7 +189,7 @@ transform
 
 <Steps>
 
-Copy the transform.
+复制变换
 
 - `return: Transform<T>`
 
