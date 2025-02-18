@@ -1,11 +1,11 @@
-# Dissolve
+# 溶解
 
-> This transition is designed for [Image](../../elements/image) elements.
+> 此过渡效果专为[图像](../../elements/image)元素设计
 
-Dissolve from the current image to the next image.  
-The current image will fade out, and the next image will fade in at the same time.
+从当前图像溶解到下一张图像  
+当前图像将淡出，同时下一张图像将淡入
 
-## Usage
+## 用法
 
 ```tsx
 import { Dissolve } from "narraleaf-react";
@@ -13,9 +13,9 @@ import { Dissolve } from "narraleaf-react";
 image.char("image1.jpg", new Dissolve(3000));
 ```
 
-## Public Methods
+## 公共方法
 
 ### constructor
 
-- `duration: number` - The duration of the transition in milliseconds
-- `easing?: TransformDefinitions.EasingDefinition` - The easing function, see [TransformDefinitions](../../types/TransformDefinitions).[EasingDefinition](../../types/TransformDefinitions#EasingDefinition)
+- `duration: number` - 过渡效果的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 缓动函数，参见[TransformDefinitions](../../types/TransformDefinitions).[EasingDefinition](../../types/TransformDefinitions#EasingDefinition)

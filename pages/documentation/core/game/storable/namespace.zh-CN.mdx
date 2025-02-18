@@ -3,30 +3,30 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 # Namespace\<T extends NameSpaceContent\<keyof T\>\>
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    此页面正在建设中
 </Callout>
 
 <Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
+    测试功能，可能会发生变化
 </Callout>
 
-Namespace is a class that represents a namespace of a [Storable](../storable)
+Namespace 是一个类，表示 [Storable](../storable) 的命名空间。
 
-## Public Properties
+## 公共属性
 
 ### name
 
-- `string` - Human-readable name of the namespace
+- `string` - 命名空间的可读名称
 
-## Public Methods
+## 公共方法
 
 ### constructor
 
 <Steps>
 
-- `name: string` - Human-readable name of the namespace
-- `initContent: T` - Initial content of the namespace
-- `key?: string` - The namespace key, default is the name
+- `name: string` - 命名空间的可读名称
+- `initContent: T` - 命名空间的初始内容
+- `key?: string` - 命名空间的键，默认为名称
 
 </Steps>
 
@@ -34,16 +34,16 @@ Namespace is a class that represents a namespace of a [Storable](../storable)
 
 <Steps>
 
-Example:
+示例：
 ```typescript
 const namespace = new Namespace<{name: string}>('player1', {name: 'John Doe'});
 
 namespace.set('name', 'Jane Smith');
 ```
 
-- `key: Key` - The key of the value to set
-- `value: T[Key]` - The value to set
-- Returns `this`
+- `key: Key` - 要设置的值的键
+- `value: T[Key]` - 要设置的值
+- 返回 `this`
 
 </Steps>
 
@@ -51,8 +51,8 @@ namespace.set('name', 'Jane Smith');
 
 <Steps>
 
-- `key: Key` - The key of the value to get
-- Returns `T[Key]`
+- `key: Key` - 要获取的值的键
+- 返回 `T[Key]`
 
 </Steps>
 
@@ -60,9 +60,9 @@ namespace.set('name', 'Jane Smith');
 
 <Steps>
 
-- `key: Key` - The key of the value to compare
-- `value: T[Key]` - The value to compare
-- Returns `boolean`
+- `key: Key` - 要比较的值的键
+- `value: T[Key]` - 要比较的值
+- 返回 `boolean`
 
 </Steps>
 
@@ -70,8 +70,7 @@ namespace.set('name', 'Jane Smith');
 
 <Steps>
 
-- `values: Partial<T>` - The content to assign
-- Returns `this`
+- `values: Partial<T>` - 要分配的内容
+- 返回 `this`
 
 </Steps>
-

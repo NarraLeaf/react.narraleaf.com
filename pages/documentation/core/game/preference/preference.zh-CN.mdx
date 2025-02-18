@@ -3,30 +3,30 @@ import {Callout, Steps} from 'nextra/components';
 # Preference\<T extends Record\<string, string | boolean | number | null | undefined\>\>
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    此页面正在建设中
 </Callout>
 
 <Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
+    测试功能，可能会发生变化
 </Callout>
 
-Preference allows you to control some game behaviors, such as auto-forward mode.
+Preference 允许你控制一些游戏行为，例如自动前进模式。
 
-For a list of preference keys, see [GamePreference](../../types/GamePreference).
+有关偏好设置键的列表，请参阅 [GamePreference](../../types/GamePreference)。
 
-## Public Methods
+## 公共方法
 
 ### constructor
 
 <Steps>
 
-- `settings: T` - The default preference settings
+- `settings: T` - 默认偏好设置
 
 </Steps>
 
 ### setPreference\<K extends Extract\<keyof T, string\>\>
 
-Set a preference.
+设置一个偏好。
 
 <Steps>
 
@@ -34,15 +34,15 @@ Set a preference.
 game.preference.setPreference("autoForward", true);
 ```
 
-- `key: K` - The preference key
-- `value: T[K]` - The preference value
-- Returns `void`
+- `key: K` - 偏好键
+- `value: T[K]` - 偏好值
+- 返回 `void`
 
 </Steps>
 
 ### getPreference\<K extends Extract\<keyof T, string\>\>
 
-Get a preference.
+获取一个偏好。
 
 <Steps>
 
@@ -50,40 +50,40 @@ Get a preference.
 const autoForward = game.preference.getPreference("autoForward");
 ```
 
-- `key: K` - The preference key
-- Returns `T[K]`
+- `key: K` - 偏好键
+- 返回 `T[K]`
 
 </Steps>
 
 ### getPreferences
 
-Get all preferences.
+获取所有偏好。
 
 <Steps>
 
-- Returns `T`
+- 返回 `T`
 
 </Steps>
 
 ### onPreferenceChange\<U extends Extract\<keyof T, string\>\>
 
-Listen to preference changes.
+监听偏好更改。
 
 <Steps>
 
-#### Overload 1 / 1
+#### 重载 1 / 1
 
 ```typescript
 game.preference.onPreferenceChange("autoForward", value => {
-    console.log(`Auto-forward mode is ${value ? "enabled" : "disabled"}`);
+    console.log(`自动前进模式已 ${value ? "启用" : "禁用"}`);
 });
 ```
 
-- `key: U` - The preference key
+- `key: U` - 偏好键
 - `listener: (value: T[U]) => void`
-- Returns `PreferenceEventToken` - See [PreferenceEventToken](../types/PreferenceEventToken)
+- 返回 `PreferenceEventToken` - 参见 [PreferenceEventToken](../types/PreferenceEventToken)
 
-#### Overload 2 / 2
+#### 重载 2 / 2
 
 - `listener: (key: Extract<keyof T, string>, value: T[Extract<keyof T, string>]) => void`
 
@@ -91,9 +91,9 @@ game.preference.onPreferenceChange("autoForward", value => {
 
 ### importPreferences
 
-Import preferences
+导入偏好
 
-> Note: This will override the existing preferences, and trigger the change event
+> 注意：这将覆盖现有偏好，并触发更改事件
 
 <Steps>
 
@@ -104,13 +104,13 @@ game.preference.importPreferences({
 ```
 
 - `preferences: Partial<T>`
-- Returns `void`
+- 返回 `void`
 
 </Steps>
 
 ### exportPreferences
 
-Export preferences
+导出偏好
 
 <Steps>
 
@@ -118,13 +118,13 @@ Export preferences
 const preferences = game.preference.exportPreferences();
 ```
 
-- Returns `Partial<T>`
+- 返回 `Partial<T>`
 
 </Steps>
 
 ### togglePreference\<K extends BooleanValueKeyOf\<T\>\>
 
-Toggle a boolean preference.
+切换布尔偏好。
 
 <Steps>
 
@@ -132,7 +132,6 @@ Toggle a boolean preference.
     game.preference.togglePreference("autoForward");
     ```
 
-    - Returns `void`
+    - 返回 `void`
 
 </Steps>
-
