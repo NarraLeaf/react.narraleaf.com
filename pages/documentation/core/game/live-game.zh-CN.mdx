@@ -3,28 +3,28 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 # LiveGame
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    此页面正在建设中
 </Callout>
 
-LiveGame is the main class that represents the game's current state. 
+LiveGame 是代表游戏当前状态的主类。
 
-## Public Properties
+## 公共属性
 
 ### game
 
-The [Game](./game) instance
+[Game](./game) 实例
 
 ### story
 
-The current [Story](../elements/story) instance
+当前 [Story](../elements/story) 实例
 
-## Public Methods
+## 公共方法
 
 ### getStorable
 
 <Steps>
 
-Returns the [Storable](./storable) instance
+返回 [Storable](./storable) 实例
 
 - `return: Storable` - [Storable](./storable)
 
@@ -34,7 +34,7 @@ Returns the [Storable](./storable) instance
 
 <Steps>
 
-Starts a new game
+开始新游戏
 
 - `return this`
 
@@ -44,23 +44,23 @@ Starts a new game
 
 <Steps>
 
-Load a saved game
+加载保存的游戏
 
-After calling this method, the current game state will be lost, and the stage will trigger force reset
+调用此方法后，当前游戏状态将丢失，舞台将触发强制重置
 
-> **Note: **Even if you change just a single line of script, the saved game might not be compatible with the new version
+> **注意：**即使只更改一行脚本，保存的游戏也可能与新版本不兼容
 
-Example:
+示例：
 
 ```typescript
 const savedGame = {
-    // ...saved game data
+    // ...保存的游戏数据
 };
 
-// use hook inside a component
+// 在组件中使用钩子
 const {game} = useGame();
 
-// pass the saved game data to the game instance
+// 将保存的游戏数据传递给游戏实例
 game.getLiveGame().deserialize(savedGame);
 ```
 
@@ -72,13 +72,13 @@ game.getLiveGame().deserialize(savedGame);
 
 <Steps>
 
-Serialize the current game state
+序列化当前游戏状态
 
-You can use this to save the game state to a file or a database
+你可以使用此方法将游戏状态保存到文件或数据库中
 
-> **Note: **Even if you change just a single line of script, the saved game might not be compatible with the new version
+> **注意：**即使只更改一行脚本，保存的游戏也可能与新版本不兼容
 
-- `return: SavedGame` - See [SavedGame](../types/SavedGame)`
+- `return: SavedGame` - 参见 [SavedGame](../types/SavedGame)
 
 </Steps>
 
@@ -86,10 +86,10 @@ You can use this to save the game state to a file or a database
 
 <Steps>
 
-Called when a character says something
+角色说话时调用
 
-- `fc: (event: LiveGameEvent["event:character.prompt"]) => void` - See [LiveGameEvent](../types/LiveGameEvent#event%3Acharacter.prompt)
-- Returns `LiveGameEventToken` - See [LiveGameEventToken](../types/LiveGameEventToken)
+- `fc: (event: LiveGameEvent["event:character.prompt"]) => void` - 参见 [LiveGameEvent](../types/LiveGameEvent#event%3Acharacter.prompt)
+- 返回 `LiveGameEventToken` - 参见 [LiveGameEventToken](../types/LiveGameEventToken)
 
 ```typescript
 const {game} = useGame();
@@ -107,7 +107,7 @@ useEffect(() => {
 
 return (
     <div>
-        {/* Your Text Log */}
+        {/* 你的文本日志 */}
     </div>
 );
 ```
@@ -118,10 +118,10 @@ return (
 
 <Steps>
 
-Called when a menu is completed
+菜单完成时调用
 
-- `fc: (event: LiveGameEvent["event:menu.choose"]) => void` - See [LiveGameEvent](../types/LiveGameEvent#event%3Amenu.choose)
-- Returns `LiveGameEventToken` - See [LiveGameEventToken](../types/LiveGameEventToken)
+- `fc: (event: LiveGameEvent["event:menu.choose"]) => void` - 参见 [LiveGameEvent](../types/LiveGameEvent#event%3Amenu.choose)
+- 返回 `LiveGameEventToken` - 参见 [LiveGameEventToken](../types/LiveGameEventToken)
 
 </Steps>
 
@@ -129,21 +129,21 @@ Called when a menu is completed
 
 <Steps>
 
-Capture the game screenshot, will only include the player element
+捕获游戏截图，仅包含玩家元素
 
-Returns a PNG image base64-encoded data URL
+返回 PNG 图像的 Base64 编码数据 URL
 
 ```typescript
 const {game} = useGame();
 
 function handleButtonClick() {
     game.getLiveGame().capturePng().then((dataUrl) => {
-        // do something with the dataUrl
+        // 对 dataUrl 进行操作
     });
 }
 ```
 
-- Returns `Promise<string>`
+- 返回 `Promise<string>`
 
 </Steps>
 
@@ -151,11 +151,11 @@ function handleButtonClick() {
 
 <Steps>
 
-Capture the game screenshot, will only include the player element
+捕获游戏截图，仅包含玩家元素
 
-Returns compressed JPEG image data URL
+返回压缩后的 JPEG 图像数据 URL
 
-- Returns `Promise<string>`
+- 返回 `Promise<string>`
 
 </Steps>
 
@@ -163,11 +163,11 @@ Returns compressed JPEG image data URL
 
 <Steps>
 
-Capture the game screenshot, will only include the player element
+捕获游戏截图，仅包含玩家元素
 
-Returns an SVG data URL
+返回 SVG 数据 URL
 
-- Returns `Promise<string>`
+- 返回 `Promise<string>`
 
 </Steps>
 
@@ -175,11 +175,11 @@ Returns an SVG data URL
 
 <Steps>
 
-Capture the game screenshot, will only include the player element
+捕获游戏截图，仅包含玩家元素
 
-Returns a PNG image blob
+返回 PNG 图像的 Blob
 
-- Returns `Promise<Blob | null>`
+- 返回 `Promise<Blob | null>`
 
 </Steps>
 
@@ -187,14 +187,14 @@ Returns a PNG image blob
 
 <Steps>
 
-Request full screen on Chrome/Safari/Firefox/IE/Edge/Opera, the player element will be full screen
+在 Chrome/Safari/Firefox/IE/Edge/Opera 上请求全屏，玩家元素将进入全屏模式
 
-**Note**: this method should be called in response to a user gesture (for example, a click event)
+**注意**：此方法应在用户手势（例如，点击事件）的响应中调用
 
-Safari iOS and Webview iOS aren't supported, for more information, see [MDN-requestFullscreen](https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen)
+Safari iOS 和 Webview iOS 不支持，更多信息请参见 [MDN-requestFullscreen](https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen)
 
 - `options?: FullscreenOptions | undefined`
-- Returns `Promise<void> | void`
+- 返回 `Promise<void> | void`
 
 </Steps>
 
@@ -202,9 +202,9 @@ Safari iOS and Webview iOS aren't supported, for more information, see [MDN-requ
 
 <Steps>
 
-Exit full screen
+退出全屏
 
-- Returns `Promise<void> | void`
+- 返回 `Promise<void> | void`
 
 </Steps>
 
@@ -212,21 +212,21 @@ Exit full screen
 
 <Steps>
 
-Listen to the events of the player element
+监听玩家元素的事件
 
 ```typescript
 const {game} = useGame();
 
 useEffect(() => {
     return game.getLiveGame().onPlayerEvent("click", (event) => {
-        // do something
+        // 执行操作
     }).cancel;
 }, []);
 ```
 
-- `type: K` - The event type
-- `listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any` - The event listener
+- `type: K` - 事件类型
+- `listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any` - 事件监听器
 - `options?: boolean | AddEventListenerOptions`
-- Returns `LiveGameEventToken`
+- 返回 `LiveGameEventToken`
 
 </Steps>
