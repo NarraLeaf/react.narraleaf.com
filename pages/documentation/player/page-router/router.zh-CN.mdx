@@ -1,58 +1,58 @@
 # 路由器
 
-Router is used to navigate between pages.
+Router 用于在页面之间导航。
 
-```tsx
+```ts
 import { useRouter } from "narraleaf-react";
 ```
 
-## Public Methods
+## 公共方法
 
 ### push
 
-Navigate to a page by its id.
 
-```tsx
+通过页面的 id 导航到一个页面。
+
+```ts
 router.push("about");
 ```
 
-The Game will navigate to the page with the id `about`.
+游戏将导航到 id 为 `about` 的页面。
 
-```tsx
+```ts
 <Page id="about">
-    {/* These elements will be displayed */}
-    {/* Your content */}
+    {/* 这些元素将被显示 */}
+    {/* 你的内容 */}
 </Page>
 ```
 
-- `id: string` - The id of the page.
-- Returns `this`
+- `id: string` - 页面的 id。
+- 返回 `this`
 
 ### back
 
-Navigate to the previous page.
+导航到上一个页面。
 
-This method will do nothing if there is no previous page.
+如果没有上一个页面，此方法将不执行任何操作。
 
-- Returns `this`
+- 返回 `this`
 
 ### forward
 
-Navigate to the next page.
+导航到下一页。
 
-This method will do nothing if there is no next page.
+如果没有下一页，此方法将不执行任何操作。
 
-- Returns `this`
+- 返回 `this`
 
 ### cleanHistory
 
-Clean the navigation history.
+清除导航历史。
 
-- Returns `this`
+- 返回 `this`
 
 ### getCurrentId
 
-Get the current page id.
+获取当前页面的 id。
 
-- Returns `string`
-
+- 返回 `string`
