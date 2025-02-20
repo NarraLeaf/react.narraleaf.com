@@ -1,8 +1,8 @@
 # usePreference
 
-You can access and manage the preferences using this hook.
+您可以使用此钩子访问和管理偏好设置
 
-> **Note**: this hook can only be used in a component that is a descendant of [GameProvider](../game-providers).
+> **注意**：此钩子只能在 [GameProvider](../game-providers) 的后代组件中使用
 
 ```typescript
 function usePreference<K extends StringKeyOf<GamePreference>>(
@@ -10,11 +10,11 @@ function usePreference<K extends StringKeyOf<GamePreference>>(
 ): [GamePreference[K], (value: GamePreference[K]) => void];
 ```
 
-- For GamePreference, see [GamePreference](../../core/types/GamePreference).
+- 有关 GamePreference，请参见 [GamePreference](../../core/types/GamePreference)
 
-## Usage
+## 用法
 
-This hook is similar to [useState](https://react.dev/reference/react/useState) hook. It returns a tuple containing the current value and a function to update the value.
+此钩子类似于 [useState](https://react.dev/reference/react/useState) 钩子。它返回一个包含当前值和更新值的函数的元组
 
 ```typescript
 import {usePreference} from "narraleaf-react";
@@ -30,13 +30,12 @@ function myComponent() {
 
     return (
         <div>
-            Auto Forward: {autoForward ? "Enabled" : "Disabled"}
+            自动前进：{autoForward ? "启用" : "禁用"}
             
             <button onClick={triggerAutoForward}>
-                Toggle Auto Forward
+                切换自动前进
             </button>
         </div>
     );
 }
 ```
-

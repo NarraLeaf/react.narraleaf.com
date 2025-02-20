@@ -1,6 +1,6 @@
-# Page
+# 页面
 
-Page is used to display the content of a page.
+Page 用于显示页面的内容
 
 ```tsx
 import { Page } from "narraleaf-react";
@@ -8,8 +8,8 @@ import { Page } from "narraleaf-react";
 
 ```tsx
 <Page id="about">
-    {/* These elements will be displayed */}
-    {/* Your content */}
+    {/* 这些元素将被显示 */}
+    {/* 您的内容 */}
 </Page>
 ```
 
@@ -17,47 +17,48 @@ import { Page } from "narraleaf-react";
 
 ### id
 
-The unique id of the page.
+页面的唯一标识符
 
-- Type: `string`
+- 类型: `string`
 
 ### children
 
-The content of the page.
+页面的内容
 
-- Type: `React.ReactNode`
+- 类型: `React.ReactNode`
 
 ### className
 
-The class name of the page.
+页面的类名
 
-- Type: `string`
+- 类型: `string`
 
 ### style
 
-The CSS style of the page.
+页面的 CSS 样式
 
-- Type: `React.CSSProperties`
+- 类型: `React.CSSProperties`
 
 ### ...rest
 
-extends `HTMLMotionProps<"div">`
+继承自 `HTMLMotionProps<"div">`
 
-You can pass motion props to the page.  
-This motion behavior is provided by [Motion](https://motion.dev/).
+您可以向页面传递 motion 属性  
+此 motion 行为由 [Motion](https://motion.dev/) 提供
 
-- Type: `HTMLMotionProps<"div">`
+- 类型: `HTMLMotionProps<"div">`
 
-For example, you can add transitions between pages. 
+例如，您可以在页面之间添加过渡效果
 
 ```tsx
 <Page
     id="about"
 
-    // Motion props
+    // Motion 属性
     initial={{ opacity: 0 }}
     animate={{ opacity: 1, transition: { duration: 1 } }}
     exit={{ opacity: 0, transition: { duration: 1 } }}
 >
     ...
 </Page>
+```

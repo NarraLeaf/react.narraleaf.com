@@ -1,20 +1,20 @@
 import { Callout } from 'nextra/components';
 
-# Player
+# 播放器
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    此页面正在建设中
 </Callout>
 
-Player component is used to play the story. 
+Player 组件用于播放故事
 
-> Note: You have to wrap the `Player` component with the [GameProviders](./game-providers) component to provide the game instance.
+> 注意：您必须将 `Player` 组件包裹在 [GameProviders](./game-providers) 组件中以提供游戏实例
 
-If you are creating a story using abstract classes, please check the [Core](/documentation/core) documentation.
+如果您正在使用抽象类创建故事，请查看 [Core](/documentation/core) 文档
 
-## Example
+## 示例
 
-This is a basic example of how to use the `Player` component:
+这是一个如何使用 `Player` 组件的基本示例：
 
 ```tsx
 "use client";
@@ -41,34 +41,34 @@ export default function Page() {
 
 ### story
 
-The story object that you want to play.
+您要播放的故事对象
 
 ### width
 
-The width of the player.
+播放器的宽度
 
 ### height
 
-The height of the player.
+播放器的高度
 
 ### className
 
-The class name of the player.
+播放器的类名
 
 ### onReady
 
-A callback function that is called when the player is ready. It returns the [ScriptCtx](../core/types/ScriptCtx) object.
+当播放器准备就绪时调用的回调函数。它返回 [ScriptCtx](../core/types/ScriptCtx) 对象
 
 ### onEnd
 
-Called when the player ends.
+当播放器结束时调用
 
-This callback is called when the story ends.
+此回调在故事结束时调用
 
 ### children
 
-The children of the player.
+播放器的子组件
 
-You can pass the children to the player.
+您可以将子组件传递给播放器
 
-For example, you can use [PageRouter API](./page-router) to create your own quick menu. 
+例如，您可以使用 [PageRouter API](./page-router) 创建自己的快捷菜单
