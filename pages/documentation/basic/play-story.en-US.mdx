@@ -1,5 +1,18 @@
 # Play Story
 
+You can wrap your entry scene with a [Story](../core/elements/story) instance to create a story. 
+
+```ts
+import { Story, Scene } from "narraleaf";
+
+const story = new Story("My Story");
+const scene = new Scene(/* ... */);
+
+story.entry(scene);
+
+export { story };
+```
+
 After creating a abstract story, you can play it using react components. 
 
 ```tsx
