@@ -13,13 +13,8 @@ import { Page, Player, useRouter } from "narraleaf-react";
 
 ```tsx
 function GameApp() {
-    // Get the router instance
-    const router = useRouter();
-
     return (
-        <Player
-            router={router}
-        >
+        <Player>
             {/* Your pages */}
             <Page id="about" className="...">
                 <span>about</span>
@@ -29,6 +24,18 @@ function GameApp() {
                 <span>contact</span>
             </Page>
         </Player>
+    );
+}
+
+function Button() {
+    // somewhere in your app
+    // get the router instance
+    const router = useRouter();
+
+    return (
+        <button onClick={() => router.push("about")}>
+            Go to about
+        </button>
     );
 }
 ```
@@ -58,16 +65,6 @@ useEffect(() => {
 
 // and access the current page id
 console.log(router.getCurrentId());
-```
-
-After getting the router instance, you need to pass it to the `Player` component.
-
-```tsx
-<Player
-    router={router}
->
-    {/* Your pages */}
-</Player>
 ```
 
 For more information, please check [Router](./page-router/router) and [useRouter](./hooks/useRouter).
