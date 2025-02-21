@@ -3,22 +3,22 @@ import { Callout } from 'nextra/components';
 # GameProviders
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    此页面正在建设中
 </Callout>
 
-GameProviders component is used to provide the game instance to the components.
+GameProviders 组件用于向组件提供游戏实例
 
-You have to wrap the `Player` component with the `GameProviders` component. 
+您必须将 `Player` 组件包裹在 `GameProviders` 组件中
 
-## Usage
+## 用法
 
-Import the `GameProviders` component from the NarraLeaf-React library.
+从 NarraLeaf-React 库中导入 `GameProviders` 组件
 
 ```tsx
 import { GameProviders } from "narraleaf-react";
 ```
 
-Wrap the `Player` component with the `GameProviders` component.
+将 `Player` 组件包裹在 `GameProviders` 组件中
 
 ```tsx
 <GameProviders>
@@ -26,9 +26,9 @@ Wrap the `Player` component with the `GameProviders` component.
 </GameProviders>
 ```
 
-### Using defined game instance
+### 使用已定义的游戏实例
 
-If you want to use a defined game instance, you can pass the `game` prop to the `GameProviders` component.
+如果您想使用已定义的游戏实例，可以将 `game` 属性传递给 `GameProviders` 组件
 
 ```tsx
 "use client";
@@ -37,7 +37,7 @@ import { Game, GameProviders, Player } from "narraleaf-react";
 import { useState } from "react";
 
 export default function Page() {
-    // pass your game config here
+    // 在此处传递您的游戏配置
     const [game] = useState(new Game({}));
 
     return (
@@ -52,8 +52,8 @@ export default function Page() {
 
 ### game
 
-The [Game](../core/game/game) instance that you want to use.
+您要使用的 [Game](../core/game/game) 实例
 
 ### children
 
-The children components that you want to wrap with the `GameProviders` component.
+您希望用 `GameProviders` 组件包裹的子组件

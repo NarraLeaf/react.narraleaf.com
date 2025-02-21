@@ -3,11 +3,11 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 # 条件
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    本页面正在建设中
 </Callout>
 
 <Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
+    测试功能，可能会有变动
 </Callout>
 
 `Condition` 允许你在故事中创建条件分支。
@@ -15,13 +15,13 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 ```typescript
 Condition
     .If((ctx) => {
-        return // your condition here
+        return // 你的条件在这里
     }, [
-        character1.say`the condition is true`,
+        character1.say`条件为真`,
     ])
 
     .Else([
-        character1.say`the condition is false`,
+        character1.say`条件为假`,
     ])
 ```
 
@@ -43,19 +43,19 @@ const persis = new Persistent<PersistentData>("persis", {
 // 检查玩家是否有足够的金币
 Condition
     .If(persis.evaluate("coin", (coin) => coin < 50), [
-        character1.say("you don't have enough coins"),
+        character1.say("你没有足够的金币"),
     ])
 
 // 检查玩家是否有一个标志
 Condition
     .If(persis.isTrue("coin"), [
-        character1.say("you have the flag"),
+        character1.say("你有这个标志"),
     ])
 
 // 检查玩家是否有一个爱好
 Condition
     .If(persis.equals("hobby", "coding"), [
-        character1.say("you like coding"),
+        character1.say("你喜欢编程"),
     ])
 ```
 
@@ -63,26 +63,26 @@ Condition
 > 
 > 例如，你不能在 `If`之前调用`ElseIf`。
 
-## Static Methods
+## 静态方法
 
 ### If
 
 <Steps>
 
-- `condition: Lambda | LambdaHandler<boolean>` - The condition to check. If the condition is true, the actions will be executed. See [Lambda](../types/Lambda) and [LambdaHandler](../types/LambdaHandler) for more information.
+- `condition: Lambda | LambdaHandler<boolean>` - 要检查的条件。如果条件为真，则执行操作。有关更多信息，请参见 [Lambda](../types/Lambda) 以及 [LambdaHandler](../types/LambdaHandler)
 - `action: ChainedActions` - [ChainedActions](../types/ChainedActions)
 
 ```typescript
 Condition.If(({ storable }) => {
     return (storable.getNamespace("name").get("coin") || 0) >= 10;
 }, [
-    character1.say("you have enough money")
+character1.say("你有足够的钱")
 ])
 ```
 
 </Steps>
 
-## Public Methods
+## 公共方法
 
 ### constructor
 
@@ -92,7 +92,7 @@ Condition.If(({ storable }) => {
 
 </Steps>
 
-## Chainable Methods
+## 链式方法
 
 ### ElseIf
 

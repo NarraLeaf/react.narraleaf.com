@@ -1,11 +1,11 @@
-# FadeIn
+# 淡入
 
-> This transition is designed for [Image](../../elements/image) elements.
+> 此过渡效果专为[图像](../../elements/image)元素设计
 
-Fade in from the current image to the next image.  
-The next image will fade in.
+从当前图像淡入到下一张图像  
+下一张图像将淡入
 
-## Usage
+## 用法
 
 ```tsx
 import { FadeIn } from "narraleaf-react";
@@ -13,11 +13,10 @@ import { FadeIn } from "narraleaf-react";
 image.char("image1.jpg", new FadeIn(3000));
 ```
 
-## Public Methods
+## 公共方法
 
 ### constructor
 
-- `duration: number` - The duration of the transition in milliseconds
-- `startPos: [xOffset: number, yOffset: number]` - The starting position of the image, default is `[0, 0]`. For example, `[50, 50]` will start the image 50 pixels to the right and 50 pixels up.
-- `easing?: TransformDefinitions.EasingDefinition` - The easing function, see [TransformDefinitions](../../types/TransformDefinitions).[EasingDefinition](../../types/TransformDefinitions#EasingDefinition)
-
+- `duration: number` - 过渡效果的持续时间，以毫秒为单位
+- `startPos: [xOffset: number, yOffset: number]` - 图像的起始位置，默认为 `[0, 0]`。例如，`[50, 50]` 将使图像从右侧 50 像素和上方 50 像素的位置开始
+- `easing?: TransformDefinitions.EasingDefinition` - 缓动函数，参见[TransformDefinitions](../../types/TransformDefinitions).[EasingDefinition](../../types/TransformDefinitions#EasingDefinition)

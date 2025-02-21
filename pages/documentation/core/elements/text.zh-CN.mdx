@@ -1,30 +1,30 @@
 import {Callout, Tabs, Steps} from 'nextra/components';
 
-# Text
+# 文本
 
 <Callout type="warning" emoji="⚠️">
-    This page is under construction.
+    本页面正在建设中
 </Callout>
 
 <Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
+    测试功能，可能会有变动
 </Callout>
 
-> This class extends [Displayble](./displayable)
+> 该类继承自 [Displayble](./displayable)
 
-Text allows you to display text on the screen.
+文本允许您在屏幕上显示文字。
 
-For example: 
+例如：
 
 ```ts
-const t1 = new Text("After that, another story happened...", {
+const t1 = new Text("之后，另一个故事发生了...", {
     position: CommonPosition.Positions.Center,
     fontColor: "#f00",
     fontSize: 20,
 });
 
-// turn the background to black with fade effect
-// then show a text "After that, another story happened..."
+// 将背景变为黑色并带有淡入效果
+// 然后显示文字“之后，另一个故事发生了...”
 scene2.action([
     scene2.setBackground("#000", new Fade(1000)),
     t1.show({
@@ -32,10 +32,10 @@ scene2.action([
         ease: "easeInOut",
     }),
 
-    // wait for 1000 milliseconds
+    // 等待 1000 毫秒
     Control.sleep(1000),
 
-    // hide the text
+    // 隐藏文字
     t1.hide({
         duration: 1000,
         ease: "easeInOut",
@@ -43,19 +43,19 @@ scene2.action([
 ]);
 ```
 
-## Public Method
+## 公共方法
 
 ### constructor
 
 <Steps>
 
-#### Overload 1 of 2
+#### 重载 1 / 2
 
 - `config: Partial<ITextUserConfig>` - [ITextUserConfig](../types/ITextUserConfig)
 
-#### Overload 2 of 2
+#### 重载 2 / 2
 
-- `text: string` - The content of the text
+- `text: string` - 文本内容
 - `config?: Partial<ITextUserConfig>` - [ITextUserConfig](../types/ITextUserConfig)
 
 </Steps>
@@ -64,20 +64,20 @@ scene2.action([
 
 <Steps>
 
-set the [Layer](./layer) of the text
+设置文本的 [Layer](./layer)
 
-- `layer: Layer` - The layer to use
-- Returns `this`
+- `layer: Layer` - 要使用的图层
+- 返回 `this`
 
 </Steps>
 
-## Chainable Method
+## 可链式方法
 
 ### setText
 
 <Steps>
 
-- `text: string` - The content of the text
+- `text: string` - 文本内容
 
 </Steps>
 
@@ -86,13 +86,13 @@ set the [Layer](./layer) of the text
 <Steps>
 
 ```ts
-// set the font size of the text to 20 pixels with transition
+// 设置文本字体大小为 20 像素并带有过渡效果
 element.setFontSize(20, 1000, "easeInOut");
 ```
 
-- `fontSize: number` - The font size of the text in pixels
-- `duration?: number` - The duration of the transition in milliseconds
-- `easing?: TransformDefinitions.EasingDefinition` - The easing function of the transition, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `fontSize: number` - 文本字体大小（以像素为单位）
+- `duration?: number` - 过渡持续时间（以毫秒为单位）
+- `easing?: TransformDefinitions.EasingDefinition` - 过渡的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 </Steps>
 
@@ -101,14 +101,12 @@ element.setFontSize(20, 1000, "easeInOut");
 <Steps>
 
 ```ts
-// set the font color of the text to red with transition
+// 设置文本字体颜色为红色并带有过渡效果
 element.setFontColor("#f00", 1000, "easeInOut");
 ```
 
-- `color: Color` - See [Color](../types/color)
-- `duration?: number` - The duration of the transition in milliseconds
-- `easing?: TransformDefinitions.EasingDefinition` - The easing function of the transition, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `color: Color` - 参见 [Color](../types/color)
+- `duration?: number` - 过渡持续时间（以毫秒为单位）
+- `easing?: TransformDefinitions.EasingDefinition` - 过渡的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
 </Steps>
-
-

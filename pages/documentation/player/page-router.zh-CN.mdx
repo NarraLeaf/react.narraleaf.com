@@ -1,11 +1,11 @@
-# Page Router
+# 页面路由
 
-In NarraLeaf-React 0.3.0, we introduced the new way to customize the user interface of the player.  
-Your UI content is now abstracted into pages, and you can navigate between them using the Page Router API.
+在 NarraLeaf-React 0.3.0 中，我们引入了自定义播放器用户界面的新方式  
+您的 UI 内容现在被抽象为页面，您可以使用页面路由 API 在页面之间导航
 
-Elements in a page will be scaled to fit the player's size.
+页面中的元素将按比例缩放以适应播放器的大小
 
-## Example
+## 示例
 
 ```tsx
 import { Page, Player, useRouter } from "narraleaf-react";
@@ -14,8 +14,10 @@ import { Page, Player, useRouter } from "narraleaf-react";
 ```tsx
 function GameApp() {
     return (
-        <Player>
-            {/* Your pages */}
+        <Player
+            router={router}
+        >
+            {/* 您的页面 */}
             <Page id="about" className="...">
                 <span>about</span>
             </Page>
@@ -28,8 +30,8 @@ function GameApp() {
 }
 
 function Button() {
-    // somewhere in your app
-    // get the router instance
+    // 在你的应用程序中的某个位置
+    // 获取路由实例
     const router = useRouter();
 
     return (
@@ -40,12 +42,12 @@ function Button() {
 }
 ```
 
-## Page Router API
+## 页面路由 API
 
 ### useRouter
 
-In Page Router API, a router instance is used to navigate between pages.  
-You can get the router instance by using the `useRouter` hook.
+在页面路由 API 中，路由实例用于在页面之间导航  
+您可以使用 `useRouter` 钩子获取路由实例
 
 ```tsx
 import { useEffect } from "react";
@@ -55,7 +57,7 @@ import { useRouter } from "narraleaf-react";
 ```tsx
 const router = useRouter();
 
-// you can navigate to a page by using the `router` instance
+// 您可以使用 `router` 实例导航到页面
 useEffect(() => {
     router.push("about");
     router.back();
@@ -63,15 +65,15 @@ useEffect(() => {
     router.cleanHistory();
 }, []);
 
-// and access the current page id
+// 并访问当前页面 ID
 console.log(router.getCurrentId());
 ```
 
-For more information, please check [Router](./page-router/router) and [useRouter](./hooks/useRouter).
+有关更多信息，请查看 [Router](./page-router/router) 和 [useRouter](./hooks/useRouter)
 
 ### Page
 
-Page is used to define the content of a page.
+Page 用于定义页面的内容
 
 ```tsx
 import { Page } from "narraleaf-react";
@@ -84,5 +86,4 @@ import { Page } from "narraleaf-react";
 </Page>
 ```
 
-For more information, please check [Page](./page-router/page).
-
+有关更多信息，请查看 [Page](./page-router/page)

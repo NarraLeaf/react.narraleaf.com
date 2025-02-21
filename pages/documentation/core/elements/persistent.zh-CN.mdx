@@ -2,12 +2,12 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Persistent\<T extends PersistentContent\>
 
-In the past, we could only modify the state of Storable through Script, but Persistent provides a set of useful methods to easily control the flow.
+在过去，我们只能通过脚本修改 Storable 的状态，但 Persistent 提供了一组有用的方法，可以轻松控制流程
 
-Persistent requires the **name** and **initial state** of a namespace. **Persistent with the same name will share the same state.**
+Persistent 需要一个命名空间的 **名称** 和 **初始状态**。**具有相同名称的 Persistent 将共享相同的状态**
 
 <Callout type="warning" emoji="⚠️">
-    The namespace cannot be an existing built-in namespace (built-in namespaces include: "game")
+    命名空间不能是现有的内置命名空间（内置命名空间包括："game"）
 </Callout>
 
 ```typescript
@@ -20,22 +20,22 @@ type PersisData = {
 const persis = new Persistent<PersisData>("persis", {
     flag: false,
     coin: 0,
-    name: "John Smith",
+    name: "约翰·史密斯",
     // ...
 });
 ```
 
-> **Note:** The stored content must be **serializable**, the serializable values supported by NarraLeaf-React include:
+> **注意:** 存储的内容必须是 **可序列化的**, NarraLeaf-React 支持的可序列化值包括：
 > - `string`
 > - `number`
 > - `boolean`
-> - `object`: key is `string`, value is the above serializable value
-> - `array`: elements are the above serializable value
+> - `object`: 键为 `string`，值为上述可序列化值
+> - `array`: 元素为上述可序列化值
 > - `undefined`
 > - `null`
-> - `Date`: standard JavaScript date object
+> - `Date`: 标准的 JavaScript 日期对象
 
-If the script content contains Persistent, it must be registered with [Story](./story).
+如果脚本内容包含 Persistent，则必须使用 [Story](./story) 进行注册
 
 ```typescript
 story.registerPersistent(persis);
@@ -47,8 +47,8 @@ story.registerPersistent(persis);
 
 <Steps>
 
-- `namespace: string` - the name of the namespace
-- `defaultContent: T` - initial state
+- `namespace: string` - 命名空间的名称
+- `defaultContent: T` - 初始状态
 
 </Steps>
 
@@ -56,15 +56,15 @@ story.registerPersistent(persis);
 
 <Steps>
 
-- `key: K` - the key of the state
-- `value: T[K]` - the value of the state
-- Returns: `Lambda<boolean>`
+- `key: K` - 状态的键
+- `value: T[K]` - 状态的值
+- 返回: `Lambda<boolean>`
 
 ```typescript
 scene.action([
     Condition
-        .If(persis.equals("name", "John Smith"), [
-            character1.say("Hello, John Smith!")
+        .If(persis.equals("name", "约翰·史密斯"), [
+        character1.say("你好，约翰·史密斯！")
         ])
 ]);
 ```
@@ -75,9 +75,9 @@ scene.action([
 
 <Steps>
 
-- `key: K` - the key of the state
-- `value: T[K]` - the value of the state
-- Returns: `Lambda<boolean>`
+- `key: K` - 状态的键
+- `value: T[K]` - 状态的值
+- 返回: `Lambda<boolean>`
 
 </Steps>
 
@@ -85,14 +85,14 @@ scene.action([
 
 <Steps>
 
-- `key: K` - the key of the state
-- Returns: `Lambda<boolean>`
+- `key: K` - 状态的键
+- 返回: `Lambda<boolean>`
 
 ```typescript
 scene.action([
-    Condition
+Condition
         .If(persis.isTrue("flag"), [
-            character1.say("Flag is true")
+        character1.say("标志为真")
         ])
 ]);
 ```
@@ -103,8 +103,8 @@ scene.action([
 
 <Steps>
 
-- `key: K` - the key of the state
-- Returns: `Lambda<boolean>`
+- `key: K` - 状态的键
+- 返回: `Lambda<boolean>`
 
 </Steps>
 
@@ -112,8 +112,8 @@ scene.action([
 
 <Steps>
 
-- `key: K` - the key of the state
-- Returns: `Lambda<boolean>`
+- `key: K` - 状态的键
+- 返回: `Lambda<boolean>`
 
 </Steps>
 
@@ -121,11 +121,11 @@ scene.action([
 
 <Steps>
 
-- `key: K` - the key of the state
-- Returns: `Word<DynamicWord>`
+- `key: K` - 状态的键
+- 返回: `Word<DynamicWord>`
 
 ```typescript
-character.say`You have ${persis.toWords("coin")} coins`;
+character.say`你有 ${persis.toWords("coin")} 个硬币`;
 ```
 
 </Steps>
@@ -134,13 +134,13 @@ character.say`You have ${persis.toWords("coin")} coins`;
 
 <Steps>
 
-Alias of `get`
+`get` 的别名
 
-- `key: K` - the key of the state
-- Returns: `Word<DynamicWord>`
+- `key: K` - 状态的键
+- 返回: `Word<DynamicWord>`
 
 ```typescript
-character.say`Your have ${persis.get("coin")} coins`;
+character.say`你有 ${persis.get("coin")} 个硬币`;
 ```
 
 </Steps>
@@ -152,13 +152,13 @@ character.say`Your have ${persis.get("coin")} coins`;
 - `condition: Lambda<boolean> | LambdaHandler<boolean>`
 - `ifTrue: DynamicWordResult`
 - `ifFalse: DynamicWordResult`
-- Returns: `Word`
+- 返回: `Word`
 
 ```typescript
-character.say`Your flag is ${persis.conditional(
+character.say`你的标志是 ${persis.conditional(
     persis.isTrue("flag"),
-    "true",
-    "false"
+    "真",
+    "假"
 )}`;
 ```
 
@@ -168,33 +168,33 @@ character.say`Your flag is ${persis.conditional(
 
 <Steps>
 
-Evaluate the state with a JavaScript function
+使用 JavaScript 函数评估状态
 
-- `key: K` - the key of the state
-- `fn: (value: T[K]) => boolean` - a JavaScript function to evaluate the state
-- Returns `Lambda<boolean>`
+- `key: K` - 状态的键
+- `fn: (value: T[K]) => boolean` - 用于评估状态的 JavaScript 函数
+- 返回 `Lambda<boolean>`
 
 ```typescript
 scene.action([
-    Condition
-        .If(persis.evaluate("coin", (coin) => coin < 10), [
-            character1.say`You don't have enough coins!`
-        ])
+Condition
+    .If(persis.evaluate("coin", (coin) => coin < 10), [
+        character1.say`你没有足够的硬币！`
+    ])
 ]);
 ```
 
 </Steps>
 
-## Chainable Methods
+## 链式方法
 
 ### set\<K extends StringKeyOf\<T\>\>
 
 <Steps>
 
-#### Overload 1 of 2
+#### 重载 1 / 2
 
-- `key: K` - the key of the state
-- `value: T[K]` - the value of the state
+- `key: K` - 状态的键
+- `value: T[K]` - 状态的值
 
 ```typescript
 scene.action([
@@ -202,14 +202,14 @@ scene.action([
 ]);
 ```
 
-#### Overload 2 of 2
+#### 重载 2 / 2
 
-- `key: K` - the key of the state
-- `handler: (value: T[K]) => T[K])` - the handler to modify the value
+- `key: K` - 状态的键
+- `handler: (value: T[K]) => T[K])` - 用于修改值的处理程序
 
 ```typescript
 scene.action([
-    persis.set("coin", (coin) => coin + 10) // coin will increase by 10
+    persis.set("coin", (coin) => coin + 10) // 硬币将增加 10
 ]);
 ```
 
