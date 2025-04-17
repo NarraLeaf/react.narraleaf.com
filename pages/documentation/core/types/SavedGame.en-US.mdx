@@ -16,7 +16,14 @@ interface SavedGame {
     meta: {
         created: number;
         updated: number;
+        id: string;
     };
-    game: Record<string, any>;
+    game: {
+        store: { [key: string]: StorableData; };
+        elementStates: RawData<ElementStateRaw>[];
+        stage: PlayerStateData;
+        currentAction: string | null;
+        services: { [key: string]: unknown; };
+    };
 }
 ```

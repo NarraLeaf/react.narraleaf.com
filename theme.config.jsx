@@ -25,6 +25,7 @@ const config = {
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta property="og:title" content="NarraLeaf-React" />
             <meta property="og:description" content="A new definition of the visual novel" />
+            <link rel="shortcut icon" type="image/svg" href="/static/leaf.svg" />
         </>
     ),
     i18n: [
