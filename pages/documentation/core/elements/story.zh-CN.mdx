@@ -133,3 +133,27 @@ const gallery = liveGame.story?.getService<Gallery>("gallery");
 - 返回 `T`
 
 </Steps>
+
+### createPersistent\<T extends PersistentContent\>
+
+<Steps>
+
+创建一个 Persistent 并将其注册到故事中。
+
+```ts
+const persistent = story.createPersistent("playerData", {
+    name: "persistent",
+});
+
+// is equivalent to
+const persistent = new Persistent("playerData", {
+    name: "persistent",
+});
+story.registerPersistent(persistent);
+```
+
+- `namespace: string` - 持久化的名称
+- `defaultContent: T` - 持久化的默认内容
+- 返回 `Persistent<T>`
+
+</Steps>

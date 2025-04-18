@@ -40,7 +40,16 @@ new Transform<TransformDefinitions.ImageTransformProps>([
 }),
 ```
 
-`Transform` 的第一个参数是一个序列数组。第二个参数是一个包含变换选项的对象
+或使用事务链式调用：
+
+```typescript
+Tranform.create()
+  .position({ yoffset: -10 })
+  .commit({ duration: 120, ease: "easeOut" })
+
+  .position({ yoffset: 0 })
+  .commit({ duration: 100, ease: "easeOut" })
+```
 
 一系列变换由 `props` 和 `options` 组成：
 
@@ -93,6 +102,17 @@ new Transform<TransformDefinitions.ImageTransformProps>([
 立即应用变换
 
 - `props: SequenceProps<T>` - 单个 [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
+- 返回 `Transform<T>`
+
+</Steps>
+
+### create\<T extends TransformDefinitions.Types\>
+
+<Steps>
+
+使用给定的配置创建一个新的变换。序列将为空。
+
+- `config?: Partial<TransformDefinitions.TransformConfig>` - 变换的配置。参见 [TransformDefinitions.TransformConfig](../types/TransformDefinitions#TransformConfig)
 - 返回 `Transform<T>`
 
 </Steps>
@@ -192,5 +212,82 @@ transform
 复制变换
 
 - `return: Transform<T>`
+
+</Steps>
+
+### commit
+
+<Steps>
+
+提交所有暂存的更改到变换序列。此方法将从所有通过链式方法暂存的待处理更改创建一个新的序列。如果没有暂存的更改，此方法将返回当前实例而不进行修改。提交后，暂存的更改数组将被清除。
+
+示例：
+```typescript
+transform
+  .position({ x: 100, y: 100 })
+  .opacity(1).commit() // 将创建一个新的序列，透明度为 1，位置为 x: 100, y: 100
+  .position({ x: 200, y: 200 })
+  .opacity(0).commit({ duration: 1000 }) // 将创建一个新的序列，透明度为 0，位置为 x: 200, y: 200，持续时间为 1 秒
+```
+
+**注意**：暂存的更改将在动画开始前提交，以确保应用最新的更改。
+
+- `options?: Partial<TransformDefinitions.SequenceOptions>` - 序列的选项。参见 [TransformDefinitions.SequenceOptions](../types/TransformDefinitions#SequenceOptions)
+- `return: this`
+
+</Steps>
+
+### scale
+
+<Steps>
+
+缩放当前暂存序列。
+
+- `scale: TransformDefinitions.Types["scale"]` - 变换的缩放。参见 [TransformDefinitions.Types](../types/TransformDefinitions#Types)
+- `return: this`
+
+</Steps>
+
+### rotation
+
+<Steps>
+
+旋转当前暂存序列。
+
+- `rotation: TransformDefinitions.Types["rotation"]` - 变换的旋转。参见 [TransformDefinitions.Types](../types/TransformDefinitions#Types)
+- `return: this`
+
+</Steps>
+
+### position
+
+<Steps>
+
+设置当前暂存序列的位置。
+
+- `position: TransformDefinitions.Types["position"]` - 变换的位置。参见 [TransformDefinitions.Types](../types/TransformDefinitions#Types)
+- `return: this`
+
+</Steps>
+
+### opacity
+
+<Steps>
+
+设置当前暂存序列的透明度。
+
+- `opacity: TransformDefinitions.Types["opacity"]` - 变换的透明度。参见 [TransformDefinitions.Types](../types/TransformDefinitions#Types)
+- `return: this`
+
+</Steps>
+
+### fontColor
+
+<Steps>
+
+设置当前暂存序列的字体颜色。
+
+- `fontColor: TransformDefinitions.Types["fontColor"]` - 变换的字体颜色。参见 [TransformDefinitions.Types](../types/TransformDefinitions#Types)
+- `return: this`
 
 </Steps>

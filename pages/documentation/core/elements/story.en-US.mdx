@@ -134,3 +134,26 @@ const gallery = liveGame.story?.getService<Gallery>("gallery");
 
 </Steps>
 
+### createPersistent\<T extends PersistentContent\>
+
+<Steps>
+
+Create a Persistent and register it to the story.
+
+```typescript
+const persistent = story.createPersistent("playerData", {
+  name: "persistent",
+});
+
+// is equivalent to
+const persistent = new Persistent("playerData", {
+  name: "persistent",
+});
+story.registerPersistent(persistent);
+```
+
+- `namespace: string` - Name of the persistent
+- `defaultContent: T`
+- Returns `Persistent<T>`
+
+</Steps>

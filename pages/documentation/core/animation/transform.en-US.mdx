@@ -40,6 +40,17 @@ new Transform<TransformDefinitions.ImageTransformProps>([
 }),
 ```
 
+or using commit-chaining:
+
+```typescript
+Tranform.create()
+  .position({ yoffset: -10 })
+  .commit({ duration: 120, ease: "easeOut" })
+
+  .position({ yoffset: 0 })
+  .commit({ duration: 100, ease: "easeOut" })
+```
+
 The first parameter of `Transform` is an array of sequences. The second parameter is an object that contains the options of the transform. 
 
 A sequence of transformations is made of `props` and `options`:
@@ -93,6 +104,17 @@ Move the image to the center of the stage.
 Apply the transform immediately.
 
 - `props: SequenceProps<T>` - A single [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
+- Returns `Transform<T>`
+
+</Steps>
+
+### create\<T extends TransformDefinitions.Types\>
+
+<Steps>
+
+Create a new transform with the given config. The sequences will be empty.
+
+- `config?: Partial<TransformDefinitions.TransformConfig>` - The config for the transform. See [TransformDefinitions.TransformConfig](../types/TransformDefinitions#TransformConfig)
 - Returns `Transform<T>`
 
 </Steps>
@@ -190,6 +212,83 @@ transform
 Copy the transform.
 
 - `return: Transform<T>`
+
+</Steps>
+
+### commit
+
+<Steps>
+
+Commits all staged changes to the transform sequence. This method will create a new sequence from all pending changes that have been staged via chained methods. If there are no staged changes, this method will return the current instance without modification. After committing, the staged changes array will be cleared.
+
+Example:
+```typescript
+transform
+  .position({ x: 100, y: 100 })
+  .opacity(1).commit() // will create a new sequence with opacity 1 and position x: 100, y: 100
+  .position({ x: 200, y: 200 })
+  .opacity(0).commit({ duration: 1000 }) // will create a new sequence with opacity 0 and position x: 200, y: 200 with a duration of 1 second
+```
+
+**Note**: The staged changes will be committed before animation starts to ensure the latest changes are applied.
+
+- `options?: Partial<TransformDefinitions.SequenceOptions>` - The options for the sequence. See [TransformDefinitions.SequenceOptions](../types/TransformDefinitions#SequenceOptions)
+- `return: this`
+
+</Steps>
+
+### scale
+
+<Steps>
+
+Scale the current staging sequence.
+
+- `scale: TransformDefinitions.Types["scale"]` - The scale of the transform. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
+- `return: this`
+
+</Steps>
+
+### rotation
+
+<Steps>
+
+Rotate the current staging sequence.
+
+- `rotation: TransformDefinitions.Types["rotation"]` - The rotation of the transform. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
+- `return: this`
+
+</Steps>
+
+### position
+
+<Steps>
+
+Set the position of the current staging sequence.
+
+- `position: TransformDefinitions.Types["position"]` - The position of the transform. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
+- `return: this`
+
+</Steps>
+
+### opacity
+
+<Steps>
+
+Set the opacity of the current staging sequence.
+
+- `opacity: TransformDefinitions.Types["opacity"]` - The opacity of the transform. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
+- `return: this`
+
+</Steps>
+
+### fontColor
+
+<Steps>
+
+Set the font color of the current staging sequence.
+
+- `fontColor: TransformDefinitions.Types["fontColor"]` - The font color of the transform. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
+- `return: this`
 
 </Steps>
 

@@ -14,8 +14,16 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 ```typescript
 scene.action([
-    new Script((ctx) => {
+    new Script(({ storable }) => {
         console.log("This script is being executed.");
+
+        // 向用户询问价格
+        const price = prompt("How much do you want to pay for this item?");
+        const namespace = storable.getNamespace("test");
+
+        if (!isNaN(price)) {
+            namespace.set("price", price);
+        }
     })
 ]);
 ```
@@ -27,6 +35,22 @@ scene.action([
 <Steps>
 
 - `handler: (ctx: ScriptCtx) => void` - 当脚本被执行时，将调用此处理程序。处理程序将接收一个 [ScriptCtx](../types/ScriptCtx) 对象。
+
+<Callout type="warning" emoji="⚠️">
+    如果脚本有任何副作用，处理程序应该返回一个清理函数。  
+    清理函数将在玩家撤销操作时被调用。
+
+    ```typescript
+    new Script((ctx) => {
+        const token = setTimeout(() => {
+            console.log("This script is being executed.");
+        }, 1000);
+
+        return () => clearTimeout(token);
+    })
+    ```
+</Callout>
+
 
 ```typescript
 const script = new Script((ctx) => {

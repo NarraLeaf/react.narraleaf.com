@@ -27,7 +27,7 @@ class Gallery extends Service<GalleryActions> {
         super();
 
         // 注册操作处理程序
-        this.onAction("add", (ctx: ServiceHandlerCtx, name: string) => {
+        this.on("add", (ctx: ServiceHandlerCtx, name: string) => {
             console.log("添加", name);
             this.unlocked.push(name);
         })
@@ -46,7 +46,7 @@ class Gallery extends Service<GalleryActions> {
     /* 自定义服务逻辑 */
     add(name: string) {
         // 触发操作
-        return this.action("add", name);
+        return this.trigger("add", name);
     }
 }
 ```
@@ -93,7 +93,7 @@ class MyCustomService extends Service {
 
 ### 注册操作
 
-要注册操作，您需要使用 `onAction` 方法  
+要注册操作，您需要使用 `on` 方法  
 所有注册都应在构造函数中完成
 
 ```typescript
@@ -101,7 +101,7 @@ class MyCustomService extends Service {
     constructor() {
         super();
 
-        this.onAction("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
+        this.on("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
             // 自定义逻辑
         });
     }
@@ -121,7 +121,7 @@ class MyCustomService extends Service<MyCustomActions> {
     constructor() {
         super();
 
-        this.onAction("myAction", (ctx: ServiceHandlerCtx, arg0: string, arg1: number) => {
+        this.on("myAction", (ctx: ServiceHandlerCtx, arg0: string, arg1: number) => {
             // 自定义逻辑
         });
     }
@@ -134,7 +134,7 @@ class MyCustomService extends Service<MyCustomActions> {
 但为了将来使用，您应该使操作可中止
 
 ```typescript
-this.onAction("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
+this.on("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
     const abortController = new AbortController();
     const { signal } = abortController;
     const promise = fetch("https://example.com", { signal }); // 一些异步操作
@@ -155,7 +155,7 @@ this.onAction("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
 const service = new MyCustomService();
 
 scene.action([
-    service.action("myAction", "foo", 123)
+    service.trigger("myAction", "foo", 123)
 ]);
 ```
 
@@ -164,7 +164,7 @@ scene.action([
 ```typescript
 class MyCustomService extends Service<MyCustomActions> {
     myAction(arg0: string, arg1: number) {
-        return this.action("myAction", arg0, arg1);
+        return this.trigger("myAction", arg0, arg1);
     }
 }
 
@@ -206,7 +206,7 @@ return (
 
 ## 公共方法
 
-### onAction\<K extends StringKeyOf\<Content\>\>
+### on\<K extends StringKeyOf\<Content\>\>
 
 <Steps>
 
@@ -221,7 +221,7 @@ class MyCustomService extends Service<MyCustomActions> {
     constructor() {
         super();
 
-        this.onAction<"myAction">("myAction", (ctx: ServiceHandlerCtx, arg0: string, arg1: number) => {
+        this.on<"myAction">("myAction", (ctx: ServiceHandlerCtx, arg0: string, arg1: number) => {
             // 自定义逻辑
         });
     }
@@ -236,7 +236,7 @@ class MyCustomService extends Service<MyCustomActions> {
 
 ## 可链式方法
 
-### action\<K extends StringKeyOf\<Content\>\>
+### trigger\<K extends StringKeyOf\<Content\>\>
 
 <Steps>
 
@@ -246,7 +246,7 @@ class MyCustomService extends Service<MyCustomActions> {
 const service = new MyCustomService();
 
 scene.action([
-    service.action<"myAction">("myAction", "foo", 123)
+    service.trigger<"myAction">("myAction", "foo", 123)
 ]);
 ```
 
