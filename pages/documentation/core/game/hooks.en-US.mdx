@@ -1,0 +1,73 @@
+import {Callout, Tabs, Steps} from 'nextra/components';
+
+# Hooks
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
+
+Hooks are a way to inject custom logic into the game. It is useful for creating plugins. 
+
+```typescript
+import { Game, IGamePluginRegistry, LiveGameEventToken } from "narraleaf-react";
+
+let listenerToken: LiveGameEventToken;
+
+const plugin: IGamePluginRegistry = {
+    name: "test_plugin",
+
+    register: (game: Game) => {
+        // This logic will be called once the game is initialized
+        // and before the player has rendered
+        listenerToken = game.hooks.hook("init", () => {
+            console.log("init");
+        })
+    },
+
+    unregister: (game: Game) => {
+        // This logic will be called once the game is disposed
+        // and before the player has unmounted
+        listenerToken.cancel();
+    }
+};
+```
+
+## Hooks
+
+### init
+
+<Steps>
+
+This hook is called when the game is initialized and before the player has rendered.
+
+```typescript
+game.hooks.hook("init", () => {
+    console.log("let's do something cool here");
+});
+```
+
+</Steps>
+
+### preloadImage
+
+<Steps>
+
+This hook is called when preloading images. This is useful for creating proxy logic for images.
+
+- `src: string` - The source of the image.
+- `set: (src: string, options?: RequestInit) => void` - A function to set the image source.
+
+```typescript
+game.hooks.hook("preloadImage", (src, set) => {
+    const newSrc = `https://example.com/proxy?url=${src}`;
+    set(newSrc, {
+        credentials: "include",
+    });
+});
+```
+
+</Steps>

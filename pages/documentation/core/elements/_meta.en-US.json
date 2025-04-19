@@ -12,5 +12,6 @@
     "story": "Story",
     "displayable": "Displayable",
     "layer": "Layer",
-    "service": "Service"
+    "service": "Service",
+    "video": "Video"
 }

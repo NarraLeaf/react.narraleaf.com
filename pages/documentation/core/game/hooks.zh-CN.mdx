@@ -1,0 +1,73 @@
+import {Callout, Tabs, Steps} from 'nextra/components';
+
+# 钩子
+
+<Callout type="warning" emoji="⚠️">
+    此页面正在建设中。
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    测试版功能，可能会发生变化。
+</Callout>
+
+钩子是一种向游戏中注入自定义逻辑的方式。它对于创建插件非常有用。
+
+```typescript
+import { Game, IGamePluginRegistry, LiveGameEventToken } from "narraleaf-react";
+
+let listenerToken: LiveGameEventToken;
+
+const plugin: IGamePluginRegistry = {
+    name: "test_plugin",
+
+    register: (game: Game) => {
+        // 此逻辑将在游戏初始化后
+        // 且玩家渲染前被调用
+        listenerToken = game.hooks.hook("init", () => {
+            console.log("init");
+        })
+    },
+
+    unregister: (game: Game) => {
+        // 此逻辑将在游戏销毁时
+        // 且玩家卸载前被调用
+        listenerToken.cancel();
+    }
+};
+```
+
+## 钩子列表
+
+### init
+
+<Steps>
+
+此钩子在游戏初始化时且玩家渲染前被调用。
+
+```typescript
+game.hooks.hook("init", () => {
+    console.log("let's do something cool here");
+});
+```
+
+</Steps>
+
+### preloadImage
+
+<Steps>
+
+此钩子在预加载图片时被调用。这对于创建图片代理逻辑很有用。
+
+- `src: string` - 图片的源地址。
+- `set: (src: string, options?: RequestInit) => void` - 设置图片源地址的函数。
+
+```typescript
+game.hooks.hook("preloadImage", (src, set) => {
+    const newSrc = `https://example.com/proxy?url=${src}`;
+    set(newSrc, {
+        credentials: "include",
+    });
+});
+```
+
+</Steps>

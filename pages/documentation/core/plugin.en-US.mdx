@@ -1,0 +1,85 @@
+import {Callout, Tabs, Steps} from 'nextra/components';
+
+# Plugin
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
+
+The plugin system is a crucial component for a framework designed to be highly extensible. Plugins provide the capability to inject, modify, or monitor game logic, enabling developers to extend the framework's functionality according to their specific needs.
+
+Additionally, the plugin system facilitates code reuse by allowing developers to leverage community-developed tools or create custom scripts that can be shared and integrated across different projects.
+
+## Defining a Plugin
+
+In NarraLeaf-React, a plugin is defined as an object that implements the `IGamePluginRegistry` interface.
+
+```typescript
+interface IGamePluginRegistry {
+    name: string;
+    register(game: Game): void;
+    unregister(game: Game): void;
+}
+```
+
+- The `name` property uniquely identifies the plugin.
+- The `register` method is invoked during game initialization.
+- The `unregister` method is called when the game is destroyed, providing an opportunity to clean up any side effects.
+
+Here's an example of a plugin that listens to the `init` event:
+
+```typescript
+import { Game, IGamePluginRegistry, LiveGameEventToken } from "narraleaf-react";
+
+let listenerToken: LiveGameEventToken;
+
+const plugin: IGamePluginRegistry = {
+    name: "test_plugin",
+
+    register: (game: Game) => {
+        // This logic executes once the game is initialized
+        // and before the player component is rendered
+        listenerToken = game.hooks.hook("init", () => {
+            console.log("Game initialized");
+        });
+    },
+
+    unregister: (game: Game) => {
+        // This logic executes when the game is disposed
+        // and before the player component is unmounted
+        listenerToken.cancel();
+    }
+};
+```
+
+For detailed information about hooks, please refer to the [Hooks](./game/hooks.en-US.mdx) documentation.
+
+## Registering a Plugin
+
+To register a plugin, you need to pass the plugin registry to the `Game` instance. Here's how to do it:
+
+```typescript
+import { useEffect } from "react";
+import { Game, useGame } from "narraleaf-react";
+
+function App() {
+    // Call this hook inside your component
+    const game = useGame();
+
+    useEffect(() => {
+        game.use(YOUR_PLUGIN_REGISTRY);
+    }, [game]);
+
+    return /* ... */;
+}
+```
+
+## Built-in Plugins
+
+<Callout type="warning" emoji="⚠️">
+    This section is under construction.
+</Callout>

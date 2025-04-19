@@ -1,0 +1,53 @@
+# Customizing the font
+
+## 1. Define the font family
+
+The font of the game can be affected by the style sheet. You can define custom fonts in your CSS file.
+
+```css
+/* Using system fonts */
+.font-family {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Using custom font files */
+@font-face {
+    font-family: 'CustomFont';
+    src: url('./fonts/custom-font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.custom-font {
+    font-family: 'CustomFont', sans-serif;
+}
+```
+
+## 2. Use the font family
+
+You can apply the font to the Player component by passing the class name:
+
+```typescript
+import { Player } from "narraleaf-react";
+
+// Apply font to the entire player
+<Player className="font-family" />
+
+// Or apply to specific elements using CSS selectors
+<Player className="custom-font" />
+```
+
+## 3. Best Practices
+
+- Always provide fallback fonts in case the custom font fails to load
+- Consider using web-safe fonts for better compatibility
+- For custom fonts, ensure the font files are properly loaded and accessible
+- Test font rendering across different browsers and devices
+- Consider font loading performance and use appropriate font formats (WOFF2, WOFF, TTF)
+
+## 4. Common Issues
+
+- Font not loading: Check the font file path and format
+- Font rendering issues: Verify font-face declaration and browser support
+- Performance impact: Optimize font loading with font-display property
+- Cross-browser compatibility: Test on different browsers

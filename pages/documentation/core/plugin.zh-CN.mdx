@@ -1,0 +1,85 @@
+import {Callout, Tabs, Steps} from 'nextra/components';
+
+# 插件系统
+
+<Callout type="warning" emoji="⚠️">
+    本页面正在建设中。
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    测试版功能，可能会发生变化。
+</Callout>
+
+插件系统是框架实现高度可扩展性的关键组件。插件提供了注入、修改或监控游戏逻辑的能力，使开发者能够根据特定需求扩展框架的功能。
+
+此外，插件系统通过允许开发者利用社区开发的工具或创建可在不同项目间共享和集成的自定义脚本，促进了代码复用。
+
+## 定义插件
+
+在 NarraLeaf-React 中，插件被定义为实现 `IGamePluginRegistry` 接口的对象。
+
+```typescript
+interface IGamePluginRegistry {
+    name: string;
+    register(game: Game): void;
+    unregister(game: Game): void;
+}
+```
+
+- `name` 属性用于唯一标识插件
+- `register` 方法在游戏初始化时被调用
+- `unregister` 方法在游戏销毁时被调用，用于清理副作用
+
+以下是一个监听 `init` 事件的插件示例：
+
+```typescript
+import { Game, IGamePluginRegistry, LiveGameEventToken } from "narraleaf-react";
+
+let listenerToken: LiveGameEventToken;
+
+const plugin: IGamePluginRegistry = {
+    name: "test_plugin",
+
+    register: (game: Game) => {
+        // 这段逻辑在游戏初始化时执行
+        // 并且在玩家组件渲染之前
+        listenerToken = game.hooks.hook("init", () => {
+            console.log("游戏已初始化");
+        });
+    },
+
+    unregister: (game: Game) => {
+        // 这段逻辑在游戏销毁时执行
+        // 并且在玩家组件卸载之前
+        listenerToken.cancel();
+    }
+};
+```
+
+关于钩子的详细信息，请参阅 [钩子](./game/hooks.zh-CN.mdx) 文档。
+
+## 注册插件
+
+要注册插件，需要将插件注册表传递给 `Game` 实例。具体操作如下：
+
+```typescript
+import { useEffect } from "react";
+import { Game, useGame } from "narraleaf-react";
+
+function App() {
+    // 在组件内部调用此钩子
+    const game = useGame();
+
+    useEffect(() => {
+        game.use(YOUR_PLUGIN_REGISTRY);
+    }, [game]);
+
+    return /* ... */;
+}
+```
+
+## 内置插件
+
+<Callout type="warning" emoji="⚠️">
+    本部分正在建设中。
+</Callout>
