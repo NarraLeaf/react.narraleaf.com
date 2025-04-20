@@ -13,28 +13,53 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 Hooks are a way to inject custom logic into the game. It is useful for creating plugins. 
 
 ```typescript
-import { Game, IGamePluginRegistry, LiveGameEventToken } from "narraleaf-react";
-
-let listenerToken: LiveGameEventToken;
-
-const plugin: IGamePluginRegistry = {
-    name: "test_plugin",
-
-    register: (game: Game) => {
-        // This logic will be called once the game is initialized
-        // and before the player has rendered
-        listenerToken = game.hooks.hook("init", () => {
-            console.log("init");
-        })
-    },
-
-    unregister: (game: Game) => {
-        // This logic will be called once the game is disposed
-        // and before the player has unmounted
-        listenerToken.cancel();
-    }
-};
+game.hooks.hook("init", () => {
+    console.log("Game initialized");
+});
 ```
+
+## Public Methods
+
+### hook
+
+<Steps>
+
+Add a hook to the game.
+
+```typescript
+const token = game.hooks.hook("init", () => {
+    console.log("Game initialized");
+});
+
+return function cleanup() {
+    token.cancel();
+}
+```
+
+- `key: Hooks` - The key of the hook. For a list of keys, see the [Hooks](#hooks) section.
+- `hook: (...value: T[K]) => VoidFunction | void` - The callback function that returns a cleanup function.
+- Returns `LiveGameEventToken` - See [LiveGameEventToken](../types/LiveGameEventToken)
+
+</Steps>
+
+### unhook
+
+<Steps>
+
+Remove a hook from the game.
+
+```typescript
+const listener = function () { /* ... */ };
+
+game.hooks.hook("init", listener); // add a hook
+
+game.hooks.unhook("init", listener); // remove the hook
+```
+
+- `key: Hooks` - The key of the hook. For a list of keys, see the [Hooks](#hooks) section.
+- `listener: (...value: T[K]) => VoidFunction | void` - The listener function that was added to the hook.
+
+</Steps>
 
 ## Hooks
 

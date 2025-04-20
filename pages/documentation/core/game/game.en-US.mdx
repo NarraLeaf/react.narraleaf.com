@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Game
 
@@ -8,9 +8,13 @@ import {Callout, Tabs} from 'nextra/components';
 
 Game is the main class that represents the game itself. It contains all the game's configuration and [LiveGame](./live-game)s
 
+Game use Singleton pattern, so you can get the instance by calling hook `useGame()`
+
 ## Public Properties
 
 ### preference
+
+<Steps>
 
 the [Preference](./preference/preference) instance
 
@@ -20,24 +24,21 @@ the [Preference](./preference/preference) instance
 game.preference.setPreference("autoForward", true);
 ```
 
+</Steps>
+
 ## Public Methods
-
-### constructor
-
-- `config: DeepPartial<GameConfig>` - The game's configuration, see [GameConfig](../types/GameConfig)
-
-### useComponent\<T extends keyof ComponentsTypes\>
-
-For ComponentsTypes, see [ComponentsTypes](../types/ComponentsTypes)
-
-- `key: T` - The key of the component to use
-- `components: ComponentsTypes[T]` - The component configuration, see [ComponentsTypes](../types/ComponentsTypes)
 
 ### getLiveGame
 
+<Steps>
+
 - `return: LiveGame` - the [LiveGame](./live-game) instance
 
+</Steps>
+
 ### configure
+
+<Steps>
 
 Assign a new configuration to the game
 
@@ -46,18 +47,49 @@ const { game } = useGame();
 
 useEffect(() => {
     game.configure({
-        app: {
-            debug: true,
-            logger: true,
-        },
-        player: {
-            ratioUpdateInterval: 0, // update the player size immediately
+        ratioUpdateInterval: 0, // update the player size immediately
 
-            /* cursor */
-            cursor: "cursor.jpeg",
-            cursorHeight: 60,
-            cursorWidth: 60,
-        }
+        /* cursor */
+        cursor: "cursor.jpeg",
+        cursorHeight: 60,
+        cursorWidth: 60,
     });
 }, []);
 ```
+
+</Steps>
+
+### use
+
+<Steps>
+
+Register a plugin to the game. 
+
+> **Note**: Plugins with the same name will not be registered.
+>
+> A name consists of `namespace` and `name` is recommended.  
+> Ex: `"@Namespace/PluginName"`, `"@Author/PluginName"`, `"PluginName"`
+
+```typescript
+game.use({
+    ... /** plugin register config */
+});
+```
+
+- `plugin: IGamePluginRegistry` - The plugin registry config, see [IGamePluginRegistry](../types/IGamePluginRegistry)
+
+</Steps>
+
+### dispose
+
+<Steps>
+
+Dispose the game and release all the resources.
+
+> **Note**: This action is irreversible.
+
+```typescript
+game.dispose();
+```
+
+</Steps>

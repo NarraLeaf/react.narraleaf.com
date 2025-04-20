@@ -15,6 +15,7 @@ Solutions are ways to solve common problems. Ex. Customizing the font, Implement
 ## Solutions
 
 - [Customizing the font](./solutions/font)
+- [Migration from Ren'Py](./solutions/from-renpy)
 
 ## FAQ
 
@@ -26,3 +27,16 @@ Yes, the game is a singleton. You can access it inside any react component.
 const game = useGame();
 ```
 
+### How to save the game?
+
+NarraLeaf-React does not provide a save/load system. It only has methods to serialize and deserialize the game state.
+
+However, we are working on a complete desktop solution to manage the clutter. Ex. Save/Load, UI, packaging, etc.
+
+For a complete VN engine, please check [NarraLeaf](https://github.com/NarraLeaf/NarraLeaf).
+
+### How to customize the UI?
+
+You can customize the UI by using slot components.
+
+For more information, please refer to the [Player](./player) page.

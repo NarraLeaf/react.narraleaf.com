@@ -1,0 +1,25 @@
+# GameElementHistory
+
+```typescript
+type GameElementHistory =
+    | {
+        type: "say";
+        text: string;
+        voice: string | null;
+    }
+    | {
+        type: "menu";
+        text: string;
+        selected: string;
+    };
+```
+
+The `GameElementHistory` type represents different types of game elements that can be recorded in the history. It can be either:
+
+1. A "say" element:
+   - `text`: The spoken text
+   - `voice`: The voice src URL or null if no voice was used
+
+2. A "menu" element:
+   - `text`: The menu text
+   - `selected`: The selected option 

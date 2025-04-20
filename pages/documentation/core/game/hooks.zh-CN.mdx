@@ -13,28 +13,53 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 钩子是一种向游戏中注入自定义逻辑的方式。它对于创建插件非常有用。
 
 ```typescript
-import { Game, IGamePluginRegistry, LiveGameEventToken } from "narraleaf-react";
-
-let listenerToken: LiveGameEventToken;
-
-const plugin: IGamePluginRegistry = {
-    name: "test_plugin",
-
-    register: (game: Game) => {
-        // 此逻辑将在游戏初始化后
-        // 且玩家渲染前被调用
-        listenerToken = game.hooks.hook("init", () => {
-            console.log("init");
-        })
-    },
-
-    unregister: (game: Game) => {
-        // 此逻辑将在游戏销毁时
-        // 且玩家卸载前被调用
-        listenerToken.cancel();
-    }
-};
+game.hooks.hook("init", () => {
+    console.log("Game initialized");
+});
 ```
+
+## 公共方法
+
+### hook
+
+<Steps>
+
+添加一个钩子到游戏中。
+
+```typescript
+const token = game.hooks.hook("init", () => {
+    console.log("Game initialized");
+});
+
+return function cleanup() {
+    token.cancel();
+}
+```
+
+- `key: Hooks` - 钩子的键。
+- `hook: (...value: T[K]) => VoidFunction | void` - 返回一个清理函数的钩子函数。
+- 返回 `LiveGameEventToken` - 参见 [LiveGameEventToken](../types/LiveGameEventToken)
+
+</Steps>
+
+### unhook
+
+<Steps>
+
+从游戏中移除一个钩子。
+
+```typescript
+const listener = function () { /* ... */ };
+
+game.hooks.hook("init", listener); // 添加一个钩子
+
+game.hooks.unhook("init", listener); // 移除钩子
+```
+
+- `key: Hooks` - 钩子的键。
+- `listener: (...value: T[K]) => VoidFunction | void` - 被添加到钩子中的监听函数。
+
+</Steps>
 
 ## 钩子列表
 
@@ -42,7 +67,7 @@ const plugin: IGamePluginRegistry = {
 
 <Steps>
 
-此钩子在游戏初始化时且玩家渲染前被调用。
+此钩子在游戏初始化时且播放器渲染前被调用。
 
 ```typescript
 game.hooks.hook("init", () => {

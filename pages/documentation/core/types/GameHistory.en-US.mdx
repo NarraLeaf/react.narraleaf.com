@@ -1,0 +1,11 @@
+# GameHistory
+
+```typescript
+export type GameHistory = GameHistoryAction & {
+    element: GameElementHistory;
+};
+```
+
+The `GameHistory` type represents a complete game history entry, combining both the action information and the specific game element that was affected. It extends `GameHistoryAction` and adds:
+
+- `element`: The specific game element (either a "say" or "menu" element) that was part of this history entry 
