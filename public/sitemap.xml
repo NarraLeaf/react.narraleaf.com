@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+  <loc>https://react.narraleaf.com/</loc>
+  <lastmod>2025-04-23T21:36:31+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/introduction</loc>
+  <lastmod>2025-04-23T21:36:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/quick-start</loc>
+  <lastmod>2025-04-23T21:36:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/installation</loc>
+  <lastmod>2025-04-23T21:36:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic</loc>
+  <lastmod>2025-04-23T21:36:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic/create-scene</loc>
+  <lastmod>2025-04-23T21:36:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic/add-actions</loc>
+  <lastmod>2025-04-23T21:36:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic/show-dialog</loc>
+  <lastmod>2025-04-23T21:36:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic/show-image</loc>
+  <lastmod>2025-04-23T21:36:33+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic/play-story</loc>
+  <lastmod>2025-04-23T21:36:34+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic/make-choices</loc>
+  <lastmod>2025-04-23T21:36:34+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic/sound</loc>
+  <lastmod>2025-04-23T21:36:34+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic/store-data</loc>
+  <lastmod>2025-04-23T21:36:34+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic/conditional</loc>
+  <lastmod>2025-04-23T21:36:35+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic/voice</loc>
+  <lastmod>2025-04-23T21:36:35+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/basic/manage-preferences</loc>
+  <lastmod>2025-04-23T21:36:36+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/solutions</loc>
+  <lastmod>2025-04-23T21:36:36+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/solutions/font</loc>
+  <lastmod>2025-04-23T21:36:36+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/solutions/from-renpy</loc>
+  <lastmod>2025-04-23T21:36:37+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core</loc>
+  <lastmod>2025-04-23T21:36:37+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements</loc>
+  <lastmod>2025-04-23T21:36:37+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/scene</loc>
+  <lastmod>2025-04-23T21:36:37+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/character</loc>
+  <lastmod>2025-04-23T21:36:38+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/character/sentence</loc>
+  <lastmod>2025-04-23T21:36:38+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/character/word</loc>
+  <lastmod>2025-04-23T21:36:38+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/character/pause</loc>
+  <lastmod>2025-04-23T21:36:39+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/image</loc>
+  <lastmod>2025-04-23T21:36:39+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/sound</loc>
+  <lastmod>2025-04-23T21:36:39+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/menu</loc>
+  <lastmod>2025-04-23T21:36:39+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/script</loc>
+  <lastmod>2025-04-23T21:36:40+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/condition</loc>
+  <lastmod>2025-04-23T21:36:40+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/control</loc>
+  <lastmod>2025-04-23T21:36:40+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/text</loc>
+  <lastmod>2025-04-23T21:36:41+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/persistent</loc>
+  <lastmod>2025-04-23T21:36:41+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/story</loc>
+  <lastmod>2025-04-23T21:36:41+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/displayable</loc>
+  <lastmod>2025-04-23T21:36:41+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/layer</loc>
+  <lastmod>2025-04-23T21:36:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/service</loc>
+  <lastmod>2025-04-23T21:36:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/elements/video</loc>
+  <lastmod>2025-04-23T21:36:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/animation</loc>
+  <lastmod>2025-04-23T21:36:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/animation/transform</loc>
+  <lastmod>2025-04-23T21:36:43+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/animation/transition</loc>
+  <lastmod>2025-04-23T21:36:43+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/animation/transition/dissolve</loc>
+  <lastmod>2025-04-23T21:36:43+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/animation/transition/fade-in</loc>
+  <lastmod>2025-04-23T21:36:43+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/game</loc>
+  <lastmod>2025-04-23T21:36:44+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/game/game</loc>
+  <lastmod>2025-04-23T21:36:44+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/game/game-state</loc>
+  <lastmod>2025-04-23T21:36:44+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/game/live-game</loc>
+  <lastmod>2025-04-23T21:36:44+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/game/storable</loc>
+  <lastmod>2025-04-23T21:36:45+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/game/storable/namespace</loc>
+  <lastmod>2025-04-23T21:36:45+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/game/preference/preference</loc>
+  <lastmod>2025-04-23T21:36:45+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/game/hooks</loc>
+  <lastmod>2025-04-23T21:36:45+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/plugin</loc>
+  <lastmod>2025-04-23T21:36:46+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/AlignPosition</loc>
+  <lastmod>2025-04-23T21:36:46+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/IPosition</loc>
+  <lastmod>2025-04-23T21:36:46+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ITransition</loc>
+  <lastmod>2025-04-23T21:36:46+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ImageTransformProps</loc>
+  <lastmod>2025-04-23T21:36:47+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ImageConfig</loc>
+  <lastmod>2025-04-23T21:36:47+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ImageColor</loc>
+  <lastmod>2025-04-23T21:36:47+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ImageSrc</loc>
+  <lastmod>2025-04-23T21:36:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/IImageUserConfig</loc>
+  <lastmod>2025-04-23T21:36:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ILayerUserConfig</loc>
+  <lastmod>2025-04-23T21:36:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ITextUserConfig</loc>
+  <lastmod>2025-04-23T21:36:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ISceneUserConfig</loc>
+  <lastmod>2025-04-23T21:36:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ISoundUserConfig</loc>
+  <lastmod>2025-04-23T21:36:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/IStoryConfig</loc>
+  <lastmod>2025-04-23T21:36:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/JumpConfig</loc>
+  <lastmod>2025-04-23T21:36:50+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/Lambda</loc>
+  <lastmod>2025-04-23T21:36:50+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/LambdaCtx</loc>
+  <lastmod>2025-04-23T21:36:50+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/LambdaHandler</loc>
+  <lastmod>2025-04-23T21:36:50+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/LiveGameEvent</loc>
+  <lastmod>2025-04-23T21:36:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/LiveGameEventToken</loc>
+  <lastmod>2025-04-23T21:36:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/SayComponent</loc>
+  <lastmod>2025-04-23T21:36:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/SavedGame</loc>
+  <lastmod>2025-04-23T21:36:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/SceneConfig</loc>
+  <lastmod>2025-04-23T21:36:52+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ScriptCtx</loc>
+  <lastmod>2025-04-23T21:36:52+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/SentenceConfig</loc>
+  <lastmod>2025-04-23T21:36:52+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/SentencePrompt</loc>
+  <lastmod>2025-04-23T21:36:52+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/SentenceUserConfig</loc>
+  <lastmod>2025-04-23T21:36:53+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ServiceHandlerCtx</loc>
+  <lastmod>2025-04-23T21:36:53+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/SoundConfig</loc>
+  <lastmod>2025-04-23T21:36:53+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/SoundType</loc>
+  <lastmod>2025-04-23T21:36:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/StorableData</loc>
+  <lastmod>2025-04-23T21:36:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/CharacterConfig</loc>
+  <lastmod>2025-04-23T21:36:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/CharacterMode</loc>
+  <lastmod>2025-04-23T21:36:55+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ChainedActions</loc>
+  <lastmod>2025-04-23T21:36:55+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/Choice</loc>
+  <lastmod>2025-04-23T21:36:55+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/Coord2DPosition</loc>
+  <lastmod>2025-04-23T21:36:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/CommonDisplayable</loc>
+  <lastmod>2025-04-23T21:36:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/CommonDisplayableConfig</loc>
+  <lastmod>2025-04-23T21:36:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/CommonPositionType</loc>
+  <lastmod>2025-04-23T21:36:56+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/CommonTransformProps</loc>
+  <lastmod>2025-04-23T21:36:57+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/Components</loc>
+  <lastmod>2025-04-23T21:36:57+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ComponentsTypes</loc>
+  <lastmod>2025-04-23T21:36:57+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/ConditionConfig</loc>
+  <lastmod>2025-04-23T21:36:58+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/CustomEasingFunction</loc>
+  <lastmod>2025-04-23T21:36:58+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/WordConfig</loc>
+  <lastmod>2025-04-23T21:36:58+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/EasingDefinition</loc>
+  <lastmod>2025-04-23T21:36:59+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/BezierDefinition</loc>
+  <lastmod>2025-04-23T21:36:59+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/MenuConfig</loc>
+  <lastmod>2025-04-23T21:36:59+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/MenuChoice</loc>
+  <lastmod>2025-04-23T21:37:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/GameConfig</loc>
+  <lastmod>2025-04-23T21:37:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/GamePreference</loc>
+  <lastmod>2025-04-23T21:37:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/GameHistory</loc>
+  <lastmod>2025-04-23T21:37:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/GameHistoryAction</loc>
+  <lastmod>2025-04-23T21:37:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/GameElementHistory</loc>
+  <lastmod>2025-04-23T21:37:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/TextConfig</loc>
+  <lastmod>2025-04-23T21:37:01+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/TransformDefinitions</loc>
+  <lastmod>2025-04-23T21:37:02+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/TransformersMap</loc>
+  <lastmod>2025-04-23T21:37:02+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/RawPosition</loc>
+  <lastmod>2025-04-23T21:37:02+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/RichImageUserConfig</loc>
+  <lastmod>2025-04-23T21:37:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/Origins</loc>
+  <lastmod>2025-04-23T21:37:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/OffsetPosition</loc>
+  <lastmod>2025-04-23T21:37:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/PauseConfig</loc>
+  <lastmod>2025-04-23T21:37:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/PreferenceEventToken</loc>
+  <lastmod>2025-04-23T21:37:04+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/FadeOptions</loc>
+  <lastmod>2025-04-23T21:37:04+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/Awaitable</loc>
+  <lastmod>2025-04-23T21:37:04+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/Background</loc>
+  <lastmod>2025-04-23T21:37:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/color</loc>
+  <lastmod>2025-04-23T21:37:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/Font</loc>
+  <lastmod>2025-04-23T21:37:05+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/GameContextType</loc>
+  <lastmod>2025-04-23T21:37:06+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/MenuComponent</loc>
+  <lastmod>2025-04-23T21:37:06+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/types/VideoConfig</loc>
+  <lastmod>2025-04-23T21:37:06+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/utils</loc>
+  <lastmod>2025-04-23T21:37:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player</loc>
+  <lastmod>2025-04-23T21:37:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player/player</loc>
+  <lastmod>2025-04-23T21:37:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player/game-providers</loc>
+  <lastmod>2025-04-23T21:37:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player/hooks/useGame</loc>
+  <lastmod>2025-04-23T21:37:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player/hooks/usePreference</loc>
+  <lastmod>2025-04-23T21:37:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player/hooks/useRouter</loc>
+  <lastmod>2025-04-23T21:37:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player/page-router</loc>
+  <lastmod>2025-04-23T21:37:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player/page-router/router</loc>
+  <lastmod>2025-04-23T21:37:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player/page-router/page</loc>
+  <lastmod>2025-04-23T21:37:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player/dialog</loc>
+  <lastmod>2025-04-23T21:37:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player/notification</loc>
+  <lastmod>2025-04-23T21:37:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/player/menu</loc>
+  <lastmod>2025-04-23T21:37:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/info/license</loc>
+  <lastmod>2025-04-23T21:37:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/info/incompatible-changes</loc>
+  <lastmod>2025-04-23T21:37:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://react.narraleaf.com/documentation/core/game/hooks.en-US</loc>
+  <lastmod>2025-04-23T21:36:45+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+
+
+</urlset>
