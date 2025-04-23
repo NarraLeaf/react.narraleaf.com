@@ -1,0 +1,69 @@
+import { Callout } from 'nextra/components';
+
+# 菜单
+
+<Callout type="warning" emoji="⚠️">
+    此页面正在建设中。
+</Callout>
+
+菜单组件渲染菜单容器，`Item` 渲染菜单项。
+
+## 示例
+
+1. 导入组件
+
+```tsx
+import { useState } from "react";
+import { GameMenu, Item, useGame } from "narraleaf-react";
+```
+
+2. 插入组件
+
+```tsx
+function DefaultMenu({items}: { items: number[] }) {
+    return (
+        <GameMenu
+            className="absolute flex flex-col items-center justify-center min-w-full w-full h-full"
+        >
+            {items.map((index) => (
+                <Item
+                    key={index}
+                    className="bg-white text-black p-2 mt-2 w-1/2"
+                />
+            ))}
+        </GameMenu>
+    );
+}
+```
+
+3. 配置游戏
+
+```tsx
+function App() {
+    const game = useGame();
+
+    useEffect(() => {
+        game.configure({
+            menu: DefaultMenu,
+        });
+    }, []);
+
+    return /* ... */
+}
+```
+
+## 组件
+
+### GameMenu
+
+GameMenu 组件渲染菜单容器。它的子组件是 `Item` 组件。
+
+- `children?: React.ReactNode` - 菜单容器的子元素。
+- `...props: React.HTMLAttributes<HTMLDivElement>` - 菜单容器的属性。
+
+### Item
+
+Item 组件渲染菜单项。它是 `GameMenu` 组件的子组件。
+
+- `className?: string` - 菜单项的类名。
+- `style?: React.CSSProperties` - 菜单项的样式。

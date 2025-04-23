@@ -14,13 +14,13 @@ const scene2 = new Scene("scene 2 - breakfast", {
 
 scene1.action([
     // ...
-    scene1.jump(scene2),
+    scene1.jumpTo(scene2),
 ]);
 ```
 
 The `action` method accepts an array of actions. You can use [elements](../core/elements) to create actions.
 
-`scene1.jump` will create a jump action. It will jump to the next scene when the action is executed.
+`scene1.jumpTo` will create a jumpTo action. It will jump to the next scene when the action is executed.
 
-> Note: actions after the jump action will not be executed.
+> Note: actions after the jumpTo action will not be executed.
 

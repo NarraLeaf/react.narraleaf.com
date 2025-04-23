@@ -85,3 +85,17 @@ The children of the player.
 You can pass the children to the player.
 
 For example, you can use [PageRouter API](./page-router) to create your own quick menu. 
+
+### active
+
+> optional, default: `true`
+
+Whether to show the player
+
+Even the active is false, the pages will be rendered
+
+```tsx
+const [active, setActive] = useState(false);
+
+return <Player active={active}/>
+```

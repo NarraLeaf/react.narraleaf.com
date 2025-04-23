@@ -2,5 +2,8 @@
     "player": "播放器",
     "game-providers": "GameProviders",
     "hooks": "钩子",
-    "page-router": "页面路由"
+    "page-router": "页面路由",
+    "dialog": "对话框",
+    "notification": "通知",
+    "menu": "菜单"
 }

@@ -52,7 +52,7 @@ const scene1 = new Scene("scene 1");
 const scene2 = new Scene("scene 2");
 
 scene1.action([
-    scene1.jump("scene 2") // use string instead of scene instance
+    scene1.jumpTo("scene 2") // use string instead of scene instance
 ]);
 
 const story = new Story("story name");

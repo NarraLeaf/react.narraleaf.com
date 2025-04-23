@@ -1,0 +1,77 @@
+import { Callout } from 'nextra/components';
+
+# 通知
+
+<Callout type="warning" emoji="⚠️">
+    本页面正在建设中。
+</Callout>
+
+通知组件用于渲染通知框，并提供接口以自定义通知框。
+
+## 通知
+
+通知的定义如下：
+
+```typescript
+type Notification = {
+    message: string;
+    id: string;
+}
+```
+
+## 示例
+
+1. 导入组件
+
+```tsx
+import { useState } from "react";
+import { INotificationsProps, useGame } from "narraleaf-react";
+```
+
+2. 插入组件
+
+```tsx
+function GameNotification({ notifications }: { notifications: Notification[] }) {
+    return (
+        <Notifications
+            className="absolute top-0 left-0 w-full h-full"
+        >
+            {notifications.map(({id, message}) =>
+                <div
+                    key={id}
+                    className="absolute top-0 left-0 w-[100px] h-[80px]"
+                >
+                    <span className="text-white text-2xl font-bold">
+                        {message}
+                    </span>
+                </div>
+            )}
+        </Notifications>
+    );
+}
+```
+
+3. 配置游戏
+
+```tsx
+function App() {
+    const game = useGame();
+
+    useEffect(() => {
+        game.configure({
+            notification: GameNotification,
+        });
+    }, []);
+
+    return /* ... */
+}
+```
+
+## 组件
+
+### Notifications
+
+Notifications 组件用于渲染通知框。
+
+- `children: React.ReactNode` - 通知框的子元素。
+- `...props: React.HTMLAttributes<HTMLDivElement>` - 通知框的其他属性。

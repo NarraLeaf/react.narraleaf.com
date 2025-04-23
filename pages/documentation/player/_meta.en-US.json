@@ -2,5 +2,8 @@
     "player": "Player",
     "game-providers": "GameProviders",
     "hooks": "Hooks",
-    "page-router": "Page Router"
+    "page-router": "Page Router",
+    "dialog": "Dialog",
+    "notification": "Notification",
+    "menu": "Menu"
 }

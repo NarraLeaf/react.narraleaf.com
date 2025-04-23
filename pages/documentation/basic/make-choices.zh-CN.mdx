@@ -17,18 +17,18 @@ const narrator = new Character(null);
  */
 
 scene.action([
-    new Menu("我该怎么办？")
+    Menu.prompt("我该怎么办？")
 
         .choose("向左走", [
             narrator.say("你向左走了。"),
             /* ... */
-            scene.jump(scene_went_left),
+            scene.jumpTo(scene_went_left),
         ])
 
         .choose("向右走", [
             narrator.say("你向右走了。"),
             /* ... */
-            scene.jump(scene_went_right),
+            scene.jumpTo(scene_went_right),
         ]);
 ]);
 ```

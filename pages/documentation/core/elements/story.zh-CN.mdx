@@ -52,7 +52,7 @@ const scene1 = new Scene("场景 1");
 const scene2 = new Scene("场景 2");
 
 scene1.action([
-    scene1.jump("场景 2") // 使用字符串而不是场景实例
+    scene1.jumpTo("场景 2") // 使用字符串而不是场景实例
 ]);
 
 const story = new Story("故事名称");

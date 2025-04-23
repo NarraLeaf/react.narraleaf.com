@@ -1,0 +1,77 @@
+import { Callout } from 'nextra/components';
+
+# Notification
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+Notification component renders the notification box, and provides interface to customize the notification box.
+
+## Notification
+
+A notificaition is defined as below:
+
+```typescript
+type Notification = {
+    message: string;
+    id: string;
+}
+```
+
+## Example
+
+1. Import the components
+
+```tsx
+import { useState } from "react";
+import { INotificationsProps, useGame } from "narraleaf-react";
+```
+
+2. Slot the components
+
+```tsx
+function GameNotification({ notifications }: { notifications: Notification[] }) {
+    return (
+        <Notifications
+            className="absolute top-0 left-0 w-full h-full"
+        >
+            {notifications.map(({id, message}) =>
+                <div
+                    key={id}
+                    className="absolute top-0 left-0 w-[100px] h-[80px]"
+                >
+                    <span className="text-white text-2xl font-bold">
+                        {message}
+                    </span>
+                </div>
+            )}
+        </Notifications>
+    );
+}
+```
+
+3. Configure the game
+
+```tsx
+function App() {
+    const game = useGame();
+
+    useEffect(() => {
+        game.configure({
+            notification: GameNotification,
+        });
+    }, []);
+
+    return /* ... */
+}
+```
+
+## Components
+
+### Notifications
+
+Notifications component renders the notification box. 
+
+- `children: React.ReactNode` - The children of the notification box.
+- `...props: React.HTMLAttributes<HTMLDivElement>` - The props of the notification box.

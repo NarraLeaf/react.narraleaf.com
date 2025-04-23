@@ -1,0 +1,119 @@
+import { Callout } from 'nextra/components';
+
+# 对话框
+
+<Callout type="warning" emoji="⚠️">
+    本页面正在建设中。
+</Callout>
+
+对话框组件用于渲染对话框，包括角色名牌和对话文本。
+
+要自定义对话框，您可以创建自己的组件并替换默认组件。您还可以自定义 `Nametag` 和 `Texts` 组件。
+
+## 示例
+
+1. 导入组件
+
+```tsx
+import { useState } from "react";
+import { Dialog, Texts, Nametag, useGame } from "narraleaf-react";
+```
+
+2. 插入组件
+
+```tsx
+function GameDialog() {
+    return (
+        <Dialog className="bg-white">
+            <Nametag className="font-bold" />
+            <Texts className="text-lg" />
+        </Dialog>
+    );
+}
+```
+
+3. 配置游戏
+
+```tsx
+function App() {
+    const game = useGame();
+
+    useEffect(() => {
+        game.configure({
+            dialog: GameDialog,
+        });
+    }, []);
+
+    return /* ... */
+}
+```
+
+## 组件
+
+### Dialog
+
+Dialog 组件用于渲染对话框。它的子组件是 `Nametag` 和 `Texts`。
+
+- `children?: React.ReactNode` - 对话框的子元素。
+- `...props: React.HTMLAttributes<HTMLDivElement>` - 对话框的属性。
+
+### Nametag
+
+Nametag 组件用于渲染角色名牌。它是 `Dialog` 组件的子组件。
+
+> **注意**: 名牌的颜色在角色配置中预定义，您不应通过 CSS 覆盖它。
+
+- `...props: React.HTMLAttributes<HTMLDivElement>` - 名牌的属性。
+
+### Texts
+
+Texts 组件用于渲染对话文本。它是 `Dialog` 组件的子组件。
+
+> **注意**: 文本的样式由单词/句子配置控制，您不应通过 CSS 覆盖它。
+> 
+> 但是，您可以自定义任何未预定义的内容，例如背景颜色、字体、大小等。
+
+- `children?: never`
+- `...props: React.HTMLAttributes<HTMLDivElement>` - 文本框的属性。
+
+## 自定义对话框
+
+以下是更多自定义对话框的示例：
+
+### 示例 1: 自定义对话框
+
+```tsx
+function GameDialog() {
+    return (
+        <Dialog
+            style={{
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                borderRadius: "10px",
+                padding: "20px",
+            }}
+        >
+            {/* ... */}
+        </Dialog>
+    );
+}
+```
+
+### 示例 2: 自定义名牌
+
+```tsx
+function GameDialog() {
+    return (
+        <Dialog>
+            <Nametag
+                style={{
+                    backgroundImage: "url('/path/to/image.png')",
+                    backgroundSize: "cover",
+                    width: "100%",
+                    height: "100%",
+                }}
+            />
+            {/* ... */}
+        </Dialog>
+    );
+}
+```
