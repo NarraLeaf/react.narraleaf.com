@@ -1,0 +1,73 @@
+import {Callout, Tabs, Cards, Steps} from 'nextra/components';
+
+# Video
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    Beta feature, subject to change.
+</Callout>
+
+Video is an element that allows you to play a video.
+
+The video is full-size of the player. 
+
+```typescript
+const video = new Video({
+    src: "https://example.com/video.mp4",
+    muted: true,
+});
+
+scene.action([
+    video
+        .show()
+        .play()
+        .hide(),
+]);
+```
+
+## Public Methods
+
+### constructor
+
+<Steps>
+
+- `config: Partial<VideoConfig>` - [VideoConfig](../types/VideoConfig)
+
+</Steps>
+
+## Chainable Methods
+
+### show
+
+<Steps>
+
+Show the video.
+
+```typescript
+video.show();
+```
+
+</Steps>
+
+### hide
+
+<Steps>
+
+Hide the video.
+
+</Steps>
+
+### play
+
+<Steps>
+
+Play the video and wait for it to finish.
+
+```typescript
+video.play();
+```
+
+</Steps>

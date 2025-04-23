@@ -230,3 +230,72 @@ useEffect(() => {
 - 返回 `LiveGameEventToken`
 
 </Steps>
+
+### getHistory
+
+<Steps>
+
+获取游戏历史。这个方法用于创建回溯。
+
+```typescript
+import { useGame, GameHistory } from "narraleaf-react";
+```
+
+```typescript
+const game = useGame();
+const history = game.getHistory();
+
+function handleUndo(history: GameHistory) {
+    game.undo(history.token);
+}
+
+return (
+    <div>
+        <h3>回溯</h3>
+
+        {history.map((item) => (
+            <div
+                key={item.token}
+                onClick={() => handleUndo(item)}
+            >
+                {/* show the action text */}
+                {/* text is available when the action is "say" or "menu" */}
+                {item.element.text}
+            </div>
+        ))}
+    </div>
+);
+```
+
+- 返回 `GameHistory[]` - 游戏历史，参见 [GameHistory](../types/GameHistory)
+
+</Steps>
+
+### undo
+
+<Steps>
+
+撤销游戏动作。
+
+```typescript
+game.undo(history.token);
+```
+
+- `token?: string` - 历史项的令牌，参见 [GameHistory](../types/GameHistory#token)。如果未提供，则撤销最后一个动作。
+
+</Steps>
+
+### notify
+
+<Steps>
+
+创建一个通知。
+
+```typescript
+game.notify("Save success");
+```
+
+- `message: string` - 通知消息
+- `duration?: number` - 通知持续时间，默认是 3000ms
+
+</Steps>

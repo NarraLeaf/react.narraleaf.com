@@ -1,0 +1,25 @@
+# GameElementHistory
+
+```typescript
+type GameElementHistory =
+    | {
+        type: "say";
+        text: string;
+        voice: string | null;
+    }
+    | {
+        type: "menu";
+        text: string;
+        selected: string;
+    };
+```
+
+`GameElementHistory` 类型表示可以记录在历史中的不同类型的游戏元素。它可以是：
+
+1. "say" 元素：
+   - `text`: 说出的文本
+   - `voice`: 语音源 URL 或 null 如果未使用语音
+
+2. "menu" 元素：
+   - `text`: 菜单文本
+   - `selected`: 选中的选项 

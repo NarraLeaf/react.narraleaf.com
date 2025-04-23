@@ -219,3 +219,19 @@ scene.action([
 
 </Steps>
 
+### assign
+
+Assign a partial state to the persistent
+
+<Steps>
+
+- `value: Partial<T>` - the value to assign to the state
+
+```typescript
+scene.action([
+    persis.assign({ coin: 10 })
+]);
+```
+
+</Steps>
+

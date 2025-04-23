@@ -215,3 +215,19 @@ scene.action([
 
 </Steps>
 
+### assign
+
+将部分状态分配给持久化
+
+<Steps>
+
+- `value: Partial<T>` - 要分配给状态的值
+
+```typescript
+scene.action([
+    persis.assign({ coin: 10 })
+]);
+```
+
+</Steps>
+

@@ -18,10 +18,10 @@ import {useGame} from "narraleaf-react";
 
 ```typescript
 function myComponent() {
-    const { game } = useGame();
+    const game = useGame();
 
     useEffect(() => {
-        game.getLiveGame().newGame();
+        // ...
     }, [game]);
 }
 ```

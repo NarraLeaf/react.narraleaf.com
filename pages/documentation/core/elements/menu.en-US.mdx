@@ -6,10 +6,6 @@ import {Callout, Tabs, Steps} from 'nextra/components';
     This page is under construction.
 </Callout>
 
-<Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
-</Callout>
-
 `Menu` lets you create a menu in your visual novel. It is used to navigate between different parts of the story.
 
 ```ts
@@ -23,6 +19,19 @@ new Menu("What should I do?")
     ])
 ```
 
+## Static Method
+
+### prompt
+
+An alias of the constructor.
+
+<Steps>
+
+- `prompt: SentencePrompt | Sentence` - See [SentencePrompt](../types/SentencePrompt) or [Sentence](./character/sentence)
+- `config: MenuConfig` - [MenuConfig](../types/MenuConfig)
+
+</Steps>
+
 ## Public Method
 
 ### constructor
@@ -31,7 +40,7 @@ new Menu("What should I do?")
 
 #### Overload 1 of 2
 
-- `prompt: (string | Word)[] | (string | Word)` - The prompt of the menu
+- `prompt: SentencePrompt` - See [SentencePrompt](../types/SentencePrompt)
 - `config?: MenuConfig` - [MenuConfig](../types/MenuConfig)
 
 #### Overload 2 of 2
@@ -44,6 +53,8 @@ new Menu("What should I do?")
 ## Chainable Method
 
 ### choose
+
+Create a branch of the menu. Choice prompt can be a sentence. 
 
 <Steps>
 
@@ -82,7 +93,7 @@ new Menu("what should I do?")
     ])
 ```
 
-- `prompt: UnSentencePrompt` - The prompt of the choice
+- `prompt: SentencePrompt` - See [SentencePrompt](../types/SentencePrompt)
 - `action: ChainedActions` - The action of the choice, See [ChainedActions](../types/ChainedActions)
 
 </Steps>

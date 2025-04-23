@@ -230,3 +230,72 @@ useEffect(() => {
 - Returns `LiveGameEventToken`
 
 </Steps>
+
+### getHistory
+
+<Steps>
+
+Get the game history. This method is used to create backlog. 
+
+```typescript
+import { useGame, GameHistory } from "narraleaf-react";
+```
+
+```typescript
+const game = useGame();
+const history = game.getHistory();
+
+function handleUndo(history: GameHistory) {
+    game.undo(history.token);
+}
+
+return (
+    <div>
+        <h3>Backlog</h3>
+
+        {history.map((item) => (
+            <div
+                key={item.token}
+                onClick={() => handleUndo(item)}
+            >
+                {/* show the action text */}
+                {/* text is available when the action is "say" or "menu" */}
+                {item.element.text}
+            </div>
+        ))}
+    </div>
+);
+```
+
+- Returns `GameHistory[]` - The game history, see [GameHistory](../types/GameHistory)
+
+</Steps>
+
+### undo
+
+<Steps>
+
+Undo the game action.
+
+```typescript
+game.undo(history.token);
+```
+
+- `token?: string` - The token of the history item, see [GameHistory](../types/GameHistory#token). If not provided, the last action will be undone.
+
+</Steps>
+
+### notify
+
+<Steps>
+
+Create a notification.
+
+```typescript
+game.notify("Save success");
+```
+
+- `message: string` - The message to notify
+- `duration?: number` - The duration of the notification, default is 3000ms
+
+</Steps>

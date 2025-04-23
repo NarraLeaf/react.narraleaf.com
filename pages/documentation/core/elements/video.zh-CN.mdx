@@ -1,0 +1,70 @@
+import {Callout, Tabs, Cards, Steps} from 'nextra/components';
+
+# 视频
+
+<Callout type="warning" emoji="⚠️">
+    此页面正在建设中。
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    测试版功能，可能会发生变化。
+</Callout>
+
+视频是一个元素，允许您播放视频。
+
+视频是占用整个舞台的播放器。
+
+```typescript
+const video = new Video({
+    src: "https://example.com/video.mp4",
+    muted: true,
+});
+
+scene.action([
+    video
+        .show()
+        .play()
+        .hide(),
+]);
+```
+
+## 公共方法
+
+### constructor
+
+<Steps>
+
+- `config: Partial<VideoConfig>` - [VideoConfig](../types/VideoConfig)
+
+</Steps>
+
+## 链式方法
+
+### show
+
+<Steps>
+
+显示视频。
+
+```typescript
+video.show();
+```
+
+</Steps>
+
+### hide
+
+<Steps>
+
+隐藏视频。
+
+</Steps>
+
+### play
+
+<Steps>
+
+播放视频并等待其完成。
+
+</Steps>
+

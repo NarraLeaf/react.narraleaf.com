@@ -1,9 +1,47 @@
 # WordConfig
 
 ```typescript
-type WordConfig = {} & {
-    color: color;
-};
+type WordConfig = {
+    className: string;
+    ruby: string;
+    color: Color;
+    cps?: number;
+} & Font;
 ```
 
-For color, see [color](./color).
+For Color, see [Color](./color#Color).
+For Font, see [Font](./Font).
+
+## ruby
+
+The `ruby` property is used to display ruby text. This is useful for displaying phonetic guides for Chinese characters.
+
+## className
+
+The `className` property is used to set the class name of the word.
+
+```typescript
+new Word({
+    className: 'bold',
+});
+```
+
+## color
+
+The `color` property is used to set the color of the word.
+
+```typescript
+new Word({
+    color: 'red',
+});
+```
+
+## cps
+
+The `cps` property is used to set the speed of the word. Using this property, you can have different speeds for different words.
+
+```typescript
+new Word({
+    cps: 10, // 10 characters per second
+});
+```

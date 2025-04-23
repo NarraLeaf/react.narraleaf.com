@@ -52,7 +52,7 @@ const scene1 = new Scene("scene 1");
 const scene2 = new Scene("scene 2");
 
 scene1.action([
-    scene1.jump("scene 2") // use string instead of scene instance
+    scene1.jumpTo("scene 2") // use string instead of scene instance
 ]);
 
 const story = new Story("story name");
@@ -134,3 +134,26 @@ const gallery = liveGame.story?.getService<Gallery>("gallery");
 
 </Steps>
 
+### createPersistent\<T extends PersistentContent\>
+
+<Steps>
+
+Create a Persistent and register it to the story.
+
+```typescript
+const persistent = story.createPersistent("playerData", {
+  name: "persistent",
+});
+
+// is equivalent to
+const persistent = new Persistent("playerData", {
+  name: "persistent",
+});
+story.registerPersistent(persistent);
+```
+
+- `namespace: string` - Name of the persistent
+- `defaultContent: T`
+- Returns `Persistent<T>`
+
+</Steps>

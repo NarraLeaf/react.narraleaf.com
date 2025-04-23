@@ -14,13 +14,15 @@ function useGame(): GameContextType;
 
 ```typescript
 import {useGame} from "narraleaf-react";
-````
+```
 
 ```typescript
-const { game } = useGame();
+function myComponent() {
+    const game = useGame();
 
-useEffect(() => {
-    game.getLiveGame().newGame();
-}, [game]);
+    useEffect(() => {
+        // ...
+    }, [game]);
+}
 ```
 

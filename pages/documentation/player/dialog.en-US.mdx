@@ -1,0 +1,119 @@
+import { Callout } from 'nextra/components';
+
+# Dialog
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+Dialog component renders the dialog box, including the character nametag and the dialog text.
+
+To customize the dialog, you can create your own component and replace the default one. You can also customize the `Nametag` and `Texts` components.
+
+## Example
+
+1. Import the components
+
+```tsx
+import { useState } from "react";
+import { Dialog, Texts, Nametag, useGame } from "narraleaf-react";
+```
+
+2. Slot the components
+
+```tsx
+function GameDialog() {
+    return (
+        <Dialog className="bg-white">
+            <Nametag className="font-bold" />
+            <Texts className="text-lg" />
+        </Dialog>
+    );
+}
+```
+
+3. Configure the game
+
+```tsx
+function App() {
+    const game = useGame();
+
+    useEffect(() => {
+        game.configure({
+            dialog: GameDialog,
+        });
+    }, []);
+
+    return /* ... */
+}
+```
+
+## Components
+
+### Dialog
+
+Dialog component renders the dialog box. Its children are the `Nametag` and `Texts` components.
+
+- `children?: React.ReactNode` - The children of the dialog box.
+- `...props: React.HTMLAttributes<HTMLDivElement>` - The props of the dialog box.
+
+### Nametag
+
+Nametag component renders the character nametag. It is a child of the `Dialog` component.
+
+> **Note**: The color of the nametag is predefined in the character config, you should not overwrite it using CSS. 
+
+- `...props: React.HTMLAttributes<HTMLDivElement>` - The props of the nametag.
+
+### Texts
+
+Texts component renders the dialog text. It is a child of the `Dialog` component.
+
+> **Note**: The text's styles are controlled by the word/sentence config, you should not overwrite it using CSS.
+> 
+> How ever, you can customize anything not predefined, such as the background color, font, size, etc.
+
+- `children?: never`
+- `...props: React.HTMLAttributes<HTMLDivElement>` - The props of the text box.
+
+## Customize the dialog
+
+Here are more examples of how to customize the dialog:
+
+### Example 1: Customizing the dialog box
+
+```tsx
+function GameDialog() {
+    return (
+        <Dialog
+            style={{
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                borderRadius: "10px",
+                padding: "20px",
+            }}
+        >
+            {/* ... */}
+        </Dialog>
+    );
+}
+```
+
+### Example 2: Customizing the nametag
+
+```tsx
+function GameDialog() {
+    return (
+        <Dialog>
+            <Nametag
+                style={{
+                    backgroundImage: "url('/path/to/image.png')",
+                    backgroundSize: "cover",
+                    width: "100%",
+                    height: "100%",
+                }}
+            />
+            {/* ... */}
+        </Dialog>
+    );
+}
+```

@@ -1,5 +1,9 @@
 # color
 
+Color defines all the colors that are supported by NarraLeaf-React.
+
+Color can be a [NamedColor](https://developer.mozilla.org/en-US/docs/Web/CSS/named-color), an object with `r`, `g`, `b`, and optionally `a` properties, or a hex color.
+
 ```ts
 type Color = NamedColor | RGBAColor | HexColor;
 type RGBAColor = {
@@ -160,7 +164,3 @@ type NamedColor =
     | "yellow"
     | "yellowgreen";
 ```
-
-The color type can be a string or an object with `r`, `g`, `b`, and optionally `a` properties.
-
-

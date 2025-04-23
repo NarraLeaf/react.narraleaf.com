@@ -1,4 +1,4 @@
-import {Callout, Tabs} from 'nextra/components';
+import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Game
 
@@ -8,9 +8,13 @@ import {Callout, Tabs} from 'nextra/components';
 
 Game 是代表游戏本身的主类。它包含游戏的所有配置和 [LiveGame](./live-game)。
 
+Game 使用单例模式，所以你可以通过调用钩子 `useGame()` 获取实例。
+
 ## 公共属性
 
 ### preference
+
+<Steps>
 
 [Preference](./preference/preference) 实例
 
@@ -20,24 +24,21 @@ Game 是代表游戏本身的主类。它包含游戏的所有配置和 [LiveGam
 game.preference.setPreference("autoForward", true);
 ```
 
+</Steps>
+
 ## 公共方法
-
-### constructor
-
-- `config: DeepPartial<GameConfig>` - 游戏的配置，参见 [GameConfig](../types/GameConfig)
-
-### useComponent\<T extends keyof ComponentsTypes\>
-
-关于 ComponentsTypes，参见 [ComponentsTypes](../types/ComponentsTypes)
-
-- `key: T` - 要使用的组件的键
-- `components: ComponentsTypes[T]` - 组件配置，参见 [ComponentsTypes](../types/ComponentsTypes)
 
 ### getLiveGame
 
+<Steps>
+
 - `return: LiveGame` - [LiveGame](./live-game) 实例
 
+</Steps>
+
 ### configure
+
+<Steps>
 
 为游戏分配新的配置
 
@@ -46,17 +47,48 @@ const { game } = useGame();
 
 useEffect(() => {
     game.configure({
-        app: {
-            debug: true,
-            logger: true,
-        },
-        player: {
-            ratioUpdateInterval: 0, // 立即更新玩家大小
+        ratioUpdateInterval: 0, // 立即更新播放器大小
 
-            /* 鼠标指针 */
-            cursor: "cursor.jpeg",
-            cursorHeight: 60,
-            cursorWidth: 60,
-        }
+        /* cursor */
+        cursor: "cursor.jpeg",
+        cursorHeight: 60,
+        cursorWidth: 60,
     });
 }, []);
+```
+
+</Steps>
+
+### use
+
+<Steps>
+
+注册一个插件到游戏。
+
+> **注意**: 具有相同名称的插件将不会被注册。
+>
+> 一个名称由 `namespace` 和 `name` 组成，推荐使用 `"@Namespace/PluginName"`，`"@Author/PluginName"`，`"PluginName"` 格式。
+
+```typescript
+game.use({
+    ... /** plugin register config */
+});
+```
+
+- `plugin: IGamePluginRegistry` - 插件注册配置，参见 [IGamePluginRegistry](../types/IGamePluginRegistry)
+
+</Steps>
+
+### dispose
+
+<Steps>
+
+释放游戏并释放所有资源。
+
+> **注意**: 此操作是不可逆的。
+
+```typescript
+game.dispose();
+```
+
+</Steps>

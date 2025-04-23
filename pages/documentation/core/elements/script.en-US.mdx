@@ -14,8 +14,16 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 ```typescript
 scene.action([
-    new Script((ctx) => {
+    new Script(({ storable }) => {
         console.log("This script is being executed.");
+
+        // ask the user for input
+        const price = prompt("How much do you want to pay for this item?");
+        const namespace = storable.getNamespace("test");
+
+        if (!isNaN(price)) {
+            namespace.set("price", price);
+        }
     })
 ]);
 ```
@@ -27,6 +35,22 @@ scene.action([
 <Steps>
 
 - `handler: (ctx: ScriptCtx) => void` - When the script is executed, this handler will be called. The handler will receive a [ScriptCtx](../types/ScriptCtx) object.
+
+<Callout type="warning" emoji="⚠️">
+    The `handler` function should return a cleanup function if it has any side effects.  
+    The cleanup function will be called when the player undo the action.
+
+    ```typescript
+    new Script((ctx) => {
+        const token = setTimeout(() => {
+            console.log("This script is being executed.");
+        }, 1000);
+
+        return () => clearTimeout(token);
+    })
+    ```
+</Callout>
+
 
 ```typescript
 const script = new Script((ctx) => {

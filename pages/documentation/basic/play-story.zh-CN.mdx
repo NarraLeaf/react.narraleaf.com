@@ -1,5 +1,18 @@
 # 播放故事
 
+You can wrap your entry scene with a [Story](../core/elements/story) instance to create a story. 
+
+```ts
+import { Story, Scene } from "narraleaf";
+
+const story = new Story("My Story");
+const scene = new Scene(/* ... */);
+
+story.entry(scene);
+
+export { story };
+```
+
 创建抽象故事后，你可以使用 React 组件来播放它。
 
 ```tsx

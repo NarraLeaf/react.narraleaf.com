@@ -13,9 +13,6 @@ import { Page, Player, useRouter } from "narraleaf-react";
 
 ```tsx
 function GameApp() {
-    // 获取路由实例
-    const router = useRouter();
-
     return (
         <Player
             router={router}
@@ -29,6 +26,18 @@ function GameApp() {
                 <span>contact</span>
             </Page>
         </Player>
+    );
+}
+
+function Button() {
+    // 在你的应用程序中的某个位置
+    // 获取路由实例
+    const router = useRouter();
+
+    return (
+        <button onClick={() => router.push("about")}>
+            Go to about
+        </button>
     );
 }
 ```
@@ -58,16 +67,6 @@ useEffect(() => {
 
 // 并访问当前页面 ID
 console.log(router.getCurrentId());
-```
-
-获取路由实例后，您需要将其传递给 `Player` 组件
-
-```tsx
-<Player
-    router={router}
->
-    {/* 您的页面 */}
-</Player>
 ```
 
 有关更多信息，请查看 [Router](./page-router/router) 和 [useRouter](./hooks/useRouter)

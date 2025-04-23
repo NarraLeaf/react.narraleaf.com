@@ -14,12 +14,12 @@ const scene2 = new Scene("场景 2 - 早餐", {
 
 scene1.action([
     // ...
-    scene1.jump(scene2),
+    scene1.jumpTo(scene2),
 ]);
 ```
 
 `action` 方法接受一个动作数组。你可以使用 [元素](../core/elements) 来创建动作。
 
-`scene1.jump` 将创建一个跳转动作。当动作执行时，它将跳转到下一个场景。
+`scene1.jumpTo` 将创建一个跳转动作。当动作执行时，它将跳转到下一个场景。
 
 > 注意：跳转动作之后的动作将不会被执行。

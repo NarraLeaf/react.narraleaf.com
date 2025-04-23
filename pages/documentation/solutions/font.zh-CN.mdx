@@ -1,0 +1,53 @@
+# 自定义字体
+
+## 1. 定义字体系列
+
+游戏的字体可以通过样式表进行设置。您可以在CSS文件中定义自定义字体。
+
+```css
+/* 使用系统字体 */
+.font-family {
+    font-family: 'Arial', sans-serif;
+}
+
+/* 使用自定义字体文件 */
+@font-face {
+    font-family: 'CustomFont';
+    src: url('./fonts/custom-font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.custom-font {
+    font-family: 'CustomFont', sans-serif;
+}
+```
+
+## 2. 使用字体系列
+
+您可以通过传递类名将字体应用到Player组件：
+
+```typescript
+import { Player } from "narraleaf-react";
+
+// 将字体应用到整个播放器
+<Player className="font-family" />
+
+// 或使用CSS选择器应用到特定元素
+<Player className="custom-font" />
+```
+
+## 3. 最佳实践
+
+- 始终提供备用字体，以防自定义字体加载失败
+- 考虑使用网络安全的字体以获得更好的兼容性
+- 对于自定义字体，确保字体文件正确加载且可访问
+- 在不同浏览器和设备上测试字体渲染效果
+- 考虑字体加载性能，使用适当的字体格式（WOFF2、WOFF、TTF）
+
+## 4. 常见问题
+
+- 字体未加载：检查字体文件路径和格式
+- 字体渲染问题：验证font-face声明和浏览器支持
+- 性能影响：使用font-display属性优化字体加载
+- 跨浏览器兼容性：在不同浏览器上进行测试

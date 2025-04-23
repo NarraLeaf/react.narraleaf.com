@@ -4,9 +4,8 @@
     "quick-start": "Quick Start",
     "installation": "Installation",
     "basic": "Basic",
+    "solutions": "Solutions",
     "core": "Core",
     "player": "Player",
-    "custom": "Customization",
-    "migration": "Migration",
-    "info": "Changes, licenses and more"
+    "info": "About"
 }

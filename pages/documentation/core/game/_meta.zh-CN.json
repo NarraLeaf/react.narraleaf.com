@@ -3,5 +3,6 @@
     "game-state": "GameState",
     "live-game": "LiveGame",
     "storable": "Storable",
-    "preference": "Preference"
+    "preference": "Preference",
+    "hooks": "Hooks"
 }

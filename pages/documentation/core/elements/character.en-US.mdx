@@ -2,14 +2,6 @@ import {Callout, Tabs, Cards, Steps} from 'nextra/components';
 
 # Character
 
-<Callout type="warning" emoji="⚠️">
-    This page is under construction.
-</Callout>
-
-<Callout type="warning" emoji="⚠️">
-    Beta feature, subject to change.
-</Callout>
-
 <Cards num={2}>
     <Cards.Card
         title="Sentence"
@@ -116,5 +108,40 @@ character
 ```
 
 - `name: string` - The name of the character
+
+</Steps>
+
+### apply
+
+<Steps>
+
+This is a special alias of `say`. It proxies the tag to the `say` method.
+
+> **Note**: Using some packaging tools like Webpack, you can't chain this method like this:
+> 
+> ```typescript
+> scene.action([
+>     character`sentence 1` `sentence 2`,
+> ]);
+> ```
+> 
+> But you still can chain other methods after it:
+> 
+> ```typescript
+> scene.action([
+>     character`sentence 1`.setName("Alice"),
+> ]);
+> ```
+
+This method shortens the code when the character is saying only one sentence.
+
+```typescript
+scene.action([
+    character`Hello, ${Word.color("Alice", "#f00")}!`,
+]);
+```
+
+- `texts: TemplateStringsArray` - The template string array
+- `...words: SingleWord[]` - [SingleWord](../types/SentencePrompt#SingleWord)
 
 </Steps>

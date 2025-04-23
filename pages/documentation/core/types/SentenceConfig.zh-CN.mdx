@@ -4,7 +4,7 @@
 ```ts
 type SentenceConfig = Partial<{
     character: Character | null;
-    color: Color;
+    color?: Color;
     voiceId: string | number | null;
     voice: Sound | string | null | undefined
 } & Font>;

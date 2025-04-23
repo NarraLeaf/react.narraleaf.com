@@ -2,14 +2,6 @@ import {Callout, Tabs, Cards, Steps} from 'nextra/components';
 
 # 角色
 
-<Callout type="warning" emoji="⚠️">
-    本页面正在建设中
-</Callout>
-
-<Callout type="warning" emoji="⚠️">
-    测试功能，可能会有变动
-</Callout>
-
 <Cards num={2}>
     <Cards.Card
         title="句子"
@@ -119,3 +111,41 @@ character
 
 </Steps>
 
+### apply
+
+<Steps>
+
+这是一个 `say` 的特殊别名。
+
+```typescript
+character`Hello, ${Word.color("Alice", "#f00")}!`;
+```
+
+> **注意：** 使用一些打包工具，如 Webpack，你不能像这样链式调用这个方法：
+> 
+> ```typescript
+> scene.action([
+>     character`sentence 1` `sentence 2`,
+> ]);
+> ```
+> 
+> 但你可以像这样：
+> 
+> ```typescript
+> scene.action([
+>     character`sentence 1`.setName("Alice"),
+> ]);
+> ```
+
+这个方法在角色只说一句话时缩短了代码。
+
+```typescript
+scene.action([
+    character`Hello, ${Word.color("Alice", "#f00")}!`,
+]);
+```
+
+- `texts: TemplateStringsArray` - 模板字符串数组
+- `...words: SingleWord[]` - [SingleWord](../types/SentencePrompt#SingleWord)
+
+</Steps>

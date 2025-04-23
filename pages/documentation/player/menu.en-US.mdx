@@ -1,0 +1,69 @@
+import { Callout } from 'nextra/components';
+
+# Menu
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+Menu component renders the menu container, and `Item` renders the menu item.
+
+## Example
+
+1. Import the components
+
+```tsx
+import { useState } from "react";
+import { GameMenu, Item, useGame } from "narraleaf-react";
+```
+
+2. Slot the components
+
+```tsx
+function DefaultMenu({items}: { items: number[] }) {
+    return (
+        <GameMenu
+            className="absolute flex flex-col items-center justify-center min-w-full w-full h-full"
+        >
+            {items.map((index) => (
+                <Item
+                    key={index}
+                    className="bg-white text-black p-2 mt-2 w-1/2"
+                />
+            ))}
+        </GameMenu>
+    );
+}
+```
+
+3. Configure the game
+
+```tsx
+function App() {
+    const game = useGame();
+
+    useEffect(() => {
+        game.configure({
+            menu: DefaultMenu,
+        });
+    }, []);
+
+    return /* ... */
+}
+```
+
+## Components
+
+### GameMenu
+
+GameMenu component renders the menu container. Its children are the `Item` components.
+
+- `children?: React.ReactNode` - The children of the menu container.
+- `...props: React.HTMLAttributes<HTMLDivElement>` - The props of the menu container.
+
+### Item
+
+Item component renders the menu item. It is a child of the `GameMenu` component.  
+
+- `className?: string` - The class name of the menu item.
+- `style?: React.CSSProperties` - The style of the menu item.

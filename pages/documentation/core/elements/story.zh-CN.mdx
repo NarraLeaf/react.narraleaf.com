@@ -52,7 +52,7 @@ const scene1 = new Scene("场景 1");
 const scene2 = new Scene("场景 2");
 
 scene1.action([
-    scene1.jump("场景 2") // 使用字符串而不是场景实例
+    scene1.jumpTo("场景 2") // 使用字符串而不是场景实例
 ]);
 
 const story = new Story("故事名称");
@@ -131,5 +131,29 @@ const gallery = liveGame.story?.getService<Gallery>("gallery");
 
 - `name: string` - 服务的名称
 - 返回 `T`
+
+</Steps>
+
+### createPersistent\<T extends PersistentContent\>
+
+<Steps>
+
+创建一个 Persistent 并将其注册到故事中。
+
+```ts
+const persistent = story.createPersistent("playerData", {
+    name: "persistent",
+});
+
+// is equivalent to
+const persistent = new Persistent("playerData", {
+    name: "persistent",
+});
+story.registerPersistent(persistent);
+```
+
+- `namespace: string` - 持久化的名称
+- `defaultContent: T` - 持久化的默认内容
+- 返回 `Persistent<T>`
 
 </Steps>

@@ -2,6 +2,14 @@
 
 For complete changes, please refer to the [CHANGELOG](https://github.com/NarraLeaf/narraleaf-react/blob/master/CHANGELOG.md)
 
+## 0.4.0
+
+- `game.config.elements.say.textInterval` is deprecated, use `game.config.elements.say.cps` instead
+- `game.config` has been refactored, see [GameConfig](src/game/nlcore/gameTypes.ts#GameConfig) for more details
+  - `game.config.player` is deprecated, use `game.config` instead
+  - `game.config.elements` is deprecated, use `game.config` instead
+  - `game.config.elementStyles` is deprecated, use `game.config` instead
+
 ## 0.3.0
 
 - NarraLeaf-React now **requires** [React 19](https://react.dev/blog/2024/12/05/react-19) or later

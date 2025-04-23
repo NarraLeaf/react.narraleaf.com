@@ -1,0 +1,41 @@
+import {Callout, Tabs, Steps} from 'nextra/components';
+
+# 解决方案
+
+<Callout type="warning" emoji="⚠️">
+    此页面正在建设中。
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+    Beta 功能，可能会发生变化。
+</Callout>
+
+解决方案是解决常见问题的方法。例如：自定义字体、实现回顾功能等。
+
+## 解决方案
+
+- [自定义字体](./solutions/font)
+- [从 Ren'Py 迁移](./solutions/from-renpy)
+## 常见问题
+
+### 游戏实例是单例模式吗？
+
+是的，游戏实例是单例模式。您可以在任何 React 组件中访问它。
+
+```typescript
+const game = useGame();
+```
+
+### 如何保存游戏？
+
+NarraLeaf-React 不提供保存/加载系统。它只有方法来序列化和反序列化游戏状态。
+
+然而，我们正在开发一个完整的桌面解决方案来管理混乱。例如：保存/加载、UI、打包等。
+
+对于完整的 VN 引擎，请检查 [NarraLeaf](https://github.com/NarraLeaf/NarraLeaf)。
+
+### 如何自定义 UI？
+
+您可以通过使用插槽组件来自定义 UI。
+
+有关更多信息，请参阅 [Player](./player) 页面。

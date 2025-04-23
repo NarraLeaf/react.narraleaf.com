@@ -2,6 +2,7 @@
     "elements": "Elements",
     "animation": "Animation",
     "game": "Game",
+    "plugin": "Plugin",
     "types": "Types",
     "utils": "Utils"
 }
