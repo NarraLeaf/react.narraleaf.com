@@ -4,6 +4,7 @@
 type GamePreference = {
     autoForward: boolean;
     skip: boolean;
+    showDialog: boolean;
 };
 ```
 
@@ -18,3 +19,7 @@ The game will wait for a duration of [GameConfig.elements.say.autoForwardDelay](
 ## skip
 
 When enable, player can skip the current sentence by pressing the [GameConfig.elements.say.nextKey](./GameConfig#nextKey).
+
+## showDialog
+
+Whether to show the dialog box. 
