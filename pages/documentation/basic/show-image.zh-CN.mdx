@@ -11,12 +11,12 @@ import {Image} from "narraleaf-react";
 ```
 
 ```typescript
-const character1Happy = new Image("character1_happy", {
+const character1Happy = new Image({
     src: "https://你的图片链接",
-    scale: 0.5,
+    scale: 0.5, // 图片的缩放比例
     position: {
-        yalign: 0.3,
-        xalign: 0.5,
+        yalign: 0.3, // 图片的垂直对齐方式
+        xalign: 0.5, // 图片的水平对齐方式
     },
 });
 ```
@@ -139,12 +139,11 @@ import {Transform, CommonPosition} from "narraleaf-react";
 ```typescript
 // 将图片移动到屏幕右侧
 scene1.action([
-    character1Happy.transform(new Transform({
-        position: "right",
-    }, {
-        duration: 120,
-        ease: "easeOut",
-    })),
+    character1Happy.transform(
+        Transform.create()
+            .position("right")
+            .commit({ duration: 120, ease: "easeOut" })
+    ),
 ]);
 
 // 或者

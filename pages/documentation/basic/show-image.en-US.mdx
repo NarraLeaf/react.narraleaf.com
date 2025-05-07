@@ -11,12 +11,12 @@ import {Image} from "narraleaf-react";
 ```
 
 ```typescript
-const character1Happy = new Image("character1_happy", {
+const character1Happy = new Image({
     src: "https://YOUR_IMAGE_URL",
-    scale: 0.5,
+    scale: 0.5, // The scale of the image
     position: {
-        yalign: 0.3,
-        xalign: 0.5,
+        yalign: 0.3, // The vertical alignment of the image
+        xalign: 0.5, // The horizontal alignment of the image
     },
 });
 ```
@@ -139,12 +139,11 @@ import {Transform, CommonPosition} from "narraleaf-react";
 ```typescript
 // Move the image to the right side of the screen
 scene1.action([
-    character1Happy.transform(new Transform({
-        position: "right",
-    }, {
-        duration: 120,
-        ease: "easeOut",
-    })),
+    character1Happy.transform(
+        Transform.create()
+            .position("right")
+            .commit({ duration: 120, ease: "easeOut" })
+    ),
 ]);
 
 // or

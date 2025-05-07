@@ -34,13 +34,14 @@ character1.say`你好，我的名字是 ${Word.bold("约翰")}！`; // 将输出
 你还可以使用这些元素构建复杂的对话框。
 
 ```typescript
-character1.say(new Sentence([
-    `现在是 `,
-    new Word(
-        (ctx) => new Date().toLocaleTimeString(),
-        { color: "red" }
-    ),
-])); // 将输出 "现在是 12:00:00 PM" 并且 "12:00:00 PM" 以红色显示
+const timeWord = new Word(
+    (ctx) => new Date().toLocaleTimeString(),
+    { color: "red" }
+);
+
+/* ... */
+
+character1.say`现在的时间是 ${timeWord}`; // 将会输出 "现在的时间是 12:00:00 PM" 并且 "12:00:00 PM" 以红色显示
 ```
 
 有关构建句子的更多信息，你可以阅读 [Sentence](../core/elements/sentence) 文档。
