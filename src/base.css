@@ -14,3 +14,7 @@
 .font-large {
   font-size: 3.25rem;
 }
+
+html, body {
+  overflow-x: hidden;
+}
