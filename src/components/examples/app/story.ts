@@ -15,7 +15,7 @@ const scene1 = new Scene("scene 1: hello world", {
 
 // then let's create a "character" with image
 const character1 = new Character("Narra");
-const character1Image = new Image({
+const character1Image = new Image<any>({
     src: "/static/char/narra.png",
     position: {
         xalign: 0.5,
