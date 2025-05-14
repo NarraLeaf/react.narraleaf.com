@@ -6,6 +6,7 @@ import { GameProviders, Player, PlayerEventContext, useGame } from "narraleaf-re
 // import your assets
 import { story } from "./story";
 import { GameDialog } from "./dialog";
+import { DefaultMenu } from "./menu";
 
 function App() {
   const game = useGame();
@@ -21,8 +22,12 @@ function App() {
       cps: 50, // set the dialog characters per second
 
       dialog: GameDialog, // override the default dialog
+      menu: DefaultMenu,
       defaultTextColor: "white", // set the default text color
       defaultNametagColor: "white", // set the default nametag color
+
+      minHeight: 50,
+      minWidth: 50,
     });
   }, [game]);
 

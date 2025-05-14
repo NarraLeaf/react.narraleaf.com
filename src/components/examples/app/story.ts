@@ -10,7 +10,7 @@ const story = new Story("My First NarraLeaf Story");
 // Create a new scene
 // The name of the scene should be unique and is used for debugging purposes
 const scene1 = new Scene("scene 1: hello world", {
-    background: "#f0f0f0",
+    background: "/static/ui/room.jpg",
 });
 
 // then let's create a "character" with image
@@ -47,10 +47,10 @@ scene1.action([
         .say`Start editing ${b(c("src/story.js", "blue"))} and enjoy the journey!`,
 
     Menu.prompt("Start the journey")
-        .choose(c("Yes I will!", "gray"), [
+        .choose("Yes I will!", [
             character1.say`Great! Let's start the journey!`
         ])
-        .choose(c("No, I'm going to check the documentation", "gray"), [
+        .choose("No, I'm going to check the documentation", [
             character1.say`Sure! Take your time!`
         ])
 ]);
