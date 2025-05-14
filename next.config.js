@@ -18,6 +18,9 @@ const NextJSConfig = {
           'node_modules/@headlessui/react'
         );
         return config;
+    },
+    experimental: {
+        esmExternals: true
     }
 };
 module.exports = withNextra(NextJSConfig);
