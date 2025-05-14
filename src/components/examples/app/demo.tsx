@@ -5,10 +5,11 @@ import { GameProviders, Player, PlayerEventContext, useGame } from "narraleaf-re
 
 // import your assets
 import { story } from "./story";
-import { GameDialog } from "./dialog";
+import { story as storyZH } from "./story-zh";
+import { GameDialog } from "./lib/Dialog";
 import { DefaultMenu } from "./menu";
 
-function App() {
+function App({ lang }: { lang: string }) {
   const game = useGame();
 
   // initialize the game manually
@@ -32,13 +33,13 @@ function App() {
   }, [game]);
 
   // handle the player ready event
-  function handleOnReady({liveGame}: PlayerEventContext) {
+  function handleOnReady({ liveGame }: PlayerEventContext) {
     liveGame.newGame();
   }
 
   return (
     <Player
-      story={story}
+      story={lang === "zh-CN" ? storyZH : story}
       width="100%"
       height="100%"
       onReady={handleOnReady}
@@ -46,11 +47,11 @@ function App() {
   );
 }
 
-export default function Demo() {
+export default function Demo({ lang }: { lang: string }) {
   return (
     // wrap the app with the GameProviders component
     <GameProviders>
-      <App />
+      <App lang={lang} />
     </GameProviders>
   );
 }

@@ -46,6 +46,10 @@ const config = {
     components: {
         h4: (props) => <h4 className="nx-font-semibold nx-tracking-tight text-slate-300 dark:nx-text-slate-100 nx-mt-8 nx-text-xl" {...props} />,
     },
+    darkMode: true,
+    nextThemes: {
+        defaultTheme: 'system',
+    },
 };
 
 export default config;

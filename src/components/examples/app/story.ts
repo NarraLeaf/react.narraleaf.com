@@ -1,21 +1,31 @@
 // src/lib/story.ts
 
-// First, import the necessary classes
-import { Story, Scene, Character, Image, Menu, Transform, c, b } from "narraleaf-react";
+// Import necessary classes from NarraLeaf-React
+import { Story, Scene, Character, Image, Menu, Transform, c, b, Sound, FadeIn, Dissolve, Control, i } from "narraleaf-react";
 
-// Create a new story
-// The name of the story is human-readable and is used for debugging purposes
-const story = new Story("My First NarraLeaf Story");
+// Create a new story instance
+// The name parameter is used for debugging and identification purposes
+const story = new Story("NarraLeaf-React Introduction");
 
-// Create a new scene
-// The name of the scene should be unique and is used for debugging purposes
-const scene1 = new Scene("scene 1: hello world", {
-    background: "/static/ui/room.jpg",
+// Create the main scene with background
+const mainScene = new Scene("introduction_scene", {
+    background: "white",
 });
 
-// then let's create a "character" with image
-const character1 = new Character("Narra");
-const character1Image = new Image<any>({
+const functionScene = new Scene("function_scene", {
+    background: "/static/ui/outside.jpg",
+});
+
+const transitionScene = new Scene("transition_scene", {
+    background: "/static/ui/outside.jpg",
+});
+
+// Create characters with their respective images
+const narrator = new Character("Narrator");
+const narra = new Character("Narra");
+
+// Create character images with positioning
+const narraImage = new Image<any>({
     src: "/static/char/narra.png",
     position: {
         xalign: 0.5,
@@ -25,14 +35,16 @@ const character1Image = new Image<any>({
 });
 
 // Add actions to the scene
-scene1.action([
-    // Show the image for 1 second
-    character1Image.show({
+mainScene.action([
+    mainScene.background.char("/static/ui/room.jpg", new FadeIn(1000)),
+
+    // Show character with animation
+    narraImage.show({
         duration: 1000,
     }),
 
-    // apply an animation to the image
-    character1Image.transform(
+    // Apply a bouncing animation
+    narraImage.transform(
         Transform.create()
             .position({ yoffset: -30 })
             .commit({ duration: 300, ease: "easeInOut" })
@@ -40,22 +52,97 @@ scene1.action([
             .commit({ duration: 300, ease: "easeInOut" })
     ),
 
-    // Say something
-    character1
-        .say`Hello, world!`
-        .say`This is my first NarraLeaf story.`
-        .say`Start editing ${b(c("src/story.js", "blue"))} and enjoy the journey!`,
+    // Introduction dialogue
+    narrator
+        .say`Welcome to NarraLeaf-React!`
+        .say`A lightweight and powerful visual novel framework for React.`,
 
-    Menu.prompt("Start the journey")
-        .choose("Yes I will!", [
-            character1.say`Great! Let's start the journey!`
+    narra
+        .say`Let me show you some of our key features:`
+        .say`1. ${b("Lightweight")}: No unnecessary dependencies and rendering library`
+        .say`2. ${b("Customizable")}: Full control over UI`
+        .say`3. ${b("Developer-friendly")}: Built with TypeScript and React`
+        .say`4. ${b("Modern")}: Supports modern web features`,
+
+    // Interactive menu
+    Menu.prompt("Would you like to learn more?")
+        .choose("Yes, show me more features!", [
+            narraImage.hide({ duration: 1000 }),
+            mainScene.jumpTo(functionScene, new Dissolve(1000)),
         ])
-        .choose("No, I'm going to check the documentation", [
-            character1.say`Sure! Take your time!`
+        .choose("I'll check the documentation", [
+            narra.say`Sure! Visit our documentation at ${b(c("react.narraleaf.com", "#40a8c5"))} for detailed guides.`
         ])
 ]);
 
-// Add the scene to the story
-story.entry(scene1);
+functionScene.action([
+    Menu.prompt("What do you want to learn?").choose("Image", [
+        narraImage.show({ duration: 1000 }),
+        narra.say`This is Narra, a character in our game. `
+        .say`You can apply a variety of effects to her image. `
+        .say`${b("Transform")} allows you to change her position, scale, and rotation, etc. `,
+        narraImage.transform(
+            Transform.create()
+                .position({ xoffset: 100 })
+                .commit({ duration: 300, ease: "easeInOut" })
+                .position({ xoffset: 0 })
+                .commit({ duration: 300, ease: "easeInOut" })
+                .scale(0.8).opacity(0.5)
+                .commit({ duration: 300, ease: "easeInOut" })
+                .scale(0.6).opacity(1)
+                .commit({ duration: 300, ease: "easeInOut" })
+                .rotation(10)
+                .commit({ duration: 300, ease: "easeInOut" })
+                .rotation(0)
+                .commit({ duration: 300, ease: "easeInOut" })
+        ),
+        narraImage.hide({ duration: 1000 }),
 
+        functionScene.jumpTo(transitionScene, new Dissolve(1000)),
+    ]).choose("Character", [
+        narra.say`Character controls the dialog behavior. `
+        .say`You can add text style to the dialog. `
+        .say`${b("c")} is used to add ${c("color", "yellow")} to the text. `
+        .say`${b("b")} is used to add ${b("bold")} to the text. `
+        .say`${b("i")} is used to add ${i("italic")} to the text. `,
+
+        functionScene.jumpTo(transitionScene),
+    ]).choose("Scene", [
+        narra.say`Scenes are the building blocks of your story. `
+        .say`You can create multiple scenes and switch between them. `
+        .say`Each scene can have its own background, characters, and actions. `,
+        
+        functionScene.background.char("/static/ui/room.jpg", new FadeIn(1000)),
+        narra.say`You can change backgrounds with smooth transitions. `,
+        functionScene.background.char("/static/ui/outside.jpg", new FadeIn(1000, [50, 50])),
+        
+        functionScene.jumpTo(transitionScene),
+    ]).choose("Menu", [
+        narra.say`Menus allow you to create interactive choices. `
+        .say`You can create branching stories based on user choices. `,
+        
+        Menu.prompt("Try a nested menu!")
+            .choose("Option 1", [
+                narra.say`You chose Option 1! `
+                .say`Menus can be nested to create complex decision trees. `
+            ])
+            .choose("Option 2", [
+                narra.say`You chose Option 2! `
+                .say`Each choice can trigger different story branches. `
+            ]),
+            
+        functionScene.jumpTo(transitionScene),
+    ]).choose(i("And more!"), [
+        narraImage.show({ duration: 1000 }),
+
+        narra.say`For more information, please visit ${b(c("react.narraleaf.com", "#40a8c5"))}`,
+    ]),
+]);
+
+transitionScene.action([
+    transitionScene.jumpTo(functionScene),
+]);
+
+// Set this scene as the entry point
+story.entry(mainScene);
 export { story };

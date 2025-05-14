@@ -9,7 +9,7 @@ const withNextra = require('nextra')({
  */
 const NextJSConfig = {
     i18n: {
-        locales: ['en-US', 'zh-CN', 'de-DE'],
+        locales: ['en-US', 'zh-CN'],
         defaultLocale: 'en-US'
     }
 };

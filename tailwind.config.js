@@ -4,6 +4,7 @@ module.exports = {
     './pages/**/*.{js,jsx,ts,tsx,md,mdx}',
     './src/**/*.{js,jsx,ts,tsx,md,mdx}'
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -16,6 +17,8 @@ module.exports = {
           600: "#0097A7",
           700: "#00838F",
           800: "#006064",
+          900: "#004D5B",
+          default: "#40A8C4",
         }
       }
     }
