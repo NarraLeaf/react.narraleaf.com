@@ -4,3 +4,4 @@ dist
 *.log
 *.test.js
 .idea
+.vercel
