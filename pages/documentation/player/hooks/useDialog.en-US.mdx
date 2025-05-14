@@ -1,0 +1,75 @@
+# useDialog
+
+`useDialog` is a custom hook that provides access to the current dialog's state and content. It retrieves the dialog information from the sentence context and processes the words to generate the final text.
+
+## Usage
+
+```tsx
+import { useDialog } from '@narraleaf/player';
+
+function MyComponent() {
+    const { done } = useDialog();
+    
+    return (
+        <div>
+            {!done && <div>The sentence is not complete</div>}
+        </div>
+    );
+}
+```
+
+## Return Value
+
+The hook returns a `DialogContext` object with the following properties:
+
+- `done: boolean` - Whether the dialog has finished displaying
+- `text: string` - The text content of the dialog
+
+## Example
+
+Here's a practical example of how to use the `useDialog` hook to display dialog text with a next line indicator:
+
+```tsx {23, 32}
+import { Dialog, Texts, Nametag, useDialog } from "narraleaf-react";
+
+/* 
+ * NextLine component displays the dialog text and a visual indicator
+ * showing when the dialog is complete.
+ * 
+ * - An animated triangle and underline that appear when dialog is done
+ */
+export function GameDialog() {
+    return (
+        <Dialog className="bg-contain bg-no-repeat bg-bottom relative">
+            <div className="absolute flex justify-center">
+                <Nametag />
+            </div>
+            <div className="flex items-center gap-[5px]">
+                <NextLine />
+            </div>
+        </Dialog>
+    )
+}
+
+function NextLine() {
+    const {done} = useDialog(); // use the dialog hook to access the dialog state
+
+    return (
+        <>
+            <Texts className="max-w-max" />
+            {/* Add inverted triangle and underline */}
+            <div className="flex flex-col items-center">
+                {/* Inverted triangle */}
+                {/* The triangle is hidden when the dialog is not complete */}
+                <div className={`${done ? '' : 'transparent'} w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[10px] border-t-white`} />
+                {/* Underline */}
+                <div className="w-[12px] h-[2px] bg-white mt-[2px]" />
+            </div>
+        </>
+    );
+}
+```
+
+## Notes
+
+- The text is a string of all the words in the sentence

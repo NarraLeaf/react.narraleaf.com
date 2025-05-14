@@ -34,13 +34,14 @@ character1.say`Hello, my name is ${Word.bold("John")}!`; // will output "Hello, 
 You can also construct a complex dialog using these elements.
 
 ```typescript
-character1.say(new Sentence([
-    `Now it is `,
-    new Word(
-        (ctx) => new Date().toLocaleTimeString(),
-        { color: "red" }
-    ),
-])); // will output "Now it is 12:00:00 PM" with "12:00:00 PM" in red
+const timeWord = new Word(
+    (ctx) => new Date().toLocaleTimeString(),
+    { color: "red" }
+);
+
+/* ... */
+
+character1.say`Now it is ${timeWord}`; // will output "Now it is 12:00:00 PM" with "12:00:00 PM" in red
 ```
 
 For more information about constructing a sentence, you can read the [Sentence](../core/elements/sentence) documentation.

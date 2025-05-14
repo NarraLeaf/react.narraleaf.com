@@ -1,15 +1,172 @@
-<header className="text-left py-10 lg:m-12">
-    <h1 className="text-6xl font-bold mb-4 max-w-[700px] inline-flex flex-wrap">属于<span className="text-primary-500 underline break-words">React</span>的视觉小说游戏框架</h1>
-    <p className="text-lg my-8 max-w-[500px]">使用轻量级、可定制且易于使用的视觉小说游戏框架制作你的视觉小说游戏！</p>
+import Demo from "../src/components/examples/app/demo";
+import { CodeBracketIcon, PaintBrushIcon, BoltIcon, CubeIcon, CloudArrowUpIcon, LockClosedIcon, ServerIcon, SparklesIcon } from '@heroicons/react/24/outline';
 
-    <a href="/documentation/introduction"><button className="bg-primary-500 text-white px-6 py-2 rounded-full hover:bg-primary-600 transition-colors group">
-        快速开始 <span className="inline-block transform transition-transform group-hover:translate-x-1">→</span>
-    </button></a>
-</header>
+<div className="py-10 lg:m-12 relative flex flex-col lg:!flex-row justify-between items-center gap-12 text-left">
+    <div className="flex-1 lg:max-w-[45%]">
+        <h1 className="text-6xl font-bold mb-4 max-w-[700px] inline-flex flex-wrap text-gray-900 dark:text-white">为<span className="text-primary-500 underline break-words">React</span>打造的视觉小说框架</h1>
+        <p className="text-lg my-8 max-w-[500px] text-gray-600 dark:text-gray-300">一个轻量级、可定制且易于使用的视觉小说框架。</p>
+
+        <a href="/documentation/introduction"><button className="font-bold bg-primary-500 text-white px-6 py-2 rounded-full hover:bg-primary-600 transition-colors group">
+            开始使用 <span className="inline-block transform transition-transform group-hover:translate-x-1">→</span>
+        </button></a>
+    </div>
+    
+    <div className="block sm:hidden lg:w-[65%] md:w-[90%] sm:w-full aspect-video relative rounded-lg">
+        <div className="absolute w-full h-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden shadow-2xl">
+            <Demo lang="zh-CN" />
+        </div>
+    </div>
+</div>
+
+<div className="w-full">
+    <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
+        <div className="mx-auto max-w-2xl lg:text-center p-6 w-full">
+            <h2 className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 dark:text-white sm:text-5xl lg:text-balance !leading-none">轻松构建丰富的叙事体验</h2>
+            <div className="mt-6 text-lg/8 text-gray-600 dark:text-gray-300">无需学习新语言，没有固定模板——只需您的代码、您的风格和您的故事。</div>
+        </div>
+        <div className="mx-auto mt-4 max-w-2xl lg:max-w-4xl">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+            {([
+            {
+                name: 'TypeScript 优先设计',
+                description:
+                '使用完整的类型安全和编辑器支持编写故事。直接在代码中定义场景、对话和逻辑——无需自定义脚本语言。',
+                icon: CodeBracketIcon,
+            },
+            {
+                name: '完全可定制的界面',
+                description:
+                '自定义每个元素以匹配您的愿景。从对话框到动画，您对展示和交互拥有完全控制权。',
+                icon: PaintBrushIcon,
+            },
+            {
+                name: '轻量级且可扩展',
+                description:
+                '设计简洁高效，NarraLeaf 随您的项目一起扩展。无论您是在制作短篇视觉小说还是复杂的分支故事，框架都保持快速和可维护性。',
+                icon: BoltIcon,
+            },
+            {
+                name: '基于组件的架构',
+                description:
+                '使用可重用的 React 组件构建每个场景、角色和选择。就像构建任何现代 Web 应用一样自定义布局和行为。',
+                icon: CubeIcon,
+            },
+            ]).map((feature) => (
+                <div key={feature.name} className="relative pl-16">
+                <dt className="text-base/7 font-semibold text-gray-900 dark:text-white">
+                    <div className="absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-primary-500">
+                    <feature.icon aria-hidden="true" className="size-6 text-white" />
+                    </div>
+                    {feature.name}
+                </dt>
+                <dd className="mt-2 text-base/7 text-gray-600 dark:text-gray-300">{feature.description}</dd>
+                </div>
+            ))}
+            </dl>
+        </div>
+    </div>
+</div>
 
 
+<div className="overflow-hidden dark:bg-primary-900 light:bg-primary-100 rounded-lg py-12 sm:py-12 mt-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+          <div className="lg:pt-4 lg:pr-8">
+            <div className="lg:max-w-lg">
+              <h2 className="text-base/7 font-semibold text-primary-500">为什么选择 TypeScript</h2>
+              <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 dark:text-white sm:text-5xl">自信构建</p>
+              <p className="mt-6 text-lg/8 text-gray-600 dark:text-gray-300">TypeScript 通过类型安全、IDE 支持和与 CI/CD 流程的无缝集成，为更智能的开发提供动力。</p>
+              <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 dark:text-gray-300 lg:max-w-none">
+  {([
+    {
+      name: '类型安全的故事编写',
+      description:
+        '利用 TypeScript 的智能自动完成和错误检查功能，编写更可靠、更易维护的故事代码。',
+      icon: CodeBracketIcon,
+    },
+    {
+      name: '强大的逻辑与真实生态系统',
+      description:
+        '使用 JavaScript/TypeScript 的完整生态系统构建条件逻辑、可重用组件和动态叙事。',
+      icon: CubeIcon,
+    },
+    {
+      name: '优雅且直观的语法',
+      description:
+        '体验设计精美的语法，使故事编写感觉自然且表达力强，同时保持专业级的能力。',
+      icon: SparklesIcon,
+    },
+    {
+      name: 'CI/CD 和工具链就绪',
+      description:
+        '与现代开发工作流程集成——版本控制、测试和部署都自然地融入您的流程中。',
+      icon: BoltIcon,
+    },
+  ]).map((feature) => (
+    <div key={feature.name} className="relative pl-9">
+      <dt className="inline font-semibold text-gray-900 dark:text-white">
+        <feature.icon aria-hidden="true" className="absolute top-1 left-1 size-5 text-primary-500 dark:text-primary-400" />
+        {feature.name}
+      </dt>
+      {': '}
+      <dd className="inline">{feature.description}</dd>
+    </div>
+  ))}
+</dl>
+            </div>
+          </div>
+          <div className="lg:pt-4">
+            <div className="rounded-xl p-6 shadow-xl ring-1 ring-gray-400/10 dark:ring-gray-700/10 dark:bg-gray-800">
+              ```ts {7-17}
+              scene.action([
+                scene.background.char("/bg_park.png", new Dissolve(500)),
 
+                "阳光温柔地透过树叶洒落。",
+                "已经早上9点了，不知为何我今天醒来感觉比平时更精神。",
 
+                Emma.show({ duration: 500 })
+                    .darken(0.3, 500, "easeIn")
+                    .char("emma_happy.png"),
 
+                E`早上好，Alex！`,
 
+                "一个女孩站在我身边，一如既往地开朗。",
+                "我不知道她是怎么做到的，但Emma似乎总是心情很好。",
+
+                A`Emma，我告诉过你多少次${b("不要", "#Ff0000")}不打招呼就偷偷加入我的晨间散步？`,
+                E`你门没关——我怎么能忍住不来呢？`,
+
+                Menu.prompt("我该怎么办？")
+                  .choose("想去吃早餐吗？", [
+                    E`真的吗？你终于邀请我出去了？那我们走吧！`,
+                  ])
+                  .choose("太早了。我们在这里休息一下吧。", [
+                    E`唉，你早上总是这么无聊。`,
+                    E`不过好吧，我们坐会儿。其实我带了点东西想给你看。`,
+                  ]),
+              ]);
+
+              ```
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div className="w-full flex flex-col items-center py-16 rounded-lg mt-16">
+  <h2 className="mt-2 mb-4 text-4xl font-semibold tracking-tight text-pretty text-gray-900 dark:text-white sm:text-5xl lg:text-balance !leading-none">准备开始了吗？</h2>
+  <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">让我们一起创造一些很酷的东西！</p>
+  <div className="flex gap-4">
+    <a href="/documentation/introduction">
+      <button className="bg-primary-500 text-white px-8 py-3 rounded-full hover:bg-primary-600 transition-colors text-lg font-semibold">
+        开始使用
+      </button>
+    </a>
+    <a href="https://github.com/NarraLeaf/narraleaf-react" target="_blank" rel="noopener noreferrer">
+      <button className="border-2 border-primary-500 text-primary-500 dark:text-primary-400 bg-transparent px-8 py-3 rounded-full hover:bg-primary-50 dark:hover:bg-primary-800 transition-colors text-lg font-semibold">
+        GitHub 仓库
+      </button>
+    </a>
+  </div>
+</div>
 

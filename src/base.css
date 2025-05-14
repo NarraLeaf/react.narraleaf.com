@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Your custom styles below */
+
 .text-slate-300 {
   --tw-text-opacity: 1;
   color: rgba(156, 163, 175, var(--tw-text-opacity));
@@ -13,4 +15,12 @@
 
 .font-large {
   font-size: 3.25rem;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+.backdrop-blur-md {
+  backdrop-filter: blur(10px);
 }

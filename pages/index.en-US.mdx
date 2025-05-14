@@ -1,15 +1,178 @@
-<header className="text-left py-10 lg:m-12">
-    <h1 className="text-6xl font-bold mb-4 max-w-[700px] inline-flex flex-wrap">Visual Novel for&nbsp;<span className="text-primary-500 underline break-words">React</span></h1>
-    <p className="text-lg my-8 max-w-[500px]">Create your own Visual Novel with React! A lightweight, customizable, and easy-to-use Visual Novel framework. </p>
+import Demo from "../src/components/examples/app/demo";
+import { CodeBracketIcon, PaintBrushIcon, BoltIcon, CubeIcon, CloudArrowUpIcon, LockClosedIcon, ServerIcon, SparklesIcon } from '@heroicons/react/24/outline';
 
-    <a href="/documentation/introduction"><button className="bg-primary-500 text-white px-6 py-2 rounded-full hover:bg-primary-600 transition-colors group">
-        Get started <span className="inline-block transform transition-transform group-hover:translate-x-1">→</span>
-    </button></a>
-</header>
+<div className="py-10 lg:m-12 relative flex flex-col lg:!flex-row justify-between items-center gap-12 text-left">
+    <div className="flex-1 lg:max-w-[45%]">
+        <h1 className="text-6xl font-bold mb-4 max-w-[700px] inline-flex flex-wrap text-gray-900 dark:text-white">Visual Novel for&nbsp;<span className="text-primary-500 underline break-words">React</span></h1>
+        <p className="text-lg my-8 max-w-[500px] text-gray-600 dark:text-gray-300">A lightweight, customizable, and easy-to-use Visual Novel framework. </p>
+
+        <a href="/documentation/introduction"><button className="font-bold bg-primary-500 text-white px-6 py-2 rounded-full hover:bg-primary-600 transition-colors group">
+            Get started <span className="inline-block transform transition-transform group-hover:translate-x-1">→</span>
+        </button></a>
+    </div>
+    
+    <div className="block sm:hidden lg:w-[65%] md:w-[90%] sm:w-full aspect-video relative rounded-lg">
+        <div className="absolute w-full h-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden shadow-2xl">
+            <Demo />
+        </div>
+    </div>
+</div>
+
+<div className="w-full">
+    <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
+        <div className="mx-auto max-w-2xl lg:text-center p-6 w-full">
+            <h2 className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 dark:text-white sm:text-5xl lg:text-balance !leading-none">Build rich narratives effortlessly</h2>
+            <div className="mt-6 text-lg/8 text-gray-600 dark:text-gray-300">No new languages, no rigid templates—just your code, your style, and your story.</div>
+        </div>
+        <div className="mx-auto mt-4 max-w-2xl lg:max-w-4xl">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+            {([
+            {
+                name: 'TypeScript-First Design',
+                description:
+                'Write stories with full type safety and editor support. Define scenes, dialogues, and logic directly in code—no need for custom scripting languages.',
+                icon: CodeBracketIcon,
+            },
+            {
+                name: 'Fully Customizable UI',
+                description:
+                'Style every element to match your vision. From dialogue boxes to animations, you have full control over the presentation and interaction.',
+                icon: PaintBrushIcon,
+            },
+            {
+                name: 'Lightweight & Scalable',
+                description:
+                'Designed to be minimal and efficient, NarraLeaf scales with your project. Whether you\'re making a short kinetic novel or a complex branching saga, the framework stays fast and maintainable.',
+                icon: BoltIcon,
+            },
+            {
+                name: 'Component-Based Architecture',
+                description:
+                'Build every scene, character, and choice using reusable React components. Customize layouts and behavior just like building any modern web app.',
+                icon: CubeIcon,
+            },
+            {
+                name: 'Elegant and intuitive syntax',
+                description:
+                'Experience a beautifully designed syntax that makes story writing feel natural and expressive, while maintaining professional-grade capabilities.',
+                icon: SparklesIcon,
+            },
+            ]).map((feature) => (
+                <div key={feature.name} className="relative pl-16">
+                <dt className="text-base/7 font-semibold text-gray-900 dark:text-white">
+                    <div className="absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-primary-500">
+                    <feature.icon aria-hidden="true" className="size-6 text-white" />
+                    </div>
+                    {feature.name}
+                </dt>
+                <dd className="mt-2 text-base/7 text-gray-600 dark:text-gray-300">{feature.description}</dd>
+                </div>
+            ))}
+            </dl>
+        </div>
+    </div>
+</div>
 
 
+<div className="overflow-hidden dark:bg-primary-900 light:bg-primary-100 rounded-lg py-12 sm:py-12 mt-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+          <div className="lg:pt-4 lg:pr-8">
+            <div className="lg:max-w-lg">
+              <h2 className="text-base/7 font-semibold text-primary-500">Why TypeScript</h2>
+              <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 dark:text-white sm:text-5xl">Build with Confidence</p>
+              <p className="mt-6 text-lg/8 text-gray-600 dark:text-gray-300">TypeScript powers smarter development with type safety, IDE support, and seamless integration into your CI/CD pipeline.</p>
+              <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 dark:text-gray-300 lg:max-w-none">
+  {([
+    {
+      name: 'Type-safe storytelling',
+      description:
+        'Leverage TypeScript\'s intelligent autocomplete and error checking to write more reliable, maintainable story code.',
+      icon: CodeBracketIcon,
+    },
+    {
+      name: 'Powerful logic with a real ecosystem',
+      description:
+        'Use JavaScript/TypeScript\'s full ecosystem to build conditional logic, reusable components, and dynamic narratives.',
+      icon: CubeIcon,
+    },
+    {
+      name: 'Elegant and intuitive syntax',
+      description:
+        'Experience a beautifully designed syntax that makes story writing feel natural and expressive, while maintaining professional-grade capabilities.',
+      icon: SparklesIcon,
+    },
+    {
+      name: 'CI/CD and tooling ready',
+      description:
+        'Integrate with modern developer workflows—version control, testing, and deployment all fit naturally into your process.',
+      icon: BoltIcon,
+    },
+  ]).map((feature) => (
+    <div key={feature.name} className="relative pl-9">
+      <dt className="inline font-semibold text-gray-900 dark:text-white">
+        <feature.icon aria-hidden="true" className="absolute top-1 left-1 size-5 text-primary-500 dark:text-primary-400" />
+        {feature.name}
+      </dt>
+      {': '}
+      <dd className="inline">{feature.description}</dd>
+    </div>
+  ))}
+</dl>
+            </div>
+          </div>
+          <div className="lg:pt-4">
+            <div className="rounded-xl p-6 shadow-xl ring-1 ring-gray-400/10 dark:ring-gray-700/10 dark:bg-gray-800">
+              ```ts {7-17}
+              scene.action([
+                scene.background.char("/bg_park.png", new Dissolve(500)),
 
+                "The sun is shining gently through the trees.",
+                "It's already 9 AM, and I somehow woke up feeling more refreshed than usual.",
 
+                Emma.show({ duration: 500 })
+                    .darken(0.3, 500, "easeIn")
+                    .char("emma_happy.png"),
 
+                E`Good morning, Alex!`,
 
+                "A girl stands beside me, cheerful as ever.",
+                "I'm not sure how she does it, but Emma always seems to be in a good mood.",
+
+                A`Emma, how many times have I ${c("TOLD", "#Ff0000")} you not to sneak into my morning walks unannounced?`,
+                E`You left the door open—how could I resist?`,
+
+                Menu.prompt("What should I do?")
+                  .choose("Want to go grab some breakfast?", [
+                    E`Really? You're finally inviting me out? Let's go then!`,
+                  ])
+                  .choose("Too early. Let's chill here a bit.", [
+                    E`Ugh, you're always so boring in the morning.`,
+                    E`But fine, let's sit. I actually brought something to show you.`,
+                  ]),
+              ]);
+
+              ```
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div className="w-full flex flex-col items-center py-16 rounded-lg mt-16">
+  <h2 className="mt-2 mb-4 text-4xl font-semibold tracking-tight text-pretty text-gray-900 dark:text-white sm:text-5xl lg:text-balance !leading-none">Ready to start?</h2>
+  <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">Let's make something cool together!</p>
+  <div className="flex gap-4">
+    <a href="/documentation/introduction">
+      <button className="bg-primary-500 text-white px-8 py-3 rounded-full hover:bg-primary-600 transition-colors text-lg font-semibold">
+        Get started
+      </button>
+    </a>
+    <a href="https://github.com/NarraLeaf/narraleaf-react" target="_blank" rel="noopener noreferrer">
+      <button className="border-2 border-primary-500 text-primary-500 dark:text-primary-400 bg-transparent px-8 py-3 rounded-full hover:bg-primary-50 dark:hover:bg-primary-800 transition-colors text-lg font-semibold">
+        GitHub Repo
+      </button>
+    </a>
+  </div>
+</div>
 

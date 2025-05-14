@@ -1,0 +1,75 @@
+# useDialog
+
+`useDialog` 是一个自定义 Hook，用于访问当前对话的状态和内容。它从句子上下文中获取对话信息，并处理单词以生成最终文本。
+
+## 使用方法
+
+```tsx
+import { useDialog } from '@narraleaf/player';
+
+function MyComponent() {
+    const { done } = useDialog();
+    
+    return (
+        <div>
+            {!done && <div>The sentence is not complete</div>}
+        </div>
+    );
+}
+```
+
+## 返回值
+
+该 Hook 返回一个 `DialogContext` 对象，包含以下属性：
+
+- `done: boolean` - 对话是否已完成显示
+- `text: string` - 对话的文本内容
+
+## 示例
+
+以下是一个实际示例，展示如何使用 `useDialog` Hook 来显示对话文本和下一行指示器：
+
+```tsx {23, 32}
+import { Dialog, Texts, Nametag, useDialog } from "narraleaf-react";
+
+/* 
+ * NextLine 组件显示对话文本和一个视觉指示器，
+ * 用于显示对话何时完成。
+ * 
+ * - 当对话完成时显示动画三角形和下划线
+ */
+export function GameDialog() {
+    return (
+        <Dialog className="bg-contain bg-no-repeat bg-bottom relative">
+            <div className="absolute flex justify-center">
+                <Nametag />
+            </div>
+            <div className="flex items-center gap-[5px]">
+                <NextLine />
+            </div>
+        </Dialog>
+    )
+}
+
+function NextLine() {
+    const {done} = useDialog(); // 使用 dialog hook 访问对话状态
+
+    return (
+        <>
+            <Texts className="max-w-max" />
+            {/* 添加倒三角和下划线 */}
+            <div className="flex flex-col items-center">
+                {/* 倒三角 */}
+                {/* 当对话未完成时隐藏三角形 */}
+                <div className={`${done ? '' : 'transparent'} w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[10px] border-t-white`} />
+                {/* 下划线 */}
+                <div className="w-[12px] h-[2px] bg-white mt-[2px]" />
+            </div>
+        </>
+    );
+}
+```
+
+## 注意事项
+
+- 文本是句子中所有单词的字符串
