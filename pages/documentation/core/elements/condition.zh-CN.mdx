@@ -70,7 +70,7 @@ Condition
 <Steps>
 
 - `condition: Lambda | LambdaHandler<boolean>` - 要检查的条件。如果条件为真，则执行操作。有关更多信息，请参见 [Lambda](../types/Lambda) 以及 [LambdaHandler](../types/LambdaHandler)
-- `action: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- `action: ActionStatements` - [ActionStatements](../types/ActionStatements)
 
 ```typescript
 Condition.If(({ storable }) => {
@@ -99,7 +99,7 @@ character1.say("你有足够的钱")
 <Steps>
 
 - `condition: Lambda | LambdaHandler<boolean>`
-- `action: ChainedActions`
+- `action: ActionStatements` - [ActionStatements](../types/ActionStatements)
 
 </Steps>
 
@@ -107,6 +107,6 @@ character1.say("你有足够的钱")
 
 <Steps>
 
-- `action: ChainedActions`
+- `action: ActionStatements` - [ActionStatements](../types/ActionStatements)
 
 </Steps>

@@ -1,0 +1,32 @@
+# ActionStatements
+
+ActionStatements is a type that represents all the statement elements can be used in structure narrative scripts.
+
+```typescript
+export type ChainedActions = (Proxied<LogicAction.GameElement, Chained<LogicAction.Actions>> | LogicAction.Actions)[];
+export type ActionStatements = ChainedActions | string[];
+```
+
+## Example
+
+```typescript
+scene.action([
+    character`Hello, world!`, // This is a valid action statement
+
+    character
+        .char(/* ... */)
+        .transform(/* ... */)
+        .say`Hello, world!`, // This is also a valid chained action statement
+
+    Menu
+        .prompt(/* ... */)
+        .choose("This is option 1", [
+            character`You chose option 1`, // Statement can be nested
+        ]),
+
+    // This is equivalent to (new Character(null)).say`I am a sentence said by a narrator`
+    "I am a sentence said by a narrator",
+    "Once upon a time, there was a girl named Alice.",
+    "She was a girl who loved to read books.",
+]);
+```

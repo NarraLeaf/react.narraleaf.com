@@ -32,6 +32,30 @@ Character controls the dialogues of the character.
 
 </Steps>
 
+### [[Callable]]
+
+<Steps>
+
+The `character.say` can be used as a tag function.
+
+```typescript
+character`Hello, ${Word.color("Alice", "#f00")}!`, // will output "Hello, Alice" with "Alice" in red color
+
+// is equivalent to
+
+character.say`Hello, ${Word.color("Alice", "#f00")}!`
+```
+
+> **Note:** This short-hand is not chainable using some packaging tools like Webpack.
+>
+> ```typescript
+> scene.action([
+>     character`sentence 1` `sentence 2`, // this will throw an error
+> ]);
+> ```
+
+</Steps>
+
 ## Chainable Method
 
 ### say

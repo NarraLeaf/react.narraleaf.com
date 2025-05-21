@@ -6,11 +6,12 @@ type GameElementHistory =
         type: "say";
         text: string;
         voice: string | null;
+        character: string | null;
     }
     | {
         type: "menu";
         text: string;
-        selected: string;
+        selected: string | null;
     };
 ```
 
@@ -19,7 +20,9 @@ type GameElementHistory =
 1. "say" 元素：
    - `text`: 说出的文本
    - `voice`: 语音源 URL 或 null 如果未使用语音
+   - `character`: 角色名称或 null 如果句子不是由角色说出
+
 
 2. "menu" 元素：
    - `text`: 菜单文本
-   - `selected`: 选中的选项 
+   - `selected`: 选中的选项或 null 如果菜单仍处于挂起状态

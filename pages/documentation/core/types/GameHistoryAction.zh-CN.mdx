@@ -4,9 +4,11 @@
 type GameHistoryAction = {
     token: string;
     action: Action;
+    isPending?: boolean;
 };
 ```
 
 `GameHistoryAction` 类型表示游戏历史中的单个动作。它包含：
 - `token`: 动作的唯一标识符
-- `action`: 实际执行的动作 
+- `action`: 实际执行的动作
+- `isPending`: 是否正在执行。例如，菜单弹出但用户尚未做出选择时，动作处于挂起状态。

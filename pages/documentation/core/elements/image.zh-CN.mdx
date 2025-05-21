@@ -167,6 +167,24 @@ image.char(["angry"], new Fade(1000));
 
 </Steps>
 
+### darken
+
+<Steps>
+
+设置图像的黑暗程度
+
+- `darkness: number` - 图像的黑暗程度，介于 0 和 1 之间。0 是全亮，1 是全黑
+- `duration?: number` - 过渡的持续时间
+- `easing?: TransformDefinitions.EasingDefinition` - 见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+```typescript
+image.darken(0.5, 500, "easeIn");
+```
+
+</Steps>
+
+## 公共方法
+
 ### addWearable
 
 <Steps>

@@ -1,0 +1,31 @@
+# ActionStatements
+
+ActionStatements 是一个类型，用于表示可以在结构化叙事脚本中使用的所有语句元素。
+
+```typescript
+export type ChainedActions = (Proxied<LogicAction.GameElement, Chained<LogicAction.Actions>> | LogicAction.Actions)[];
+export type ActionStatements = ChainedActions | string[];
+```
+
+## 示例
+
+```typescript
+scene.action([
+    character`你好，世界！`, // 这是一个有效的动作语句
+
+    character
+        .char(/* ... */)
+        .transform(/* ... */)
+        .say`你好，世界！`, // 这也是一个有效的链式动作语句
+
+    Menu
+        .prompt(/* ... */)
+        .choose("这是选项1", [
+            character`你选择了选项1`, // 语句可以嵌套
+        ]),
+
+    // 这等同于 (new Character(null)).say`我是旁白说的一句话`
+    "我是旁白说的一句话",
+    "从前，有一个叫爱丽丝的女孩。",
+    "她是一个喜欢读书的女孩。",
+]);

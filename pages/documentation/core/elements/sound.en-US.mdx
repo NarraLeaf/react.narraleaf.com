@@ -12,6 +12,53 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 Sound controls the sound of the game
 
+## Static Method
+
+### voice
+
+<Steps>
+
+Create a voice sound
+
+```ts
+const voice = Sound.voice({
+    src: 'voice.mp3',
+});
+
+// is equivalent to
+const voice = new Sound({
+    src: 'voice.mp3',
+    type: SoundType.Voice,
+});
+```
+
+- `arg0: Partial<ISoundUserConfig> | string` - The config of the sound or the source of the sound, see [ISoundUserConfig](../types/ISoundUserConfig)
+- Returns `Sound`
+
+</Steps>
+
+### bgm
+
+<Steps>
+
+Create a bgm sound
+
+- `arg0: Partial<ISoundUserConfig> | string` - The config of the sound or the source of the sound, see [ISoundUserConfig](../types/ISoundUserConfig)
+- Returns `Sound`
+
+</Steps>
+
+### sound
+
+<Steps>
+
+Create a sound
+
+- `arg0: Partial<ISoundUserConfig> | string` - The config of the sound or the source of the sound, see [ISoundUserConfig](../types/ISoundUserConfig)
+- Returns `Sound`
+
+</Steps>
+
 ## Public Method
 
 ### constructor
@@ -35,6 +82,8 @@ Sound controls the sound of the game
 <Steps>
 
 Play the sound and wait for it to finish
+
+> **Note**: Sounds marked as `Bgm` cannot be played directly.
 
 ```ts
 const sound = new Sound({

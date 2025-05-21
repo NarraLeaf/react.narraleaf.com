@@ -9,7 +9,7 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 `Menu` lets you create a menu in your visual novel. It is used to navigate between different parts of the story.
 
 ```ts
-new Menu("What should I do?")
+Menu.prompt("What should I do?")
     .choose("Go left", [
         character1.say("I went left"),
         scene1.jumpTo(scene2)
@@ -27,7 +27,7 @@ An alias of the constructor.
 
 <Steps>
 
-- `prompt: SentencePrompt | Sentence` - See [SentencePrompt](../types/SentencePrompt) or [Sentence](./character/sentence)
+- `prompt: SentencePrompt | Sentence | null | undefined` - See [SentencePrompt](../types/SentencePrompt) or [Sentence](./character/sentence)
 - `config: MenuConfig` - [MenuConfig](../types/MenuConfig)
 
 </Steps>
@@ -82,7 +82,7 @@ new Menu("what should I do?")
 ```
 
 - `prompt: Sentence` - The prompt of the choice, See [Sentence](./character/sentence)
-- `action: ChainedActions` - The action of the choice, See [ChainedActions](../types/ChainedActions)
+- `action: ActionStatements` - The action of the choice, See [ActionStatements](../types/ActionStatements)
 
 #### Overload 3 of 3
 
@@ -94,7 +94,7 @@ new Menu("what should I do?")
 ```
 
 - `prompt: SentencePrompt` - See [SentencePrompt](../types/SentencePrompt)
-- `action: ChainedActions` - The action of the choice, See [ChainedActions](../types/ChainedActions)
+- `action: ActionStatements` - The action of the choice, See [ActionStatements](../types/ActionStatements)
 
 </Steps>
 

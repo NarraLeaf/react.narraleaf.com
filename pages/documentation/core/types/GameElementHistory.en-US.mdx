@@ -6,11 +6,12 @@ type GameElementHistory =
         type: "say";
         text: string;
         voice: string | null;
+        character: string | null;
     }
     | {
         type: "menu";
         text: string;
-        selected: string;
+        selected: string | null;
     };
 ```
 
@@ -19,7 +20,8 @@ The `GameElementHistory` type represents different types of game elements that c
 1. A "say" element:
    - `text`: The spoken text
    - `voice`: The voice src URL or null if no voice was used
+   - `character`: The character name or null if the sentence is not spoken by a character
 
 2. A "menu" element:
    - `text`: The menu text
-   - `selected`: The selected option 
+   - `selected`: The selected option or null if the menu is still pending

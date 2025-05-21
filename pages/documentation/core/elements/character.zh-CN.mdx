@@ -32,6 +32,30 @@ import {Callout, Tabs, Cards, Steps} from 'nextra/components';
 
 </Steps>
 
+### [[Callable]]
+
+<Steps>
+
+`character.say` 可以作为标签函数使用。
+
+```typescript
+character`Hello, ${Word.color("Alice", "#f00")}!`, // will output "Hello, Alice" with "Alice" in red color
+
+// 等价于
+
+character.say`Hello, ${Word.color("Alice", "#f00")}!`
+```
+
+> **注意：** 使用一些打包工具，如 Webpack，你不能像这样链式调用这个方法：
+> 
+> ```typescript
+> scene.action([
+>     character`sentence 1` `sentence 2`, // 这会抛出一个错误
+> ]);
+> ```
+
+</Steps>
+
 ## 链式方法
 
 ### say
