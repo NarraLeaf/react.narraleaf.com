@@ -115,7 +115,7 @@ Add actions to the scene. Do not call this method more than once.
 
 #### Overload 1 of 2
 
-- `actions: (ChainableAction | ChainableAction[])[]` - Actions to be executed, see [ChainedActions](../types/ChainedActions)
+- `actions: ActionStatements` - Actions to be executed, see [ActionStatements](../types/ActionStatements)
 
 #### Overload 2 of 2
 
@@ -133,7 +133,7 @@ story.entry(
 );
 ```
 
-- `actions: ((scene: Scene) => ChainedAction[])` - Actions to be executed, see [ChainedActions](../types/ChainedActions)
+- `actions: ((scene: Scene) => ActionStatements)` - Actions to be executed, see [ActionStatements](../types/ActionStatements)
 - Returns `this`
 
 </Steps>

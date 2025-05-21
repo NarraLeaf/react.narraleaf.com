@@ -70,7 +70,7 @@ Condition
 <Steps>
 
 - `condition: Lambda | LambdaHandler<boolean>` - The condition to check. If the condition is true, the actions will be executed. See [Lambda](../types/Lambda) and [LambdaHandler](../types/LambdaHandler) for more information.
-- `action: ChainedActions` - [ChainedActions](../types/ChainedActions)
+- `action: ActionStatements` - [ActionStatements](../types/ActionStatements)
 
 ```typescript
 Condition.If(({ storable }) => {
@@ -99,7 +99,7 @@ Condition.If(({ storable }) => {
 <Steps>
 
 - `condition: Lambda | LambdaHandler<boolean>`
-- `action: ChainedActions`
+- `action: ActionStatements` - [ActionStatements](../types/ActionStatements)
 
 </Steps>
 
@@ -107,7 +107,7 @@ Condition.If(({ storable }) => {
 
 <Steps>
 
-- `action: ChainedActions`
+- `action: ActionStatements` - [ActionStatements](../types/ActionStatements)
 
 </Steps>
 

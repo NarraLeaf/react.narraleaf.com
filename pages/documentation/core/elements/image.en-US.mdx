@@ -167,6 +167,24 @@ image.char(["angry"], new Fade(1000));
 
 </Steps>
 
+### darken
+
+<Steps>
+
+Set the darkness of the image
+
+- `darkness: number` - The darkness of the image, between 0 and 1. 0 is no darkness, 1 is full darkness.
+- `duration?: number` - The duration of the transition
+- `easing?: TransformDefinitions.EasingDefinition` - See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+```typescript
+image.darken(0.5, 500, "easeIn");
+```
+
+</Steps>
+
+## Public Method
+
 ### addWearable
 
 <Steps>

@@ -299,3 +299,80 @@ game.notify("Save success");
 - `duration?: number` - 通知持续时间，默认是 3000ms
 
 </Steps>
+
+### waitForRouterExit
+
+<Steps>
+
+等待路由退出。
+
+此方法可以用于在创建新游戏时等待路由退出。
+
+```typescript {10}
+const {game} = useGame();
+const router = useRouter();
+const liveGame = game.getLiveGame();
+
+useEffect(() => {
+    router.clear().cleanHistory();
+
+    const token = liveGame
+        .newGame()
+        .waitForRouterExit()
+    
+    token
+        .promise
+        .then(() => {
+            dispatchState({ isPlaying: true });
+        });
+
+    return () => {
+        token.cancel();
+    };
+}, []);
+```
+
+- 返回 `{ promise: Promise<void>; cancel: VoidFunction; }`
+
+</Steps>
+
+### onWindowEvent
+
+<Steps>
+
+监听窗口事件
+
+```typescript
+const {game} = useGame();
+
+useEffect(() => {
+    return game.getLiveGame().onWindowEvent("resize", (event) => {
+        // 处理窗口大小调整
+    }).cancel;
+}, []);
+```
+
+- `type: K` - 事件类型
+- `listener: (this: Window, ev: WindowEventMap[K]) => any` - 事件监听器
+- `options?: boolean | AddEventListenerOptions`
+- 返回 `LiveGameEventToken`
+
+</Steps>
+
+### reset
+
+<Steps>
+
+重置游戏状态
+
+> **注意：**调用此方法将丢失当前游戏状态
+
+```typescript
+const {game} = useGame();
+const router = useRouter();
+
+game.getLiveGame().reset();
+router.clear().cleanHistory().push("home");
+```
+
+</Steps>

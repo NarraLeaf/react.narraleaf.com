@@ -2,39 +2,31 @@
 
 ```ts
 type MenuChoice = {
-    action: (ChainedAction | ChainedAction[] | Actions | Actions[])[];
-    prompt: (string | Word)[] | (string | Word) | Sentence;
+    action: ActionStatements;
+    prompt: SentencePrompt | Sentence;
 };
 ```
 
 Example:
 
 ```ts
-new Menu("What should I do?")
+Menu.prompt("What should I do?")
     /**
      * option: "Go left"
      * action: say "I went left" and jump to scene2
      */
-    .choose({
-        prompt: "Go left",
-        action: [
-            character1.say("I went left"),
-            scene1.jumpTo(scene2)
-        ]
-    })
+    .choose("Go left", [
+        character1.say("I went left"),
+        scene1.jumpTo(scene2)
+    ])
     
     /**
      * option: "Go right" with red color
      * action: say "I went right"
      */
-    .choose({
-        prompt: new Sentence([
-            "Go",
-            new Word("right", {color: "#ff0000"})
-        ]),
-        action: [
-            character1.say("I went right")
-        ]
-    })
+    .choose(Sentence([ "Go", new Word("right", {color: "#ff0000"}) ]), [
+        character1.say("I went right")
+    ])
 ```
 
+有关 `ActionStatements` 的更多信息，请参见 [ActionStatements](./ActionStatements).

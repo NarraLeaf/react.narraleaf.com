@@ -133,6 +133,8 @@ Capture the game screenshot, will only include the player element
 
 Returns a PNG image base64-encoded data URL
 
+> **Note: **Image returned by this method is not compressed, and it is not affected by the `screenshotQuality` option
+
 ```typescript
 const {game} = useGame();
 
@@ -291,11 +293,90 @@ game.undo(history.token);
 
 Create a notification.
 
+The style of the notification is defined by [Notification](../../player/notification). 
+
 ```typescript
 game.notify("Save success");
 ```
 
 - `message: string` - The message to notify
 - `duration?: number` - The duration of the notification, default is 3000ms
+
+</Steps>
+
+### waitForRouterExit
+
+<Steps>
+
+Wait for the router to exit. 
+
+This method is useful when you want to create a new game and wait for the router to exit.
+
+```typescript {10}
+const {game} = useGame();
+const router = useRouter();
+const liveGame = game.getLiveGame();
+
+useEffect(() => {
+    router.clear().cleanHistory();
+
+    const token = liveGame
+        .newGame()
+        .waitForRouterExit()
+    
+    token
+        .promise
+        .then(() => {
+            dispatchState({ isPlaying: true });
+        });
+
+    return () => {
+        token.cancel();
+    };
+}, []);
+```
+
+- Returns `{ promise: Promise<void>; cancel: VoidFunction; }`
+
+</Steps>
+
+### onWindowEvent
+
+<Steps>
+
+Listen to the events of the window
+
+```typescript
+const {game} = useGame();
+
+useEffect(() => {
+    return game.getLiveGame().onWindowEvent("resize", (event) => {
+        // handle window resize
+    }).cancel;
+}, []);
+```
+
+- `type: K` - The event type
+- `listener: (this: Window, ev: WindowEventMap[K]) => any` - The event listener
+- `options?: boolean | AddEventListenerOptions`
+- Returns `LiveGameEventToken` - See [LiveGameEventToken](../types/LiveGameEventToken)
+
+</Steps>
+
+### reset
+
+<Steps>
+
+Reset the game state
+
+> **Note:** Calling this method will lose the current game state
+
+```typescript
+const {game} = useGame();
+const router = useRouter();
+
+game.getLiveGame().reset();
+router.clear().cleanHistory().push("home");
+```
 
 </Steps>

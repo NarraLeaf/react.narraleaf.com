@@ -9,7 +9,7 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 `菜单` 允许您在视觉小说中创建菜单。它用于在故事的不同部分之间导航。
 
 ```ts
-new Menu("我应该做什么？")
+Menu.prompt("我应该做什么？")
     .choose("往左走", [
         character1.say("我往左走了"),
         scene1.jumpTo(scene2)
@@ -25,7 +25,7 @@ new Menu("我应该做什么？")
 
 <Steps>
 
-- `prompt: SentencePrompt | Sentence` - 见 [SentencePrompt](../types/SentencePrompt) 或 [Sentence](./character/sentence)
+- `prompt: SentencePrompt | Sentence | null | undefined` - 见 [SentencePrompt](../types/SentencePrompt) 或 [Sentence](./character/sentence)
 - `config: MenuConfig` - [MenuConfig](../types/MenuConfig)
 
 </Steps>
@@ -81,7 +81,7 @@ new Menu("我应该做什么？")
 ```
 
 - `prompt: Sentence` - 选择的提示，见 [Sentence](./character/sentence)
-- `action: ChainedActions` - 选择的操作，见 [ChainedActions](../types/ChainedActions)
+- `action: ActionStatements` - 选择的操作，见 [ActionStatements](../types/ActionStatements)
 
 #### 重载 3 / 3
 
@@ -93,6 +93,6 @@ new Menu("我应该做什么？")
 ```
 
 - `prompt: SentencePrompt` - 见 [SentencePrompt](../types/SentencePrompt)
-- `action: ChainedActions` - 选择的操作，见 [ChainedActions](../types/ChainedActions)
+- `action: ActionStatements` - 选择的操作，见 [ActionStatements](../types/ActionStatements)
 
 </Steps>

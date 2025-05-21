@@ -115,7 +115,7 @@ scene.displayableLayer.opacity(0.5, 1000, "linear")
 
 #### 重载 1 of 2
 
-- `actions: (ChainableAction | ChainableAction[])[]` - 要执行的操作，参见 [ChainedActions](../types/ChainedActions)
+- `actions: ActionStatements` - 要执行的操作，参见 [ActionStatements](../types/ActionStatements)
 
 #### 重载 2 of 2
 
@@ -133,7 +133,7 @@ story.entry(
 );
 ```
 
-- `actions: ((scene: Scene) => ChainedAction[])` - 要执行的操作，参见 [ChainedActions](../types/ChainedActions)
+- `actions: ((scene: Scene) => ActionStatements)` - 要执行的操作，参见 [ActionStatements](../types/ActionStatements)
 - 返回 `this`
 
 </Steps>

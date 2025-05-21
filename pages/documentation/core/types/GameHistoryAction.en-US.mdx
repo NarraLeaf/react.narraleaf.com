@@ -4,9 +4,11 @@
 type GameHistoryAction = {
     token: string;
     action: Action;
+    isPending?: boolean;
 };
 ```
 
 The `GameHistoryAction` type represents a single action in the game history. It contains:
 - `token`: A unique identifier for the action
 - `action`: The actual action that was performed
+- `isPending`: Whether the action is pending. For example, the action is pending if the menu pop up but the user hasn't made a choice yet.

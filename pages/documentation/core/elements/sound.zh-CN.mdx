@@ -12,6 +12,53 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 Sound 控制游戏中的声音
 
+## 静态方法
+
+### voice
+
+<Steps>
+
+创建一个语音声音
+
+```ts
+const voice = Sound.voice({
+    src: 'voice.mp3',
+});
+
+// 等同于
+const voice = new Sound({
+    src: 'voice.mp3',
+    type: SoundType.Voice,
+});
+```
+
+- `arg0: Partial<ISoundUserConfig> | string` - 声音的配置或声音源，参见 [ISoundUserConfig](../types/ISoundUserConfig)
+- 返回 `Sound`
+
+</Steps>
+
+### bgm
+
+<Steps>
+
+创建一个背景音乐
+
+- `arg0: Partial<ISoundUserConfig> | string` - 声音的配置或声音源，参见 [ISoundUserConfig](../types/ISoundUserConfig)
+- 返回 `Sound`
+
+</Steps>
+
+### sound
+
+<Steps>
+
+创建一个声音
+
+- `arg0: Partial<ISoundUserConfig> | string` - 声音的配置或声音源，参见 [ISoundUserConfig](../types/ISoundUserConfig)
+- 返回 `Sound`
+
+</Steps>
+
 ## 公共方法
 
 ### constructor
@@ -36,14 +83,16 @@ Sound 控制游戏中的声音
 
 播放声音并等待其结束
 
-``ts
+> **提示**: 标记为 `Bgm` 的声音不能直接播放。
+
+```ts
 const sound = new Sound({
     src: 'sound.mp3',
 });
 scene.action([
     sound.play(1000), // 播放并淡入 1 秒
 ]);
-``
+```
 
 - `duration?: number` - 淡入淡出持续时间（以毫秒为单位）
 
@@ -69,7 +118,7 @@ scene.action([
 - `end: number` - 结束音量，从 0 到 1
 - `duration: number` - 持续时间（以毫秒为单位）
 
-``ts
+```ts
 const sound = new Sound({
     src: 'sound.mp3',
     volume: 0,
@@ -79,7 +128,7 @@ scene.action([
         .play()
         .fade(0, 1, 1000), // 淡入 1 秒
 ]);
-``
+```
 
 </Steps>
 
@@ -108,6 +157,8 @@ scene.action([
 
 <Steps>
 
+暂停声音
+
 - `duration?: number` - 淡入淡出持续时间（以毫秒为单位）
 
 </Steps>
@@ -115,6 +166,8 @@ scene.action([
 ### resume
 
 <Steps>
+
+恢复播放声音
 
 - `fade?: number` - 淡入淡出持续时间（以毫秒为单位）
 

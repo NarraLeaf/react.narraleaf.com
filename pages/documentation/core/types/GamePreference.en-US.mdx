@@ -2,10 +2,55 @@
 
 ```typescript
 type GamePreference = {
+    /**
+     * If true, the game will automatically forward to the next sentence when the player has finished the current sentence
+     * @default false
+     */
     autoForward: boolean;
+    /**
+     * If true, the game will allow the player to skip the dialog
+     * @default true
+     */
     skip: boolean;
+    /**
+     * If true, the game will show the dialog
+     * @default true
+     */
     showDialog: boolean;
+    /**
+     * The multiplier of the dialog speed
+     * 
+     * Dialog speed will apply to:
+     * - The text speed
+     * - The auto-forward delay
+     * @default 1.0
+     */
     gameSpeed: number;
+    /**
+     * The speed of the text effects in characters per second.
+     * @default 10
+     */
+    cps: number;
+    /**
+     * The volume of the voice
+     * @default 1
+     */
+    voiceVolume: number;
+    /**
+     * The volume of the background music
+     * @default 1
+     */
+    bgmVolume: number;
+    /**
+     * The volume of the sound effects
+     * @default 1
+     */
+    soundVolume: number;
+    /**
+     * The volume of the global audio
+     * @default 1
+     */
+    globalVolume: number;
 };
 ```
 
@@ -33,3 +78,23 @@ Dialog speed will apply to:
 
 - The text speed
 - The auto-forward delay
+
+## cps
+
+The speed of the text effects in characters per second.
+
+## voiceVolume
+
+The volume of the voice.
+
+## bgmVolume
+
+The volume of the background music.
+
+## soundVolume
+
+The volume of the sound effects.
+
+## globalVolume
+
+The volume of the global audio. This is an independent multiplier affecting all the audio in the game.
