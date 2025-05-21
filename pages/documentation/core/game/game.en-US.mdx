@@ -42,6 +42,10 @@ game.preference.setPreference("autoForward", true);
 
 Assign a new configuration to the game
 
+> **Note:** This method is designed to be used before the game is initialized.
+> 
+> Calling this method after the game is initialized will not take effect or not taking effect immediately. Settings in the [Preference](./preference/preference) will take effect immediately.
+
 ```typescript
 const { game } = useGame();
 
