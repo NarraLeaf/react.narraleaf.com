@@ -1,0 +1,40 @@
+# SavedGameMetaData
+
+```ts
+interface SavedGameMetaData {
+    created: number;
+    updated: number;
+    id: string;
+    lastSentence: string | null;
+    lastSpeaker: string | null;
+    storyHash: string;
+}
+```
+
+## created
+
+The timestamp of when the game was created
+
+## updated
+
+The timestamp of when the game was last updated
+
+## id
+
+The id of the game, unique to each saved game
+
+## lastSentence
+
+The last sentence that was spoken
+
+## lastSpeaker
+
+The last speaker that spoke
+
+## storyHash
+
+The hash of the story is used to check whether the stories are compatible 
+
+> **Note**: The story hash is not based on the story content, but on the logic of the story.
+>
+> For example, changing the order of the animations will be reflected in the story hash, but changing the content of the sentences will not.

@@ -97,3 +97,38 @@ game.dispose();
 ```
 
 </Steps>
+
+### configureAndFreeze
+
+<Steps>
+
+Configure the game and freeze specific fields to prevent further modifications.
+
+> **Warning**: This method is not recommended to be used without using NarraLeaf Engine or Plugin Environment.
+
+```typescript
+game.configureAndFreeze({
+    ratioUpdateInterval: 0,
+    cursor: "cursor.jpeg"
+});
+```
+
+- `config: DeepPartial<GameConfig>` - The game configuration to apply and freeze
+
+</Steps>
+
+### freeze
+
+<Steps>
+
+Freeze specific configuration fields to prevent further modifications.
+
+> **Warning**: This method is not recommended to be used without using NarraLeaf Engine or Plugin Environment.
+
+```typescript
+game.freeze(["ratioUpdateInterval", "cursor"]);
+```
+
+- `fields: (StringKeyOf<GameConfig>)[]` - Array of configuration field names to freeze
+
+</Steps>

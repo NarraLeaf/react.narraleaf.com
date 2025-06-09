@@ -2,6 +2,18 @@
 
 完整的变更日志请参阅 [CHANGELOG](https://github.com/NarraLeaf/narraleaf-react/blob/master/CHANGELOG.md)
 
+## 0.6.0
+
+- The game has completely transitioned from a single node currentAction to a **StackModel**. The model ensures that: 
+  - Awaitable is handled in an explicit way 
+  - Support for sub-stack model recursive calls 
+  - Full support for serialization/deserialization 
+  - Support for scenario operations to break the call stack 
+  - Better branching/merging operations 
+  - Less prone to state clutter when deserializing and undoing
+  - Is a complete solution for nested operations
+- `game.config.skipInterval` is deprecated, use `GamePreference.skipInterval` instead
+
 ## 0.5.0
 
 - `game.config.cps` is deprecated, use `GamePreference.cps` instead

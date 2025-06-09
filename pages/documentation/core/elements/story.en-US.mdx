@@ -157,3 +157,51 @@ story.registerPersistent(persistent);
 - Returns `Persistent<T>`
 
 </Steps>
+
+### hash
+
+<Steps>
+
+Returns a 64-bit hash of the story.
+
+The hash is calculated based on the story's logic and operation order, not its text content. Specifically:
+
+- The hash reflects the logical structure and sequence of operations in the story
+- Changes to the order of operations (like animations, jumps, etc.) will result in different hashes
+- Changes to text content (like dialogue, descriptions) will **not** affect the hash
+- When `strict` is `true`, the hash also includes stringified lambda functions
+
+This hash is primarily used to check story compatibility between saved games.
+
+```ts
+const story = new Story("story name");
+const hash = story.hash(); // basic hash
+const strictHash = story.hash(true); // hash with strict mode
+```
+
+- `strict: boolean` - Whether to use strict mode for hash calculation (default: `false`)
+- Returns `string` - A 64-bit hash of the story
+
+</Steps>
+
+### stringify
+
+<Steps>
+
+Converts the story into a string representation. This is primarily used internally for hash calculation.
+
+The stringification behavior depends on the `strict` parameter:
+
+- When `strict` is `false` (default), returns a basic string representation
+- When `strict` is `true`, includes stringified lambda functions in the output
+
+```ts
+const story = new Story("story name");
+const str = story.stringify(); // basic string representation
+const strictStr = story.stringify(true); // string with strict mode
+```
+
+- `strict: boolean` - Whether to use strict mode for stringification (default: `false`)
+- Returns `string` - String representation of the story
+
+</Steps>

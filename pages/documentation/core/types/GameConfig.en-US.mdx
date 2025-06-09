@@ -2,10 +2,6 @@ import { Callout } from 'nextra/components';
 
 # GameConfig
 
-<Callout type="warning" emoji="⚠️">
-    This page is under construction.
-</Callout>
-
 ```typescript
 type GameConfig = {
     /**
@@ -51,18 +47,11 @@ type GameConfig = {
      */
     skipKey: React.KeyboardEvent["key"][];
     /**
-     * The interval in milliseconds between each skip action.
-     * ex: 100 ms means the player can skip 10 actions per second.
-     * higher value means faster skipping.
-     * @default 100
-     */
-    skipInterval: number;
-    /**
      * If true, the game will listen to the window events instead of the player element
      * 
      * Using this will allow the game to listen to the keyboard events even when the player is not focused  
      * Resulting in a better user experience on skipping actions
-     * @default false
+     * @default true
      */
     useWindowListener: boolean;
     /**
@@ -300,5 +289,20 @@ type GameConfig = {
      * @default null
      */
     stage: React.ReactNode | null;
+    /**
+     * The default color for the menu choices
+     * @default "#000"
+     */
+    defaultMenuChoiceColor: Color;
+    /**
+     * The maximum number of times a stack model can loop
+     * @default 1000
+     */
+    maxStackModelLoop: number;
+    /**
+     * The maximum number of actions to store in the action history
+     * @default 100
+     */
+    maxActionHistory: number;
 };
 ```

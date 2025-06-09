@@ -1,6 +1,6 @@
 # Router
 
-Router is used to navigate between pages.
+Router is used to navigate between pages and manage page history.
 
 ```tsx
 import { useRouter } from "narraleaf-react";
@@ -14,13 +14,13 @@ const router = useRouter();
 
 ### push
 
-Navigate to a page by its id.
+Push a new page id to the router history and navigate to it.
 
 ```tsx
 router.push("about");
 ```
 
-The Game will navigate to the page with the id `about`.
+The Game will navigate to the page with the id `about`. If there are any pages in the forward history, they will be cleared.
 
 ```tsx
 <Page id="about">
@@ -29,12 +29,12 @@ The Game will navigate to the page with the id `about`.
 </Page>
 ```
 
-- `id: string` - The id of the page.
+- `id: string` - The id of the page to navigate to
 - Returns `this`
 
 ### back
 
-Navigate to the previous page.
+Navigate to the previous page in the router history.
 
 This method will do nothing if there is no previous page.
 
@@ -42,15 +42,21 @@ This method will do nothing if there is no previous page.
 
 ### forward
 
-Navigate to the next page.
+Navigate to the next page in the router history.
 
 This method will do nothing if there is no next page.
 
 - Returns `this`
 
+### clear
+
+Clear the current page id and navigation history. All pages will be removed from the stage.
+
+- Returns `this`
+
 ### cleanHistory
 
-Clean the navigation history.
+Clean the navigation history while keeping the current page. This will remove all forward and backward history entries, leaving only the current page in history.
 
 - Returns `this`
 
@@ -58,6 +64,58 @@ Clean the navigation history.
 
 Get the current page id.
 
-- Returns `string`
+- Returns `string | null` - The current page id, or null if no page is active
+
+### onExitComplete
+
+Register a handler for the page exit completion event.
+
+```tsx
+router.onExitComplete(() => {
+    console.log("Page exit animation completed");
+});
+```
+
+- `handler: () => void` - The callback function to be called when page exit is complete
+- Returns `LiveGameEventToken` - Token for unsubscribing from the event, see [LiveGameEventToken](../../core/types/LiveGameEventToken)
+
+### onceExitComplete
+
+Register a one-time handler for the page exit completion event. The handler will be automatically unsubscribed after the first event.
+
+```tsx
+router.onceExitComplete(() => {
+    console.log("Page exit animation completed once");
+});
+```
+
+- `handler: () => void` - The callback function to be called when page exit is complete
+- Returns `LiveGameEventToken` - Token for unsubscribing from the event, see [LiveGameEventToken](../../core/types/LiveGameEventToken)
+
+### onPageMount
+
+Register a handler for the page mount event.
+
+```tsx
+router.onPageMount(() => {
+    console.log("New page has been mounted");
+});
+```
+
+- `handler: () => void` - The callback function to be called when a new page is mounted
+- Returns `LiveGameEventToken` - Token for unsubscribing from the event, see [LiveGameEventToken](../../core/types/LiveGameEventToken)
+
+### oncePageMount
+
+Register a one-time handler for the page mount event. The handler will be automatically unsubscribed after the first event.
+
+```tsx
+router.oncePageMount(() => {
+    console.log("New page has been mounted once");
+});
+```
+
+- `handler: () => void` - The callback function to be called when a new page is mounted
+- Returns `LiveGameEventToken` - Token for unsubscribing from the event, see [LiveGameEventToken](../../core/types/LiveGameEventToken)
 
 

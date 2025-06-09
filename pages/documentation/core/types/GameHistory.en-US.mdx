@@ -6,6 +6,10 @@ export type GameHistory = GameHistoryAction & {
 };
 ```
 
-The `GameHistory` type represents a complete game history entry, combining both the action information and the specific game element that was affected. It extends `GameHistoryAction` and adds:
+The `GameHistory` type represents a complete game history entry, combining both the action information and the specific game element that was affected. It extends [GameHistoryAction](./GameHistoryAction) and adds:
 
-- `element`: The specific game element (either a "say" or "menu" element) that was part of this history entry 
+- `element`: The specific game element (either a "say" or "menu" element) that was part of this history entry, see [GameElementHistory](./GameElementHistory)
+
+For more information, see:
+- [GameHistoryAction](./GameHistoryAction)
+- [GameElementHistory](./GameElementHistory)

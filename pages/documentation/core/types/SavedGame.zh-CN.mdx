@@ -13,11 +13,7 @@ import {Callout, Tabs} from 'nextra/components';
 ```typescript
 interface SavedGame {
     name: string;
-    meta: {
-        created: number;
-        updated: number;
-        id: string;
-    };
+    meta: SavedGameMetaData;
     game: {
         store: { [key: string]: StorableData; };
         elementStates: RawData<ElementStateRaw>[];
@@ -27,3 +23,15 @@ interface SavedGame {
     };
 }
 ```
+
+## name
+
+保存游戏的名称
+
+## meta
+
+保存游戏的元数据，参见 [SavedGameMetaData](./SavedGameMetaData)
+
+## game
+
+保存游戏的游戏数据

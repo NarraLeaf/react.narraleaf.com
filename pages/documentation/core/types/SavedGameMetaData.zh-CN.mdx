@@ -1,0 +1,40 @@
+# SavedGameMetaData
+
+```ts
+interface SavedGameMetaData {
+    created: number;
+    updated: number;
+    id: string;
+    lastSentence: string | null;
+    lastSpeaker: string | null;
+    storyHash: string;
+}
+```
+
+## created
+
+游戏创建时的时间戳
+
+## updated
+
+游戏最后更新时的时间戳
+
+## id
+
+游戏的唯一标识符，每个存档都不相同
+
+## lastSentence
+
+最后显示的对话内容
+
+## lastSpeaker
+
+最后发言的角色
+
+## storyHash
+
+故事的哈希值，用于检查存档与故事是否兼容 
+
+> **注意**: 故事哈希值不基于故事内容，而是基于故事的逻辑。
+>
+> 例如，改变动画的顺序会反映在故事哈希值上，但改变对话内容不会。

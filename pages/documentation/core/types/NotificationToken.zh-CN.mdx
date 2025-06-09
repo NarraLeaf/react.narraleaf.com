@@ -1,0 +1,13 @@
+# NotificationToken
+
+```ts
+interface NotificationToken extends LiveGameEventToken {
+    promise: Promise<void>;
+}
+```
+
+For `LiveGameEventToken`, see [LiveGameEventToken](./LiveGameEventToken)
+
+## promise
+
+The promise that will be resolved when the notification is consumed (finished)

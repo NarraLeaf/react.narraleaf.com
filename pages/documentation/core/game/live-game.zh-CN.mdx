@@ -30,6 +30,24 @@ LiveGame 是代表游戏当前状态的主类。
 
 </Steps>
 
+### get storable
+
+<Steps>
+
+返回 [Storable](./storable) 实例
+
+```typescript {2}
+const {game} = useGame();
+const storable = game.getLiveGame().storable;
+
+// 等价于
+const storable = game.getLiveGame().getStorable();
+```
+
+- `return: Storable` - [Storable](./storable)
+
+</Steps>
+
 ### newGame
 
 <Steps>
@@ -292,11 +310,25 @@ game.undo(history.token);
 创建一个通知。
 
 ```typescript
-game.notify("Save success");
+// 通知 3 秒
+game.notify("Save success", 3000);
+```
+
+```typescript
+// 通知持续时间设置为 `null` 时，通知将一直显示
+const token = game.notify("Fast forward", null);
+
+// 当玩家释放箭头右键时，取消通知
+window.addEventListener("keyup", (event) => {
+    if (event.key === "ArrowRight") {
+        token.cancel();
+    }
+});
 ```
 
 - `message: string` - 通知消息
-- `duration?: number` - 通知持续时间，默认是 3000ms
+- `duration?: number | null` - 通知持续时间，默认是 3000ms。设置为 `null` 时，通知将一直显示。
+- 返回 `NotificationToken` - 参见 [NotificationToken](../types/NotificationToken)
 
 </Steps>
 
@@ -333,6 +365,35 @@ useEffect(() => {
 ```
 
 - 返回 `{ promise: Promise<void>; cancel: VoidFunction; }`
+
+</Steps>
+
+### waitForPageMount
+
+<Steps>
+
+等待页面挂载
+
+```typescript
+const {game} = useGame();
+const router = useRouter();
+const liveGame = game.getLiveGame();
+
+useEffect(() => {
+    router.push("home");
+    const token = liveGame.waitForPageMount();
+
+    token.promise.then(() => {
+        // 执行操作
+    });
+
+    return () => {
+        token.cancel();
+    };
+}, []);
+```
+
+- Returns `{ promise: Promise<void>; cancel: VoidFunction; }`
 
 </Steps>
 
@@ -373,6 +434,18 @@ const router = useRouter();
 
 game.getLiveGame().reset();
 router.clear().cleanHistory().push("home");
+```
+
+</Steps>
+
+### skipDialog
+
+<Steps>
+
+跳过当前对话
+
+```typescript
+game.getLiveGame().skipDialog();
 ```
 
 </Steps>

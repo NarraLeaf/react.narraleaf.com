@@ -157,3 +157,51 @@ story.registerPersistent(persistent);
 - 返回 `Persistent<T>`
 
 </Steps>
+
+### hash
+
+<Steps>
+
+返回故事的 64 位哈希值。
+
+哈希值是基于故事的逻辑结构和操作顺序计算的，而不是基于文本内容。具体来说：
+
+- 哈希值反映了故事的逻辑结构和操作顺序
+- 操作顺序的改变（如动画、跳转等）会导致不同的哈希值
+- 文本内容的改变（如对话、描述等）**不会**影响哈希值
+- 当 `strict` 为 `true` 时，哈希值还会包含字符串化的 lambda 函数
+
+此哈希值主要用于检查存档之间的故事兼容性。
+
+```ts
+const story = new Story("故事名称");
+const hash = story.hash(); // 基本哈希值
+const strictHash = story.hash(true); // 严格模式下的哈希值
+```
+
+- `strict: boolean` - 是否使用严格模式进行哈希计算（默认值：`false`）
+- 返回 `string` - 故事的 64 位哈希值
+
+</Steps>
+
+### stringify
+
+<Steps>
+
+将故事转换为字符串表示。主要用于内部哈希计算。
+
+字符串化行为取决于 `strict` 参数：
+
+- 当 `strict` 为 `false`（默认值）时，返回基本字符串表示
+- 当 `strict` 为 `true` 时，输出中包含字符串化的 lambda 函数
+
+```ts
+const story = new Story("故事名称");
+const str = story.stringify(); // 基本字符串表示
+const strictStr = story.stringify(true); // 严格模式下的字符串表示
+```
+
+- `strict: boolean` - 是否使用严格模式进行字符串化（默认值：`false`）
+- 返回 `string` - 故事的字符串表示
+
+</Steps>
