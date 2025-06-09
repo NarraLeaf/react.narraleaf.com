@@ -3,98 +3,128 @@
 ```typescript
 type GamePreference = {
     /**
-     * If true, the game will automatically forward to the next sentence when the player has finished the current sentence
+     * 如果为 true，当玩家完成当前句子时，游戏将自动前进到下一句
      * @default false
      */
     autoForward: boolean;
     /**
-     * If true, the game will allow the player to skip the dialog
+     * 如果为 true，游戏将允许玩家跳过对话
      * @default true
      */
     skip: boolean;
     /**
-     * If true, the game will show the dialog
+     * 如果为 true，游戏将显示对话框
      * @default true
      */
     showDialog: boolean;
     /**
-     * The multiplier of the dialog speed
+     * 对话速度的倍数
      * 
-     * Dialog speed will apply to:
-     * - The text speed
-     * - The auto-forward delay
+     * 对话速度将应用于：
+     * - 文字显示速度
+     * - 自动前进延迟
      * @default 1.0
      */
     gameSpeed: number;
     /**
-     * The speed of the text effects in characters per second.
+     * 文字效果的速度，以每秒字符数计
      * @default 10
      */
     cps: number;
     /**
-     * The volume of the voice
+     * 语音音量
      * @default 1
      */
     voiceVolume: number;
     /**
-     * The volume of the background music
+     * 背景音乐音量
      * @default 1
      */
     bgmVolume: number;
     /**
-     * The volume of the sound effects
+     * 音效音量
      * @default 1
      */
     soundVolume: number;
     /**
-     * The volume of the global audio
+     * 全局音频音量
      * @default 1
      */
     globalVolume: number;
+    /**
+     * 游戏开始跳过动作前的延迟时间（毫秒）
+     *
+     * 这用于防止玩家按下跳过键时游戏过快跳过动作。
+     *
+     * 设置为 0 可在玩家按下跳过键时立即跳过动作。
+     * @default 500
+     */
+    skipDelay: number;
+    /**
+     * 每次跳过动作之间的间隔时间（毫秒）
+     * 例如：100 毫秒意味着玩家每秒可以跳过 10 个动作
+     * 值越高意味着跳过速度越慢
+     * @default 100
+     */
+    skipInterval: number;
 };
 ```
 
 ## autoForward
 
-Whether to automatically forward the game.
+是否自动前进游戏。
 
-When enabled, the game will automatically forward to the next sentence when the current sentence is finished.
+启用后，当当前句子完成时，游戏将自动前进到下一句。
 
-The game will wait for a duration of [GameConfig.elements.say.autoForwardDelay](./GameConfig#autoForwardDelay) before forwarding.
+游戏将在前进前等待 [GameConfig.elements.say.autoForwardDelay](./GameConfig#autoForwardDelay) 指定的时间。
 
 ## skip
 
-When enable, player can skip the current sentence by pressing the [GameConfig.elements.say.nextKey](./GameConfig#nextKey).
+启用后，玩家可以通过按下 [GameConfig.elements.say.nextKey](./GameConfig#nextKey) 来跳过当前句子。
 
 ## showDialog
 
-Whether to show the dialog box. 
+是否显示对话框。
 
 ## gameSpeed
 
-The multiplier of the dialog speed, default is 1.0
+对话速度的倍数，默认为 1.0。
 
-Dialog speed will apply to:
+对话速度将应用于：
 
-- The text speed
-- The auto-forward delay
+- 文字显示速度
+- 自动前进延迟
 
 ## cps
 
-The speed of the text effects in characters per second.
+文字效果的速度，以每秒字符数计。
 
 ## voiceVolume
 
-The volume of the voice.
+语音音量。
 
 ## bgmVolume
 
-The volume of the background music.
+背景音乐音量。
 
 ## soundVolume
 
-The volume of the sound effects.
+音效音量。
 
 ## globalVolume
 
-The volume of the global audio. This is an independent multiplier affecting all the audio in the game.
+全局音频音量。这是一个独立的乘数，影响游戏中的所有音频。
+
+## skipDelay
+
+游戏开始跳过动作前的延迟时间（毫秒）。
+
+这用于防止玩家按下跳过键时游戏过快跳过动作。
+
+设置为 0 可在玩家按下跳过键时立即跳过动作。
+
+## skipInterval
+
+每次跳过动作之间的间隔时间（毫秒）。
+
+例如，100 毫秒意味着玩家每秒可以跳过 10 个动作。值越高意味着跳过速度越慢。

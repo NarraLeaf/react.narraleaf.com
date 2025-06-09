@@ -13,11 +13,7 @@ import {Callout, Tabs} from 'nextra/components';
 ```typescript
 interface SavedGame {
     name: string;
-    meta: {
-        created: number;
-        updated: number;
-        id: string;
-    };
+    meta: SavedGameMetaData;
     game: {
         store: { [key: string]: StorableData; };
         elementStates: RawData<ElementStateRaw>[];
@@ -27,3 +23,15 @@ interface SavedGame {
     };
 }
 ```
+
+## name
+
+The name of the saved game
+
+## meta
+
+The metadata of the saved game, see [SavedGameMetaData](./SavedGameMetaData)
+
+## game
+
+Game data of the saved game

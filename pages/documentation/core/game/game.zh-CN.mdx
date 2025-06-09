@@ -87,12 +87,47 @@ game.use({
 
 <Steps>
 
-释放游戏并释放所有资源。
+销毁游戏并释放所有资源。
 
-> **注意**: 此操作是不可逆的。
+> **注意**：此操作不可逆。
 
 ```typescript
 game.dispose();
 ```
+
+</Steps>
+
+### configureAndFreeze
+
+<Steps>
+
+配置游戏并冻结特定字段以防止进一步修改。
+
+> **警告**：不建议在未使用 NarraLeaf 引擎或插件环境的情况下使用此方法。
+
+```typescript
+game.configureAndFreeze({
+    ratioUpdateInterval: 0,
+    cursor: "cursor.jpeg"
+});
+```
+
+- `config: DeepPartial<GameConfig>` - 要应用并冻结的游戏配置
+
+</Steps>
+
+### freeze
+
+<Steps>
+
+冻结特定的配置字段以防止进一步修改。
+
+> **警告**：不建议在未使用 NarraLeaf 引擎或插件环境的情况下使用此方法。
+
+```typescript
+game.freeze(["ratioUpdateInterval", "cursor"]);
+```
+
+- `fields: (StringKeyOf<GameConfig>)[]` - 要冻结的配置字段名称数组
 
 </Steps>

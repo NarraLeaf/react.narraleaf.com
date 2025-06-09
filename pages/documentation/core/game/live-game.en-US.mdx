@@ -30,6 +30,24 @@ Returns the [Storable](./storable) instance
 
 </Steps>
 
+### get storable
+
+<Steps>
+
+Returns the [Storable](./storable) instance
+
+```typescript {2}
+const {game} = useGame();
+const storable = game.getLiveGame().storable;
+
+// is equivalent to
+const storable = game.getLiveGame().getStorable();
+```
+
+- `return: Storable` - [Storable](./storable)
+
+</Steps>
+
 ### newGame
 
 <Steps>
@@ -296,11 +314,25 @@ Create a notification.
 The style of the notification is defined by [Notification](../../player/notification). 
 
 ```typescript
-game.notify("Save success");
+// notify for 3 seconds
+game.notify("Save success", 3000);
+```
+
+```typescript
+// to control the notification, set the duration to `null` to make the notification stay forever
+const token = game.notify("Fast forward", null);
+
+// cancel the notification when the player releases the arrow right key
+window.addEventListener("keyup", (event) => {
+    if (event.key === "ArrowRight") {
+        token.cancel();
+    }
+});
 ```
 
 - `message: string` - The message to notify
-- `duration?: number` - The duration of the notification, default is 3000ms
+- `duration?: number | null` - The duration of the notification, default is 3000ms. Set to `null` to make the notification stay forever.
+- Returns `NotificationToken` - See [NotificationToken](../types/NotificationToken)
 
 </Steps>
 
@@ -329,6 +361,35 @@ useEffect(() => {
         .then(() => {
             dispatchState({ isPlaying: true });
         });
+
+    return () => {
+        token.cancel();
+    };
+}, []);
+```
+
+- Returns `{ promise: Promise<void>; cancel: VoidFunction; }`
+
+</Steps>
+
+### waitForPageMount
+
+<Steps>
+
+Wait for the page to mount
+
+```typescript
+const {game} = useGame();
+const router = useRouter();
+const liveGame = game.getLiveGame();
+
+useEffect(() => {
+    router.push("home");
+    const token = liveGame.waitForPageMount();
+
+    token.promise.then(() => {
+        // do something
+    });
 
     return () => {
         token.cancel();
@@ -380,3 +441,16 @@ router.clear().cleanHistory().push("home");
 ```
 
 </Steps>
+
+### skipDialog
+
+<Steps>
+
+Skip the current dialog
+
+```typescript
+game.getLiveGame().skipDialog();
+```
+
+</Steps>
+

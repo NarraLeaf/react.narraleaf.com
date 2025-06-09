@@ -6,6 +6,10 @@ export type GameHistory = GameHistoryAction & {
 };
 ```
 
-`GameHistory` 类型表示一个完整的游戏历史条目，结合了动作信息和受影响的特定游戏元素。它扩展了 `GameHistoryAction` 并添加了：
+`GameHistory` 类型表示一个完整的游戏历史条目，结合了动作信息和受影响的特定游戏元素。它扩展了 [GameHistoryAction](./GameHistoryAction) 并添加了：
 
-- `element`: 作为此历史条目一部分的特定游戏元素（"say" 或 "menu" 元素） 
+- `element`: 作为此历史条目一部分的特定游戏元素（"say" 或 "menu" 元素），参见 [GameElementHistory](./GameElementHistory)
+
+更多信息，请参阅：
+- [GameHistoryAction](./GameHistoryAction)
+- [GameElementHistory](./GameElementHistory)

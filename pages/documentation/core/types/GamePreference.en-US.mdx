@@ -51,6 +51,22 @@ type GamePreference = {
      * @default 1
      */
     globalVolume: number;
+    /**
+     * The delay in milliseconds before the game starts skipping actions
+     *
+     * This is used to prevent the game from skipping actions too quickly when the player presses the skip key.
+     *
+     * Set to 0 to skip actions immediately when the player presses the skip key.
+     * @default 500
+     */
+    skipDelay: number;
+    /**
+     * The interval in milliseconds between each skip action.
+     * ex: 100 ms means the player can skip 10 actions per second.
+     * higher value means slower skipping.
+     * @default 100
+     */
+    skipInterval: number;
 };
 ```
 
@@ -64,15 +80,15 @@ The game will wait for a duration of [GameConfig.elements.say.autoForwardDelay](
 
 ## skip
 
-When enable, player can skip the current sentence by pressing the [GameConfig.elements.say.nextKey](./GameConfig#nextKey).
+When enabled, the player can skip the current sentence by pressing the [GameConfig.elements.say.nextKey](./GameConfig#nextKey).
 
 ## showDialog
 
-Whether to show the dialog box. 
+Whether to show the dialog box.
 
 ## gameSpeed
 
-The multiplier of the dialog speed, default is 1.0
+The multiplier of the dialog speed, default is 1.0.
 
 Dialog speed will apply to:
 
@@ -98,3 +114,17 @@ The volume of the sound effects.
 ## globalVolume
 
 The volume of the global audio. This is an independent multiplier affecting all the audio in the game.
+
+## skipDelay
+
+The delay in milliseconds before the game starts skipping actions.
+
+This is used to prevent the game from skipping actions too quickly when the player presses the skip key.
+
+Set to 0 to skip actions immediately when the player presses the skip key.
+
+## skipInterval
+
+The interval in milliseconds between each skip action.
+
+For example, 100 ms means the player can skip 10 actions per second. A higher value means slower skipping.

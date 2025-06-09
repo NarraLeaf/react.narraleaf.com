@@ -1,6 +1,6 @@
 # 路由器
 
-Router 用于在页面之间导航。
+Router 用于在页面之间导航和管理页面历史。
 
 ```ts
 import { useRouter } from "narraleaf-react";
@@ -14,28 +14,27 @@ const router = useRouter();
 
 ### push
 
+将新页面 id 推入路由器历史记录并导航到该页面。
 
-通过页面的 id 导航到一个页面。
-
-```ts
+```tsx
 router.push("about");
 ```
 
-游戏将导航到 id 为 `about` 的页面。
+游戏将导航到 id 为 `about` 的页面。如果前进历史中有任何页面，它们将被清除。
 
-```ts
+```tsx
 <Page id="about">
     {/* 这些元素将被显示 */}
     {/* 你的内容 */}
 </Page>
 ```
 
-- `id: string` - 页面的 id。
+- `id: string` - 要导航到的页面 id
 - 返回 `this`
 
 ### back
 
-导航到上一个页面。
+导航到路由器历史记录中的上一个页面。
 
 如果没有上一个页面，此方法将不执行任何操作。
 
@@ -43,20 +42,78 @@ router.push("about");
 
 ### forward
 
-导航到下一页。
+导航到路由器历史记录中的下一个页面。
 
-如果没有下一页，此方法将不执行任何操作。
+如果没有下一个页面，此方法将不执行任何操作。
+
+- 返回 `this`
+
+### clear
+
+清除当前页面 id 和导航历史。所有页面将从舞台中移除。
 
 - 返回 `this`
 
 ### cleanHistory
 
-清除导航历史。
+清理导航历史记录，同时保持当前页面。这将删除所有前进和后退历史条目，只保留当前页面在历史记录中。
 
 - 返回 `this`
 
 ### getCurrentId
 
-获取当前页面的 id。
+获取当前页面 id。
 
-- 返回 `string`
+- 返回 `string | null` - 当前页面 id，如果没有活动页面则返回 null
+
+### onExitComplete
+
+注册页面退出完成事件的处理程序。
+
+```tsx
+router.onExitComplete(() => {
+    console.log("页面退出动画已完成");
+});
+```
+
+- `handler: () => void` - 当页面退出完成时要调用的回调函数
+- 返回 `LiveGameEventToken` - 用于取消订阅事件的令牌，参见 [LiveGameEventToken](../../core/types/LiveGameEventToken)
+
+### onceExitComplete
+
+注册页面退出完成事件的一次性处理程序。处理程序将在第一次事件后自动取消订阅。
+
+```tsx
+router.onceExitComplete(() => {
+    console.log("页面退出动画已完成一次");
+});
+```
+
+- `handler: () => void` - 当页面退出完成时要调用的回调函数
+- 返回 `LiveGameEventToken` - 用于取消订阅事件的令牌，参见 [LiveGameEventToken](../../core/types/LiveGameEventToken)
+
+### onPageMount
+
+注册页面挂载事件的处理程序。
+
+```tsx
+router.onPageMount(() => {
+    console.log("新页面已挂载");
+});
+```
+
+- `handler: () => void` - 当新页面挂载时要调用的回调函数
+- 返回 `LiveGameEventToken` - 用于取消订阅事件的令牌，参见 [LiveGameEventToken](../../core/types/LiveGameEventToken)
+
+### oncePageMount
+
+注册页面挂载事件的一次性处理程序。处理程序将在第一次事件后自动取消订阅。
+
+```tsx
+router.oncePageMount(() => {
+    console.log("新页面已挂载一次");
+});
+```
+
+- `handler: () => void` - 当新页面挂载时要调用的回调函数
+- 返回 `LiveGameEventToken` - 用于取消订阅事件的令牌，参见 [LiveGameEventToken](../../core/types/LiveGameEventToken)

@@ -2,260 +2,249 @@ import { Callout } from 'nextra/components';
 
 # GameConfig
 
-<Callout type="warning" emoji="⚠️">
-    This page is under construction.
-</Callout>
-
 ```typescript
 type GameConfig = {
     /**
-     * The id of the container element for the game
+     * 游戏容器的元素ID
      * @default "__narraleaf_content"
      */
     contentContainerId: string;
     /**
-     * The aspect ratio of the game
-     * Ex: 16/9, 4/3, 1/1
+     * 游戏的宽高比
+     * 例如：16/9, 4/3, 1/1
      * @default 16/9
      */
     aspectRatio: number;
     /**
-     * The minimum width and height of the player in pixels
+     * 播放器的最小宽度（像素）
      * @default 800
      */
     minWidth: number;
     /**
-     * The minimum width and height of the player in pixels
+     * 播放器的最小高度（像素）
      * @default 450
      */
     minHeight: number;
     /**
-     * Base width of the player in pixels, Image scale will be calculated based on this value
+     * 播放器的基础宽度（像素），图像缩放将基于此值计算
      *
-     * For 16/9, the recommended value is 1920
+     * 对于16/9比例，推荐值为1920
      * @default 1920
      */
     width: number;
     /**
-     * Base height of the player in pixels, Image scale will be calculated based on this value
+     * 播放器的基础高度（像素），图像缩放将基于此值计算
      *
-     * For 16/9, the recommended value is 1080
+     * 对于16/9比例，推荐值为1080
      * @default 1080
      */
     height: number;
     /**
-     * When the player presses one of these keys, the game will skip the current action
+     * 当玩家按下这些键中的任意一个时，游戏将跳过当前动作
      *
-     * See [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
+     * 参见 [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
      * @default ["Control"]
      */
     skipKey: React.KeyboardEvent["key"][];
     /**
-     * The interval in milliseconds between each skip action.
-     * ex: 100 ms means the player can skip 10 actions per second.
-     * higher value means faster skipping.
-     * @default 100
-     */
-    skipInterval: number;
-    /**
-     * If true, the game will listen to the window events instead of the player element
+     * 如果为true，游戏将监听窗口事件而不是播放器元素
      * 
-     * Using this will allow the game to listen to the keyboard events even when the player is not focused  
-     * Resulting in a better user experience on skipping actions
-     * @default false
+     * 使用此选项可以让游戏在播放器未获得焦点时也能监听键盘事件
+     * 从而在跳过动作时提供更好的用户体验
+     * @default true
      */
     useWindowListener: boolean;
     /**
-     * The debounced interval in milliseconds for updating the aspect ratio
+     * 更新宽高比的防抖间隔（毫秒）
      *
-     * Set to 0 to update the ratio immediately on every resize event.
+     * 设置为0将在每次调整大小时立即更新比例
      * @default 50
      */
     ratioUpdateInterval: number;
     /**
-     * The game will preload the image with this delay between each preload task
+     * 游戏预加载图像时，每个预加载任务之间的延迟时间
      *
-     * A single preload task may contain {@link GameConfig.preloadConcurrency} images
+     * 单个预加载任务可能包含 {@link GameConfig.preloadConcurrency} 张图片
      * @default 100
      */
     preloadDelay: number;
     /**
-     * Maximum number of images to preload at the same time
+     * 同时预加载的最大图片数量
      * @default 5
      */
     preloadConcurrency: number;
     /**
-     * Wait for the images to load before showing the game
+     * 在显示游戏之前等待图片加载完成
      * @default true
      */
     waitForPreload: boolean;
     /**
-     * Preload all possible images in the scene
+     * 预加载场景中所有可能的图片
      *
-     * Enabling this may have a performance impact but is better for the user experience
+     * 启用此选项可能会影响性能，但能提供更好的用户体验
      * @default true
      */
     preloadAllImages: boolean;
     /**
-     * Force the game to clear the cache when the scene changes
+     * 在场景切换时强制清除缓存
      * @default false
      */
     forceClearCache: boolean;
     /**
-     * The number of actions will be predicted and preloaded
+     * 将要预测和预加载的动作数量
      * @default 10
      */
     maxPreloadActions: number;
     /**
-     * Src of the cursor image, if null, the game will show the default cursor
+     * 光标图片的源地址，如果为null，游戏将显示默认光标
      * @default null
      */
     cursor: string | null;
     /**
-     * Cursor width in pixels
+     * 光标宽度（像素）
      * @default 30
      */
     cursorWidth: number;
     /**
-     * Cursor height in pixels
+     * 光标高度（像素）
      * @default 30
      */
     cursorHeight: number;
     /**
-     * Show overflowed content on player components
+     * 在播放器组件上显示溢出内容
      * @default false
      */
     showOverflow: boolean;
     /**
-     * Max history size for the page router
+     * 页面路由器的最大历史记录大小
      * @default 10
      */
     maxRouterHistory: number;
     /**
-     * Quality of the screenshot, between 0 and 1
+     * 截图质量，范围在0到1之间
      * @default 1
      */
     screenshotQuality: number;
     /**
-     * When the player presses one of these keys, the game will show the next sentence
+     * 当玩家按下这些键中的任意一个时，游戏将显示下一句对话
      *
-     * See [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
+     * 参见 [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
      * @default [" "]
      */
     nextKey: React.KeyboardEvent["key"][];
     /**
-     * If true, the game will scale the dialog to fit the screen
+     * 如果为true，游戏将缩放对话框以适应屏幕
      *
-     * Text will look smaller when this is enabled
+     * 启用此选项时文本会显得更小
      * @default true
      */
     useAspectScale: boolean;
     /**
-     * The delay in milliseconds before the game automatically shows the next sentence
+     * 游戏自动显示下一句对话前的延迟时间（毫秒）
      *
-     * Only works when the player preference "autoForward" is enabled
+     * 仅在玩家偏好设置中启用"autoForward"时生效
      * @default 3000
      */
     autoForwardDelay: number;
     /**
-     * The default pause duration in milliseconds when auto-forward is enabled
+     * 启用自动前进时的默认暂停持续时间（毫秒）
      * 
-     * When auto-forward is enabled, any Pause without a custom duration will use this value
+     * 当启用自动前进时，任何没有自定义持续时间的暂停都将使用此值
      * @default 1000
      */
     autoForwardDefaultPause: number;
     /**
-     * If true, when you press [GameConfig.player.skipKey], the game will skip the image transform
+     * 如果为true，当按下 [GameConfig.player.skipKey] 时，游戏将跳过图像变换
      * @default true
      */
     allowSkipImageTransform: boolean;
     /**
-     * If true, when you press [GameConfig.player.skipKey], the game will skip the image transition
+     * 如果为true，当按下 [GameConfig.player.skipKey] 时，游戏将跳过图像过渡
      * @default true
      */
     allowSkipImageTransition: boolean;
     /**
-     * If true, when you press [GameConfig.player.skipKey], the game will skip the background transform
+     * 如果为true，当按下 [GameConfig.player.skipKey] 时，游戏将跳过背景变换
      * @default true
      */
     allowSkipBackgroundTransform: boolean;
     /**
-     * If true, when you press [GameConfig.player.skipKey], the game will skip the background transition
+     * 如果为true，当按下 [GameConfig.player.skipKey] 时，游戏将跳过背景过渡
      * @default false
      */
     allowSkipBackgroundTransition: boolean;
     /**
-     * If true, when you press [GameConfig.player.skipKey], the game will skip the text transform
+     * 如果为true，当按下 [GameConfig.player.skipKey] 时，游戏将跳过文本变换
      * @default true
      */
     allowSkipTextTransform: boolean;
     /**
-     * If true, when you press [GameConfig.player.skipKey], the game will skip the text transition
+     * 如果为true，当按下 [GameConfig.player.skipKey] 时，游戏将跳过文本过渡
      * @default true
      */
     allowSkipTextTransition: boolean;
     /**
-     * Base width of the dialog in pixels
+     * 对话框的基础宽度（像素）
      *
-     * For 16/9, the recommended value is 1920
+     * 对于16/9比例，推荐值为1920
      * @default 1920
      */
     dialogWidth: number;
     /**
-     * Base height of the dialog in pixels
+     * 对话框的基础高度（像素）
      *
-     * For 16/9, the recommended value is 1080 * 0.2 (20% of the screen height)
+     * 对于16/9比例，推荐值为1080 * 0.2（屏幕高度的20%）
      * @default 1080 * 0.2
      */
     dialogHeight: number;
     /**
-     * If true, when you press [GameConfig.player.skipKey], the game will skip the text transform
+     * 如果为true，当按下 [GameConfig.player.skipKey] 时，游戏将跳过图层变换
      * @default true
      */
     allowSkipLayersTransform: boolean;
     /**
-     * If true, when you press [GameConfig.player.skipKey], the game will skip the video transform
+     * 如果为true，当按下 [GameConfig.player.skipKey] 时，游戏将跳过视频变换
      *
-     * This will only skip the "play" action
+     * 这将只跳过"播放"动作
      *
      * @default false
      */
     allowSkipVideo: boolean;
     /**
-     * The default text color for the dialog
+     * 对话框的默认文本颜色
      * @default "#000"
      */
     defaultTextColor: Color;
     /**
-     * The default text color for the character nametag
+     * 角色名称标签的默认文本颜色
      * @default "#000"
      */
     defaultNametagColor: Color;
     /**
-     * The component to use for the notification
+     * 用于通知的组件
      * @default DefaultNotification
      */
     notification: NotificationComponent;
     /**
-     * The component to use for the menu
+     * 用于菜单的组件
      * @default DefaultMenu
      */
     menu: MenuComponent;
     /**
-     * The component to use for the say
+     * 用于对话的组件
      * @default DefaultSay
      */
     dialog: SayComponent;
     /**
-     * The function to call when an error occurs
+     * 发生错误时要调用的函数
      * @default () => {}
      */
     onError: (error: Error) => void;
     app: {
         debug: boolean;
         /**
-         * Log level for the logger
-         * Set to true to enable all logs
+         * 日志记录器的日志级别
+         * 设置为true以启用所有日志
          */
         logger: {
             log: boolean;
@@ -267,38 +256,53 @@ type GameConfig = {
             verbose: boolean;
         } | boolean;
         /**
-         * If true, the game will show the inspector when you hover over the element
+         * 如果为true，当鼠标悬停在元素上时，游戏将显示检查器
          */
         inspector: boolean;
         /**
-         * The config of {@link GameStateGuard}
+         * {@link GameStateGuard} 的配置
          */
         guard: GuardConfig;
     };
     /**
-     * Default font size for the game
+     * 游戏的默认字体大小
      * @default "16px"
      */
     fontSize: React.CSSProperties["fontSize"];
     /**
-     * Default font weight for the game
+     * 游戏的默认字体粗细
      * @default 400
      */
     fontWeight: number;
     /**
-     * Default font weight for the game
+     * 游戏的默认粗体字体粗细
      * @default 700
      */
     fontWeightBold: number;
     /**
-     * Default font family for the game
+     * 游戏的默认字体系列
      * @default "sans-serif"
      */
     fontFamily: React.CSSProperties["fontFamily"];
     /**
-     * Override the default stage
+     * 覆盖默认舞台
      * @default null
      */
     stage: React.ReactNode | null;
+    /**
+     * 菜单选项的默认颜色
+     * @default "#000"
+     */
+    defaultMenuChoiceColor: Color;
+    /**
+     * 堆栈模型可以循环的最大次数
+     * @default 1000
+     */
+    maxStackModelLoop: number;
+    /**
+     * 动作历史记录中存储的最大动作数量
+     * @default 100
+     */
+    maxActionHistory: number;
 };
 ```
