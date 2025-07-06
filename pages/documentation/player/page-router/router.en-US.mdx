@@ -1,121 +1,372 @@
-# Router
+import {Steps} from "nextra/components";
 
-Router is used to navigate between pages and manage page history.
+# LayoutRouter
+
+LayoutRouter manages navigation between pages and nested layouts. It replaces the previous linear **PageRouter** and works together with `Layout` and `Page` components to build a directory-like route tree.
 
 ```tsx
 import { useRouter } from "narraleaf-react";
-```
 
-```tsx
 const router = useRouter();
 ```
 
+## Basic navigation
+
+```tsx
+// Absolute navigation
+router.navigate("/home");
+
+// With query parameters
+router.navigate("/user/profile", { tab: "info" });
+
+// Relative navigation
+router.navigate("./detail");
+
+// History control
+router.back();
+router.forward();
+
+// Replace without pushing history
+router.replace("/settings");
+
+// Clear current page & history
+router.clear();
+
+// Keep current page but drop history
+router.cleanHistory();
+```
+
+## Query helpers
+
+```tsx
+router.setQueryParam("lang", "en");
+router.getQueryParam("lang"); // "en"
+router.removeQueryParam("lang");
+
+router.setQueryParams({ tab: "general", theme: "dark" });
+router.clearQueryParams();
+```
+
+## Path helpers
+
+| Method | Description |
+| ------ | ----------- |
+| `resolvePath(path)` | Resolve a relative path (e.g. `../parent`) to an absolute path. |
+| `matchPath(path, pattern)` | Prefix match with `*` and `:param` support. |
+| `exactMatch(path, pattern)` | Same as `matchPath` but requires exact segment count. |
+| `extractParams(path, pattern)` | Extract dynamic parameters from a matched path. |
+
 ## Public Methods
 
-### push
+### navigate
+<Steps>
+Navigate to a new path.
 
-Push a new page id to the router history and navigate to it.
+- `path: string` – target path, absolute or relative
+- `queryParams?: Record<string,string>` – optional query parameters
+- `return: this`
 
-```tsx
-router.push("about");
+```typescript
+router.navigate("/about");
 ```
-
-The Game will navigate to the page with the id `about`. If there are any pages in the forward history, they will be cleared.
-
-```tsx
-<Page id="about">
-    {/* These elements will be displayed */}
-    {/* Your content */}
-</Page>
-```
-
-- `id: string` - The id of the page to navigate to
-- Returns `this`
+</Steps>
 
 ### back
+<Steps>
+Go back to previous history entry (if any).
 
-Navigate to the previous page in the router history.
-
-This method will do nothing if there is no previous page.
-
-- Returns `this`
+- `return: this`
+</Steps>
 
 ### forward
+<Steps>
+Go forward to next history entry (if any).
 
-Navigate to the next page in the router history.
+- `return: this`
+</Steps>
 
-This method will do nothing if there is no next page.
+### replace
+<Steps>
+Replace current path without adding a new history entry.
 
-- Returns `this`
+- `path: string` – new path
+- `queryParams?: Record<string,string>` – optional query parameters
+- `return: this`
+</Steps>
 
 ### clear
+<Steps>
+Clear current path and history.
 
-Clear the current page id and navigation history. All pages will be removed from the stage.
-
-- Returns `this`
+- `return: this`
+</Steps>
 
 ### cleanHistory
+<Steps>
+Remove all history records except the current entry.
 
-Clean the navigation history while keeping the current page. This will remove all forward and backward history entries, leaving only the current page in history.
+- `return: this`
+</Steps>
 
-- Returns `this`
+### getCurrentPath / getPathname
+<Steps>
+Get the current path (without query).
 
-### getCurrentId
+- `return: string`
+</Steps>
 
-Get the current page id.
+### getCurrentQuery / getQueryParams
+<Steps>
+Get current query parameters object.
 
-- Returns `string | null` - The current page id, or null if no page is active
+- `return: Record<string,string>`
+</Steps>
 
-### onExitComplete
+### getCurrentUrl
+<Steps>
+Get current full URL (path + query).
 
-Register a handler for the page exit completion event.
+- `return: string`
+</Steps>
+
+### setQueryParam
+<Steps>
+Set a single query parameter.
+
+- `key: string`
+- `value: string`
+- `return: this`
+</Steps>
+
+### setQueryParams
+<Steps>
+Merge multiple query parameters.
+
+- `params: Record<string,string>`
+- `return: this`
+</Steps>
+
+### getQueryParam
+<Steps>
+Get a query parameter value.
+
+- `key: string`
+- `return: string | undefined`
+</Steps>
+
+### removeQueryParam
+<Steps>
+Remove a query parameter.
+
+- `key: string`
+- `return: this`
+</Steps>
+
+### clearQueryParams
+<Steps>
+Remove all query parameters.
+
+- `return: this`
+</Steps>
+
+### hasQueryParam
+<Steps>
+Check whether a query parameter exists.
+
+- `key: string`
+- `return: boolean`
+</Steps>
+
+### getQueryParamKeys
+<Steps>
+Get all query parameter keys.
+
+- `return: string[]`
+</Steps>
+
+### getQueryParamCount
+<Steps>
+Get number of query parameters.
+
+- `return: number`
+</Steps>
+
+### getHistory
+<Steps>
+Get full navigation history.
+
+- `return: string[]`
+</Steps>
+
+### getHistoryIndex
+<Steps>
+Get current index inside history array.
+
+- `return: number`
+</Steps>
+
+### canGoBack / canGoForward
+<Steps>
+Check if router can go back / forward.
+
+- `return: boolean`
+</Steps>
+
+### parseUrl
+<Steps>
+Parse a URL string into `{ path, query }`.
+
+- `url: string`
+- `return: { path:string; query:Record<string,string>; }`
+</Steps>
+
+### buildUrl
+<Steps>
+Build full URL from path and query object.
+
+- `path: string`
+- `query: Record<string,string>`
+- `return: string`
+</Steps>
+
+### resolvePath
+<Steps>
+Resolve a relative path to absolute path.
+
+- `path: string`
+- `return: string`
+</Steps>
+
+### normalizePath
+<Steps>
+Normalize duplicate or trailing slashes in a path.
+
+- `path: string`
+- `return: string`
+</Steps>
+
+### joinPath
+<Steps>
+Join multiple path segments and normalize the result.
+
+- `path: string` – base path
+- `...paths: string[]` – additional segments
+- `return: string`
+</Steps>
+
+### parsePath
+<Steps>
+Split a path into segments.
+
+- `path: string`
+- `return: string[]`
+</Steps>
+
+### buildPath
+<Steps>
+Build path string from segments array.
+
+- `segments: string[]`
+- `return: string`
+</Steps>
+
+### getParentPath
+<Steps>
+Get parent path of a given path.
+
+- `path: string`
+- `return: string`
+</Steps>
+
+### matchPath
+<Steps>
+Prefix path matching supporting `*` and `:param`.
+
+- `path: string`
+- `pattern: string`
+- `return: boolean`
+</Steps>
+
+### exactMatch
+<Steps>
+Exact path matching (segment count must match).
+
+- `path: string`
+- `pattern: string`
+- `return: boolean`
+</Steps>
+
+### extractParams
+<Steps>
+Extract route parameters based on pattern.
+
+- `path: string`
+- `pattern: string`
+- `return: Record<string,string>`
+</Steps>
+
+### onExitComplete / onceExitComplete
+<Steps>
+Register handler executed after all exit animations completed.
+
+- `handler: () => void`
+- `return: LiveGameEventToken`
+</Steps>
+
+### onPageMount / oncePageMount
+<Steps>
+Register handler executed when a page component mounts.
+
+- `handler: () => void`
+- `return: LiveGameEventToken`
+</Steps>
+
+## Inspection
 
 ```tsx
-router.onExitComplete(() => {
-    console.log("Page exit animation completed");
-});
+router.getCurrentPath();  // "/user/profile"
+router.getCurrentQuery(); // { tab: "info" }
+router.getCurrentUrl();   // "/user/profile?tab=info"
+
+router.getHistory();      // ["/home", "/user/profile"]
+router.canGoBack();
+router.canGoForward();
 ```
 
-- `handler: () => void` - The callback function to be called when page exit is complete
-- Returns `LiveGameEventToken` - Token for unsubscribing from the event, see [LiveGameEventToken](../../core/types/LiveGameEventToken)
+---
 
-### onceExitComplete
-
-Register a one-time handler for the page exit completion event. The handler will be automatically unsubscribed after the first event.
+### Example with Layout & Page
 
 ```tsx
-router.onceExitComplete(() => {
-    console.log("Page exit animation completed once");
-});
+import { RouterProvider, RootLayout, Layout, Page, useRouter } from "narraleaf-react";
+
+function MyPages() {
+  return (
+    <RouterProvider>
+      <RootLayout>
+        {/* /home */}
+        <Layout name="home">
+          {/* default page: /home */}
+          <Page name={null}>
+            <Home />
+          </Page>
+
+          {/* /home/detail */}
+          <Page name="detail">
+            <Detail />
+          </Page>
+        </Layout>
+
+        {/* /about */}
+        <Layout name="about">
+          <Page name={null}>
+            <About />
+          </Page>
+        </Layout>
+      </RootLayout>
+    </RouterProvider>
+  );
+}
 ```
-
-- `handler: () => void` - The callback function to be called when page exit is complete
-- Returns `LiveGameEventToken` - Token for unsubscribing from the event, see [LiveGameEventToken](../../core/types/LiveGameEventToken)
-
-### onPageMount
-
-Register a handler for the page mount event.
-
-```tsx
-router.onPageMount(() => {
-    console.log("New page has been mounted");
-});
-```
-
-- `handler: () => void` - The callback function to be called when a new page is mounted
-- Returns `LiveGameEventToken` - Token for unsubscribing from the event, see [LiveGameEventToken](../../core/types/LiveGameEventToken)
-
-### oncePageMount
-
-Register a one-time handler for the page mount event. The handler will be automatically unsubscribed after the first event.
-
-```tsx
-router.oncePageMount(() => {
-    console.log("New page has been mounted once");
-});
-```
-
-- `handler: () => void` - The callback function to be called when a new page is mounted
-- Returns `LiveGameEventToken` - Token for unsubscribing from the event, see [LiveGameEventToken](../../core/types/LiveGameEventToken)
 
 

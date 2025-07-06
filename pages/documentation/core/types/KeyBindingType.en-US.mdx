@@ -1,0 +1,47 @@
+import {Steps} from 'nextra/components';
+
+# KeyBindingType
+
+`KeyBindingType` is an enumeration that represents built-in keyboard binding action identifiers used by the `KeyMap` of the game.
+
+```typescript
+enum KeyBindingType {
+    skipAction = "skipAction",
+    nextAction = "nextAction",
+}
+```
+
+## Members
+
+### skipAction
+
+<Steps>
+
+When the player presses one of the bound keys, the game will advance to the **next sentence**.
+
+- **Default binding**: `[" "]` (space key)
+
+</Steps>
+
+### nextAction
+
+<Steps>
+
+When the player presses one of the bound keys, the game will **skip the current action**.
+
+- **Default binding**: `["Control"]`
+
+</Steps>
+
+## Example
+
+```typescript
+// Change the skip action key to F3
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, "F3");
+// Bind both Control and F3 to skipAction
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, ["Control", "F3"]);
+// Remove the binding
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, null);
+```
+
+See also: [KeyBindingValue](./KeyBindingValue), [KeyMap](../game/key-map). 

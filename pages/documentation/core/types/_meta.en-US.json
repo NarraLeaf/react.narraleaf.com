@@ -64,5 +64,7 @@
     "OffsetPosition": "OffsetPosition",
     "PauseConfig": "PauseConfig",
     "PreferenceEventToken": "PreferenceEventToken",
-    "FadeOptions": "FadeOptions"
+    "FadeOptions": "FadeOptions",
+    "KeyBindingType": "KeyBindingType",
+    "KeyBindingValue": "KeyBindingValue"
 }

@@ -65,6 +65,12 @@ export default function Page() {
 
 此回调在故事结束时调用
 
+### onError
+
+当游戏发生错误时调用
+
+此回调仅在每个生命周期中调用一次，接收两个参数：`error` 与 `errorInfo`
+
 ### children
 
 播放器的子组件
@@ -72,4 +78,12 @@ export default function Page() {
 您可以将子组件传递给播放器
 
 例如，您可以使用 [PageRouter API](./page-router) 创建自己的快捷菜单
+
+### active
+
+可选，默认：`true`
+
+是否显示播放器
+
+即使 active 为 false，页面仍会被渲染
 

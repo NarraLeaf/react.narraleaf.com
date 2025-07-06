@@ -1,0 +1,54 @@
+# Layout
+
+`Layout` groups pages (and nested `Layout`s) to build hierarchical routes for `LayoutRouter`.
+
+```tsx
+import { Layout, Page } from "narraleaf-react";
+```
+
+## Basic usage
+
+```tsx
+<Layout name="home">
+  {/* /home */}
+  <Page name={null}>
+    <Home />
+  </Page>
+
+  {/* /home/detail */}
+  <Page name="detail">
+    <Detail />
+  </Page>
+</Layout>
+```
+
+## Props
+
+| Prop | Type | Description |
+| ---- | ---- | ----------- |
+| `name` | `string` | Relative path segment or pattern handled by this layout. Supports static text, dynamic parameters (`:id`), and wildcards (`*`). |
+| `propagate?` | `boolean` | When `true`, exit animations propagate to nested `AnimatePresence`. Defaults to `game.config.animationPropagate`. |
+| `children` | `React.ReactNode` | Child `Layout` or `Page` components. |
+
+## Nested layouts
+
+Layouts can be nested to form deep routes:
+
+```tsx
+<Layout name="user">
+  <Layout name=":id">
+    <Page name={null}> // /user/:id
+      <UserHome />
+    </Page>
+    <Page name="profile"> // /user/:id/profile
+      <UserProfile />
+    </Page>
+  </Layout>
+</Layout>
+```
+
+## Rules
+
+1. A `Layout` can only contain `Layout` or `Page` components as direct children.
+2. Do **not** put a `Layout` inside a `Page` component.
+3. The `name` of a nested `Layout` or `Page` is relative to its parent `Layout`'s path. 

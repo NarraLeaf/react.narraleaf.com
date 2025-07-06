@@ -1,0 +1,19 @@
+# usePathname
+
+Return current pathname (without query) of `LayoutRouter` and refresh automatically when the route changes.
+
+```tsx
+import { usePathname } from "narraleaf-react";
+
+const pathname = usePathname(); // e.g. "/user/profile"
+```
+
+## Definition
+
+```typescript
+declare function usePathname(): string;
+```
+
+The hook internally subscribes to `router.onChange`, so the component re-renders whenever navigation occurs.
+
+See also: [`useParams`](./useParams) • [`useQueryParams`](./useQueryParams) 

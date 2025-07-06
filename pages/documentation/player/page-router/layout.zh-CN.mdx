@@ -1,0 +1,54 @@
+# 布局（Layout）
+
+`Layout` 用于将多个 `Page`（以及嵌套的 `Layout`）组合在一起，为 `LayoutRouter` 提供目录式路由结构。
+
+```tsx
+import { Layout, Page } from "narraleaf-react";
+```
+
+## 基本用法
+
+```tsx
+<Layout name="home">
+  {/* /home */}
+  <Page name={null}>
+    <Home />
+  </Page>
+
+  {/* /home/detail */}
+  <Page name="detail">
+    <Detail />
+  </Page>
+</Layout>
+```
+
+## Props
+
+| 属性 | 类型 | 说明 |
+| ---- | ---- | ---- |
+| `name` | `string` | 相对于父级路径的段，支持静态文本、动态参数（`:id`）以及通配符（`*`） |
+| `propagate?` | `boolean` | 为 `true` 时，退出动画将向下传播至嵌套的 `AnimatePresence`，默认值由 `game.config.animationPropagate` 控制 |
+| `children` | `React.ReactNode` | 子组件，可为 `Layout` 或 `Page` |
+
+## 嵌套路由
+
+`Layout` 可嵌套以构建深层路由：
+
+```tsx
+<Layout name="user">
+  <Layout name=":id">
+    <Page name={null}> // /user/:id
+      <UserHome />
+    </Page>
+    <Page name="profile"> // /user/:id/profile
+      <UserProfile />
+    </Page>
+  </Layout>
+</Layout>
+```
+
+## 使用规则
+
+1. `Layout` 的直接子节点只能是 `Layout` 或 `Page`。
+2. 不要在 `Page` 内部嵌套 `Layout`。
+3. 嵌套组件 `name` 的含义相对于其父 `Layout` 路径段。 

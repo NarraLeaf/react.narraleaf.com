@@ -2,5 +2,9 @@
   "useGame": "useGame",
   "usePreference": "usePreference",
   "useRouter": "useRouter",
-  "useDialog": "useDialog"
+  "useDialog": "useDialog",
+  "useKeyBinding": "useKeyBinding",
+  "usePathname": "usePathname",
+  "useParams": "useParams",
+  "useQueryParams": "useQueryParams"
 }

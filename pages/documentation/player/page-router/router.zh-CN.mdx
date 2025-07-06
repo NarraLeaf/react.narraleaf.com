@@ -1,119 +1,384 @@
-# 路由器
+import {Steps} from "nextra/components";
 
-Router 用于在页面之间导航和管理页面历史。
+# LayoutRouter（路由器）
 
-```ts
-import { useRouter } from "narraleaf-react";
-```
+`LayoutRouter` 用于在带有层级目录结构的页面之间进行导航，并管理历史记录、查询参数以及页面过渡动画。它取代了早期的线性 **PageRouter**，并与 `Layout`、`Page` 组件共同构建树状的路由体系。
 
 ```tsx
+import { useRouter } from "narraleaf-react";
+
 const router = useRouter();
+```
+
+## 基本导航
+
+```tsx
+// 绝对路径导航
+router.navigate("/home");
+
+// 携带查询参数
+router.navigate("/user/profile", { tab: "info" });
+
+// 相对路径导航
+router.navigate("./detail");
+
+// 历史纪录控制
+router.back();
+router.forward();
+
+// 替换当前路径而不新增历史
+router.replace("/settings");
+
+// 清除当前页面与历史
+router.clear();
+
+// 保留当前页面但清空历史
+router.cleanHistory();
+```
+
+## 查询参数
+
+```tsx
+router.setQueryParam("lang", "zh-CN");
+router.getQueryParam("lang"); // "zh-CN"
+router.removeQueryParam("lang");
+
+router.setQueryParams({ tab: "general", theme: "dark" });
+router.clearQueryParams();
+```
+
+## 路径工具
+
+| 方法 | 说明 |
+| ---- | ---- |
+| `resolvePath(path)` | 解析相对路径（如 `../parent`）为绝对路径 |
+| `matchPath(path, pattern)` | 支持 `*` 与 `:param` 的前缀匹配 |
+| `exactMatch(path, pattern)` | 与 `matchPath` 类似，但需要完全相同的段数 |
+| `extractParams(path, pattern)` | 从匹配的路径中提取动态参数 |
+
+## 状态检查
+
+```tsx
+router.getCurrentPath();   // "/user/profile"
+router.getCurrentQuery();  // { tab: "info" }
+router.getCurrentUrl();    // "/user/profile?tab=info"
+
+router.getHistory();       // ["/home", "/user/profile"]
+router.canGoBack();
+router.canGoForward();
+```
+
+## 事件
+
+```tsx
+// 页面挂载完成
+router.onPageMount(() => {
+  console.log("页面已挂载");
+});
+
+// 所有退出动画结束
+router.onExitComplete(() => {
+  console.log("退出动画完成");
+});
+```
+
+---
+
+### 与 Layout & Page 搭配示例
+
+```tsx
+import { RouterProvider, RootLayout, Layout, Page } from "narraleaf-react";
+
+function MyPages() {
+  return (
+    <RouterProvider>
+      <RootLayout>
+        {/* /home */}
+        <Layout name="home">
+          {/* 默认页面：/home */}
+          <Page name={null}>
+            <Home />
+          </Page>
+
+          {/* /home/detail */}
+          <Page name="detail">
+            <Detail />
+          </Page>
+        </Layout>
+
+        {/* /about */}
+        <Layout name="about">
+          <Page name={null}>
+            <About />
+          </Page>
+        </Layout>
+      </RootLayout>
+    </RouterProvider>
+  );
+}
 ```
 
 ## 公共方法
 
-### push
+### navigate
+<Steps>
+导航到新路径。
 
-将新页面 id 推入路由器历史记录并导航到该页面。
+- `path: string` – 目标路径，可为绝对或相对
+- `queryParams?: Record<string,string>` – 可选查询参数
+- `return: this`
 
-```tsx
-router.push("about");
+```typescript
+router.navigate("/about");
 ```
-
-游戏将导航到 id 为 `about` 的页面。如果前进历史中有任何页面，它们将被清除。
-
-```tsx
-<Page id="about">
-    {/* 这些元素将被显示 */}
-    {/* 你的内容 */}
-</Page>
-```
-
-- `id: string` - 要导航到的页面 id
-- 返回 `this`
+</Steps>
 
 ### back
+<Steps>
+返回上一条历史记录（如果存在）。
 
-导航到路由器历史记录中的上一个页面。
-
-如果没有上一个页面，此方法将不执行任何操作。
-
-- 返回 `this`
+- `return: this`
+</Steps>
 
 ### forward
+<Steps>
+前进到下一条历史记录（如果存在）。
 
-导航到路由器历史记录中的下一个页面。
+- `return: this`
+</Steps>
 
-如果没有下一个页面，此方法将不执行任何操作。
+### replace
+<Steps>
+替换当前路径，不新增历史记录。
 
-- 返回 `this`
+- `path: string` – 新路径
+- `queryParams?: Record<string,string>` – 可选查询参数
+- `return: this`
+</Steps>
 
 ### clear
+<Steps>
+清除当前路径与历史。
 
-清除当前页面 id 和导航历史。所有页面将从舞台中移除。
-
-- 返回 `this`
+- `return: this`
+</Steps>
 
 ### cleanHistory
+<Steps>
+保留当前路径，清空其他历史记录。
 
-清理导航历史记录，同时保持当前页面。这将删除所有前进和后退历史条目，只保留当前页面在历史记录中。
+- `return: this`
+</Steps>
 
-- 返回 `this`
+### getCurrentPath / getPathname
+<Steps>
+获取当前路径（不含查询字符串）。
 
-### getCurrentId
+- `return: string`
+</Steps>
 
-获取当前页面 id。
+### getCurrentQuery / getQueryParams
+<Steps>
+获取当前查询参数对象。
 
-- 返回 `string | null` - 当前页面 id，如果没有活动页面则返回 null
+- `return: Record<string,string>`
+</Steps>
 
-### onExitComplete
+### getCurrentUrl
+<Steps>
+获取当前完整 URL（路径 + 查询）。
 
-注册页面退出完成事件的处理程序。
+- `return: string`
+</Steps>
 
-```tsx
-router.onExitComplete(() => {
-    console.log("页面退出动画已完成");
-});
-```
+### setQueryParam
+<Steps>
+设置单个查询参数。
 
-- `handler: () => void` - 当页面退出完成时要调用的回调函数
-- 返回 `LiveGameEventToken` - 用于取消订阅事件的令牌，参见 [LiveGameEventToken](../../core/types/LiveGameEventToken)
+- `key: string`
+- `value: string`
+- `return: this`
+</Steps>
 
-### onceExitComplete
+### setQueryParams
+<Steps>
+批量合并查询参数。
 
-注册页面退出完成事件的一次性处理程序。处理程序将在第一次事件后自动取消订阅。
+- `params: Record<string,string>`
+- `return: this`
+</Steps>
 
-```tsx
-router.onceExitComplete(() => {
-    console.log("页面退出动画已完成一次");
-});
-```
+### getQueryParam
+<Steps>
+获取指定查询参数。
 
-- `handler: () => void` - 当页面退出完成时要调用的回调函数
-- 返回 `LiveGameEventToken` - 用于取消订阅事件的令牌，参见 [LiveGameEventToken](../../core/types/LiveGameEventToken)
+- `key: string`
+- `return: string | undefined`
+</Steps>
 
-### onPageMount
+### removeQueryParam
+<Steps>
+删除指定查询参数。
 
-注册页面挂载事件的处理程序。
+- `key: string`
+- `return: this`
+</Steps>
 
-```tsx
-router.onPageMount(() => {
-    console.log("新页面已挂载");
-});
-```
+### clearQueryParams
+<Steps>
+清除所有查询参数。
 
-- `handler: () => void` - 当新页面挂载时要调用的回调函数
-- 返回 `LiveGameEventToken` - 用于取消订阅事件的令牌，参见 [LiveGameEventToken](../../core/types/LiveGameEventToken)
+- `return: this`
+</Steps>
 
-### oncePageMount
+### hasQueryParam
+<Steps>
+判断是否存在指定查询参数。
 
-注册页面挂载事件的一次性处理程序。处理程序将在第一次事件后自动取消订阅。
+- `key: string`
+- `return: boolean`
+</Steps>
 
-```tsx
-router.oncePageMount(() => {
-    console.log("新页面已挂载一次");
-});
-```
+### getQueryParamKeys
+<Steps>
+获取所有查询参数键。
 
-- `handler: () => void` - 当新页面挂载时要调用的回调函数
-- 返回 `LiveGameEventToken` - 用于取消订阅事件的令牌，参见 [LiveGameEventToken](../../core/types/LiveGameEventToken)
+- `return: string[]`
+</Steps>
+
+### getQueryParamCount
+<Steps>
+获取查询参数数量。
+
+- `return: number`
+</Steps>
+
+### getHistory
+<Steps>
+获取完整历史记录。
+
+- `return: string[]`
+</Steps>
+
+### getHistoryIndex
+<Steps>
+获取当前历史索引。
+
+- `return: number`
+</Steps>
+
+### canGoBack / canGoForward
+<Steps>
+检查是否可以后退 / 前进。
+
+- `return: boolean`
+</Steps>
+
+### parseUrl
+<Steps>
+解析 URL 字符串为 `{ path, query }`。
+
+- `url: string`
+- `return: { path:string; query:Record<string,string>; }`
+</Steps>
+
+### buildUrl
+<Steps>
+使用路径和查询对象生成完整 URL。
+
+- `path: string`
+- `query: Record<string,string>`
+- `return: string`
+</Steps>
+
+### resolvePath
+<Steps>
+解析相对路径为绝对路径。
+
+- `path: string`
+- `return: string`
+</Steps>
+
+### normalizePath
+<Steps>
+规范化路径，去除重复或结尾斜杠。
+
+- `path: string`
+- `return: string`
+</Steps>
+
+### joinPath
+<Steps>
+拼接多个路径段并规范化。
+
+- `path: string` – 基础路径
+- `...paths: string[]` – 其他路径段
+- `return: string`
+</Steps>
+
+### parsePath
+<Steps>
+将路径拆分为段数组。
+
+- `path: string`
+- `return: string[]`
+</Steps>
+
+### buildPath
+<Steps>
+从段数组生成路径字符串。
+
+- `segments: string[]`
+- `return: string`
+</Steps>
+
+### getParentPath
+<Steps>
+获取父级路径。
+
+- `path: string`
+- `return: string`
+</Steps>
+
+### matchPath
+<Steps>
+按前缀匹配路径，支持 `*` 与 `:param`。
+
+- `path: string`
+- `pattern: string`
+- `return: boolean`
+</Steps>
+
+### exactMatch
+<Steps>
+精确匹配路径（段数要求一致）。
+
+- `path: string`
+- `pattern: string`
+- `return: boolean`
+</Steps>
+
+### extractParams
+<Steps>
+根据模式提取路径参数。
+
+- `path: string`
+- `pattern: string`
+- `return: Record<string,string>`
+</Steps>
+
+### onExitComplete / onceExitComplete
+<Steps>
+注册退出动画完成时的回调。
+
+- `handler: () => void`
+- `return: LiveGameEventToken`
+</Steps>
+
+### onPageMount / oncePageMount
+<Steps>
+注册页面挂载时的回调。
+
+- `handler: () => void`
+- `return: LiveGameEventToken`
+</Steps>

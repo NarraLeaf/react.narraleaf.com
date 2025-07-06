@@ -1,64 +1,56 @@
-# 页面
+# 页面（Page）
 
-Page 用于显示页面的内容
+`Page` 用于在 `Layout` 内渲染单个页面内容。新版本通过 `name` 属性而非旧版 `id` 来标识页面。
 
 ```tsx
 import { Page } from "narraleaf-react";
 ```
 
+## 基本用法
+
 ```tsx
-<Page id="about">
-    {/* 这些元素将被显示 */}
-    {/* 您的内容 */}
+// 默认页面（name = null）
+<Page name={null}>
+  <Home />
+</Page>
+
+// 指定页面名
+<Page name="detail">
+  <Detail />
 </Page>
 ```
 
+当 `name` 为 `null`（或未传）时，该组件成为父 `Layout` 的 **默认页面**：当布局匹配且没有其他页面匹配时将会渲染它。
+
 ## Props
 
-### id
+| 属性 | 类型 | 说明 |
+| ---- | ---- | ---- |
+| `name?` | `string \| null` | 相对于父 `Layout` 的路径段；`null` / `undefined` 表示默认页面 |
+| `children` | `React.ReactNode` | 页面内容 |
 
-页面的唯一标识符
+> 组件已不再支持旧版的 `id`、`className`、`style` 等属性，动效相关属性由框架内部管理。
 
-- 类型: `string`
+## 嵌套规则
 
-### children
+1. `Layout` **不能** 嵌套在 `Page` 内。
+2. `Page` 之间也不能直接嵌套。
+3. 如需更深层级，请使用 `Layout` 组件构建目录结构。
 
-页面的内容
-
-- 类型: `React.ReactNode`
-
-### className
-
-页面的类名
-
-- 类型: `string`
-
-### style
-
-页面的 CSS 样式
-
-- 类型: `React.CSSProperties`
-
-### ...rest
-
-继承自 `HTMLMotionProps<"div">`
-
-您可以向页面传递 motion 属性  
-此 motion 行为由 [Motion](https://motion.dev/) 提供
-
-- 类型: `HTMLMotionProps<"div">`
-
-例如，您可以在页面之间添加过渡效果
+## 与 Layout 搭配示例
 
 ```tsx
-<Page
-    id="about"
+import { Layout, Page } from "narraleaf-react";
 
-    // Motion 属性
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1, transition: { duration: 1 } }}
-    exit={{ opacity: 0, transition: { duration: 1 } }}
->
-    ...
-</Page>
+<Layout name="user">
+  {/* /user */}
+  <Page name={null}>
+    <UserHome />
+  </Page>
+
+  {/* /user/profile */}
+  <Page name="profile">
+    <UserProfile />
+  </Page>
+</Layout>
 ```
