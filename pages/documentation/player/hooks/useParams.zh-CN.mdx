@@ -1,0 +1,22 @@
+# useParams
+
+根据父级 `Layout` 的路径模式，从当前路径提取并返回参数对象。
+
+```tsx
+import { useParams } from "narraleaf-react";
+
+// 位于 /user/:id/ 布局内部
+const { id } = useParams<{ id: string }>();
+```
+
+若布局声明为 `name=":id"`，当路径匹配时即可通过此钩子获取捕获到的参数值。
+
+## 定义
+
+```typescript
+function useParams<T extends Record<string,string>>(): T;
+```
+
+该钩子支持泛型，可在调用时指定返回对象的类型。
+
+参见：[`usePathname`](./usePathname) • [`useQueryParams`](./useQueryParams) 

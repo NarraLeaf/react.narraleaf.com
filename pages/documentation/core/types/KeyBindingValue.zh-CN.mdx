@@ -1,0 +1,34 @@
+import {Steps} from 'nextra/components';
+
+# KeyBindingValue
+
+`KeyBindingValue` 是一个联合类型，用于表示与某个 `KeyBindingType` 关联的按键。
+
+```typescript
+type KeyBindingValue = WebKeyboardKey[] | WebKeyboardKey | null;
+```
+
+- `WebKeyboardKey` 是 `string` 的别名（大小写不敏感）。可用值请参见 [MDN key values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)。
+- `null` 表示 **无绑定**（在重新绑定前该动作将无法触发）。
+
+## 示例
+
+### 单按键
+
+```typescript
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, " "); // 空格键
+```
+
+### 多按键
+
+```typescript
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, ["Control", "F3"]);
+```
+
+### 移除绑定
+
+```typescript
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, null);
+```
+
+参见：[KeyBindingType](./KeyBindingType)、[KeyMap](../game/key-map)。 

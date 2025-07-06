@@ -1,0 +1,19 @@
+# useQueryParams
+
+返回当前 URL 查询参数对象，并在参数变化时自动更新。
+
+```tsx
+import { useQueryParams } from "narraleaf-react";
+
+const { tab, theme } = useQueryParams<{ tab?: string; theme?: string }>();
+```
+
+## 定义
+
+```typescript
+function useQueryParams<T extends Record<string,string>>(): T;
+```
+
+该钩子内部监听 `router.onChange`，当导航或通过 `router.setQueryParam(s)` 修改查询参数时会自动刷新组件。
+
+参见：[`usePathname`](./usePathname) • [`useParams`](./useParams) 

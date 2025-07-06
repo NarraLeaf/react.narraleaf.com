@@ -1,0 +1,22 @@
+# useParams
+
+Return the parameter object extracted from the current path according to its parent `Layout` pattern.
+
+```tsx
+import { useParams } from "narraleaf-react";
+
+// inside /user/:id/layout
+const { id } = useParams<{ id: string }>();
+```
+
+If your layout is defined as `name=":id"`, `useParams` will give you the captured value when the layout matches.
+
+## Definition
+
+```typescript
+function useParams<T extends Record<string,string>>(): T;
+```
+
+The hook is type-safe; pass a generic to narrow the returned object.
+
+See also: [`usePathname`](./usePathname) • [`useQueryParams`](./useQueryParams) 

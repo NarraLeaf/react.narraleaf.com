@@ -1,0 +1,28 @@
+import {Callout, Steps} from 'nextra/components';
+
+# useKeyBinding
+
+`useKeyBinding` 是一个 React Hook，用于读取并修改指定动作的键位绑定。
+
+```typescript
+function useKeyBinding(type: KeyBindingType): [KeyBindingValue, (value: KeyBindingValue) => void];
+```
+
+## 用法
+
+```typescript
+import { useKeyBinding } from "narraleaf-react";
+
+function ShortcutSetting() {
+    const [binding, setBinding] = useKeyBinding(KeyBindingType.skipAction);
+
+    return (
+        <div>
+            <p>当前跳过键: {Array.isArray(binding) ? binding.join(", ") : binding ?? "未设置"}</p>
+            <button onClick={() => setBinding("F3")}>设置为 F3</button>
+        </div>
+    );
+}
+```
+
+> 该组件会在其他地方修改绑定时自动重新渲染，因为此 Hook 内部监听了 `game.keyMap.onKeyBindingChange` 事件。 

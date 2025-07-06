@@ -1,0 +1,28 @@
+import {Callout, Steps} from 'nextra/components';
+
+# useKeyBinding
+
+`useKeyBinding` is a React hook that provides read-and-write access to a specific keyboard binding.
+
+```typescript
+function useKeyBinding(type: KeyBindingType): [KeyBindingValue, (value: KeyBindingValue) => void];
+```
+
+## Usage
+
+```typescript
+import { useKeyBinding } from "narraleaf-react";
+
+function ShortcutSetting() {
+    const [binding, setBinding] = useKeyBinding(KeyBindingType.skipAction);
+
+    return (
+        <div>
+            <p>Current skip key: {Array.isArray(binding) ? binding.join(", ") : binding ?? "none"}</p>
+            <button onClick={() => setBinding("F3")}>Set to F3</button>
+        </div>
+    );
+}
+```
+
+> The component re-renders automatically whenever the binding is changed elsewhere because the hook internally subscribes to `game.keyMap.onKeyBindingChange`. 

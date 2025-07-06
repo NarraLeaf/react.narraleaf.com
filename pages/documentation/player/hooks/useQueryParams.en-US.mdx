@@ -1,0 +1,19 @@
+# useQueryParams
+
+Return current query parameters as an object and keep it in sync with `LayoutRouter` changes.
+
+```tsx
+import { useQueryParams } from "narraleaf-react";
+
+const { tab, theme } = useQueryParams<{ tab?: string; theme?: string }>();
+```
+
+## Definition
+
+```typescript
+function useQueryParams<T extends Record<string,string>>(): T;
+```
+
+Internally this hook subscribes to `router.onChange` so it re-renders on navigation or when query values are modified via `router.setQueryParam(s)`.
+
+See also: [`usePathname`](./usePathname) • [`useParams`](./useParams) 

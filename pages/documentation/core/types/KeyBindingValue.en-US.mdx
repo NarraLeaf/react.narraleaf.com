@@ -1,0 +1,34 @@
+import {Steps} from 'nextra/components';
+
+# KeyBindingValue
+
+`KeyBindingValue` is a union type that represents the keys associated with a particular `KeyBindingType`.
+
+```typescript
+type KeyBindingValue = WebKeyboardKey[] | WebKeyboardKey | null;
+```
+
+- `WebKeyboardKey` is an alias of `string` (case-insensitive). See the [MDN key values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values) list for valid values.
+- `null` indicates **no binding** (the action will be disabled until a key is assigned).
+
+## Examples
+
+### Single key
+
+```typescript
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, " "); // Space key
+```
+
+### Multiple keys
+
+```typescript
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, ["Control", "F3"]);
+```
+
+### Remove binding
+
+```typescript
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, null);
+```
+
+See also: [KeyBindingType](./KeyBindingType), [KeyMap](../game/key-map). 

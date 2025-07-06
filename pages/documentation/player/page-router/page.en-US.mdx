@@ -1,63 +1,56 @@
 # Page
 
-Page is used to display the content of a page.
+`Page` renders the content of a single page inside a `Layout`. It is identified by the `name` prop **instead of the old `id` prop**.
 
 ```tsx
 import { Page } from "narraleaf-react";
 ```
 
+## Basic usage
+
 ```tsx
-<Page id="about">
-    {/* These elements will be displayed */}
-    {/* Your content */}
+// Default page for its parent Layout (name = null)
+<Page name={null}>
+  <Home />
+</Page>
+
+// Explicit page name
+<Page name="detail">
+  <Detail />
 </Page>
 ```
 
+When `name` is `null` (or omitted), the page becomes the **default handler** of its parent `Layout`: it is rendered whenever the layout matches and no other page in the same layout matches.
+
 ## Props
 
-### id
+| Prop | Type | Description |
+| ---- | ---- | ----------- |
+| `name?` | `string \| null` | Relative path segment of the page. `null` / `undefined` makes this page the default handler. |
+| `children` | `React.ReactNode` | Page content |
 
-The unique id of the page.
+> The component no longer accepts the legacy `id`, `className`, or `style` props. Motion props are passed internally by the framework.
 
-- Type: `string`
+## Nesting rules
 
-### children
+1. `Layout` **cannot** be nested inside a `Page`.
+2. Another `Page` cannot be nested directly inside a `Page`.
+3. Use `Layout` components to create deeper directory structures.
 
-The content of the page.
-
-- Type: `React.ReactNode`
-
-### className
-
-The class name of the page.
-
-- Type: `string`
-
-### style
-
-The CSS style of the page.
-
-- Type: `React.CSSProperties`
-
-### ...rest
-
-extends `HTMLMotionProps<"div">`
-
-You can pass motion props to the page.  
-This motion behavior is provided by [Motion](https://motion.dev/).
-
-- Type: `HTMLMotionProps<"div">`
-
-For example, you can add transitions between pages. 
+## Example with Layout
 
 ```tsx
-<Page
-    id="about"
+import { Layout, Page } from "narraleaf-react";
 
-    // Motion props
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1, transition: { duration: 1 } }}
-    exit={{ opacity: 0, transition: { duration: 1 } }}
->
-    ...
-</Page>
+<Layout name="user">
+  {/* /user */}
+  <Page name={null}>
+    <UserHome />
+  </Page>
+
+  {/* /user/profile */}
+  <Page name="profile">
+    <UserProfile />
+  </Page>
+</Layout>
+```

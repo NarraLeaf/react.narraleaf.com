@@ -1,45 +1,109 @@
-# 页面路由
+import {Steps} from "nextra/components";
 
-在 NarraLeaf-React 0.3.0 中，我们引入了自定义播放器用户界面的新方式  
-您的 UI 内容现在被抽象为页面，您可以使用页面路由 API 在页面之间导航
+# 页面路由（LayoutRouter）
 
-页面中的元素将按比例缩放以适应播放器的大小
+自 NarraLeaf-React **0.7.0** 起，线性的 *Page Router* 已被 **LayoutRouter** 取代。它与 `Layout`、`Page` 组件配合，构建树状的 UI 结构。
 
-## 示例
+本文仅作概览，完整 API 查看：
+
+- [`LayoutRouter`](./page-router/router)
+- [`Layout`](./page-router/layout)
+- [`Page`](./page-router/page)
+
+## 路径模式（通配符 & 参数）
+
+`Layout` 和 `Page` 的 `name` 支持两种特殊写法：
+
+1. **参数段（slug）** – `:param` 匹配单个路径段，并可在代码中读取其值。
+2. **通配符** – `*` 匹配单个路径段（可重复）。
+
+```tsx
+// /user/:id/profile
+<Layout name="user">
+  <Layout name=":id"> {/* 匹配任意用户 id */}
+    <Page name="profile"> {/* 例如 /user/42/profile */}
+      <UserProfile />
+    </Page>
+  </Layout>
+</Layout>
+```
+
+可使用 Router 工具函数提取参数：
+
+```tsx
+const router = useRouter();
+const params = router.extractParams(router.getCurrentPath(), "/user/:id/profile");
+console.log(params.id); // "42"
+```
+
+通配符示例——匹配 `/docs/**` 下所有路径：
+
+```tsx
+<Layout name="docs">
+  <Page name="*"> {/* /docs/installation、/docs/api 等 */}
+    <DocViewer />
+  </Page>
+</Layout>
+```
+
+## 快速示例
+
+```tsx
+import { RouterProvider, RootLayout, Layout, Page, useRouter } from "narraleaf-react";
+
+function UI() {
+  return (
+    <RouterProvider>
+      <RootLayout>
+        {/* /home */}
+        <Layout name="home">
+          <Page name={null}> {/* 默认页面 /home */}
+            <Home />
+          </Page>
+          <Page name="detail"> {/* /home/detail */}
+            <Detail />
+          </Page>
+        </Layout>
+
+        {/* /about */}
+        <Layout name="about">
+          <Page name={null}>
+            <About />
+          </Page>
+        </Layout>
+      </RootLayout>
+    </RouterProvider>
+  );
+}
+
+function MenuButton() {
+  const router = useRouter();
+  return <button onClick={() => router.navigate("/about")}>关于</button>;
+}
+```
+
+## 为什么要更换？
+
+1. **嵌套布局** – 通过组合布局构建复杂 UI（侧边栏、弹窗、标签页）。
+2. **类 URL 路径** – 支持熟悉的路径模式（`/user/:id/profile`）。
+3. **更好的动画控制** – 进出动画可在布局树中级联。
+
+## 升级指南（0.6 → 0.7）
+
+| 旧 API | 新 API | 说明 |
+| ------ | ------ | ---- |
+| `<Page id="about" />` | `<Page name="about" />` | `id` 改为 `name` |
+| `router.push("about")` | `router.navigate("/about")` | 路径以 `/` 开头 |
+| 无概念 | `<Layout name="home">...</Layout>` | 新容器 |
+
+## 下一步
+
+1. 阅读 [`LayoutRouter` 公共方法](./page-router/router#公共方法)。
+2. 学习 [`Layout`](./page-router/layout) 及路径模式。
+3. 更新项目：将 `Page id` 替换为 `Page name`，用 `Layout` 包裹相关页面，并改用 `router.navigate`。
 
 ```tsx
 import { Page, Player, useRouter } from "narraleaf-react";
-```
-
-```tsx
-function GameApp() {
-    return (
-        <Player
-            router={router}
-        >
-            {/* 您的页面 */}
-            <Page id="about" className="...">
-                <span>about</span>
-            </Page>
-
-            <Page id="contact" className="...">
-                <span>contact</span>
-            </Page>
-        </Player>
-    );
-}
-
-function Button() {
-    // 在你的应用程序中的某个位置
-    // 获取路由实例
-    const router = useRouter();
-
-    return (
-        <button onClick={() => router.push("about")}>
-            Go to about
-        </button>
-    );
-}
 ```
 
 ## 页面路由 API
@@ -87,3 +151,26 @@ import { Page } from "narraleaf-react";
 ```
 
 有关更多信息，请查看 [Page](./page-router/page)
+
+## 组件动画
+
+`LayoutRouter` 会自动挂载 / 卸载 `Page`、`Layout` 组件，因此为页面添加进出动画非常简单 —— 只需将组件最外层元素替换为 **Framer Motion** 的 `motion.*` 元素。
+
+```tsx
+import { motion } from "framer-motion";
+
+export function PageContent() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* 页面内容 */}
+    </motion.div>
+  );
+}
+```
+
+将 `PageContent` 放入 `<Page>` 里，当路由切换时动画会自动播放。

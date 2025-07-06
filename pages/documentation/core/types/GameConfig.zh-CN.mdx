@@ -40,13 +40,6 @@ type GameConfig = {
      */
     height: number;
     /**
-     * 当玩家按下这些键中的任意一个时，游戏将跳过当前动作
-     *
-     * 参见 [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
-     * @default ["Control"]
-     */
-    skipKey: React.KeyboardEvent["key"][];
-    /**
      * 如果为true，游戏将监听窗口事件而不是播放器元素
      * 
      * 使用此选项可以让游戏在播放器未获得焦点时也能监听键盘事件
@@ -125,13 +118,6 @@ type GameConfig = {
      * @default 1
      */
     screenshotQuality: number;
-    /**
-     * 当玩家按下这些键中的任意一个时，游戏将显示下一句对话
-     *
-     * 参见 [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
-     * @default [" "]
-     */
-    nextKey: React.KeyboardEvent["key"][];
     /**
      * 如果为true，游戏将缩放对话框以适应屏幕
      *

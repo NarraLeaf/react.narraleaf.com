@@ -1,0 +1,113 @@
+# Quick Menu
+
+## Overview
+
+The Quick Menu is a context panel that lets the player access common actions (undo, history, auto, save/load, settings, exit) with one click or key.
+
+This guide shows how to build a **minimal, decoupled** `QuickMenu` component.  It re-implements only the core features so you can extend it freely.
+
+## 1. Create the component
+
+```tsx
+import { useGame, useRouter } from "narraleaf-react";
+import { ArrowLeft, History, Play, Save, FileText, Settings, Home } from "lucide-react";
+
+export default function QuickMenu() {
+  const game = useGame();
+  const router = useRouter();
+  const liveGame = game.getLiveGame();
+
+  // helpers ------------------------------------------------
+  const undo = () => liveGame.undo();
+  const toHistory = () => router.navigate("/home/history");
+  const toggleAuto = () => game.preference.togglePreference("autoForward");
+  const save = () => router.navigate("/home/save");
+  const load = () => router.navigate("/home/load");
+  const openSettings = () => router.navigate("/home/settings");
+  const exitGame = () => /* your own exit logic (e.g. useApp().exitGame()) */ undefined;
+
+  // menu item ---------------------------------------------
+  const Item = ({ icon: Icon, label, onClick }: { icon: any; label: string; onClick: () => void }) => (
+    <button onClick={onClick} className="flex items-center gap-1 px-2 py-1 rounded-full hover:bg-white/20">
+      <Icon className="w-4 h-4" />
+      <span className="text-xs">{label}</span>
+    </button>
+  );
+
+  return (
+    <div className="fixed bottom-5 left-0 right-0 flex justify-center pointer-events-none">
+      <div className="flex gap-2 bg-black/40 rounded-full px-4 py-1 pointer-events-auto">
+        <Item icon={ArrowLeft} label="Undo" onClick={undo} />
+        <Item icon={History} label="History" onClick={toHistory} />
+        <Item icon={Play} label="Auto" onClick={toggleAuto} />
+        <Item icon={Save} label="Save" onClick={save} />
+        <Item icon={FileText} label="Load" onClick={load} />
+        <Item icon={Settings} label="Settings" onClick={openSettings} />
+        <Item icon={Home} label="Exit" onClick={exitGame} />
+      </div>
+    </div>
+  );
+}
+```
+
+## 2. Use in LayoutRouter
+
+Place the menu inside the root layout's default page (path `/`) so it is mounted when there is no other page:
+
+```tsx
+import { Layout, Page, Player } from "narraleaf-react";
+import QuickMenu from "./QuickMenu";
+
+function MyApp() {
+  return (
+    <Player>
+        {/* QuickMenu will be displayed when the router is at `/`, which is the default page */}
+        {/* You can also use `router.clear().navigate("/")` to display the quick menu in-game */}
+        {/* This means the quick menu will be displayed when all other pages are closed */}
+        <Page name={null}>
+          <QuickMenu />
+        </Page>
+    </Player>
+  );
+}
+```
+
+## 3. Transitions
+
+The component above is static – you can add **enter / exit animations** by turning the top-level element into a Framer Motion element.  Because the router mounts / unmounts the page automatically, the animation will play whenever the menu appears or disappears.
+
+```tsx
+import { motion } from "framer-motion";
+
+export default function QuickMenu() {
+  // ...hooks & helpers...
+
+  return (
+    <motion.div
+      /* initial ➜ before enter */
+      initial={{ opacity: 0, scale: 0.8, y: 20 }}
+      /* animate ➜ after enter */
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      /* exit ➜ before unmount */
+      exit={{ opacity: 0, scale: 0.8, y: 20 }}
+      /* timing curve */
+      transition={{ type: "spring", stiffness: 300, damping: 25, duration: 0.3 }}
+      className="fixed bottom-5 left-0 right-0 flex justify-center pointer-events-none"
+    >
+      <div className="flex gap-2 bg-black/40 rounded-full px-4 py-1 pointer-events-auto">
+        {/* menu items */}
+      </div>
+    </motion.div>
+  );
+}
+```
+
+Guidelines:
+
+- **Root motion element** – Only the top-level node needs to be a `motion.*` element; inner content can stay regular JSX.
+- **Customize** `initial / animate / exit` to achieve fade, slide, scale, etc.
+- **Staggered items** – For more elaborate effects, wrap each button in its own `motion.button` or use Motion variants.
+- **Presence management** – If you conditionally render the menu yourself, wrap it with `<AnimatePresence>` to handle exit animations.
+
+That is all you need – the rest is pure CSS and Framer Motion creativity.
+

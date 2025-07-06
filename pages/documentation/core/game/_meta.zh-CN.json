@@ -4,5 +4,6 @@
     "live-game": "LiveGame",
     "storable": "Storable",
     "preference": "Preference",
+    "key-map": "KeyMap",
     "hooks": "Hooks"
 }

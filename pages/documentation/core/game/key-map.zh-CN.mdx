@@ -1,0 +1,96 @@
+import {Callout, Steps} from 'nextra/components';
+
+# KeyMap
+
+<Callout type="warning" emoji="⚠️">
+    此页面正在建设中
+</Callout>
+
+KeyMap 用于存储并管理不同游戏动作的键盘绑定。
+
+## 公共方法
+
+### setKeyBinding
+
+<Steps>
+
+为指定动作设置（或覆盖）键位绑定。
+
+```typescript
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, " ");
+// 也可以一次绑定 **多个** 键位
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, ["Control", "F3"]);
+// 移除绑定
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, null);
+```
+
+- `type: KeyBindingType | string` – 动作类型
+- `value: KeyBindingValue` – 单个按键、按键数组，或 `null`（移除绑定）
+
+</Steps>
+
+### getKeyBinding
+
+<Steps>
+
+获取动作的当前键位绑定。
+
+```typescript
+const current = game.keyMap.getKeyBinding(KeyBindingType.skipAction);
+```
+
+</Steps>
+
+### addKeyBinding
+
+<Steps>
+
+向已有绑定追加一个或多个按键。
+
+```typescript
+game.keyMap.addKeyBinding(KeyBindingType.skipAction, "F3");
+```
+
+</Steps>
+
+### getKeyBindings
+
+<Steps>
+
+获取所有按键绑定。
+
+</Steps>
+
+### onKeyBindingChange
+
+<Steps>
+
+监听按键绑定变化。
+
+```typescript
+const token = game.keyMap.onKeyBindingChange(KeyBindingType.skipAction, (value) => {
+    console.log("绑定已更改", value);
+});
+
+token.cancel(); // 停止监听
+```
+
+</Steps>
+
+### match
+
+<Steps>
+
+判断某个按键是否符合预设绑定（不区分大小写）。
+
+```typescript
+if (game.keyMap.match(KeyBindingType.skipAction, event.key)) {
+    // do something
+}
+```
+
+</Steps>
+
+## 相关 Hook
+
+在 React 环境中，你可以使用 [`useKeyBinding`](../../player/hooks/useKeyBinding) 来方便地获取并更新按键绑定。 

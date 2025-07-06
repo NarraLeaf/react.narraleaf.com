@@ -1,0 +1,47 @@
+import {Steps} from 'nextra/components';
+
+# KeyBindingType
+
+`KeyBindingType` 是一个枚举，表示游戏 `KeyMap` 中预定义的按键绑定动作标识。
+
+```typescript
+enum KeyBindingType {
+    skipAction = "skipAction",
+    nextAction = "nextAction",
+}
+```
+
+## 枚举成员
+
+### skipAction
+
+<Steps>
+
+当玩家按下绑定的键时，游戏将跳到 **下一句**。
+
+- **默认绑定**: `[" "]`（空格键）
+
+</Steps>
+
+### nextAction
+
+<Steps>
+
+当玩家按下绑定的键时，游戏将 **跳过当前动作**。
+
+- **默认绑定**: `["Control"]`
+
+</Steps>
+
+## 示例
+
+```typescript
+// 将跳过动作的按键改为 F3
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, "F3");
+// 同时绑定 Control 和 F3 到 skipAction
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, ["Control", "F3"]);
+// 移除绑定
+game.keyMap.setKeyBinding(KeyBindingType.skipAction, null);
+```
+
+参见：[KeyBindingValue](./KeyBindingValue)、[KeyMap](../game/key-map)。 

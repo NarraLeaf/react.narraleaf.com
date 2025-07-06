@@ -1,0 +1,19 @@
+# usePathname
+
+返回当前路由的 *pathname*（不含查询参数），并在路由变化时自动更新。
+
+```tsx
+import { usePathname } from "narraleaf-react";
+
+const pathname = usePathname(); // 例如 "/user/profile"
+```
+
+## 定义
+
+```typescript
+declare function usePathname(): string;
+```
+
+该钩子内部订阅 `router.onChange`，因此在导航发生时组件会重新渲染。
+
+参见：[`useParams`](./useParams) • [`useQueryParams`](./useQueryParams) 
