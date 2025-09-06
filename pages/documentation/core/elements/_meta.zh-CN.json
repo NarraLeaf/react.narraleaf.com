@@ -13,5 +13,6 @@
     "displayable": "可视组件",
     "layer": "图层",
     "service": "服务",
-    "video": "视频"
+    "video": "视频",
+    "built-in": "内置"
 }

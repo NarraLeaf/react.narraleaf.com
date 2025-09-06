@@ -1,5 +1,6 @@
 {
   "useGame": "useGame",
+  "useLiveGame": "useLiveGame",
   "usePreference": "usePreference",
   "useRouter": "useRouter",
   "useDialog": "useDialog",

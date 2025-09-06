@@ -1,0 +1,296 @@
+import {Steps} from "nextra/components";
+
+# Gallery
+
+Gallery is a built-in service specifically designed for visual novel game galleries (image collections). It allows you to add, remove, and check for items, with support for serialization/deserialization.
+
+Gallery is suitable for managing image collection systems in games, such as character portraits, CG images, background images, etc.
+
+```typescript
+import {Gallery} from "narraleaf-react";
+```
+
+## Basic Usage
+
+### Creating a Gallery
+
+```typescript
+const gallery = new Gallery<{timestamp: number}>();
+
+scene.action([
+  gallery.add("item", () => ({
+    timestamp: Date.now(),
+  }))
+]);
+```
+
+### Registering the Service
+
+To use Gallery, you need to register it in the story:
+
+```typescript
+story.registerService("gallery", gallery);
+```
+
+After registering, you can access the Gallery using the game context:
+
+```typescript
+const liveGame = useLiveGame();
+
+const gallery = liveGame.story?.getService<Gallery<{timestamp: number}>>("gallery");
+
+if (gallery) {
+  console.log("All items in the gallery:", gallery.$getAll());
+}
+```
+
+## Complete Example
+
+```typescript
+const gallery = new Gallery<{timestamp: number, description: string}>();
+
+scene.action([
+  gallery.add("item1", {
+    timestamp: Date.now(),
+    description: "First item"
+  }),
+  
+  gallery.add("item2", (ctx) => ({
+    timestamp: Date.now(),
+    description: "Dynamically created item"
+  })),
+  
+  Condition.If(gallery.has("item1"), [
+    "Item 1 is unlocked!",
+  ]),
+  
+  gallery.remove("item1"),
+  
+  gallery.clear()
+]);
+```
+
+## Chainable Methods
+
+These methods need to be used within `scene.action` and return operation objects that can be chained together.
+
+### add
+
+<Steps>
+
+Add an item to the gallery
+
+```typescript
+scene.action([
+  gallery.add("item", {
+    timestamp: Date.now(),
+    description: "Item description"
+  })
+]);
+
+// or using a function
+scene.action([
+  gallery.add("item", (ctx) => {
+    return {
+      timestamp: Date.now(),
+      description: "Dynamic item"
+    };
+  })
+]);
+```
+
+- `name: string` - The name of the item to add
+- `metadata: Metadata | ((ctx: ScriptCtx) => Metadata)` - The metadata of the item, can be an object or a function that returns metadata
+
+</Steps>
+
+### remove
+
+<Steps>
+
+Remove an item from the gallery
+
+```typescript
+scene.action([
+  gallery
+    .remove("item")
+    .remove("item2"),
+]);
+```
+
+- `name: string` - The name of the item to remove
+
+</Steps>
+
+### clear
+
+<Steps>
+
+Clear the gallery
+
+```typescript
+scene.action([
+  gallery.clear()
+]);
+```
+
+</Steps>
+
+## Public Methods
+
+These methods prefixed with `$` execute immediately and don't need to be used within `scene.action`. They are specifically designed for directly manipulating gallery data during game runtime.
+
+### has
+
+<Steps>
+
+Check if an item exists in the gallery
+
+```typescript
+Condition.If(gallery.has("item"), [
+    "Item is unlocked!",
+    // ...
+])
+```
+
+- `name: string` - The name of the item to check
+- Returns `Lambda<boolean>` - Returns true if the item exists, false otherwise
+
+</Steps>
+
+### $add
+
+<Steps>
+
+Add an item to the gallery immediately
+
+```typescript
+gallery.$add("item", {
+  timestamp: Date.now(),
+  description: "Immediately added item"
+});
+```
+
+- `name: string` - The name of the item to add
+- `metadata: Metadata` - The metadata of the item
+
+</Steps>
+
+### $remove
+
+<Steps>
+
+Remove an item from the gallery immediately
+
+```typescript
+gallery.$remove("item");
+```
+
+- `name: string` - The name of the item to remove
+
+</Steps>
+
+### $clear
+
+<Steps>
+
+Clear the gallery immediately
+
+```typescript
+gallery.$clear();
+```
+
+After calling this method, the gallery will be empty immediately.
+
+</Steps>
+
+### $get
+
+<Steps>
+
+Get the metadata of an item
+
+```typescript
+const metadata = gallery.$get("item");
+console.log(metadata?.timestamp);
+```
+
+- `name: string` - The name of the item to get the metadata of
+- Returns `Metadata | undefined` - The metadata of the item
+
+</Steps>
+
+### $set
+
+<Steps>
+
+Set the metadata of an item
+
+```typescript
+gallery.$set("item", {
+  timestamp: Date.now(),
+  description: "Updated description"
+});
+```
+
+- `name: string` - The name of the item to set the metadata of
+- `metadata: Metadata` - The metadata to set
+
+</Steps>
+
+### $getAll
+
+<Steps>
+
+Get all items in the gallery
+
+```typescript
+const allItems = gallery.$getAll();
+console.log("All items:", allItems);
+```
+
+- Returns `Record<string, Metadata>` - All items in the gallery
+
+</Steps>
+
+### $has
+
+<Steps>
+
+Check if an item exists in the gallery
+
+```typescript
+if (gallery.$has("item")) {
+  console.log("Item exists");
+}
+```
+
+- `name: string` - The name of the item to check
+- Returns `boolean` - Returns true if the item exists, false otherwise
+
+</Steps>
+
+## Type Parameters
+
+### Metadata
+
+Gallery accepts a generic parameter `Metadata` to define the type of item metadata:
+
+```typescript
+// Define metadata type
+type ItemMetadata = {
+  timestamp: number;
+  description: string;
+  unlocked: boolean;
+};
+
+// Create Gallery with type constraints
+const gallery = new Gallery<ItemMetadata>();
+
+// Now all methods will have type checking
+gallery.add("item", {
+  timestamp: Date.now(),
+  description: "Description",
+  unlocked: true
+});
+```

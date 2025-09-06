@@ -13,5 +13,6 @@
     "displayable": "Displayable",
     "layer": "Layer",
     "service": "Service",
-    "video": "Video"
+    "video": "Video",
+    "built-in": "Built-in"
 }

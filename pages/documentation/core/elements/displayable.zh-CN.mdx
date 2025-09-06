@@ -32,10 +32,76 @@ Transform the element to a new position.
 缩放元素
 
 ```typescript
-element.scale(2, 1000, "easeInOut"); // 在 1000 毫秒内以 easeInOut 缓动将元素缩放到 2 倍
+element.scale(1.5, 0.8, 1000, "easeInOut"); // 在 1000 毫秒内以 easeInOut 缓动将元素在 X 轴缩放到 1.5 倍，Y 轴缩放到 0.8 倍
 ```
 
-- `scale: number` - 元素的新缩放比例，介于 0 和 1 之间
+- `scaleX: number` - 元素在 X 轴的新缩放比例，使用负值可以反转缩放
+- `scaleY: number` - 元素在 Y 轴的新缩放比例，使用负值可以反转缩放
+- `duration?: number` - 变换的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 使用的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### scaleX
+
+<Steps>
+
+在 X 轴方向缩放元素
+
+```typescript
+element.scaleX(1.5, 1000, "easeInOut"); // 在 1000 毫秒内以 easeInOut 缓动将元素在 X 轴缩放到 1.5 倍
+```
+
+- `scaleX: number` - 元素在 X 轴的新缩放比例
+- `duration?: number` - 变换的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 使用的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### scaleY
+
+<Steps>
+
+在 Y 轴方向缩放元素
+
+```typescript
+element.scaleY(0.8, 1000, "easeInOut"); // 在 1000 毫秒内以 easeInOut 缓动将元素在 Y 轴缩放到 0.8 倍
+```
+
+- `scaleY: number` - 元素在 Y 轴的新缩放比例
+- `duration?: number` - 变换的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 使用的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### scaleXY
+
+<Steps>
+
+同时在 X 和 Y 轴方向缩放元素
+
+```typescript
+element.scaleXY(1.2, 0.9, 1000, "easeInOut"); // 在 1000 毫秒内以 easeInOut 缓动将元素在 X 轴缩放到 1.2 倍，Y 轴缩放到 0.9 倍
+```
+
+- `scaleX: number` - 元素在 X 轴的新缩放比例
+- `scaleY: number` - 元素在 Y 轴的新缩放比例
+- `duration?: number` - 变换的持续时间，以毫秒为单位
+- `easing?: TransformDefinitions.EasingDefinition` - 使用的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### zoom
+
+<Steps>
+
+缩放图像（推荐用于图像缩放）
+
+```typescript
+element.zoom(2, 1000, "easeInOut"); // 在 1000 毫秒内以 easeInOut 缓动将图像缩放到 2 倍
+```
+
+- `zoom: number` - 图像的新缩放比例
 - `duration?: number` - 变换的持续时间，以毫秒为单位
 - `easing?: TransformDefinitions.EasingDefinition` - 使用的缓动函数，参见 [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 

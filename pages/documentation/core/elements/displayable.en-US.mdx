@@ -32,10 +32,76 @@ element.pos({
 Scale the element.
 
 ```typescript
-element.scale(2, 1000, "easeInOut"); // Scale the element to 2x in 1000ms with easeInOut ease.
+element.scale(1.5, 0.8, 1000, "easeInOut"); // Scale the element to 1.5x on X-axis and 0.8x on Y-axis in 1000ms with easeInOut ease.
 ```
 
-- `scale: number` - The new scale of the element, between 0 and 1
+- `scaleX: number` - The new scale of the element on the X-axis, use negative value to invert the scale
+- `scaleY: number` - The new scale of the element on the Y-axis, use negative value to invert the scale
+- `duration?: number` - The duration of the transform in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### scaleX
+
+<Steps>
+
+Scale the element on the X-axis.
+
+```typescript
+element.scaleX(1.5, 1000, "easeInOut"); // Scale the element to 1.5x on X-axis in 1000ms with easeInOut ease.
+```
+
+- `scaleX: number` - The new scale of the element on the X-axis
+- `duration?: number` - The duration of the transform in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### scaleY
+
+<Steps>
+
+Scale the element on the Y-axis.
+
+```typescript
+element.scaleY(0.8, 1000, "easeInOut"); // Scale the element to 0.8x on Y-axis in 1000ms with easeInOut ease.
+```
+
+- `scaleY: number` - The new scale of the element on the Y-axis
+- `duration?: number` - The duration of the transform in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### scaleXY
+
+<Steps>
+
+Scale the element on both X and Y axes.
+
+```typescript
+element.scaleXY(1.2, 0.9, 1000, "easeInOut"); // Scale the element to 1.2x on X-axis and 0.9x on Y-axis in 1000ms with easeInOut ease.
+```
+
+- `scaleX: number` - The new scale of the element on the X-axis
+- `scaleY: number` - The new scale of the element on the Y-axis
+- `duration?: number` - The duration of the transform in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+
+</Steps>
+
+### zoom
+
+<Steps>
+
+Zoom the image (recommended for image scaling).
+
+```typescript
+element.zoom(2, 1000, "easeInOut"); // Zoom the image to 2x in 1000ms with easeInOut ease.
+```
+
+- `zoom: number` - The new zoom level of the image
 - `duration?: number` - The duration of the transform in milliseconds
 - `easing?: TransformDefinitions.EasingDefinition` - The easing function to use, see [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
 
