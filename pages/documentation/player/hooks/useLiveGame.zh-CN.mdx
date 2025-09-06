@@ -1,0 +1,74 @@
+# useLiveGame
+
+您可以使用此钩子访问实时游戏对象。
+
+> **注意**: 此钩子只能在 [GameProvider](../game-providers) 的后代组件中使用。
+
+```typescript
+function useLiveGame(): LiveGame;
+```
+
+- 有关 LiveGame，请参见 [LiveGame](../../core/game/live-game)。
+
+## 用法
+
+```typescript
+import {useLiveGame} from "narraleaf-react";
+```
+
+```typescript
+function myComponent() {
+    const liveGame = useLiveGame();
+
+    useEffect(() => {
+        // 访问故事服务
+        const gallery = liveGame.story?.getService<Gallery>("gallery");
+        
+        // 访问游戏状态
+        const currentScene = liveGame.scene;
+        
+        // 访问偏好设置
+        const preferences = liveGame.preferences;
+    }, [liveGame]);
+}
+```
+
+## 常见用例
+
+### 访问服务
+
+```typescript
+function GalleryComponent() {
+    const liveGame = useLiveGame();
+    
+    const gallery = liveGame.story?.getService<Gallery<{timestamp: number}>>("gallery");
+    
+    if (gallery) {
+        const allItems = gallery.$getAll();
+        return (
+            <div>
+                {Object.keys(allItems).map(name => (
+                    <div key={name}>{name}</div>
+                ))}
+            </div>
+        );
+    }
+    
+    return null;
+}
+```
+
+### 访问游戏状态
+
+```typescript
+function GameStatusComponent() {
+    const liveGame = useLiveGame();
+    
+    return (
+        <div>
+            <p>当前场景: {liveGame.scene?.name}</p>
+            <p>游戏状态: {liveGame.state}</p>
+        </div>
+    );
+}
+```

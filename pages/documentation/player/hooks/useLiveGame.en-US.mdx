@@ -1,0 +1,74 @@
+# useLiveGame
+
+You can access the live game object using this hook.
+
+> **Note**: this hook can only be used in a component that is a descendant of [GameProvider](../game-providers).
+
+```typescript
+function useLiveGame(): LiveGame;
+```
+
+- For LiveGame, see [LiveGame](../../core/game/live-game).
+
+## Usage
+
+```typescript
+import {useLiveGame} from "narraleaf-react";
+```
+
+```typescript
+function myComponent() {
+    const liveGame = useLiveGame();
+
+    useEffect(() => {
+        // Access story services
+        const gallery = liveGame.story?.getService<Gallery>("gallery");
+        
+        // Access game state
+        const currentScene = liveGame.scene;
+        
+        // Access preferences
+        const preferences = liveGame.preferences;
+    }, [liveGame]);
+}
+```
+
+## Common Use Cases
+
+### Accessing Services
+
+```typescript
+function GalleryComponent() {
+    const liveGame = useLiveGame();
+    
+    const gallery = liveGame.story?.getService<Gallery<{timestamp: number}>>("gallery");
+    
+    if (gallery) {
+        const allItems = gallery.$getAll();
+        return (
+            <div>
+                {Object.keys(allItems).map(name => (
+                    <div key={name}>{name}</div>
+                ))}
+            </div>
+        );
+    }
+    
+    return null;
+}
+```
+
+### Accessing Game State
+
+```typescript
+function GameStatusComponent() {
+    const liveGame = useLiveGame();
+    
+    return (
+        <div>
+            <p>Current Scene: {liveGame.scene?.name}</p>
+            <p>Game State: {liveGame.state}</p>
+        </div>
+    );
+}
+```
