@@ -1,3 +1,5 @@
+import {Callout} from 'nextra/components';
+
 # Store Data
 
 You can use [Persistent](../core/elements/persistent) to store data in the game context.
@@ -16,6 +18,9 @@ const persis = new Persistent<PersisData>("persis", {
     // ...
 });
 
+// Register the persistent with the story
+story.registerPersistent(persis);
+
 const scene1 = new Scene("scene1");
 const char1 = new Character("John Smith");
 scene1.action([
@@ -24,6 +29,10 @@ scene1.action([
     char1.say`You have ${persis.get("coin")} coins!`,
 ]);
 ```
+
+<Callout type="warning" emoji="⚠️">
+    If the script content contains Persistent, it must be registered with [Story](../core/elements/story) using `story.registerPersistent(persis)`.
+</Callout>
 
 > **Note:** The stored content must be **serializable**, for more information, see [Persistent](../core/elements/persistent).
 
