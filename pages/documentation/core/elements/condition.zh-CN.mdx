@@ -74,7 +74,7 @@ Condition
 
 ```typescript
 Condition.If(({ storable }) => {
-    return (storable.getNamespace("name").get("coin") || 0) >= 10;
+    return ($("name").get("coin") || 0) >= 10;
 }, [
 character1.say("你有足够的钱")
 ])

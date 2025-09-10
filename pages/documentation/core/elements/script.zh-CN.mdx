@@ -28,6 +28,31 @@ scene.action([
 ]);
 ```
 
+## 静态方法
+
+### execute
+
+<Steps>
+
+使用提供的处理程序创建新的Script实例，并将其作为代理对象返回。
+
+- `handler: ScriptRun` - 要执行的脚本处理程序函数
+- 返回 `Proxied<Script, Chained<LogicAction.Actions>>` - 代理的Script实例
+
+```typescript
+const script = Script.execute(({ storable }) => {
+    console.log("通过静态方法执行脚本");
+    const namespace = storable.getNamespace("test");
+    namespace.set("value", 42);
+});
+
+scene.action([
+    script, // 将脚本加入故事
+]);
+```
+
+</Steps>
+
 ## 公共方法
 
 ### constructor
