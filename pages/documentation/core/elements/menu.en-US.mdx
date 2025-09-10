@@ -160,7 +160,7 @@ menu.enableWhen(persis.isTrue("flag"), "Go left", [
 <Steps>
 
 - `condition: Lambda<boolean> | LambdaHandler<boolean>` - The condition to check
-- `prompt: Sentence` - The prompt of the choice
+- `prompt: Sentence | SentencePrompt` - The prompt of the choice
 - `action: ActionStatements` - The action of the choice
 
 </Steps>
@@ -178,7 +178,7 @@ menu.showWhen(persis.isTrue("flag"), "Go left", [
 <Steps>
 
 - `condition: Lambda<boolean> | LambdaHandler<boolean>` - The condition to check
-- `prompt: Sentence` - The prompt of the choice
+- `prompt: Sentence | SentencePrompt` - The prompt of the choice
 - `action: ActionStatements` - The action of the choice
 
 </Steps>
