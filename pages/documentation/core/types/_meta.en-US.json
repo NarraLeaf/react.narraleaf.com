@@ -35,6 +35,7 @@
     "CharacterMode": "CharacterMode",
     "ChainedActions": "ChainedActions",
     "Choice": "Choice",
+    "ChoiceConfig": "ChoiceConfig",
     "Coord2DPosition": "Coord2DPosition",
     "CommonDisplayable": "CommonDisplayable",
     "CommonDisplayableConfig": "CommonDisplayableConfig",

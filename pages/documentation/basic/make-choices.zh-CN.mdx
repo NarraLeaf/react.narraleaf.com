@@ -37,13 +37,11 @@ scene.action([
 
 ```typescript
 // 使用自定义句子显示菜单提示
-new Menu(
-    new Sentence("我该怎么办？", {italic: true})  // "我该怎么办？" 使用斜体样式
-).choose(
-    new Sentence([
-        "向", Word.bold("左"), "走" // "向左走" 中的 "左" 使用粗体样式
-    ]
-), [
+Menu.prompt(
+    i("我该怎么办？")  // "我该怎么办？" 使用斜体样式
+).choose([
+    "向", b("左"), "走" // "向左走" 中的 "左" 使用粗体样式
+], [
     /* ... */
 ])
 ```
