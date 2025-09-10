@@ -1,0 +1,32 @@
+# ChoiceConfig
+
+```ts
+type ChoiceConfig = {
+    disabled?: Lambda<boolean>;
+    hidden?: Lambda<boolean>;
+};
+```
+
+菜单选择的配置选项。
+
+## 属性
+
+- `disabled?: Lambda<boolean>` - 禁用选择的条件
+- `hidden?: Lambda<boolean>` - 隐藏选择的条件
+
+## 示例
+
+```ts
+Menu.prompt("我应该做什么？")
+    .choose({
+        prompt: "往左走",
+        action: [character.say("我往左走了")],
+        config: {
+            disabled: persis.isTrue("hasLeft"),
+            hidden: persis.isFalse("canGoLeft")
+        }
+    })
+```
+
+有关 `Lambda` 的更多信息，请参见 [Lambda](./Lambda)。
+

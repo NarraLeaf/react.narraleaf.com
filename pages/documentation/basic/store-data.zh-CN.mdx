@@ -1,3 +1,5 @@
+import {Callout} from 'nextra/components';
+
 # 存储数据
 
 你可以使用 [Persistent](../core/elements/persistent) 在游戏上下文中存储数据。
@@ -16,6 +18,9 @@ const persis = new Persistent<PersisData>("persis", {
     // ...
 });
 
+// 在故事中注册持久化数据
+story.registerPersistent(persis);
+
 const scene1 = new Scene("场景1");
 const char1 = new Character("约翰·史密斯");
 scene1.action([
@@ -24,6 +29,10 @@ scene1.action([
     char1.say`你有 ${persis.get("coin")} 个硬币！`,
 ]);
 ```
+
+<Callout type="warning" emoji="⚠️">
+    如果脚本内容包含 Persistent，必须使用 `story.registerPersistent(persis)` 在 [Story](../core/elements/story) 中注册。
+</Callout>
 
 > **注意：** 存储的内容必须是 **可序列化的**，更多信息请参见 [Persistent](../core/elements/persistent).
 

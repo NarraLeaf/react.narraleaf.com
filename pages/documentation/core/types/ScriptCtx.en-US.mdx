@@ -11,11 +11,14 @@ import {Callout, Tabs} from 'nextra/components';
 </Callout>
 
 ```typescript
+type NamespaceGetter = <T extends NameSpaceContent<keyof T>>(namespace: string) => Namespace<T>;
+
 interface ScriptCtx {
     gameState: GameState;
     game: Game;
     liveGame: LiveGame;
     storable: Storable;
+    $: NamespaceGetter;
 }
 ```
 

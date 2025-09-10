@@ -20,13 +20,13 @@ scene.action([
     Menu.prompt("What should I do?")
 
         .choose("Go left", [
-            narrator.say("You went left."),
+            narrator`You went left.`,
             /* ... */
             scene.jumpTo(scene_went_left),
         ])
 
         .choose("Go right", [
-            narrator.say("You went right."),
+            narrator`You went right.`,
             /* ... */
             scene.jumpTo(scene_went_right),
         ]);
@@ -36,14 +36,13 @@ scene.action([
 You can show the menu prompt with a custom [Sentence](../core/elements/sentence).
 
 ```typescript
+import { i, b } from "narraleaf-react";
 // Show the menu prompt with a custom sentence
-new Menu(
-    new Sentence("What should I do?", {italic: true})  // "What should I do?" with italic style
-).choose(
-    new Sentence([
-        "Go ", Word.bold("left")) // "Go left" with "left" in bold style
-    ]
-), [
+Menu.prompt(
+    i("What should I do?")  // "What should I do?" with italic style
+).choose([
+    "Go ", b("left") // "Go left" with "left" in bold style
+]), [
     /* ... */
 ])
 ```

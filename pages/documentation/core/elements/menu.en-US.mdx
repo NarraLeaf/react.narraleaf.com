@@ -2,10 +2,6 @@ import {Callout, Tabs, Steps} from 'nextra/components';
 
 # Menu
 
-<Callout type="warning" emoji="⚠️">
-    This page is under construction.
-</Callout>
-
 `Menu` lets you create a menu in your visual novel. It is used to navigate between different parts of the story.
 
 ```ts
@@ -23,12 +19,12 @@ Menu.prompt("What should I do?")
 
 ### prompt
 
-An alias of the constructor.
+Create a menu with a prompt.
 
 <Steps>
 
-- `prompt: SentencePrompt | Sentence | null | undefined` - See [SentencePrompt](../types/SentencePrompt) or [Sentence](./character/sentence)
-- `config: MenuConfig` - [MenuConfig](../types/MenuConfig)
+- `prompt: SentencePrompt | Sentence | null | undefined` - The prompt to display to the player
+- `config?: MenuConfig` - [MenuConfig](../types/MenuConfig)
 
 </Steps>
 
@@ -38,15 +34,30 @@ An alias of the constructor.
 
 <Steps>
 
-#### Overload 1 of 2
+#### Overload 1 of 5
 
 - `prompt: SentencePrompt` - See [SentencePrompt](../types/SentencePrompt)
 - `config?: MenuConfig` - [MenuConfig](../types/MenuConfig)
 
-#### Overload 2 of 2
+#### Overload 2 of 5
 
 - `prompt: Sentence` - The prompt of the menu, See [Sentence](./character/sentence)
 - `config?: MenuConfig` - [MenuConfig](../types/MenuConfig)
+
+#### Overload 3 of 5
+
+- `prompt: SentencePrompt | Sentence` - The prompt of the menu
+- `config: MenuConfig` - [MenuConfig](../types/MenuConfig)
+
+#### Overload 4 of 5
+
+- `prompt: null` - No prompt for the menu
+- `config?: MenuConfig` - [MenuConfig](../types/MenuConfig)
+
+#### Overload 5 of 5
+
+- `prompt: SentencePrompt | Sentence | null` - The prompt of the menu
+- `config: MenuConfig` - [MenuConfig](../types/MenuConfig)
 
 </Steps>
 
@@ -54,7 +65,7 @@ An alias of the constructor.
 
 ### choose
 
-Create a branch of the menu. Choice prompt can be a sentence. 
+Add a choice to the menu.
 
 <Steps>
 
@@ -63,7 +74,7 @@ Create a branch of the menu. Choice prompt can be a sentence.
 ```ts
 new Menu("what should I do?")
     .choose({
-        choice: "go left",
+        prompt: "go left",
         action: [
             character1.say("I went left"),
         ]
@@ -95,6 +106,80 @@ new Menu("what should I do?")
 
 - `prompt: SentencePrompt` - See [SentencePrompt](../types/SentencePrompt)
 - `action: ActionStatements` - The action of the choice, See [ActionStatements](../types/ActionStatements)
+
+</Steps>
+
+### hideIf
+
+Magic method to hide the last choice if the condition is true.
+
+```ts
+menu.choose(
+  "Go left",
+  [character.say("I went left")]
+).hideIf(persis.isTrue("flag"));
+```
+
+**Note**: This method will override the last choice's `config.hidden`
+
+<Steps>
+
+- `condition: Lambda<boolean> | LambdaHandler<boolean>` - The condition to check
+
+</Steps>
+
+### disableIf
+
+Magic method to disable the last choice if the condition is true.
+
+**Note**: This method will override the last choice's `config.disabled`
+
+```ts
+menu.choose(
+  "Go left",
+  [character.say("I went left")]
+).disableIf(persis.isTrue("flag"));
+```
+
+<Steps>
+
+- `condition: Lambda<boolean> | LambdaHandler<boolean>` - The condition to check
+
+</Steps>
+
+### enableWhen
+
+Add a choice, only enable when the condition is true.
+
+```ts
+menu.enableWhen(persis.isTrue("flag"), "Go left", [
+    character.say("I went left")
+]);
+```
+
+<Steps>
+
+- `condition: Lambda<boolean> | LambdaHandler<boolean>` - The condition to check
+- `prompt: Sentence` - The prompt of the choice
+- `action: ActionStatements` - The action of the choice
+
+</Steps>
+
+### showWhen
+
+Add a choice, only show when the condition is true.
+
+```ts
+menu.showWhen(persis.isTrue("flag"), "Go left", [
+    character.say("I went left")
+]);
+```
+
+<Steps>
+
+- `condition: Lambda<boolean> | LambdaHandler<boolean>` - The condition to check
+- `prompt: Sentence` - The prompt of the choice
+- `action: ActionStatements` - The action of the choice
 
 </Steps>
 

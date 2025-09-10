@@ -58,17 +58,27 @@ story.registerPersistent(persis);
 
 ### equals\<K extends StringKeyOf\<T\>\>
 
+Determine whether the values are equal, can be used in Condition
+
 <Steps>
 
 - `key: K` - the key of the state
-- `value: T[K]` - the value of the state
+- `value: T[K] | Lambda<T[K]> | LambdaHandler<T[K]>` - the value to compare, a lambda function, or a lambda handler
 - Returns: `Lambda<boolean>`
 
 ```typescript
 scene.action([
     Condition
-        .If(persis.equals("name", "John Smith"), [
-            character1.say("Hello, John Smith!")
+        .If(persis.equals("id", persis.get("player_id")), [
+            character1.say("ID matches!")
+        ])
+]);
+
+// or with a lambda handler
+scene.action([
+    Condition
+        .If(persis.equals("id", (ctx) => ctx.$("player").get("player_id")), [
+            character1.say("Player ID matches!")
         ])
 ]);
 ```
@@ -77,15 +87,36 @@ scene.action([
 
 ### notEquals\<K extends StringKeyOf\<T\>\>
 
+Determine whether the values aren't equal, can be used in Condition
+
 <Steps>
 
 - `key: K` - the key of the state
-- `value: T[K]` - the value of the state
+- `value: T[K] | Lambda<T[K]> | LambdaHandler<T[K]>` - the value to compare, a lambda function, or a lambda handler
 - Returns: `Lambda<boolean>`
+
+```typescript
+scene.action([
+    Condition
+        .If(persis.notEquals("id", persis.get("player_id")), [
+            character1.say("ID doesn't match!")
+        ])
+]);
+
+// or with a lambda handler
+scene.action([
+    Condition
+        .If(persis.notEquals("id", (ctx) => ctx.$("player").get("player_id")), [
+            character1.say("Player ID doesn't match!")
+        ])
+]);
+```
 
 </Steps>
 
-### isTrue\<K extends StringKeyOf\<T\>\>
+### isTrue\<K extends Extract\<keyof T, BooleanValueKeyOf\<T\>\>\>
+
+Determine whether the value is true, can be used in Condition
 
 <Steps>
 
@@ -103,7 +134,9 @@ scene.action([
 
 </Steps>
 
-### isFalse\<K extends StringKeyOf\<T\>\>
+### isFalse\<K extends Extract\<keyof T, BooleanValueKeyOf\<T\>\>\>
+
+Determine whether the value is false, can be used in Condition
 
 <Steps>
 
@@ -114,6 +147,8 @@ scene.action([
 
 ### isNotNull\<K extends StringKeyOf\<T\>\>
 
+Determine whether the value isn't null or undefined, can be used in Condition
+
 <Steps>
 
 - `key: K` - the key of the state
@@ -121,7 +156,9 @@ scene.action([
 
 </Steps>
 
-### toWords\<K extends StringKeyOf\<T\>\>
+### toWord\<K extends StringKeyOf\<T\>\>
+
+Convert to a dynamic word
 
 <Steps>
 
@@ -129,7 +166,11 @@ scene.action([
 - Returns: `Word<DynamicWord>`
 
 ```typescript
-character.say`You have ${persis.toWords("coin")} coins`;
+character.say(["You have ", persis.toWord("gold"), " gold"]);
+
+// or
+
+character.say`You have ${persis.toWord("gold")} gold`;
 ```
 
 </Steps>
@@ -138,45 +179,50 @@ character.say`You have ${persis.toWords("coin")} coins`;
 
 <Steps>
 
-Alias of `get`
+Alias of `toWord`
 
 - `key: K` - the key of the state
 - Returns: `Word<DynamicWord>`
 
 ```typescript
-character.say`Your have ${persis.get("coin")} coins`;
+character.say`You have ${persis.get("coin")} coins`;
 ```
 
 </Steps>
 
 ### conditional
 
+Create a conditional word
+
 <Steps>
 
-- `condition: Lambda<boolean> | LambdaHandler<boolean>`
-- `ifTrue: DynamicWordResult`
-- `ifFalse: DynamicWordResult`
+- `condition: Lambda<boolean> | LambdaHandler<boolean>` - the condition to check
+- `ifTrue: DynamicWordResult` - the word to return if condition is true
+- `ifFalse: DynamicWordResult` - the word to return if condition is false
 - Returns: `Word`
 
 ```typescript
-character.say`Your flag is ${persis.conditional(
+character.say([
+  "Your flag is ",
+  persis.conditional(
     persis.isTrue("flag"),
-    "true",
-    "false"
-)}`;
+    "on",
+    "off"
+  )
+]);
 ```
 
 </Steps>
 
 ### evaluate\<K extends StringKeyOf\<T\>\>
 
-<Steps>
+Evaluate the JavaScript function and determine whether the result is true
 
-Evaluate the state with a JavaScript function
+<Steps>
 
 - `key: K` - the key of the state
 - `fn: (value: T[K]) => boolean` - a JavaScript function to evaluate the state
-- Returns `Lambda<boolean>`
+- Returns: `Lambda<boolean>`
 
 ```typescript
 scene.action([
@@ -193,12 +239,15 @@ scene.action([
 
 ### set\<K extends StringKeyOf\<T\>\>
 
+Create an action to set a value in the persistent storage for the given key
+
 <Steps>
 
 #### Overload 1 of 2
 
-- `key: K` - the key of the state
-- `value: T[K]` - the value of the state
+- `key: K` - the key to set the value for
+- `value: T[K]` - the value to set
+- Returns: `ChainedPersistent<T>`
 
 ```typescript
 scene.action([
@@ -208,8 +257,9 @@ scene.action([
 
 #### Overload 2 of 2
 
-- `key: K` - the key of the state
-- `handler: (value: T[K]) => T[K])` - the handler to modify the value
+- `key: K` - the key to set the value for
+- `handler: (value: T[K]) => T[K]` - the handler to modify the value
+- Returns: `ChainedPersistent<T>`
 
 ```typescript
 scene.action([
@@ -221,15 +271,21 @@ scene.action([
 
 ### assign
 
-Assign a partial state to the persistent
+Create an action to assign a value to the persistent storage
 
 <Steps>
 
-- `value: Partial<T>` - the value to assign to the state
+- `value: Partial<T> | ((value: T) => Partial<T>)` - the value to assign to the state
+- Returns: `ChainedPersistent<T>`
 
 ```typescript
 scene.action([
     persis.assign({ coin: 10 })
+]);
+
+// or with a function
+scene.action([
+    persis.assign((state) => ({ coin: state.coin + 10 }))
 ]);
 ```
 

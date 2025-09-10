@@ -4,6 +4,10 @@
 type MenuChoice = {
     action: ActionStatements;
     prompt: SentencePrompt | Sentence;
+    config?: {
+        disabled?: Lambda<boolean> | LambdaHandler<boolean>;
+        hidden?: Lambda<boolean> | LambdaHandler<boolean>;
+    };
 };
 ```
 

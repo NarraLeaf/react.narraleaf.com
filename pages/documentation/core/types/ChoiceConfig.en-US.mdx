@@ -1,0 +1,32 @@
+# ChoiceConfig
+
+```ts
+type ChoiceConfig = {
+    disabled?: Lambda<boolean>;
+    hidden?: Lambda<boolean>;
+};
+```
+
+Configuration options for menu choices.
+
+## Properties
+
+- `disabled?: Lambda<boolean>` - Condition to disable the choice
+- `hidden?: Lambda<boolean>` - Condition to hide the choice
+
+## Example
+
+```ts
+Menu.prompt("What should I do?")
+    .choose({
+        prompt: "Go left",
+        action: [character.say("I went left")],
+        config: {
+            disabled: persis.isTrue("hasLeft"),
+            hidden: persis.isFalse("canGoLeft")
+        }
+    })
+```
+
+For more information about `Lambda`, see [Lambda](./Lambda).
+
