@@ -4,4 +4,125 @@
 type LambdaHandler<T = any> = (ctx: LambdaCtx) => T;
 ```
 
-For LambdaCtx, see [LambdaCtx](./LambdaCtx).
+A `LambdaHandler` is a function that takes a `LambdaCtx` context object as its parameter and returns a value of the specified type `T`. It's a core concept in NarraLeaf for creating dynamic, context-aware logic that can access game state, player data, and other runtime information.
+
+## Overview
+
+LambdaHandlers are used throughout NarraLeaf to provide dynamic behavior based on the current game state. They allow you to write functions that can:
+
+- Access player data and game state
+- Perform calculations based on current context
+- Create conditional logic that responds to runtime conditions
+- Generate dynamic content based on game progress
+
+## Basic Usage
+
+### In Conditions
+
+```ts
+// Simple boolean condition
+Condition.If(
+    (ctx) => ctx.$("player").get("coin") >= 10,
+    [/* actions when player has 10+ coins */]
+)
+
+// Complex condition with multiple checks
+Condition.If(
+    (ctx) => {
+        const player = ctx.$("player");
+        const hasKey = player.get("key") === true;
+        const hasEnoughCoins = player.get("coin") >= 50;
+        return hasKey && hasEnoughCoins;
+    },
+    [/* actions when both conditions are met */]
+)
+```
+
+### In Menu Choices
+
+```ts
+// Dynamic menu choice visibility
+menu.choose("Go to the shop", [/* actions */])
+    .hideIf((ctx) => ctx.$("player").get("shop_unlocked") !== true);
+
+// Dynamic menu choice state
+menu.choose("Buy item", [/* actions */])
+    .disableIf((ctx) => ctx.$("player").get("coin") < 100);
+```
+
+### In Persistent Data Comparisons
+
+```ts
+// Compare with dynamic values
+persis.equals("player_id", (ctx) => ctx.storable.getNamespace("player").get("player_id"));
+```
+
+## Context Object (LambdaCtx)
+
+The `ctx` parameter provides access to the current game context:
+
+```typescript
+interface LambdaCtx extends ScriptCtx {
+    gameState: GameState;    // Current game state
+    game: Game;              // Game instance
+    liveGame: LiveGame;      // Live game session
+    storable: Storable;      // Data storage system
+    $: NamespaceGetter;      // Namespace accessor function
+}
+```
+
+### Accessing Data
+
+```ts
+// Access player data
+(ctx) => ctx.$("player").get("health")
+
+// Access game state
+(ctx) => ctx.gameState.currentScene?.id
+
+// Access stored data
+(ctx) => ctx.storable.getNamespace("inventory").get("items")
+
+// Access live game data
+(ctx) => ctx.liveGame.getCurrentTime()
+```
+
+## Advanced Examples
+
+### Complex Conditional Logic
+
+```ts
+// Multi-condition check
+const canEnterDungeon = (ctx) => {
+    const player = ctx.$("player");
+    const inventory = ctx.$("inventory");
+    
+    const hasKey = inventory.get("dungeon_key") === true;
+    const hasWeapon = inventory.get("weapon") !== null;
+    const hasEnoughHealth = player.get("health") >= 50;
+    
+    return hasKey && hasWeapon && hasEnoughHealth;
+};
+
+Condition.If(canEnterDungeon, [
+    // Allow dungeon entry
+]);
+```
+
+## Type Safety
+
+LambdaHandlers support full TypeScript type inference:
+
+```ts
+// Explicitly typed handler
+const getPlayerName: LambdaHandler<string> = (ctx) => {
+    return ctx.$("player").get("name") || "Unknown Player";
+};
+
+// Type-safe data access
+const getPlayerLevel: LambdaHandler<number> = (ctx) => {
+    return ctx.$("player").get("level") || 1;
+};
+```
+
+For more information about the context object, see [LambdaCtx](./LambdaCtx) and [ScriptCtx](./ScriptCtx).

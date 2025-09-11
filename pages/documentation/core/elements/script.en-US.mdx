@@ -28,6 +28,31 @@ scene.action([
 ]);
 ```
 
+## Static Methods
+
+### execute
+
+<Steps>
+
+Creates a new Script instance with the provided handler and returns it as a proxied object.
+
+- `handler: ScriptRun` - The script handler function to execute
+- Returns `Proxied<Script, Chained<LogicAction.Actions>>` - A proxied Script instance
+
+```typescript
+const script = Script.execute(({ storable }) => {
+    console.log("Script executed via static method");
+    const namespace = storable.getNamespace("test");
+    namespace.set("value", 42);
+});
+
+scene.action([
+    script, // add the script to the story
+]);
+```
+
+</Steps>
+
 ## Public Methods
 
 ### constructor

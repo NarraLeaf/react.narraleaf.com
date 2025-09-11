@@ -77,7 +77,7 @@ scene.action([
 // or with a lambda handler
 scene.action([
     Condition
-        .If(persis.equals("id", (ctx) => ctx.storable.getNamespace("player").get("player_id")), [
+        .If(persis.equals("id", (ctx) => ctx.$("player").get("player_id")), [
             character1.say("Player ID matches!")
         ])
 ]);
@@ -106,7 +106,7 @@ scene.action([
 // or with a lambda handler
 scene.action([
     Condition
-        .If(persis.notEquals("id", (ctx) => ctx.storable.getNamespace("player").get("player_id")), [
+        .If(persis.notEquals("id", (ctx) => ctx.$("player").get("player_id")), [
             character1.say("Player ID doesn't match!")
         ])
 ]);

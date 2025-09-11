@@ -4,4 +4,125 @@
 type LambdaHandler<T = any> = (ctx: LambdaCtx) => T;
 ```
 
-For LambdaCtx, see [LambdaCtx](./LambdaCtx).
+`LambdaHandler` 是一个接受 `LambdaCtx` 上下文对象作为参数并返回指定类型 `T` 的值的函数。它是 NarraLeaf 中用于创建动态、上下文感知逻辑的核心概念，可以访问游戏状态、玩家数据和其他运行时信息。
+
+## 概述
+
+LambdaHandlers 在 NarraLeaf 中广泛使用，用于提供基于当前游戏状态的动态行为。它们允许您编写能够：
+
+- 访问玩家数据和游戏状态
+- 基于当前上下文执行计算
+- 创建响应运行时条件的条件逻辑
+- 基于游戏进度生成动态内容
+
+## 基本用法
+
+### 在条件中使用
+
+```ts
+// 简单的布尔条件
+Condition.If(
+    (ctx) => ctx.$("player").get("coin") >= 10,
+    [/* 当玩家拥有10+金币时执行的动作 */]
+)
+
+// 包含多个检查的复杂条件
+Condition.If(
+    (ctx) => {
+        const player = ctx.$("player");
+        const hasKey = player.get("key") === true;
+        const hasEnoughCoins = player.get("coin") >= 50;
+        return hasKey && hasEnoughCoins;
+    },
+    [/* 当两个条件都满足时执行的动作 */]
+)
+```
+
+### 在菜单选择中使用
+
+```ts
+// 动态菜单选择可见性
+menu.choose("去商店", [/* 动作 */])
+    .hideIf((ctx) => ctx.$("player").get("shop_unlocked") !== true);
+
+// 动态菜单选择状态
+menu.choose("购买物品", [/* 动作 */])
+    .disableIf((ctx) => ctx.$("player").get("coin") < 100);
+```
+
+### 在持久化数据比较中使用
+
+```ts
+// 与动态值比较
+persis.equals("player_id", (ctx) => ctx.$("player").get("player_id"));
+```
+
+## 上下文对象 (LambdaCtx)
+
+`ctx` 参数提供对当前游戏上下文的访问：
+
+```typescript
+interface LambdaCtx extends ScriptCtx {
+    gameState: GameState;    // 当前游戏状态
+    game: Game;              // 游戏实例
+    liveGame: LiveGame;      // 实时游戏会话
+    storable: Storable;      // 数据存储系统
+    $: NamespaceGetter;      // 命名空间访问器函数
+}
+```
+
+### 访问数据
+
+```ts
+// 访问玩家数据
+(ctx) => ctx.$("player").get("health")
+
+// 访问游戏状态
+(ctx) => ctx.gameState.currentScene?.id
+
+// 访问存储的数据
+(ctx) => ctx.storable.getNamespace("inventory").get("items")
+
+// 访问实时游戏数据
+(ctx) => ctx.liveGame.getCurrentTime()
+```
+
+## 高级示例
+
+### 复杂的条件逻辑
+
+```ts
+// 多条件检查
+const canEnterDungeon = (ctx) => {
+    const player = ctx.$("player");
+    const inventory = ctx.$("inventory");
+    
+    const hasKey = inventory.get("dungeon_key") === true;
+    const hasWeapon = inventory.get("weapon") !== null;
+    const hasEnoughHealth = player.get("health") >= 50;
+    
+    return hasKey && hasWeapon && hasEnoughHealth;
+};
+
+Condition.If(canEnterDungeon, [
+    // 允许进入地牢
+]);
+```
+
+## 类型安全
+
+LambdaHandlers 支持完整的 TypeScript 类型推断：
+
+```ts
+// 显式类型化的处理器
+const getPlayerName: LambdaHandler<string> = (ctx) => {
+    return ctx.$("player").get("name") || "未知玩家";
+};
+
+// 类型安全的数据访问
+const getPlayerLevel: LambdaHandler<number> = (ctx) => {
+    return ctx.$("player").get("level") || 1;
+};
+```
+
+有关上下文对象的更多信息，请参阅 [LambdaCtx](./LambdaCtx) 和 [ScriptCtx](./ScriptCtx)。
