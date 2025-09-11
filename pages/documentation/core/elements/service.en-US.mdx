@@ -133,6 +133,8 @@ class MyCustomService extends Service<MyCustomActions> {
 If you need to perform async operations, you can return a promise.  
 But for future use, you should make the action abortable.
 
+When the player performs an _undo_ while this service is still running, the game engine will automatically call every `onAbort` callback registered in the current action context. It is **script's responsibility** to cancel any in-flight tasks (network requests, timers, animations, etc.) and roll back side-effects created so far. Doing so guarantees that if the same action is executed again (after the undo) it will yield exactly the same result.
+
 ```typescript
 this.on("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
     const abortController = new AbortController();
