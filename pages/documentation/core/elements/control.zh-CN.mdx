@@ -92,3 +92,37 @@ Control.do([
 - 返回 `ChainedControl` - 链式控制实例
 
 </Steps>
+
+### whileLoop
+
+<Steps>
+
+当条件为真时执行操作
+
+- `condition: Lambda<boolean> | LambdaHandler<boolean>` - 要检查的条件
+- `actions: ActionStatements` - [ActionStatements](../types/ActionStatements)
+- 返回 `ChainedControl` - 链式控制实例
+
+</Steps>
+
+### breakLoop
+
+<Steps>
+
+打破当前循环（repeat/while）
+只能在循环体内使用
+
+- 返回 `ChainedControl` - 链式控制实例
+
+</Steps>
+
+### sleep
+
+<Steps>
+
+休眠一段时间
+
+- `duration: number | Awaitable<any> | Promise<any>` - 休眠时长
+- 返回 `ChainedControl` - 链式控制实例
+
+</Steps>

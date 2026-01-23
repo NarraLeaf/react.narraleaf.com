@@ -42,6 +42,21 @@ console.log(name); // John Doe
 ```
 
 
+## Static Methods
+
+### createNamespace\<T extends NameSpaceContent\<keyof T\>\>
+
+<Steps>
+
+Create a new namespace
+
+- `name: string` - Human-readable name of the namespace
+- `initContent: T` - Initial content of the namespace
+- `key?: string` - The namespace key, default is the name
+- Returns `Namespace<T>`
+
+</Steps>
+
 ## Public Methods
 
 ### addNamespace\<T extends NameSpaceContent\<keyof T\>\>

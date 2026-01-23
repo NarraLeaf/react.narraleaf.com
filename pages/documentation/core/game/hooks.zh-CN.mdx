@@ -96,3 +96,31 @@ game.hooks.hook("preloadImage", (src, set) => {
 ```
 
 </Steps>
+
+### beforeRestore
+
+<Steps>
+
+此钩子在反序列化游戏状态之前被调用。
+
+```typescript
+game.hooks.hook("beforeRestore", () => {
+    console.log("准备恢复游戏状态");
+});
+```
+
+</Steps>
+
+### afterRestore
+
+<Steps>
+
+此钩子在反序列化游戏状态之后被调用。
+
+```typescript
+game.hooks.hook("afterRestore", () => {
+    console.log("游戏状态恢复成功");
+});
+```
+
+</Steps>

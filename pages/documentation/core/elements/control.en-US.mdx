@@ -92,3 +92,37 @@ Execute actions multiple times
 - Returns `ChainedControl` - Chained Control instance
 
 </Steps>
+
+### whileLoop
+
+<Steps>
+
+Execute actions while condition is true
+
+- `condition: Lambda<boolean> | LambdaHandler<boolean>` - condition to check
+- `actions: ActionStatements` - [ActionStatements](../types/ActionStatements)
+- Returns `ChainedControl` - Chained Control instance
+
+</Steps>
+
+### breakLoop
+
+<Steps>
+
+Break the current loop (repeat/while)
+Can only be used inside a loop body
+
+- Returns `ChainedControl` - Chained Control instance
+
+</Steps>
+
+### sleep
+
+<Steps>
+
+Sleep for a duration
+
+- `duration: number | Awaitable<any> | Promise<any>` - sleep duration
+- Returns `ChainedControl` - Chained Control instance
+
+</Steps>
