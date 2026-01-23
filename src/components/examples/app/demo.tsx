@@ -20,7 +20,6 @@ function App({ lang }: { lang: string }) {
       aspectRatio: 16 / 9, // set the aspect ratio
 
       ratioUpdateInterval: 0, // disable the ratio update interval
-      cps: 50, // set the dialog characters per second
 
       dialog: GameDialog, // override the default dialog
       menu: DefaultMenu,
