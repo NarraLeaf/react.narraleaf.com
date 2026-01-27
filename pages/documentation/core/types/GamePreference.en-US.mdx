@@ -37,6 +37,16 @@ type GamePreference = {
      */
     voiceVolume: number;
     /**
+     * Fade duration in milliseconds when ending voice in fade mode
+     * @default 0
+     */
+    voiceFadeDuration: number;
+    /**
+     * How to end voice playback at the end of a sentence
+     * @default "stop"
+     */
+    voiceEndMode: "fade" | "stop" | "none";
+    /**
      * The volume of the background music
      * @default 1
      */
@@ -102,6 +112,22 @@ The speed of the text effects in characters per second.
 ## voiceVolume
 
 The volume of the voice.
+
+## voiceFadeDuration
+
+The fade duration in milliseconds used when `voiceEndMode` is set to `fade`.
+
+Use this to control how long the voice fades out before the next sentence starts.
+
+## voiceEndMode
+
+Controls how voice playback ends when a sentence completes.
+
+- `fade`: fade out the voice over `voiceFadeDuration` milliseconds.
+- `stop`: stop playback immediately (default).
+- `none`: leave the voice running even after the sentence ends.
+
+Use `voiceFadeDuration` together with `fade` when you need a smooth transition.
 
 ## bgmVolume
 

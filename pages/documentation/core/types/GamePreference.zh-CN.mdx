@@ -37,6 +37,16 @@ type GamePreference = {
      */
     voiceVolume: number;
     /**
+     * 语音在淡出模式下的淡出时长（毫秒）
+     * @default 0
+     */
+    voiceFadeDuration: number;
+    /**
+     * 语音在句子结束时的终止方式
+     * @default "stop"
+     */
+    voiceEndMode: "fade" | "stop" | "none";
+    /**
      * 背景音乐音量
      * @default 1
      */
@@ -102,6 +112,20 @@ type GamePreference = {
 ## voiceVolume
 
 语音音量。
+
+## voiceFadeDuration
+
+当 `voiceEndMode` 设置为 `fade` 时，使用此值作为语音淡出的时长（毫秒）。
+
+## voiceEndMode
+
+控制语音在句子结束时的处理方式。
+
+- `fade`：在 `voiceFadeDuration` 毫秒内淡出语音。
+- `stop`：立即停止播放（默认）。
+- `none`：保持语音继续播放。
+
+当你想要在下一句出现前保持音频的平滑过渡时，可以将 `voiceFadeDuration` 与 `fade` 模式搭配使用。
 
 ## bgmVolume
 

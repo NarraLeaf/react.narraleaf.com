@@ -1,0 +1,38 @@
+# useVoiceState
+
+跟踪当前句子的语音播放状态，包括自动播放和手动重放的语音。
+
+> **注意**：此钩子必须在对话层中使用（例如，在 `character.say` 渲染时或菜单显示期间的组件中）。
+
+```typescript
+function useVoiceState(): VoiceState;
+```
+
+## 用法
+
+```typescript
+import {useVoiceState} from "narraleaf-react";
+
+function VoiceControls() {
+    const {done, voice, playVoice, getVoiceSrc} = useVoiceState();
+
+    return (
+        <div>
+            <button onClick={() => playVoice()}>
+                {done ? "重新播放语音" : "语音播放中"}
+            </button>
+            {voice && <p>来源：{getVoiceSrc() ?? "未知"}</p>}
+        </div>
+    );
+}
+```
+
+## 语音状态
+
+- `done: boolean` — 当自动语音和手动语音都播放完成时为 `true`。
+- `voice: Sound | null` — 当前句子解析出来的语音声音，若没有语音则为 `null`。
+- `playVoice(voice?: Sound | string | URL | null): Promise<SoundToken | null>` — 手动播放语音，传入字符串或 URL 会自动创建一个 `Sound` 实例，传入 `null` 可停止手动语音。此函数最终调用 [`LiveGame.playSound`](../../core/game/live-game) 并返回 `SoundToken`，可以用来监听 `ended` 或 `stop` 事件。
+- `getVoice: () => Sound | null` — 方便访问当前语音实例。
+- `getVoiceId: () => string | number | null` — 返回句子配置中定义的语音 ID（如有）。
+- `getVoiceSrc: () => string | null` — 返回当前语音的源地址（如有）。
+
