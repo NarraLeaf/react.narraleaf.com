@@ -1,0 +1,52 @@
+# FixedAspectRatioContainer
+
+`FixedAspectRatioContainer` keeps a stage locked to a fixed aspect ratio inside any container, automatically measuring the available space, centering the layout, and emitting resize metrics so you don’t have to calculate anything manually.
+
+> **Note**: When rendering inside `Player`, keep the component wrapped with `GameProviders` so it shares the same game configuration.
+
+## Example
+
+```tsx
+"use client";
+
+import { FixedAspectRatioContainer } from "narraleaf-react";
+
+export default function MyStage() {
+    return (
+        <FixedAspectRatioContainer
+            aspectRatio={16 / 9}
+            baseWidth={1920}
+            minWidth={480}
+            minHeight={270}
+            onUpdate={({ width, height, scale }) => {
+                console.log("render size", width, height, scale);
+            }}
+        >
+            <div className="stage">
+                {/* stage rendering goes here */}
+            </div>
+        </FixedAspectRatioContainer>
+    );
+}
+```
+
+## Props
+
+- `aspectRatio: number` — The target width/height ratio, e.g. `16 / 9`.
+- `baseWidth: number` — Base width used to compute `scale = renderWidth / baseWidth`, matching the player’s semantics.
+- `minWidth?: number` — Minimum render width, defaults to `0`. The component clamps the computed width to this floor before updating.
+- `minHeight?: number` — Minimum render height, defaults to `0`. The component clamps the computed height to this floor before updating.
+- `debounceMs?: number` — Resize debounce time in milliseconds. Defaults to the player’s `ratioUpdateInterval`. Set to `0` to disable debouncing.
+- `onUpdate?: (metrics: {
+    width: number;
+    height: number;
+    scale: number;
+    containerWidth: number;
+    containerHeight: number;
+}) => void` — Called after every resize calculation; `containerWidth`/`containerHeight` describe the available parent space.
+- `children?: React.ReactNode` — Content rendered inside the stage.
+- `id?: string` — Forwarded to the outermost wrapper for CSS/selector alignment.
+- `className?: string` — Forwarded to the outermost wrapper for layout or animation classes.
+- `[data-*?: string]` — Any other attributes are forwarded to the wrapper so the component can participate in existing styles.
+
+Internally the component uses a `ResizeObserver` to watch the parent, automatically centers with `position: relative` on the parent and absolute centering inside, and keeps the stage scaled consistently whether it lives inside the player or a standalone layout.

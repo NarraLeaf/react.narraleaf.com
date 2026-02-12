@@ -1,0 +1,52 @@
+# FixedAspectRatioContainer
+
+`FixedAspectRatioContainer` 负责在任意父容器内保持固定比例舞台，内部自动测量外部可用空间、居中并触发尺寸更新，外部只需关注 `aspectRatio`、`scale` 等核心参数，无需手动计算。
+
+> **注意**：如果要在播放器里使用，请依旧包在 `GameProviders` 之中，以便共享同一份配置。
+
+## 示例
+
+```tsx
+"use client";
+
+import { FixedAspectRatioContainer } from "narraleaf-react";
+
+export default function MyViewport() {
+    return (
+        <FixedAspectRatioContainer
+            aspectRatio={16 / 9}
+            baseWidth={1920}
+            minWidth={480}
+            minHeight={270}
+            onUpdate={({ width, height, scale }) => {
+                console.log("渲染舞台", width, height, scale);
+            }}
+        >
+            <div className="stage">
+                {/* 在这里渲染实际的舞台内容 */}
+            </div>
+        </FixedAspectRatioContainer>
+    );
+}
+```
+
+## Props
+
+- `aspectRatio: number` — 舞台的宽高比，例如 `16 / 9`。
+- `baseWidth: number` — 用于计算缩放比例的基准宽度，组件内部通过 `scale = renderWidth / baseWidth` 保持与播放器一致的语义。
+- `minWidth?: number` — 渲染舞台的最小宽度，默认为 `0`；组件会确保最终 `width` 不小于该值。
+- `minHeight?: number` — 渲染舞台的最小高度，默认为 `0`；组件会确保最终 `height` 不小于该值。
+- `debounceMs?: number` — 尺寸更新的去抖时间（毫秒），默认延续播放器的 `ratioUpdateInterval` 语义；设置为 `0` 可关闭去抖。
+- `onUpdate?: (metrics: {
+    width: number;
+    height: number;
+    scale: number;
+    containerWidth: number;
+    containerHeight: number;
+}) => void` — 每次尺寸计算完成后回调，metrics 中的 `containerWidth` / `containerHeight` 表示父容器可用空间。
+- `children?: React.ReactNode` — 渲染在舞台上的内容。
+- `id?: string` — 透传给最外层容器以便与现有 CSS 选择器保持一致。
+- `className?: string` — 透传给最外层容器，方便添加布局/动画类名。
+- `[data-*?: string]` — 其余 HTML 属性（如 `data-` 前缀），也会透传到最外层容器，以便集成既有样式。
+
+组件内部使用 `ResizeObserver` 监听父容器尺寸变化，自动居中、缩放并保持 `position: relative` / 绝对定位、`margin: auto` 的样式行为，方便在播放器或自定义场景中复用。
