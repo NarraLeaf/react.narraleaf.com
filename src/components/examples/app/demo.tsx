@@ -29,6 +29,8 @@ function App({ lang }: { lang: string }) {
       minHeight: 50,
       minWidth: 50,
     });
+
+    game.preference.setPreference("cps", 60);
   }, [game]);
 
   // handle the player ready event

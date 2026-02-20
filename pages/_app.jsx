@@ -11,7 +11,9 @@ export default function App({ Component, pageProps }) {
             <Script
                 src="https://context7.com/widget.js"
                 data-library="/narraleaf/react.narraleaf.com"
+                data-color="#40a8c4"
                 strategy="afterInteractive"
+                data-placeholder="Ask me anything about NarraLeaf React..."
             />
         </>
     );
