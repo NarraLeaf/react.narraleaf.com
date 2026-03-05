@@ -143,6 +143,27 @@ scene.action([
 
 </Steps>
 
+### mute
+
+<Steps>
+
+静默或恢复声音，但不会停止播放。
+
+- `muted?: boolean` - `true` 表示静默，`false` 表示恢复音量（默认 `true`）
+- 返回 `ChainedSound` - 可链式声音实例
+
+</Steps>
+
+### unmute
+
+<Steps>
+
+`mute(false)` 的别名，用于恢复原始音量。
+
+- 返回 `ChainedSound` - 可链式声音实例
+
+</Steps>
+
 ### setRate
 
 <Steps>

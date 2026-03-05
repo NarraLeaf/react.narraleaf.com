@@ -1,5 +1,6 @@
 {
     "player": "Player",
+    "fixed-aspect-ratio-container": "FixedAspectRatioContainer",
     "game-providers": "GameProviders",
     "hooks": "Hooks",
     "page-router": "Page Router",

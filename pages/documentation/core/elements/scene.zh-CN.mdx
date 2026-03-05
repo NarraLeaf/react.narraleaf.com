@@ -196,3 +196,70 @@ scene.action([
 - `fade?: number` - 如果设置，将对之前的音乐应用淡出效果，并对当前音乐应用淡入效果，持续时间为毫秒
 
 </Steps>
+
+### nvl
+
+<Steps>
+
+创建 NVL（小说）模式块，用于堆叠显示多条对话。在 NVL 模式下，对话会逐条堆叠在屏幕上，而不是互相覆盖，类似传统视觉小说的旁白形式。
+
+#### 重载 1：仅 actions
+
+- `actions: ActionStatements | ((nvl: NVLToken) => ActionStatements)` - 在 NVL 模式下执行的操作，或接收 [NVLToken](#nvl-token-方法) 的回调，用于手动控制显示/隐藏/结束
+- 返回 `ChainableAction`
+
+```ts
+scene.action([
+    scene.nvl([
+        character.say("第一行"),
+        character.say("第二行"),
+        character.say("第三行"),
+    ]),
+]);
+```
+
+#### 重载 2：options + actions
+
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - NVL 层显示/隐藏时的过渡选项（如 `{ duration: 500 }`）。参见 [CommonTransformProps](../types/CommonTransformProps)
+- `actions: ActionStatements | ((nvl: NVLToken) => ActionStatements)` - 同重载 1
+- 返回 `ChainableAction`
+
+```ts
+scene.action([
+    scene.nvl({ duration: 300 }, [
+        character.say("第一行"),
+        character.say("第二行"),
+    ]),
+]);
+```
+
+#### 使用 NVLToken 的回调形式
+
+当传入回调 `(nvl) => [...]` 时，可使用 `nvl.show()`、`nvl.hide()` 和 `nvl.end()` 显式控制 NVL 层：
+
+```ts
+scene.action([
+    scene.nvl(nvl => [
+        nvl.show({ duration: 500 }),
+        character.say("第一行"),
+        character.say("第二行"),
+        nvl.hide({ duration: 500 }),
+        Control.waitForClick(),
+        nvl.show({ duration: 500 }),
+        character.say("第三行"),
+        nvl.end(),
+    ]),
+]);
+```
+
+</Steps>
+
+#### NVL Token 方法
+
+使用回调形式 `scene.nvl(nvl => [...])` 时，`nvl` 参数为 `NVLToken`，具有以下可链式方法：
+
+| 方法 | 说明 |
+|------|------|
+| `nvl.show(options?)` | 显示 NVL 层，可传入过渡选项（如 `{ duration: 500 }`）。参见 [CommonTransformProps](../types/CommonTransformProps)。 |
+| `nvl.hide(options?)` | 隐藏 NVL 层，可传入过渡选项。不会退出 NVL 模式或清空对话。 |
+| `nvl.end()` | 立即强制退出 NVL 模式。清空所有已堆叠的对话并隐藏 NVL 层。 |

@@ -96,3 +96,31 @@ game.hooks.hook("preloadImage", (src, set) => {
 ```
 
 </Steps>
+
+### beforeRestore
+
+<Steps>
+
+This hook is called before deserializing the game state.
+
+```typescript
+game.hooks.hook("beforeRestore", () => {
+    console.log("Preparing to restore game state");
+});
+```
+
+</Steps>
+
+### afterRestore
+
+<Steps>
+
+This hook is called after deserializing the game state.
+
+```typescript
+game.hooks.hook("afterRestore", () => {
+    console.log("Game state restored successfully");
+});
+```
+
+</Steps>

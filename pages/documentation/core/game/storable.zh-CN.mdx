@@ -41,6 +41,21 @@ const name = namespace.get('name');
 console.log(name); // John Doe
 ```
 
+## 静态方法
+
+### createNamespace\<T extends NameSpaceContent\<keyof T\>\>
+
+<Steps>
+
+创建一个新的命名空间
+
+- `name: string` - 命名空间的可读名称
+- `initContent: T` - 命名空间的初始内容
+- `key?: string` - 命名空间的键，默认为名称
+- 返回 `Namespace<T>`
+
+</Steps>
+
 ## 公共方法
 
 ### addNamespace\<T extends NameSpaceContent\<keyof T\>\>

@@ -1,0 +1,38 @@
+# useVoiceState
+
+Track the voice playback state for the current sentence, including both the automatically triggered voice and any manual replays.
+
+> **Note**: this hook must run inside the dialog layer (for example, inside a component rendered during `character.say` or `Menu`).
+
+```typescript
+function useVoiceState(): VoiceState;
+```
+
+## Usage
+
+```typescript
+import {useVoiceState} from "narraleaf-react";
+
+function VoiceControls() {
+    const {done, voice, playVoice, getVoiceSrc} = useVoiceState();
+
+    return (
+        <div>
+            <button onClick={() => playVoice()}>
+                {done ? "Replay voice" : "Voice is playing"}
+            </button>
+            {voice && <p>Source: {getVoiceSrc() ?? "unknown"}</p>}
+        </div>
+    );
+}
+```
+
+## VoiceState
+
+- `done: boolean` — `true` when both the automatic voice managed by the current sentence and any manual playback have completed.
+- `voice: Sound | null` — The voice sound instance resolved from the current sentence. Null if the sentence does not play voice.
+- `playVoice(voice?: Sound | string | URL | null): Promise<SoundToken | null>` — Manually replay the voice. Passing a string or URL creates a `Sound` instance automatically, while `null` stops manual playback. The promise resolves to the `SoundToken` returned by [`LiveGame.playSound`](../../core/game/live-game), allowing you to listen for `ended` or `stop` events.
+- `getVoice: () => Sound | null` — Convenience accessor for the current voice instance.
+- `getVoiceId: () => string | number | null` — Returns the voice identifier defined in the sentence config, if any.
+- `getVoiceSrc: () => string | null` — Returns the source URL of the current voice sound, if available.
+

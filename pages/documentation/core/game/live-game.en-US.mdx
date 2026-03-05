@@ -336,6 +336,29 @@ window.addEventListener("keyup", (event) => {
 
 </Steps>
 
+### playSound
+
+<Steps>
+
+Play a sound immediately and return its `SoundToken`.
+
+```typescript
+const {game} = useGame();
+
+game.getLiveGame()
+    .playSound("https://example.com/voice.mp3")
+    .then((token) => {
+        token.once("ended", () => {
+            console.log("Voice playback completed");
+        });
+    });
+```
+
+- `sound: Sound | string | URL` - The sound instance, sound source string, or URL
+- Returns `Promise<SoundToken>` - See [`@NarraLeaf/Sound`](https://github.com/NarraLeaf/Sound) for more information about the soundToken instance
+
+</Steps>
+
 ### waitForRouterExit
 
 <Steps>

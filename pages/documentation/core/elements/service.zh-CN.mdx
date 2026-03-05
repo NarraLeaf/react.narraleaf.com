@@ -133,6 +133,8 @@ class MyCustomService extends Service<MyCustomActions> {
 如果您需要执行异步操作，可以返回一个 promise  
 但为了将来使用，您应该使操作可中止
 
+当玩家在该服务仍在执行时执行 _撤销_（undo）操作，游戏引擎会自动调用当前 Action 上注册的所有 `onAbort` 回调。脚本**有义务**中止任何正在进行的任务（网络请求、定时器、动画等）并清理已产生的副作用，以确保再次执行相同操作时能够得到完全一致的结果。
+
 ```typescript
 this.on("myAction", (ctx: ServiceHandlerCtx, ...args: any[]) => {
     const abortController = new AbortController();

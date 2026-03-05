@@ -197,3 +197,70 @@ Set background music of the scene.
 - `fade?: number` - If set, the fade-out effect will be applied to the previous music, and the fade-in effect will be applied to the current music, with a duration in milliseconds
 
 </Steps>
+
+### nvl
+
+<Steps>
+
+Create an NVL (Novel) mode block for displaying accumulated dialog. In NVL mode, dialogs are stacked on screen rather than replacing each other, similar to classic visual novel narration.
+
+#### Overload 1: actions only
+
+- `actions: ActionStatements | ((nvl: NVLToken) => ActionStatements)` - Actions to execute within NVL mode, or a callback that receives an [NVLToken](#nvl-token-methods) for manual show/hide/end control
+- Returns `ChainableAction`
+
+```ts
+scene.action([
+    scene.nvl([
+        character.say("First line"),
+        character.say("Second line"),
+        character.say("Third line"),
+    ]),
+]);
+```
+
+#### Overload 2: options + actions
+
+- `options: Partial<TransformDefinitions.CommonTransformProps>` - Transition options for showing and hiding the NVL layer (e.g. `{ duration: 500 }`). See [CommonTransformProps](../types/CommonTransformProps)
+- `actions: ActionStatements | ((nvl: NVLToken) => ActionStatements)` - Same as Overload 1
+- Returns `ChainableAction`
+
+```ts
+scene.action([
+    scene.nvl({ duration: 300 }, [
+        character.say("Line 1"),
+        character.say("Line 2"),
+    ]),
+]);
+```
+
+#### Callback form with NVLToken
+
+When you pass a callback `(nvl) => [...]`, you can use `nvl.show()`, `nvl.hide()`, and `nvl.end()` to control the NVL layer explicitly:
+
+```ts
+scene.action([
+    scene.nvl(nvl => [
+        nvl.show({ duration: 500 }),
+        character.say("Line 1"),
+        character.say("Line 2"),
+        nvl.hide({ duration: 500 }),
+        Control.waitForClick(),
+        nvl.show({ duration: 500 }),
+        character.say("Line 3"),
+        nvl.end(),
+    ]),
+]);
+```
+
+</Steps>
+
+#### NVL Token methods
+
+When using the callback form `scene.nvl(nvl => [...])`, the `nvl` argument is an `NVLToken` with these chainable methods:
+
+| Method | Description |
+|--------|-------------|
+| `nvl.show(options?)` | Show the NVL layer with optional transition (e.g. `{ duration: 500 }`). See [CommonTransformProps](../types/CommonTransformProps). |
+| `nvl.hide(options?)` | Hide the NVL layer with optional transition. Does not exit NVL mode or clear dialogs. |
+| `nvl.end()` | Force exit NVL mode immediately. Clears all accumulated dialogs and hides the NVL layer. |

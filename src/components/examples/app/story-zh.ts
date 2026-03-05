@@ -31,7 +31,7 @@ const narraImage = new Image<any>({
         xalign: 0.5,
         yalign: 0.4,
     },
-    scale: 0.6
+    zoom: 0.6
 });
 
 // 为场景添加动作
@@ -87,9 +87,9 @@ functionScene.action([
                 .commit({ duration: 300, ease: "easeInOut" })
                 .position({ xoffset: 0 })
                 .commit({ duration: 300, ease: "easeInOut" })
-                .scale(0.8).opacity(0.5)
+                .zoom(0.8).opacity(0.5)
                 .commit({ duration: 300, ease: "easeInOut" })
-                .scale(0.6).opacity(1)
+                .zoom(0.6).opacity(1)
                 .commit({ duration: 300, ease: "easeInOut" })
                 .rotation(10)
                 .commit({ duration: 300, ease: "easeInOut" })

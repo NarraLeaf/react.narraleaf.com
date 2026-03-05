@@ -7,5 +7,6 @@
   "useKeyBinding": "useKeyBinding",
   "usePathname": "usePathname",
   "useParams": "useParams",
-  "useQueryParams": "useQueryParams"
+  "useQueryParams": "useQueryParams",
+  "useVoiceState": "useVoiceState"
 }

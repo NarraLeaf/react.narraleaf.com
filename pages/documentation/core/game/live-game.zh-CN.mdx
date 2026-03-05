@@ -332,6 +332,29 @@ window.addEventListener("keyup", (event) => {
 
 </Steps>
 
+### playSound
+
+<Steps>
+
+立即播放声音并返回对应的 `SoundToken`。
+
+```typescript
+const {game} = useGame();
+
+game.getLiveGame()
+    .playSound("https://example.com/voice.mp3")
+    .then((token) => {
+        token.once("ended", () => {
+            console.log("语音播放完成");
+        });
+    });
+```
+
+- `sound: Sound | string | URL` - 声音实例、声音地址或 URL
+- 返回 `Promise<SoundToken>` - 关于声音实例的更多信息，参见 [`@NarraLeaf/Sound`](https://github.com/NarraLeaf/Sound)
+
+</Steps>
+
 ### waitForRouterExit
 
 <Steps>
