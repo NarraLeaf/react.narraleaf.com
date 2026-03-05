@@ -126,3 +126,23 @@ Control.do([
 - 返回 `ChainedControl` - 链式控制实例
 
 </Steps>
+
+### waitForClick
+
+<Steps>
+
+暂停执行，直到用户在舞台任意位置点击（不包括对话框、按钮、菜单等 GUI 元素）。类似于在 [Sentence](./character#sentence) 中插入无时长的暂停。
+
+适用于在 ADV 模式中创建「点击继续」的停顿，或在 NVL 块内等待玩家准备好后再继续。
+
+```typescript
+scene.action([
+    character.say("请仔细阅读..."),
+    Control.waitForClick(),
+    character.say("我们继续。"),
+]);
+```
+
+- 返回 `ChainedControl` - 链式控制实例
+
+</Steps>

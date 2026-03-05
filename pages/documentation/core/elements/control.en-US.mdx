@@ -126,3 +126,23 @@ Sleep for a duration
 - Returns `ChainedControl` - Chained Control instance
 
 </Steps>
+
+### waitForClick
+
+<Steps>
+
+Pause execution until the user clicks anywhere on the stage (excluding GUI elements such as dialog, buttons, menus). Similar to inserting a pause with no duration in a [Sentence](./character#sentence).
+
+Useful for creating "click to continue" moments in ADV mode, or for pausing within NVL blocks until the player is ready to proceed.
+
+```typescript
+scene.action([
+    character.say("Read this carefully..."),
+    Control.waitForClick(),
+    character.say("Now we continue."),
+]);
+```
+
+- Returns `ChainedControl` - Chained Control instance
+
+</Steps>
