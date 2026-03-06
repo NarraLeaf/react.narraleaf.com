@@ -1,0 +1,149 @@
+# Adding Page Overlay (Settings Page)
+
+## Overview
+
+A page overlay is UI displayed on top of the main game screen (e.g. settings, save/load, gallery) without interrupting the game flow. By defining the route structure with [Layout](../player/page-router/layout) and [Page](../player/page-router/page), and navigating with [useRouter](../player/hooks/useRouter), you can implement overlays like a settings page.
+
+This guide shows how to build a settings page overlay and open/close it from the [Quick Menu](./quick-menu).
+
+## 1. Define Layout and Page Structure
+
+Define a `settings` layout in the [LayoutRouter](../player/page-router) with child pages (e.g. `general`, `audio`). `Page name={null}` is the default page for that layout.
+
+```tsx
+import { RootLayout, Layout, Page, Player } from "narraleaf-react";
+
+function AppLayout() {
+  return (
+    <Player>
+      <RootLayout>
+        {/* Default page (game stage) - path: / */}
+        <Page name={null}>
+          <GameStage />
+        </Page>
+
+        {/* Settings overlay - path: /settings, /settings/general, etc. */}
+        <Layout name="settings">
+          <Page name={null}>
+            <SettingsHome />
+            {/* /settings - settings entry or default tab */}
+          </Page>
+          <Page name="general">
+            <SettingsGeneral />
+            {/* /settings/general - general settings */}
+          </Page>
+          <Page name="audio">
+            <SettingsAudio />
+            {/* /settings/audio - audio settings */}
+          </Page>
+        </Layout>
+      </RootLayout>
+    </Player>
+  );
+}
+```
+
+## 2. Implement the Settings Page Component
+
+The settings page acts as an overlay with a semi-transparent backdrop and centered panel. Clicking the backdrop or a close button returns to the game.
+
+```tsx
+import { useRouter } from "narraleaf-react";
+
+function SettingsGeneral() {
+  const router = useRouter();
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      onClick={() => router.back()}
+      // Click overlay to close
+    >
+      <div
+        className="bg-gray-900 rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+        // Prevent closing when clicking panel
+      >
+        <h2 className="text-xl font-bold mb-4">General Settings</h2>
+        {/* Settings form content */}
+        <button
+          className="mt-4 px-4 py-2 bg-amber-500 rounded"
+          onClick={() => router.back()}
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  );
+}
+```
+
+## 3. Open Settings from Quick Menu
+
+In the [Quick Menu](./quick-menu), call `router.navigate("/settings")` to open the settings overlay:
+
+```tsx
+import { useRouter } from "narraleaf-react";
+
+function QuickMenu() {
+  const router = useRouter();
+
+  const openSettings = () => router.navigate("/settings");
+  // Navigate to settings overlay
+
+  return (
+    <div className="fixed bottom-5 left-0 right-0 flex justify-center">
+      <button onClick={openSettings}>Settings</button>
+    </div>
+  );
+}
+```
+
+## 4. Router API Quick Reference
+
+| Method | Description |
+|--------|-------------|
+| `router.navigate(path)` | Navigate to path, e.g. `"/settings/general"` |
+| `router.back()` | Go back |
+| `router.forward()` | Go forward |
+| `router.clear().navigate(path)` | Clear history then navigate (e.g. return to main) |
+| `router.getCurrentPath()` | Get current path |
+
+## 5. Add Enter/Exit Animations
+
+Wrap page content with Framer Motion's `motion.div`; [LayoutRouter](../player/page-router) will trigger animations on mount/unmount:
+
+```tsx
+import { motion } from "framer-motion";
+
+function SettingsGeneral() {
+  const router = useRouter();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      onClick={() => router.back()}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-gray-900 rounded-lg p-6 w-96"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* ... */}
+      </motion.div>
+    </motion.div>
+  );
+}
+```
+
+## See Also
+
+- [Layout](../player/page-router/layout) - Layout component
+- [Page](../player/page-router/page) - Page component
+- [useRouter](../player/hooks/useRouter) - Router hook
+- [Quick Menu](./quick-menu) - Quick menu implementation

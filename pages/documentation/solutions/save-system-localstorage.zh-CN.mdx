@@ -1,0 +1,143 @@
+# localStorage 存档系统（含快捷保存）
+
+## 概述
+
+NarraLeaf-React 不内置存档 UI，但提供 [serialize](../core/game/live-game#serialize) 和 [deserialize](../core/game/live-game#deserialize) 方法用于序列化/反序列化游戏状态。结合 [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) 可实现简单的浏览器端存档，并配合 [KeyMap](../core/game/key-map) 实现快捷保存（如 Ctrl+S）和快捷读取（如 F9）。
+
+本文档演示多槽位存档与快捷保存/读取的完整实现。
+
+## 1. 保存与读取核心逻辑
+
+使用 [useLiveGame](../player/hooks/useLiveGame) 或 `game.getLiveGame()` 获取 [LiveGame](../core/game/live-game)，调用 `serialize()` 得到 [SavedGame](../core/types/SavedGame)，再存入 localStorage：
+
+```tsx
+import { useGame } from "narraleaf-react";
+
+function useSaveSystem() {
+  const game = useGame();
+  const liveGame = game.getLiveGame();
+
+  function save(slot: number) {
+    const saved = liveGame.serialize();
+    // Returns SavedGame: { name, meta, game }
+    localStorage.setItem(`save-slot-${slot}`, JSON.stringify(saved));
+  }
+
+  function load(slot: number) {
+    const raw = localStorage.getItem(`save-slot-${slot}`);
+    if (!raw) return;
+    const saved = JSON.parse(raw);
+    liveGame.deserialize(saved);
+    // Replaces current game state, triggers stage reset
+  }
+
+  return { save, load };
+}
+```
+
+## 2. 快捷保存与快捷读取
+
+在 `keydown` 监听中检测按键并调用保存/读取。F5 保存、F9 读取是常见约定；也可使用 Ctrl+S（需同时检查 `event.ctrlKey` 和 `event.key`）：
+
+```tsx
+import { useEffect } from "react";
+import { useGame } from "narraleaf-react";
+
+const QUICK_SAVE_SLOT = 0;  // Slot 0 for quick save/load
+
+function useQuickSave() {
+  const game = useGame();
+  const liveGame = game.getLiveGame();
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      // F5: quick save
+      if (e.key === "F5") {
+        e.preventDefault();
+        const saved = liveGame.serialize();
+        localStorage.setItem(`save-slot-${QUICK_SAVE_SLOT}`, JSON.stringify(saved));
+        liveGame.notify("已保存", 2000);
+      }
+      // F9: quick load
+      else if (e.key === "F9") {
+        e.preventDefault();
+        const raw = localStorage.getItem(`save-slot-${QUICK_SAVE_SLOT}`);
+        if (raw) {
+          liveGame.deserialize(JSON.parse(raw));
+          liveGame.notify("已读取", 2000);
+        }
+      }
+      // Ctrl+S: alternative quick save (check both ctrlKey and key)
+      else if (e.ctrlKey && e.key === "s") {
+        e.preventDefault();
+        const saved = liveGame.serialize();
+        localStorage.setItem(`save-slot-${QUICK_SAVE_SLOT}`, JSON.stringify(saved));
+        liveGame.notify("已保存", 2000);
+      }
+    };
+
+    window.addEventListener("keydown", handler, true);
+    return () => window.removeEventListener("keydown", handler, true);
+  }, [game]);
+}
+```
+
+## 3. 存档槽位 UI 示例
+
+在存档/读档页面中列出各槽位，显示 [SavedGameMetaData](../core/types/SavedGameMetaData) 中的信息：
+
+```tsx
+function SaveLoadPage() {
+  const { save, load } = useSaveSystem();
+  const [slots, setSlots] = useState<Record<number, SavedGameMetaData | null>>({});
+
+  useEffect(() => {
+    const data: Record<number, SavedGameMetaData | null> = {};
+    for (let i = 0; i < 5; i++) {
+      const raw = localStorage.getItem(`save-slot-${i}`);
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          data[i] = parsed.meta;  // { created, updated, lastSentence, lastSpeaker }
+        } catch {
+          data[i] = null;
+        }
+      } else {
+        data[i] = null;
+      }
+    }
+    setSlots(data);
+  }, []);
+
+  return (
+    <div className="grid grid-cols-5 gap-2">
+      {[0, 1, 2, 3, 4].map((slot) => (
+        <div key={slot} className="border rounded p-2">
+          {slots[slot] ? (
+            <>
+              <p className="text-sm">{new Date(slots[slot]!.updated).toLocaleString()}</p>
+              <p className="text-xs truncate">{slots[slot]!.lastSentence}</p>
+              <button onClick={() => save(slot)}>覆盖保存</button>
+              <button onClick={() => load(slot)}>读取</button>
+            </>
+          ) : (
+            <button onClick={() => save(slot)}>空槽位 - 保存</button>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## 4. 注意事项
+
+- **脚本兼容性**：修改故事脚本后，旧存档可能无法正确加载，[LiveGame](../core/game/live-game) 文档中有说明。
+- **存储限制**：localStorage 约 5–10MB，存档过大时需考虑 [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) 或服务端存储。
+- **Storable 与 Service**：[Storable](../core/game/storable) 和已注册的 [Service](../core/types/ServiceHandlerCtx)（如内置 [Gallery](../core/elements/built-in/gallery)）会随 `serialize`/`deserialize` 一并保存和恢复。
+
+## 参考
+
+- [LiveGame.serialize / deserialize](../core/game/live-game) - 序列化与反序列化
+- [SavedGame](../core/types/SavedGame) - 存档数据结构
+- [KeyMap](../core/game/key-map) - 按键绑定

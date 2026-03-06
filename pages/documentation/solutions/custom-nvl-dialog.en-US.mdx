@@ -1,0 +1,118 @@
+# Custom NVL Dialog
+
+## Overview
+
+NVL (Novel) mode displays multiple dialogue entries in a scrollable list, suitable for novel-style narration. You can replace the default [NvlContainer](../player/nvl-container) via the `nvlDialog` option in [game.configure](../core/game/game) to fully customize the NVL dialogue appearance.
+
+This guide demonstrates two approaches: **fully custom** (using `NvlContainer`) and **customizing per-dialogue layout only** (using `DefaultNvlContainer` + `renderDialogItem`).
+
+## 1. Fully Custom NVL Container
+
+Use [NvlContainer](../player/nvl-container) as the outer wrapper, receive the `dialogs` array, and render each dialogue yourself. `INvlContainerProps` includes `dialogs` and an optional `renderDialogItem`.
+
+```tsx
+import { useEffect } from "react";
+import {
+  NvlContainer,
+  Nametag,
+  Texts,
+  useGame,
+  type INvlContainerProps,
+} from "narraleaf-react";
+
+function CustomNvlContainer({ dialogs = [] }: INvlContainerProps) {
+  return (
+    <NvlContainer className="bg-black/80 text-white p-16">
+      {/* NvlContainer: handles visibility, transitions, aspect-ratio scaling */}
+      {dialogs.map((d) => (
+        <div key={d.entry.id} className="space-y-2 mb-4">
+          {/* d.entry: NvlDialogEntry with character, sentence, etc. */}
+          {d.entry.character && (
+            <Nametag entry={d.entry} className="text-amber-400 font-bold" />
+          )}
+          <Texts
+            entry={d.entry}
+            gameState={d.gameState}
+            words={d.words}
+            useTypeEffect={d.useTypeEffect}
+            isActive={d.isActive}
+          />
+        </div>
+      ))}
+    </NvlContainer>
+  );
+}
+
+function App() {
+  const game = useGame();
+  useEffect(() => {
+    game.configure({ nvlDialog: CustomNvlContainer });
+  }, []);
+  return /* ... */;
+}
+```
+
+## 2. Customize Per-Dialogue with renderDialogItem
+
+If you only need to adjust how each dialogue is displayed (e.g. border, opacity), keep using [DefaultNvlContainer](../player/nvl-container) and pass `renderDialogItem` to customize the layout:
+
+```tsx
+import {
+  DefaultNvlContainer,
+  useGame,
+  type INvlContainerProps,
+} from "narraleaf-react";
+
+function CustomNvlWithRenderer({ dialogs, renderDialogItem }: INvlContainerProps) {
+  return (
+    <DefaultNvlContainer
+      dialogs={dialogs}
+      renderDialogItem={({ entry, index, isActive, nametag, texts }) => (
+        // nametag, texts: pre-rendered by DefaultNvlContainer
+        <div className={`mb-4 ${isActive ? "opacity-100" : "opacity-60"}`}>
+          {nametag}
+          <div className="border-l-4 border-blue-500 pl-2">{texts}</div>
+        </div>
+      )}
+    />
+  );
+}
+
+// Register: game.configure({ nvlDialog: CustomNvlWithRenderer });
+```
+
+## 3. renderDialogItem Parameters
+
+`renderDialogItem` receives `NvlDialogItemRenderProps`:
+
+| Param | Type | Description |
+|-------|------|-------------|
+| `entry` | `NvlDialogEntry` | Dialogue entry (character, sentence, etc.) |
+| `index` | `number` | Index in the list |
+| `isActive` | `boolean` | Whether this is the currently active (typing) dialogue |
+| `nametag` | `React.ReactNode` | Pre-rendered character name (null when no character) |
+| `texts` | `React.ReactNode` | Pre-rendered text content |
+
+## 4. Register with Game
+
+```tsx
+import { useEffect } from "react";
+import { useGame } from "narraleaf-react";
+
+function App() {
+  const game = useGame();
+
+  useEffect(() => {
+    game.configure({
+      nvlDialog: CustomNvlContainer,  // or CustomNvlWithRenderer
+    });
+  }, [game]);
+
+  return <Player>{/* ... */}</Player>;
+}
+```
+
+## See Also
+
+- [NvlContainer](../player/nvl-container) - NVL container API
+- [game.configure](../core/game/game) - Game configuration

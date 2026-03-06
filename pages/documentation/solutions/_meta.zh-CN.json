@@ -1,5 +1,12 @@
 {
     "font": "自定义字体",
     "from-renpy": "从 Ren'Py 迁移",
-    "quick-menu": "快捷菜单"
+    "quick-menu": "快捷菜单",
+    "custom-dialog": "自定义对话框",
+    "custom-nvl-dialog": "自定义 NVL 对话框",
+    "custom-menu": "自定义选项菜单",
+    "page-overlay-settings": "页面叠层",
+    "save-system-localstorage": "localStorage 存档系统",
+    "custom-notification": "自定义通知",
+    "gallery-service-localstorage": "画廊"
 }

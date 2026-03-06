@@ -2,9 +2,9 @@ import {Steps} from "nextra/components";
 
 # Gallery
 
-Gallery 是一个专门用于视觉小说游戏画廊（图集）的内置服务。它允许您添加、删除和检查项目，并支持序列化/反序列化功能。
+Gallery 是专门用于视觉小说游戏画廊（图集）的内置服务。它允许您添加、删除和检查项目。Gallery 数据可通过 **localStorage**（独立持久化）或随 **游戏存档**（通过 `serialize`/`deserialize`）自动保存。
 
-Gallery 适合用于管理游戏中的图片收集系统，比如角色立绘、CG图片、背景图片等。
+Gallery 适合用于管理游戏中的图片收集系统，比如角色立绘、CG 图片、背景图片等。
 
 ```typescript
 import {Gallery} from "narraleaf-react";
@@ -69,6 +69,44 @@ scene.action([
   gallery.clear()
 ]);
 ```
+
+## 使用 localStorage 持久化
+
+可将 Gallery 数据独立于游戏存档持久化到 [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)。调用 `serialize()` 获取数据，加载时调用 `deserialize()`：
+
+```typescript
+const GALLERY_STORAGE_KEY = "my-game-gallery";
+
+// 保存到 localStorage（例如打开图鉴页时或定时保存）
+function saveGalleryToStorage() {
+  const gallery = liveGame.story?.getService<Gallery<CgMetadata>>("gallery");
+  if (gallery) {
+    const data = gallery.serialize();
+    localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(data));
+  }
+}
+
+// 从 localStorage 加载（例如游戏初始化时、newGame 之前）
+function loadGalleryFromStorage() {
+  const gallery = liveGame.story?.getService<Gallery<CgMetadata>>("gallery");
+  if (gallery) {
+    const raw = localStorage.getItem(GALLERY_STORAGE_KEY);
+    if (raw) {
+      try {
+        gallery.deserialize(JSON.parse(raw));
+      } catch {}
+    }
+  }
+}
+```
+
+这样即使玩家从未使用完整存档系统，图鉴解锁状态也能跨会话保留。
+
+## serialize / deserialize 与游戏存档
+
+Gallery 实现了 `serialize()` 和 `deserialize()`。当使用 [LiveGame.serialize](../../game/live-game#serialize) 保存游戏时，框架会自动将 Gallery 的序列化数据写入 `SavedGame.game.services`。当调用 [LiveGame.deserialize](../../game/live-game#deserialize) 加载存档时，框架会恢复所有已注册服务，包括 Gallery。
+
+因此，若使用将 `liveGame.serialize()` 存入 localStorage 的 [存档系统](../../../solutions/save-system-localstorage)，图鉴解锁状态会随游戏 **自动** 保存和恢复，无需额外代码。`serialize`/`deserialize` 方法正是实现这一集成的关键。
 
 ## 链式方法
 

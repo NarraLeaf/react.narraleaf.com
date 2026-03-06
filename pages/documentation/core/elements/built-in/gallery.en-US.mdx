@@ -2,7 +2,7 @@ import {Steps} from "nextra/components";
 
 # Gallery
 
-Gallery is a built-in service specifically designed for visual novel game galleries (image collections). It allows you to add, remove, and check for items, with support for serialization/deserialization.
+Gallery is a built-in service specifically designed for visual novel game galleries (image collections). It allows you to add, remove, and check for items. Gallery data can be persisted via **localStorage** (standalone) or automatically included in **game save** (via `serialize`/`deserialize`).
 
 Gallery is suitable for managing image collection systems in games, such as character portraits, CG images, background images, etc.
 
@@ -69,6 +69,44 @@ scene.action([
   gallery.clear()
 ]);
 ```
+
+## Persisting with localStorage
+
+You can persist Gallery data to [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) independently of the game save. Call `serialize()` to get the data, then `deserialize()` when loading:
+
+```typescript
+const GALLERY_STORAGE_KEY = "my-game-gallery";
+
+// Save gallery to localStorage (e.g. when opening gallery page or on interval)
+function saveGalleryToStorage() {
+  const gallery = liveGame.story?.getService<Gallery<CgMetadata>>("gallery");
+  if (gallery) {
+    const data = gallery.serialize();
+    localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(data));
+  }
+}
+
+// Load gallery from localStorage (e.g. on game init, before newGame)
+function loadGalleryFromStorage() {
+  const gallery = liveGame.story?.getService<Gallery<CgMetadata>>("gallery");
+  if (gallery) {
+    const raw = localStorage.getItem(GALLERY_STORAGE_KEY);
+    if (raw) {
+      try {
+        gallery.deserialize(JSON.parse(raw));
+      } catch {}
+    }
+  }
+}
+```
+
+This keeps gallery unlocks across sessions even if the player never uses the full save/load system.
+
+## serialize / deserialize with Game Save
+
+Gallery implements `serialize()` and `deserialize()`. When you use [LiveGame.serialize](../core/game/live-game#serialize) to save the game, the framework automatically includes Gallery's serialized data in `SavedGame.game.services`. When you call [LiveGame.deserialize](../core/game/live-game#deserialize) to load a saved game, the framework restores all registered services, including Gallery.
+
+So if you use a [save system](../../../solutions/save-system-localstorage) that persists `liveGame.serialize()` to localStorage, Gallery unlock state is **automatically** saved and restored with the game—no extra code needed. The `serialize`/`deserialize` methods are what enable this integration.
 
 ## Chainable Methods
 

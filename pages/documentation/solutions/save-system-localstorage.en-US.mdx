@@ -1,0 +1,143 @@
+# Save System with localStorage (Including Quick Save)
+
+## Overview
+
+NarraLeaf-React does not include a built-in save UI, but provides [serialize](../core/game/live-game#serialize) and [deserialize](../core/game/live-game#deserialize) for serializing/deserializing game state. Combined with [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), you can implement a simple browser-based save system, and use [KeyMap](../core/game/key-map) for quick save (e.g. Ctrl+S) and quick load (e.g. F9).
+
+This guide demonstrates a full implementation with multiple save slots and quick save/load.
+
+## 1. Core Save and Load Logic
+
+Use [useLiveGame](../player/hooks/useLiveGame) or `game.getLiveGame()` to get [LiveGame](../core/game/live-game), call `serialize()` to obtain [SavedGame](../core/types/SavedGame), then store it in localStorage:
+
+```tsx
+import { useGame } from "narraleaf-react";
+
+function useSaveSystem() {
+  const game = useGame();
+  const liveGame = game.getLiveGame();
+
+  function save(slot: number) {
+    const saved = liveGame.serialize();
+    // Returns SavedGame: { name, meta, game }
+    localStorage.setItem(`save-slot-${slot}`, JSON.stringify(saved));
+  }
+
+  function load(slot: number) {
+    const raw = localStorage.getItem(`save-slot-${slot}`);
+    if (!raw) return;
+    const saved = JSON.parse(raw);
+    liveGame.deserialize(saved);
+    // Replaces current game state, triggers stage reset
+  }
+
+  return { save, load };
+}
+```
+
+## 2. Quick Save and Quick Load
+
+Listen for `keydown` and call save/load. F5/F9 is a common convention; Ctrl+S is an alternative (check both `event.ctrlKey` and `event.key`):
+
+```tsx
+import { useEffect } from "react";
+import { useGame } from "narraleaf-react";
+
+const QUICK_SAVE_SLOT = 0;  // Slot 0 for quick save/load
+
+function useQuickSave() {
+  const game = useGame();
+  const liveGame = game.getLiveGame();
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      // F5: quick save
+      if (e.key === "F5") {
+        e.preventDefault();
+        const saved = liveGame.serialize();
+        localStorage.setItem(`save-slot-${QUICK_SAVE_SLOT}`, JSON.stringify(saved));
+        liveGame.notify("Saved", 2000);
+      }
+      // F9: quick load
+      else if (e.key === "F9") {
+        e.preventDefault();
+        const raw = localStorage.getItem(`save-slot-${QUICK_SAVE_SLOT}`);
+        if (raw) {
+          liveGame.deserialize(JSON.parse(raw));
+          liveGame.notify("Loaded", 2000);
+        }
+      }
+      // Ctrl+S: alternative quick save (check both ctrlKey and key)
+      else if (e.ctrlKey && e.key === "s") {
+        e.preventDefault();
+        const saved = liveGame.serialize();
+        localStorage.setItem(`save-slot-${QUICK_SAVE_SLOT}`, JSON.stringify(saved));
+        liveGame.notify("Saved", 2000);
+      }
+    };
+
+    window.addEventListener("keydown", handler, true);
+    return () => window.removeEventListener("keydown", handler, true);
+  }, [game]);
+}
+```
+
+## 3. Save Slot UI Example
+
+In a save/load page, list slots and show info from [SavedGameMetaData](../core/types/SavedGameMetaData):
+
+```tsx
+function SaveLoadPage() {
+  const { save, load } = useSaveSystem();
+  const [slots, setSlots] = useState<Record<number, SavedGameMetaData | null>>({});
+
+  useEffect(() => {
+    const data: Record<number, SavedGameMetaData | null> = {};
+    for (let i = 0; i < 5; i++) {
+      const raw = localStorage.getItem(`save-slot-${i}`);
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          data[i] = parsed.meta;  // { created, updated, lastSentence, lastSpeaker }
+        } catch {
+          data[i] = null;
+        }
+      } else {
+        data[i] = null;
+      }
+    }
+    setSlots(data);
+  }, []);
+
+  return (
+    <div className="grid grid-cols-5 gap-2">
+      {[0, 1, 2, 3, 4].map((slot) => (
+        <div key={slot} className="border rounded p-2">
+          {slots[slot] ? (
+            <>
+              <p className="text-sm">{new Date(slots[slot]!.updated).toLocaleString()}</p>
+              <p className="text-xs truncate">{slots[slot]!.lastSentence}</p>
+              <button onClick={() => save(slot)}>Overwrite</button>
+              <button onClick={() => load(slot)}>Load</button>
+            </>
+          ) : (
+            <button onClick={() => save(slot)}>Empty - Save</button>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## 4. Notes
+
+- **Script compatibility**: After changing the story script, old saves may not load correctly; see [LiveGame](../core/game/live-game) docs.
+- **Storage limits**: localStorage is ~5–10MB; consider [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) or server storage for large saves.
+- **Storable and Service**: [Storable](../core/game/storable) and registered [Service](../core/types/ServiceHandlerCtx) (e.g. the built-in [Gallery](../core/elements/built-in/gallery)) are saved and restored with `serialize`/`deserialize`.
+
+## See Also
+
+- [LiveGame.serialize / deserialize](../core/game/live-game) - Serialization
+- [SavedGame](../core/types/SavedGame) - Save data structure
+- [KeyMap](../core/game/key-map) - Key bindings

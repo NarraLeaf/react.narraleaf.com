@@ -1,0 +1,112 @@
+# 自定义 Notification
+
+## 概述
+
+通知（Notification）用于在游戏中显示短暂提示，如「已保存」「已解锁」等。通过 [game.configure](../core/game/game) 的 `notification` 配置项，可替换默认的 [Notification](../player/notification) 组件，实现自定义样式和布局。
+
+触发通知使用 [liveGame.notify](../core/game/live-game) 方法。自定义组件接收 `notifications` 数组（`INotificationsProps`），自行渲染每条通知。
+
+## 1. 创建自定义 Notification 组件
+
+自定义组件接收 `{ notifications }`，类型为 [INotificationsProps](../player/notification)。每条通知包含 `id` 和 `message`：
+
+```tsx
+import type { INotificationsProps } from "narraleaf-react";
+
+function CustomNotification({ notifications }: INotificationsProps) {
+  return (
+    <div className="absolute top-4 left-0 right-0 flex flex-col items-center gap-2 pointer-events-none">
+      {notifications.map(({ id, message }) => (
+        <div
+          key={id}
+          className="bg-black/70 text-white px-4 py-2 rounded-lg shadow-lg text-sm"
+        >
+          {message}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## 2. 注册到游戏
+
+```tsx
+import { useEffect } from "react";
+import { useGame } from "narraleaf-react";
+
+function App() {
+  const game = useGame();
+
+  useEffect(() => {
+    game.configure({
+      notification: CustomNotification,
+    });
+  }, [game]);
+
+  return <Player>{/* ... */}</Player>;
+}
+```
+
+## 3. 触发通知
+
+在任意可访问 [LiveGame](../core/game/live-game) 的地方调用 `notify`：
+
+```tsx
+const liveGame = game.getLiveGame();
+
+// Show notification, auto-dismiss after 3000ms (default)
+liveGame.notify("已保存");
+
+// Custom duration in ms
+liveGame.notify("已解锁新成就", 5000);
+
+// duration: null - do not auto-dismiss (stays until manually removed)
+liveGame.notify("重要提示", null);
+```
+
+## 4. 带动画的示例
+
+使用 Framer Motion 为通知添加淡入淡出：
+
+```tsx
+import { motion, AnimatePresence } from "framer-motion";
+import type { INotificationsProps } from "narraleaf-react";
+
+function AnimatedNotification({ notifications }: INotificationsProps) {
+  return (
+    <div className="absolute top-4 left-0 right-0 flex flex-col items-center gap-2 pointer-events-none">
+      <AnimatePresence>
+        {notifications.map(({ id, message }) => (
+          <motion.div
+            key={id}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="bg-amber-500/90 text-black px-4 py-2 rounded-lg"
+          >
+            {message}
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
+  );
+}
+```
+
+## 5. 通知数据结构
+
+```ts
+type Notification = {
+  id: string;    // Unique id for React key
+  message: string;
+  // duration is used internally for auto-dismiss
+};
+```
+
+## 参考
+
+- [Notification](../player/notification) - 通知组件 API
+- [liveGame.notify](../core/game/live-game) - 触发通知
+- [game.configure](../core/game/game) - 游戏配置

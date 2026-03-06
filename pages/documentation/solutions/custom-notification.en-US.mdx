@@ -1,0 +1,112 @@
+# Custom Notification
+
+## Overview
+
+Notifications display brief messages in-game (e.g. "Saved", "Unlocked"). You can replace the default [Notification](../player/notification) component via the `notification` option in [game.configure](../core/game/game) to customize appearance and layout.
+
+Use [liveGame.notify](../core/game/live-game) to trigger notifications. The custom component receives a `notifications` array ([INotificationsProps](../player/notification)) and renders each item.
+
+## 1. Create the Custom Notification Component
+
+The custom component receives `{ notifications }` typed as [INotificationsProps](../player/notification). Each notification has `id` and `message`:
+
+```tsx
+import type { INotificationsProps } from "narraleaf-react";
+
+function CustomNotification({ notifications }: INotificationsProps) {
+  return (
+    <div className="absolute top-4 left-0 right-0 flex flex-col items-center gap-2 pointer-events-none">
+      {notifications.map(({ id, message }) => (
+        <div
+          key={id}
+          className="bg-black/70 text-white px-4 py-2 rounded-lg shadow-lg text-sm"
+        >
+          {message}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## 2. Register with Game
+
+```tsx
+import { useEffect } from "react";
+import { useGame } from "narraleaf-react";
+
+function App() {
+  const game = useGame();
+
+  useEffect(() => {
+    game.configure({
+      notification: CustomNotification,
+    });
+  }, [game]);
+
+  return <Player>{/* ... */}</Player>;
+}
+```
+
+## 3. Trigger Notifications
+
+Call `notify` anywhere you have access to [LiveGame](../core/game/live-game):
+
+```tsx
+const liveGame = game.getLiveGame();
+
+// Show notification, auto-dismiss after 3000ms (default)
+liveGame.notify("Saved");
+
+// Custom duration in ms
+liveGame.notify("Achievement unlocked", 5000);
+
+// duration: null - do not auto-dismiss (stays until manually removed)
+liveGame.notify("Important notice", null);
+```
+
+## 4. Example with Animation
+
+Use Framer Motion for fade in/out:
+
+```tsx
+import { motion, AnimatePresence } from "framer-motion";
+import type { INotificationsProps } from "narraleaf-react";
+
+function AnimatedNotification({ notifications }: INotificationsProps) {
+  return (
+    <div className="absolute top-4 left-0 right-0 flex flex-col items-center gap-2 pointer-events-none">
+      <AnimatePresence>
+        {notifications.map(({ id, message }) => (
+          <motion.div
+            key={id}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="bg-amber-500/90 text-black px-4 py-2 rounded-lg"
+          >
+            {message}
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
+  );
+}
+```
+
+## 5. Notification Data Structure
+
+```ts
+type Notification = {
+  id: string;    // Unique id for React key
+  message: string;
+  // duration is used internally for auto-dismiss
+};
+```
+
+## See Also
+
+- [Notification](../player/notification) - Notification component API
+- [liveGame.notify](../core/game/live-game) - Trigger notifications
+- [game.configure](../core/game/game) - Game configuration

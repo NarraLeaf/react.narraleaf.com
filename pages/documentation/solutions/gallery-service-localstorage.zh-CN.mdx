@@ -1,0 +1,246 @@
+# 自定义 Gallery（Service + localStorage）
+
+
+## 第一部分：完整的 Gallery 源代码实现
+
+以下实现包含 action 触发、localStorage 持久化与构造时加载（constructor 内完成）：
+
+```tsx
+// lib/gallery.ts
+import { Service, Lambda } from "narraleaf-react";
+import type { ScriptCtx, ServiceHandlerCtx } from "narraleaf-react";
+
+export type GalleryMetadata = {
+  url: string;
+  title: string;
+  unlockedAt: number;
+};
+
+type GalleryActions = {
+  add: [name: string, metadata: GalleryMetadata | ((ctx: ScriptCtx) => GalleryMetadata)];
+  remove: [name: string];
+  clear: [];
+};
+
+type GalleryStorage = {
+  unlocked: Record<string, GalleryMetadata>;
+};
+
+type GalleryOptions = {
+  storageKey?: string;
+  autoSave?: boolean;
+};
+
+export class GalleryService extends Service<GalleryActions, GalleryStorage> {
+  private unlocked: Record<string, GalleryMetadata> = {};
+  private readonly storageKey: string;
+  private readonly autoSave: boolean;
+
+  constructor(options: GalleryOptions = {}) {
+    super();
+    this.storageKey = options.storageKey ?? "game-gallery";
+    this.autoSave = options.autoSave ?? true;
+    this.loadFromStorage();
+    this.setupActions();
+  }
+
+  serialize(): GalleryStorage | null {
+    return { unlocked: this.unlocked };
+  }
+
+  deserialize(data: GalleryStorage): void {
+    this.unlocked = data?.unlocked ?? {};
+  }
+
+  public add(name: string, metadata: GalleryMetadata | ((ctx: ScriptCtx) => GalleryMetadata)) {
+    return this.trigger("add", name, metadata);
+  }
+
+  public remove(name: string) {
+    return this.trigger("remove", name);
+  }
+
+  public clear() {
+    return this.trigger("clear");
+  }
+
+  public has(name: string): Lambda<boolean> {
+    return new Lambda(() => this.unlocked[name] !== undefined);
+  }
+
+  public $add(name: string, metadata: GalleryMetadata) {
+    this.unlocked[name] = metadata;
+    this.saveToStorage();
+  }
+
+  public $remove(name: string) {
+    delete this.unlocked[name];
+    this.saveToStorage();
+  }
+
+  public $clear() {
+    this.unlocked = {};
+    this.saveToStorage();
+  }
+
+  public $get(name: string): GalleryMetadata | undefined {
+    return this.unlocked[name];
+  }
+
+  public $set(name: string, metadata: GalleryMetadata) {
+    this.unlocked[name] = metadata;
+    this.saveToStorage();
+  }
+
+  public $getAll(): Record<string, GalleryMetadata> {
+    return this.unlocked;
+  }
+
+  public $has(name: string): boolean {
+    return this.unlocked[name] !== undefined;
+  }
+
+  private setupActions() {
+    this.on("add", (ctx: ServiceHandlerCtx, name, metadata) => {
+      const parsed = typeof metadata === "function" ? metadata(ctx) : metadata;
+      this.unlocked[name] = parsed;
+      this.saveToStorage();
+    });
+    this.on("remove", (_ctx: ServiceHandlerCtx, name) => {
+      delete this.unlocked[name];
+      this.saveToStorage();
+    });
+    this.on("clear", (_ctx: ServiceHandlerCtx) => {
+      this.$clear();
+    });
+  }
+
+  private loadFromStorage() {
+    if (typeof localStorage === "undefined") return;
+    const raw = localStorage.getItem(this.storageKey);
+    if (!raw) return;
+    try {
+      const parsed = JSON.parse(raw) as GalleryStorage;
+      this.deserialize(parsed);
+    } catch {}
+  }
+
+  private saveToStorage() {
+    if (!this.autoSave) return;
+    if (typeof localStorage === "undefined") return;
+    const data = this.serialize();
+    if (data) {
+      localStorage.setItem(this.storageKey, JSON.stringify(data));
+    }
+  }
+}
+```
+
+注册服务：
+
+```tsx
+// lib/story.ts
+import { Story, Scene, Character, Condition } from "narraleaf-react";
+import { GalleryService } from "@/lib/gallery";
+
+const story = new Story("my-story");
+const gallery = new GalleryService();
+const narrator = Character.narrator();
+const scene = new Scene("start");
+
+// Register custom service
+story.registerService("gallery", gallery);
+story.entry(scene);
+```
+
+## 第二部分：示例与现实场景
+
+### 1) 剧情中解锁 CG
+
+```tsx
+scene.action([
+  narrator.say("你发现了一幅夕阳美景。"),
+  gallery.add("cg_sunset", {
+    url: "/images/cg/sunset.png",
+    title: "夕阳",
+    unlockedAt: Date.now(),
+  }),
+  narrator.say("已加入图鉴。"),
+]);
+```
+
+### 2) 条件分支（已解锁时显示不同对话）
+
+```tsx
+scene.action([
+  Condition.If(gallery.has("cg_sunset"), [
+    narrator.say("你已见过夕阳了。"),
+  ]).Else([
+    narrator.say("你发现了一幅夕阳美景。"),
+    gallery.add("cg_sunset", {
+      url: "/images/cg/sunset.png",
+      title: "夕阳",
+      unlockedAt: Date.now(),
+    }),
+  ]),
+]);
+```
+
+### 3) 图鉴页面展示（Overlay 场景）
+
+```tsx
+// components/GalleryPage.tsx
+import { useLiveGame } from "narraleaf-react";
+import type { GalleryService } from "@/lib/gallery";
+
+export function GalleryPage() {
+  const liveGame = useLiveGame();
+  const gallery = liveGame.story?.getService<GalleryService>("gallery");
+  if (!gallery) return null;
+
+  const items = gallery.$getAll();
+  return (
+    <div className="grid grid-cols-3 gap-4 p-4">
+      {Object.entries(items).map(([name, meta]) => (
+        <div key={name} className="border rounded overflow-hidden">
+          <img
+            src={meta.url}
+            alt={meta.title}
+            className="w-full aspect-video object-cover"
+          />
+          <p className="p-2 text-sm">{meta.title}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### 4) 独立于游戏存档的持久化
+
+该实现的 localStorage 与游戏存档系统分离，适合「图鉴永久解锁」等需求；即使玩家重开游戏或没有使用存档系统，图鉴也能保持解锁状态。
+
+## 第三部分：API
+
+| 方法 | 说明 |
+|------|------|
+| `add(name, metadata)` | 在 `scene.action` 中解锁，支持对象或 `(ctx) => metadata` |
+| `remove(name)` | 在 `scene.action` 中移除 |
+| `clear()` | 在 `scene.action` 中清空 |
+| `has(name)` | 返回 `Lambda<boolean>`，用于 [Condition](../core/elements/condition) |
+| `$add(name, metadata)` | 立即添加并保存 |
+| `$remove(name)` | 立即移除并保存 |
+| `$clear()` | 立即清空并保存 |
+| `$get(name)` | 获取单条元数据 |
+| `$set(name, metadata)` | 设置单条元数据并保存 |
+| `$getAll()` | 获取所有条目 |
+| `$has(name)` | 检查是否已解锁 |
+| `serialize()` | 返回可持久化数据 |
+| `deserialize(data)` | 从持久化数据恢复 |
+
+## 参考
+
+- [Service](../core/types/ServiceHandlerCtx) - Service 处理上下文
+- [Story.registerService](../core/elements/story) - 服务注册
+- [Condition](../core/elements/condition) - 条件分支
+- [页面叠层](./page-overlay-settings) - 叠层页面与路由
