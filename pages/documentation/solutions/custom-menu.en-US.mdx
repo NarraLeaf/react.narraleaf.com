@@ -1,0 +1,162 @@
+# Custom Menu (In-Game Choices)
+
+## Overview
+
+The in-game Menu displays choice branches during the story; the player selects an option by click or keyboard shortcut to trigger the corresponding action. You can replace the default [Menu](../player/menu) component via the `menu` option in [game.configure](../core/game/game) to customize the choice appearance and layout.
+
+This guide shows how to build a custom menu with [GameMenu](../player/menu) and [Item](../player/menu), including `bindKey` support for keyboard shortcuts.
+
+## 1. Create the Custom Menu Component
+
+The custom menu component receives `items` (an array of choice indices), uses [GameMenu](../player/menu) as the container, and [Item](../player/menu) to render each option. `Item` automatically gets the text and click handler from context.
+
+```tsx
+import { useEffect } from "react";
+import { GameMenu, Item, useGame } from "narraleaf-react";
+
+function CustomMenu({ items }: { items: number[] }) {
+  return (
+    <GameMenu
+      className="absolute flex flex-col items-center justify-center min-w-full w-full h-full bg-black/50"
+      // GameMenu: container, handles aspect-ratio scaling
+    >
+      {items.map((index) => (
+        <Item
+          key={index}
+          className="bg-white/90 text-black px-6 py-3 rounded-lg mt-3 w-64 text-center hover:bg-white transition-colors"
+          // Item: renders one choice, receives index from items array
+        />
+      ))}
+    </GameMenu>
+  );
+}
+
+function App() {
+  const game = useGame();
+  useEffect(() => {
+    game.configure({ menu: CustomMenu });
+  }, [game]);
+  return /* ... */;
+}
+```
+
+## 2. Bind Keyboard Shortcuts
+
+`Item` supports the `bindKey` prop; pressing the corresponding key selects that option. See [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values) for valid key strings.
+
+```tsx
+function CustomMenu({ items }: { items: number[] }) {
+  return (
+    <GameMenu className="absolute flex flex-col items-center justify-center min-w-full w-full h-full">
+      {items.map((index) => (
+        <Item
+          key={index}
+          className="bg-white text-black p-2 mt-2 w-1/2"
+          bindKey={String(index + 1)}
+          // bindKey: "1", "2", "3" etc. - press key to select this item
+        />
+      ))}
+    </GameMenu>
+  );
+}
+```
+
+## 3. Full Example (from [narraleaf-react-skeleton](https://github.com/NarraLeaf/narraleaf-react-skeleton))
+
+This example uses `pointer-events-none` on the outer container so the overlay doesn't block clicks, and `pointer-events-auto` on the inner wrapper so only the menu area is interactive. It also uses `clipPath` for parallelogram-shaped buttons and `drop-shadow` with hover effects:
+
+```tsx
+import { GameMenu, Item } from "narraleaf-react";
+
+function CustomMenu({ items }: { items: number[] }) {
+  return (
+    <GameMenu
+      className="absolute inset-0 flex items-center justify-center w-full h-full pointer-events-none"
+      // pointer-events-none: overlay doesn't block clicks outside menu area
+    >
+      <div className="relative w-full max-w-5xl pointer-events-auto px-4 md:px-8">
+        {/* pointer-events-auto: only the menu box is interactive */}
+        <div className="px-10 py-8 space-y-4">
+          {items.map((index) => (
+            <Item
+              key={index}
+              className="block md:w-3/4 lg:w-2/3 mx-auto text-center text-white text-lg py-3 px-6
+                hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-1
+                hover:[filter:drop-shadow(8px_8px_0_rgba(0,0,0,0.8))] disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{
+                backgroundColor: "rgba(64,168,197,0.9)",
+                clipPath: "polygon(0 0,100% 0,97% 100%,3% 100%)",  // Parallelogram shape
+                filter: "drop-shadow(4px 4px 0 rgba(0,0,0,0.6))",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </GameMenu>
+  );
+}
+```
+
+You can set [defaultMenuChoiceColor](../core/game/game) when registering:
+
+```tsx
+game.configure({
+  menu: CustomMenu,
+  defaultMenuChoiceColor: "white",
+});
+```
+
+## 4. Horizontal Layout Example
+
+```tsx
+function HorizontalMenu({ items }: { items: number[] }) {
+  return (
+    <GameMenu className="absolute flex flex-row items-center justify-center gap-4 bottom-20 left-0 right-0">
+      {items.map((index) => (
+        <Item
+          key={index}
+          className="bg-amber-500/80 text-black px-4 py-2 rounded hover:bg-amber-400"
+        />
+      ))}
+    </GameMenu>
+  );
+}
+```
+
+## 5. Define Choices in Script
+
+Choices are defined in the [Menu](../core/elements/menu) element via `choose`, with support for `hideIf`, `disableIf`, etc.:
+
+```ts
+// In your story script
+Menu.prompt("What do you do?")
+  .choose("Go left", [character.say("I went left")])
+  .choose("Go right", [character.say("I went right")])
+  .choose("Stay", [character.say("I'll wait")])
+    .hideIf(persis.isTrue("alreadyMoved"));  // Hide when condition is true
+```
+
+## 6. Register with Game
+
+```tsx
+import { useEffect } from "react";
+import { useGame } from "narraleaf-react";
+
+function App() {
+  const game = useGame();
+
+  useEffect(() => {
+    game.configure({
+      menu: CustomMenu,  // Replace default menu component
+    });
+  }, [game]);
+
+  return <Player>{/* ... */}</Player>;
+}
+```
+
+## See Also
+
+- [Menu](../player/menu) - Menu component API
+- [Menu element](../core/elements/menu) - Menu usage in scripts
+- [game.configure](../core/game/game) - Game configuration

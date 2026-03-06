@@ -1,0 +1,149 @@
+# 添加页面叠层（设置页面）
+
+## 概述
+
+页面叠层指在游戏主界面上方叠加显示的 UI（如设置、存档、图鉴等），不中断游戏流程。通过 [Layout](../player/page-router/layout) 和 [Page](../player/page-router/page) 定义路由结构，使用 [useRouter](../player/hooks/useRouter) 进行导航，即可实现设置页等叠层。
+
+本文档演示如何构建一个设置页面叠层，并配合 [快捷菜单](./quick-menu) 打开/关闭。
+
+## 1. 定义 Layout 与 Page 结构
+
+在 [LayoutRouter](../player/page-router) 中定义 `settings` 布局，内含多个子页面（如 `general`、`audio`）。`Page name={null}` 表示该 Layout 的默认页面。
+
+```tsx
+import { RootLayout, Layout, Page, Player } from "narraleaf-react";
+
+function AppLayout() {
+  return (
+    <Player>
+      <RootLayout>
+        {/* Default page (game stage) - path: / */}
+        <Page name={null}>
+          <GameStage />
+        </Page>
+
+        {/* Settings overlay - path: /settings, /settings/general, etc. */}
+        <Layout name="settings">
+          <Page name={null}>
+            <SettingsHome />
+            {/* /settings - settings entry or default tab */}
+          </Page>
+          <Page name="general">
+            <SettingsGeneral />
+            {/* /settings/general - general settings */}
+          </Page>
+          <Page name="audio">
+            <SettingsAudio />
+            {/* /settings/audio - audio settings */}
+          </Page>
+        </Layout>
+      </RootLayout>
+    </Player>
+  );
+}
+```
+
+## 2. 实现设置页面组件
+
+设置页作为叠层，通常使用半透明背景遮罩 + 居中面板，点击遮罩或关闭按钮可返回游戏。
+
+```tsx
+import { useRouter } from "narraleaf-react";
+
+function SettingsGeneral() {
+  const router = useRouter();
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      onClick={() => router.back()}
+      // Click overlay to close
+    >
+      <div
+        className="bg-gray-900 rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+        // Prevent closing when clicking panel
+      >
+        <h2 className="text-xl font-bold mb-4">通用设置</h2>
+        {/* Settings form content */}
+        <button
+          className="mt-4 px-4 py-2 bg-amber-500 rounded"
+          onClick={() => router.back()}
+        >
+          返回
+        </button>
+      </div>
+    </div>
+  );
+}
+```
+
+## 3. 从快捷菜单打开设置
+
+在 [快捷菜单](./quick-menu) 中调用 `router.navigate("/settings")` 打开设置叠层：
+
+```tsx
+import { useGame, useRouter } from "narraleaf-react";
+
+function QuickMenu() {
+  const router = useRouter();
+
+  const openSettings = () => router.navigate("/settings");
+  // Navigate to settings overlay
+
+  return (
+    <div className="fixed bottom-5 left-0 right-0 flex justify-center">
+      <button onClick={openSettings}>设置</button>
+    </div>
+  );
+}
+```
+
+## 4. 路由 API 速览
+
+| 方法 | 说明 |
+|------|------|
+| `router.navigate(path)` | 导航到指定路径，如 `"/settings/general"` |
+| `router.back()` | 返回上一页 |
+| `router.forward()` | 前进 |
+| `router.clear().navigate(path)` | 清空历史后导航（常用于返回主界面） |
+| `router.getCurrentPath()` | 获取当前路径 |
+
+## 5. 添加进入/退出动画
+
+使用 Framer Motion 的 `motion.div` 包裹页面内容，[LayoutRouter](../player/page-router) 会在挂载/卸载时自动触发动画：
+
+```tsx
+import { motion } from "framer-motion";
+
+function SettingsGeneral() {
+  const router = useRouter();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      onClick={() => router.back()}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-gray-900 rounded-lg p-6 w-96"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* ... */}
+      </motion.div>
+    </motion.div>
+  );
+}
+```
+
+## 参考
+
+- [Layout](../player/page-router/layout) - 布局组件
+- [Page](../player/page-router/page) - 页面组件
+- [useRouter](../player/hooks/useRouter) - 路由 Hook
+- [快捷菜单](./quick-menu) - 快捷菜单实现

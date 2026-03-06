@@ -1,0 +1,245 @@
+# Custom Gallery (Service + localStorage)
+
+## Part 1: Complete Gallery source code
+
+The implementation includes action triggers, localStorage persistence, and constructor-time loading:
+
+```tsx
+// lib/gallery.ts
+import { Service, Lambda } from "narraleaf-react";
+import type { ScriptCtx, ServiceHandlerCtx } from "narraleaf-react";
+
+export type GalleryMetadata = {
+  url: string;
+  title: string;
+  unlockedAt: number;
+};
+
+type GalleryActions = {
+  add: [name: string, metadata: GalleryMetadata | ((ctx: ScriptCtx) => GalleryMetadata)];
+  remove: [name: string];
+  clear: [];
+};
+
+type GalleryStorage = {
+  unlocked: Record<string, GalleryMetadata>;
+};
+
+type GalleryOptions = {
+  storageKey?: string;
+  autoSave?: boolean;
+};
+
+export class GalleryService extends Service<GalleryActions, GalleryStorage> {
+  private unlocked: Record<string, GalleryMetadata> = {};
+  private readonly storageKey: string;
+  private readonly autoSave: boolean;
+
+  constructor(options: GalleryOptions = {}) {
+    super();
+    this.storageKey = options.storageKey ?? "game-gallery";
+    this.autoSave = options.autoSave ?? true;
+    this.loadFromStorage();
+    this.setupActions();
+  }
+
+  serialize(): GalleryStorage | null {
+    return { unlocked: this.unlocked };
+  }
+
+  deserialize(data: GalleryStorage): void {
+    this.unlocked = data?.unlocked ?? {};
+  }
+
+  public add(name: string, metadata: GalleryMetadata | ((ctx: ScriptCtx) => GalleryMetadata)) {
+    return this.trigger("add", name, metadata);
+  }
+
+  public remove(name: string) {
+    return this.trigger("remove", name);
+  }
+
+  public clear() {
+    return this.trigger("clear");
+  }
+
+  public has(name: string): Lambda<boolean> {
+    return new Lambda(() => this.unlocked[name] !== undefined);
+  }
+
+  public $add(name: string, metadata: GalleryMetadata) {
+    this.unlocked[name] = metadata;
+    this.saveToStorage();
+  }
+
+  public $remove(name: string) {
+    delete this.unlocked[name];
+    this.saveToStorage();
+  }
+
+  public $clear() {
+    this.unlocked = {};
+    this.saveToStorage();
+  }
+
+  public $get(name: string): GalleryMetadata | undefined {
+    return this.unlocked[name];
+  }
+
+  public $set(name: string, metadata: GalleryMetadata) {
+    this.unlocked[name] = metadata;
+    this.saveToStorage();
+  }
+
+  public $getAll(): Record<string, GalleryMetadata> {
+    return this.unlocked;
+  }
+
+  public $has(name: string): boolean {
+    return this.unlocked[name] !== undefined;
+  }
+
+  private setupActions() {
+    this.on("add", (ctx: ServiceHandlerCtx, name, metadata) => {
+      const parsed = typeof metadata === "function" ? metadata(ctx) : metadata;
+      this.unlocked[name] = parsed;
+      this.saveToStorage();
+    });
+    this.on("remove", (_ctx: ServiceHandlerCtx, name) => {
+      delete this.unlocked[name];
+      this.saveToStorage();
+    });
+    this.on("clear", (_ctx: ServiceHandlerCtx) => {
+      this.$clear();
+    });
+  }
+
+  private loadFromStorage() {
+    if (typeof localStorage === "undefined") return;
+    const raw = localStorage.getItem(this.storageKey);
+    if (!raw) return;
+    try {
+      const parsed = JSON.parse(raw) as GalleryStorage;
+      this.deserialize(parsed);
+    } catch {}
+  }
+
+  private saveToStorage() {
+    if (!this.autoSave) return;
+    if (typeof localStorage === "undefined") return;
+    const data = this.serialize();
+    if (data) {
+      localStorage.setItem(this.storageKey, JSON.stringify(data));
+    }
+  }
+}
+```
+
+Register the service:
+
+```tsx
+// lib/story.ts
+import { Story, Scene, Character, Condition } from "narraleaf-react";
+import { GalleryService } from "@/lib/gallery";
+
+const story = new Story("my-story");
+const gallery = new GalleryService();
+const narrator = Character.narrator();
+const scene = new Scene("start");
+
+// Register custom service
+story.registerService("gallery", gallery);
+story.entry(scene);
+```
+
+## Part 2: Examples and real scenarios
+
+### 1) Unlock CG in the story
+
+```tsx
+scene.action([
+  narrator.say("You discovered a beautiful sunset."),
+  gallery.add("cg_sunset", {
+    url: "/images/cg/sunset.png",
+    title: "Sunset",
+    unlockedAt: Date.now(),
+  }),
+  narrator.say("Added to gallery."),
+]);
+```
+
+### 2) Conditional branching (different dialogue when already unlocked)
+
+```tsx
+scene.action([
+  Condition.If(gallery.has("cg_sunset"), [
+    narrator.say("You've already seen the sunset."),
+  ]).Else([
+    narrator.say("You discovered a beautiful sunset."),
+    gallery.add("cg_sunset", {
+      url: "/images/cg/sunset.png",
+      title: "Sunset",
+      unlockedAt: Date.now(),
+    }),
+  ]),
+]);
+```
+
+### 3) Gallery page display (overlay scenario)
+
+```tsx
+// components/GalleryPage.tsx
+import { useLiveGame } from "narraleaf-react";
+import type { GalleryService } from "@/lib/gallery";
+
+export function GalleryPage() {
+  const liveGame = useLiveGame();
+  const gallery = liveGame.story?.getService<GalleryService>("gallery");
+  if (!gallery) return null;
+
+  const items = gallery.$getAll();
+  return (
+    <div className="grid grid-cols-3 gap-4 p-4">
+      {Object.entries(items).map(([name, meta]) => (
+        <div key={name} className="border rounded overflow-hidden">
+          <img
+            src={meta.url}
+            alt={meta.title}
+            className="w-full aspect-video object-cover"
+          />
+          <p className="p-2 text-sm">{meta.title}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### 4) Persistence independent of game saves
+
+The localStorage layer is separate from the save system, which is useful for "permanent unlocks" even if the player restarts or never uses game saves.
+
+## Part 3: API
+
+| Method | Description |
+|--------|-------------|
+| `add(name, metadata)` | Unlock in `scene.action`, accepts object or `(ctx) => metadata` |
+| `remove(name)` | Remove in `scene.action` |
+| `clear()` | Clear all in `scene.action` |
+| `has(name)` | Returns `Lambda<boolean>` for [Condition](../core/elements/condition) |
+| `$add(name, metadata)` | Add immediately and persist |
+| `$remove(name)` | Remove immediately and persist |
+| `$clear()` | Clear immediately and persist |
+| `$get(name)` | Get single entry metadata |
+| `$set(name, metadata)` | Set metadata and persist |
+| `$getAll()` | Get all entries |
+| `$has(name)` | Check if unlocked |
+| `serialize()` | Return persistable data |
+| `deserialize(data)` | Restore from data |
+
+## See Also
+
+- [Service](../core/types/ServiceHandlerCtx) - Service handler context
+- [Story.registerService](../core/elements/story) - Service registration
+- [Condition](../core/elements/condition) - Conditional branching
+- [Page overlay](./page-overlay-settings) - Overlay pages and routing

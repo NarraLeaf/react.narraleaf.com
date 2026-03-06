@@ -1,0 +1,162 @@
+# 自定义 Menu（游戏内选项）
+
+## 概述
+
+游戏内选项（Menu）用于在故事中展示选择分支，玩家点击或按快捷键选择后执行对应动作。通过 [game.configure](../core/game/game) 的 `menu` 配置项，可替换默认的 [Menu](../player/menu) 组件，实现自定义的选项样式和布局。
+
+本文档演示如何使用 [GameMenu](../player/menu) 和 [Item](../player/menu) 构建自定义菜单，并支持 `bindKey` 快捷键。
+
+## 1. 创建自定义 Menu 组件
+
+自定义菜单组件接收 `items`（选项索引数组），使用 [GameMenu](../player/menu) 作为容器，[Item](../player/menu) 渲染每个选项。`Item` 会自动从上下文中获取对应选项的文本和点击逻辑。
+
+```tsx
+import { useEffect } from "react";
+import { GameMenu, Item, useGame } from "narraleaf-react";
+
+function CustomMenu({ items }: { items: number[] }) {
+  return (
+    <GameMenu
+      className="absolute flex flex-col items-center justify-center min-w-full w-full h-full bg-black/50"
+      // GameMenu: container, handles aspect-ratio scaling
+    >
+      {items.map((index) => (
+        <Item
+          key={index}
+          className="bg-white/90 text-black px-6 py-3 rounded-lg mt-3 w-64 text-center hover:bg-white transition-colors"
+          // Item: renders one choice, receives index from items array
+        />
+      ))}
+    </GameMenu>
+  );
+}
+
+function App() {
+  const game = useGame();
+  useEffect(() => {
+    game.configure({ menu: CustomMenu });
+  }, [game]);
+  return /* ... */;
+}
+```
+
+## 2. 为选项绑定快捷键
+
+`Item` 支持 `bindKey` 属性，按下对应按键时可直接选中该选项。键值参考 [Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)。
+
+```tsx
+function CustomMenu({ items }: { items: number[] }) {
+  return (
+    <GameMenu className="absolute flex flex-col items-center justify-center min-w-full w-full h-full">
+      {items.map((index) => (
+        <Item
+          key={index}
+          className="bg-white text-black p-2 mt-2 w-1/2"
+          bindKey={String(index + 1)}
+          // bindKey: "1", "2", "3" etc. - press key to select this item
+        />
+      ))}
+    </GameMenu>
+  );
+}
+```
+
+## 3. 完整示例（参考 [narraleaf-react-skeleton](https://github.com/NarraLeaf/narraleaf-react-skeleton)）
+
+以下示例展示：`pointer-events-none` 使全屏容器不阻挡点击，内层 `pointer-events-auto` 仅让选项区域可交互；使用 `clipPath` 实现斜切按钮、`drop-shadow` 与 hover 动效：
+
+```tsx
+import { GameMenu, Item } from "narraleaf-react";
+
+function CustomMenu({ items }: { items: number[] }) {
+  return (
+    <GameMenu
+      className="absolute inset-0 flex items-center justify-center w-full h-full pointer-events-none"
+      // pointer-events-none: overlay doesn't block clicks outside menu area
+    >
+      <div className="relative w-full max-w-5xl pointer-events-auto px-4 md:px-8">
+        {/* pointer-events-auto: only the menu box is interactive */}
+        <div className="px-10 py-8 space-y-4">
+          {items.map((index) => (
+            <Item
+              key={index}
+              className="block md:w-3/4 lg:w-2/3 mx-auto text-center text-white text-lg py-3 px-6
+                hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-1
+                hover:[filter:drop-shadow(8px_8px_0_rgba(0,0,0,0.8))] disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{
+                backgroundColor: "rgba(64,168,197,0.9)",
+                clipPath: "polygon(0 0,100% 0,97% 100%,3% 100%)",  // Parallelogram shape
+                filter: "drop-shadow(4px 4px 0 rgba(0,0,0,0.6))",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </GameMenu>
+  );
+}
+```
+
+注册时可设置 [defaultMenuChoiceColor](../core/game/game) 控制选项默认颜色：
+
+```tsx
+game.configure({
+  menu: CustomMenu,
+  defaultMenuChoiceColor: "white",
+});
+```
+
+## 4. 横向布局示例
+
+```tsx
+function HorizontalMenu({ items }: { items: number[] }) {
+  return (
+    <GameMenu className="absolute flex flex-row items-center justify-center gap-4 bottom-20 left-0 right-0">
+      {items.map((index) => (
+        <Item
+          key={index}
+          className="bg-amber-500/80 text-black px-4 py-2 rounded hover:bg-amber-400"
+        />
+      ))}
+    </GameMenu>
+  );
+}
+```
+
+## 5. 在脚本中定义选项
+
+选项在 [Menu](../core/elements/menu) 元素中通过 `choose` 定义，支持 `hideIf`、`disableIf` 等条件控制：
+
+```ts
+// In your story script
+Menu.prompt("你要怎么做？")
+  .choose("往左走", [character.say("我往左走了")])
+  .choose("往右走", [character.say("我往右走了")])
+  .choose("原地不动", [character.say("我选择等待")])
+    .hideIf(persis.isTrue("alreadyMoved"));  // Hide when condition is true
+```
+
+## 6. 注册到游戏
+
+```tsx
+import { useEffect } from "react";
+import { useGame } from "narraleaf-react";
+
+function App() {
+  const game = useGame();
+
+  useEffect(() => {
+    game.configure({
+      menu: CustomMenu,  // Replace default menu component
+    });
+  }, [game]);
+
+  return <Player>{/* ... */}</Player>;
+}
+```
+
+## 参考
+
+- [Menu](../player/menu) - 菜单组件 API
+- [Menu 元素](../core/elements/menu) - 脚本中的 Menu 用法
+- [game.configure](../core/game/game) - 游戏配置

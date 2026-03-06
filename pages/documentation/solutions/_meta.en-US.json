@@ -1,5 +1,12 @@
 {
     "font": "Customizing the font",
     "from-renpy": "Migration from Ren'Py",
-    "quick-menu": "Quick Menu"
+    "quick-menu": "Quick Menu",
+    "custom-dialog": "Custom Dialog",
+    "custom-nvl-dialog": "Custom NVL Dialog",
+    "custom-menu": "Custom Menu",
+    "page-overlay-settings": "Page Overlay",
+    "save-system-localstorage": "Save System with localStorage",
+    "custom-notification": "Custom Notification",
+    "gallery-service-localstorage": "Gallery"
 }
