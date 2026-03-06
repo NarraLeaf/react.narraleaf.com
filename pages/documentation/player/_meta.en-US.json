@@ -6,5 +6,6 @@
     "page-router": "Page Router",
     "dialog": "Dialog",
     "notification": "Notification",
-    "menu": "Menu"
+    "menu": "Menu",
+    "nvl-container": "NVL Container"
 }

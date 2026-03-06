@@ -1,0 +1,133 @@
+import { Callout } from 'nextra/components';
+
+# NVL Container
+
+<Callout type="warning" emoji="⚠️">
+    This page is under construction.
+</Callout>
+
+NVL Container component renders the NVL (Novel) mode dialog overlay. It displays multiple dialog entries in a scrollable list. You can use `DefaultNvlContainer` directly or build a custom one with `NvlContainer`, `Nametag`, and `Texts`.
+
+## Example
+
+1. Import the components
+
+```tsx
+import { useEffect } from "react";
+import { DefaultNvlContainer, useGame } from "narraleaf-react";
+```
+
+2. Use the default component (or customize via `game.configure`)
+
+```tsx
+// DefaultNvlContainer is the built-in implementation.
+// It wraps NvlContainer and renders each dialog with Nametag + Texts.
+function App() {
+    const game = useGame();
+
+    useEffect(() => {
+        game.configure({
+            nvlDialog: DefaultNvlContainer,
+        });
+    }, []);
+
+    return /* ... */
+}
+```
+
+3. Customize with your own component
+
+```tsx
+import {
+    NvlContainer,
+    Nametag,
+    Texts,
+    useGame,
+    type INvlContainerProps,
+} from "narraleaf-react";
+
+function CustomNvlContainer({ dialogs = [] }: INvlContainerProps) {
+    return (
+        <NvlContainer className="bg-black/80 text-white p-16">
+            {dialogs.map((d) => (
+                <div key={d.entry.id} className="space-y-2">
+                    {d.entry.character && <Nametag entry={d.entry} />}
+                    <Texts
+                        entry={d.entry}
+                        gameState={d.gameState}
+                        words={d.words}
+                        useTypeEffect={d.useTypeEffect}
+                        isActive={d.isActive}
+                    />
+                </div>
+            ))}
+        </NvlContainer>
+    );
+}
+
+function App() {
+    const game = useGame();
+    useEffect(() => {
+        game.configure({ nvlDialog: CustomNvlContainer });
+    }, []);
+    return /* ... */
+}
+```
+
+## Components
+
+### NvlContainer
+
+NvlContainer renders the outer wrapper for NVL mode. It handles visibility, transitions, and aspect ratio scaling. Its children are the dialog list content.
+
+- `children?: React.ReactNode` - The children (dialog list).
+- `className?: string` - The class name of the container.
+- `style?: React.CSSProperties` - The style of the container.
+
+### DefaultNvlContainer
+
+DefaultNvlContainer is the default slot component. It receives `dialogs` and `renderDialogItem` from the player, and renders each dialog with `Nametag` and `Texts`. You can pass it to `game.configure({ nvlDialog: DefaultNvlContainer })` or use it as a reference for custom implementations.
+
+- `dialogs?: NvlDialogProxy[]` - The list of dialog entries (provided by the player).
+- `renderDialogItem?: NvlDialogItemRenderer` - Optional. Use when you only need to customize each item's layout (e.g. styling) without replacing the whole container.
+
+## Props
+
+### INvlContainerProps
+
+The props passed to the NVL slot component:
+
+- `dialogs?: NvlDialogProxy[]` - Array of dialog entries with evaluated words and state.
+- `renderDialogItem?: NvlDialogItemRenderer` - Optional extension for custom item layout. Receives `{ entry, index, isActive, nametag, texts }`.
+
+### NvlDialogItemRenderProps
+
+Props passed to `renderDialogItem`:
+
+- `entry: NvlDialogEntry` - The dialog entry.
+- `index: number` - The index in the list.
+- `isActive: boolean` - Whether this dialog is currently active (typing).
+- `nametag: React.ReactNode` - Pre-rendered nametag (or null if no character).
+- `texts: React.ReactNode` - Pre-rendered text content.
+
+## Customize item layout with renderDialogItem
+
+When you only need to change how each dialog item looks (e.g. add a border, dim inactive items) without replacing the whole container, wrap `DefaultNvlContainer` and pass `renderDialogItem`:
+
+```tsx
+function CustomNvlWithRenderer({ dialogs }: INvlContainerProps) {
+    return (
+        <DefaultNvlContainer
+            dialogs={dialogs}
+            renderDialogItem={({ entry, index, isActive, nametag, texts }) => (
+                <div className={isActive ? "opacity-100" : "opacity-60"}>
+                    {nametag}
+                    <div className="border-l-4 border-blue-500 pl-2">{texts}</div>
+                </div>
+            )}
+        />
+    );
+}
+
+// Then configure: game.configure({ nvlDialog: CustomNvlWithRenderer });
+```

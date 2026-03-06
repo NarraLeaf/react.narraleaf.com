@@ -1,0 +1,133 @@
+import { Callout } from 'nextra/components';
+
+# NVL 容器
+
+<Callout type="warning" emoji="⚠️">
+    此页面正在建设中。
+</Callout>
+
+NVL 容器组件渲染 NVL（小说）模式的对话框叠加层。它以可滚动列表的形式展示多条对话。你可以直接使用 `DefaultNvlContainer`，或使用 `NvlContainer`、`Nametag` 和 `Texts` 构建自定义组件。
+
+## 示例
+
+1. 导入组件
+
+```tsx
+import { useEffect } from "react";
+import { DefaultNvlContainer, useGame } from "narraleaf-react";
+```
+
+2. 使用默认组件（或通过 `game.configure` 自定义）
+
+```tsx
+// DefaultNvlContainer 是内置实现。
+// 它包装 NvlContainer，并用 Nametag + Texts 渲染每条对话。
+function App() {
+    const game = useGame();
+
+    useEffect(() => {
+        game.configure({
+            nvlDialog: DefaultNvlContainer,
+        });
+    }, []);
+
+    return /* ... */
+}
+```
+
+3. 使用自定义组件
+
+```tsx
+import {
+    NvlContainer,
+    Nametag,
+    Texts,
+    useGame,
+    type INvlContainerProps,
+} from "narraleaf-react";
+
+function CustomNvlContainer({ dialogs = [] }: INvlContainerProps) {
+    return (
+        <NvlContainer className="bg-black/80 text-white p-16">
+            {dialogs.map((d) => (
+                <div key={d.entry.id} className="space-y-2">
+                    {d.entry.character && <Nametag entry={d.entry} />}
+                    <Texts
+                        entry={d.entry}
+                        gameState={d.gameState}
+                        words={d.words}
+                        useTypeEffect={d.useTypeEffect}
+                        isActive={d.isActive}
+                    />
+                </div>
+            ))}
+        </NvlContainer>
+    );
+}
+
+function App() {
+    const game = useGame();
+    useEffect(() => {
+        game.configure({ nvlDialog: CustomNvlContainer });
+    }, []);
+    return /* ... */
+}
+```
+
+## 组件
+
+### NvlContainer
+
+NvlContainer 渲染 NVL 模式的外层包装。它处理可见性、过渡动画和宽高比缩放。其子元素为对话列表内容。
+
+- `children?: React.ReactNode` - 子元素（对话列表）。
+- `className?: string` - 容器的类名。
+- `style?: React.CSSProperties` - 容器的样式。
+
+### DefaultNvlContainer
+
+DefaultNvlContainer 是默认的 slot 组件。它接收播放器传入的 `dialogs` 和 `renderDialogItem`，并用 `Nametag` 和 `Texts` 渲染每条对话。你可以将其传给 `game.configure({ nvlDialog: DefaultNvlContainer })`，或作为自定义实现的参考。
+
+- `dialogs?: NvlDialogProxy[]` - 对话条目列表（由播放器提供）。
+- `renderDialogItem?: NvlDialogItemRenderer` - 可选。仅需定制每条对话的布局（如样式）时使用，无需替换整个容器。
+
+## 属性
+
+### INvlContainerProps
+
+传入 NVL slot 组件的属性：
+
+- `dialogs?: NvlDialogProxy[]` - 包含已求值文本和状态的对话条目数组。
+- `renderDialogItem?: NvlDialogItemRenderer` - 可选的扩展，用于自定义每条对话的布局。接收 `{ entry, index, isActive, nametag, texts }`。
+
+### NvlDialogItemRenderProps
+
+传入 `renderDialogItem` 的属性：
+
+- `entry: NvlDialogEntry` - 对话条目。
+- `index: number` - 在列表中的索引。
+- `isActive: boolean` - 该对话是否为当前活动（打字中）。
+- `nametag: React.ReactNode` - 预渲染的角色名（若无角色则为 null）。
+- `texts: React.ReactNode` - 预渲染的文本内容。
+
+## 使用 renderDialogItem 定制每条对话布局
+
+若只需调整每条对话的展示（如加边框、淡化非活动项），而不替换整个容器，可包装 `DefaultNvlContainer` 并传入 `renderDialogItem`：
+
+```tsx
+function CustomNvlWithRenderer({ dialogs }: INvlContainerProps) {
+    return (
+        <DefaultNvlContainer
+            dialogs={dialogs}
+            renderDialogItem={({ entry, index, isActive, nametag, texts }) => (
+                <div className={isActive ? "opacity-100" : "opacity-60"}>
+                    {nametag}
+                    <div className="border-l-4 border-blue-500 pl-2">{texts}</div>
+                </div>
+            )}
+        />
+    );
+}
+
+// 然后配置：game.configure({ nvlDialog: CustomNvlWithRenderer });
+```
