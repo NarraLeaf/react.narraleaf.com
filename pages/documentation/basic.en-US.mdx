@@ -1,12 +1,55 @@
-import { Callout } from 'nextra/components';
+import { Cards } from 'nextra/components';
 
 # NarraLeaf-React Basic
 
-<Callout type="warning" emoji="⚠️">
-    This page is under construction.
-</Callout>
+Basic is a step-by-step tutorial that guides you from zero to a playable visual novel. You will learn how to create scenes, show dialogs, add choices, play sounds, and more.
 
-This guide will help you get started with NarraLeaf-React.
+If you are not yet familiar with **scenes**, **elements**, and **actions**, we recommend reading the [Core](/documentation/core) section first. It explains the core concepts of NarraLeaf-React.
 
-If you haven't read the [Getting Started](./getting-started) guide, please do so before continuing.
+## Prerequisites
 
+Before starting this tutorial, make sure you have:
+
+- Completed the [Quick Start](/documentation/quick-start) guide
+- A working NarraLeaf-React project with `Player` and `GameProviders` set up
+
+## Learning Path
+
+The Basic tutorial is organized into the following steps. Follow them in order for the best experience:
+
+| Step | Topic | Description |
+|------|-------|-------------|
+| 1 | [Create a Scene](/documentation/basic/create-scene) | Define a scene with background |
+| 2 | [Add Actions](/documentation/basic/add-actions) | Add actions to make the story interactive |
+| 3 | [Show Dialog](/documentation/basic/show-dialog) | Display character dialogue |
+| 4 | [Show Images](/documentation/basic/show-image) | Display character sprites and images |
+| 5 | [Play the Story](/documentation/basic/play-story) | Run your story in the React app |
+| 6 | [Make Choices](/documentation/basic/make-choices) | Add branching choices for the player |
+| 7 | [Play Sounds](/documentation/basic/sound) | Add background music and sound effects |
+| 8 | [Store Data](/documentation/basic/store-data) | Persist game state and flags |
+| 9 | [Conditional](/documentation/basic/conditional) | Create conditional branches |
+| 10 | [Play Voices](/documentation/basic/voice) | Add character voice lines |
+| 11 | [Manage Preferences](/documentation/basic/manage-preferences) | Handle game settings |
+
+## Get Started
+
+<Cards num={3}>
+    <Cards.Card
+        title="Create a Scene"
+        description="Define your first scene with a background."
+        href="/documentation/basic/create-scene"
+        arrow
+    />
+    <Cards.Card
+        title="Add Actions"
+        description="Add actions to drive the story forward."
+        href="/documentation/basic/add-actions"
+        arrow
+    />
+    <Cards.Card
+        title="Show Dialog"
+        description="Display character dialogue on screen."
+        href="/documentation/basic/show-dialog"
+        arrow
+    />
+</Cards>

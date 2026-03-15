@@ -1,11 +1,55 @@
-import { Callout } from 'nextra/components';
+import { Cards } from 'nextra/components';
 
 # NarraLeaf-React 基础
 
-<Callout type="warning" emoji="⚠️">
-    此页面正在建设中
-</Callout>
+基础是一套循序渐进的教程，帮助您从零开始制作可玩的视觉小说。您将学习如何创建场景、显示对话、添加选项、播放声音等。
 
-本指南将帮助您开始使用 NarraLeaf-React。
+如果您还不熟悉**场景**、**元素**和**动作**的概念，建议先阅读 [核心](/documentation/core) 章节，了解 NarraLeaf-React 的核心概念。
 
-如果您尚未阅读[入门](./getting-started) 指南，请在继续之前先阅读该指南。
+## 前置条件
+
+开始本教程前，请确保您已：
+
+- 完成[快速开始](/documentation/quick-start)指南
+- 拥有一个可运行的 NarraLeaf-React 项目，并已配置好 `Player` 和 `GameProviders`
+
+## 学习路径
+
+基础教程按以下步骤组织。建议按顺序学习以获得最佳体验：
+
+| 步骤 | 主题 | 说明 |
+|------|------|------|
+| 1 | [创建场景](/documentation/basic/create-scene) | 定义带背景的场景 |
+| 2 | [添加动作](/documentation/basic/add-actions) | 添加动作使故事具有交互性 |
+| 3 | [显示对话](/documentation/basic/show-dialog) | 显示角色对话 |
+| 4 | [显示图片](/documentation/basic/show-image) | 显示角色立绘和图片 |
+| 5 | [播放故事](/documentation/basic/play-story) | 在 React 应用中运行故事 |
+| 6 | [作出选择](/documentation/basic/make-choices) | 添加分支选项 |
+| 7 | [声音](/documentation/basic/sound) | 添加背景音乐和音效 |
+| 8 | [存储数据](/documentation/basic/store-data) | 持久化游戏状态和标志 |
+| 9 | [条件](/documentation/basic/conditional) | 创建条件分支 |
+| 10 | [配音](/documentation/basic/voice) | 添加角色语音 |
+| 11 | [管理偏好](/documentation/basic/manage-preferences) | 处理游戏设置 |
+
+## 开始学习
+
+<Cards num={3}>
+    <Cards.Card
+        title="创建场景"
+        description="定义您的第一个带背景的场景。"
+        href="/documentation/basic/create-scene"
+        arrow
+    />
+    <Cards.Card
+        title="添加动作"
+        description="添加动作以推动故事发展。"
+        href="/documentation/basic/add-actions"
+        arrow
+    />
+    <Cards.Card
+        title="显示对话"
+        description="在屏幕上显示角色对话。"
+        href="/documentation/basic/show-dialog"
+        arrow
+    />
+</Cards>
