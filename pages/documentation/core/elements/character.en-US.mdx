@@ -19,7 +19,7 @@ import {Callout, Tabs, Cards, Steps} from 'nextra/components';
 
 Character controls the dialogues of the character.
 
-**Note:** Character do not control the appearance of the character or image. For that, you can use [Image](./image). 
+**Note:** `Character` does not drive stage sprite layout by itself; use [Image](./image) for on-stage displayables. For **dialog box avatars** (small portraits next to ADV text), configure `avatar` / `portraits` and render [`Avatar`](../../player/dialog) — see [Dialog](../../player/dialog).
 
 ## Public Method
 
@@ -132,6 +132,59 @@ character
 ```
 
 - `name: string` - The name of the character
+
+</Steps>
+
+### setAvatar
+
+<Steps>
+
+Set or clear the **character-level** dialog avatar (used for off-screen lines and as fallback when no visible bound portrait applies).
+
+```typescript
+const alice = new Character("Alice")
+    .setAvatar("/assets/alice/avatar-default.png");
+
+alice.setAvatar(false); // disable character-level avatar
+```
+
+- `avatar: DialogAvatar | false | null` — Image source, resolver, `false` to disable, or `null` to clear.
+
+See [Dialog](../../player/dialog) for resolver semantics and resolution order.
+
+</Steps>
+
+### addPortrait
+
+<Steps>
+
+Bind a stage [`Image`](./image) to this character and optionally supply a **portrait-level** dialog avatar (string or resolver).
+
+```typescript
+alice.addPortrait(aliceBody, {
+    avatar: "/assets/alice/avatar-normal.png",
+});
+```
+
+- `image: Image` — The stage portrait image.
+- `config?: { avatar?: DialogAvatar }` — Optional avatar override for this binding.
+
+</Steps>
+
+### setPortraits
+
+<Steps>
+
+Replace the entire portraits list (mixed `Image` or `{ image, avatar }` entries).
+
+```typescript
+alice.setPortraits([
+    { image: aliceBody, avatar: "/assets/alice/avatar-a.png" },
+    bobPortraitImage,
+]);
+```
+
+- `portraits: (Image | CharacterPortraitConfig)[]` — See [CharacterConfig](../types/CharacterConfig).
 
 </Steps>
 

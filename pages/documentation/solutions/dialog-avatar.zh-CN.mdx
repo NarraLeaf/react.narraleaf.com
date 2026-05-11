@@ -1,0 +1,166 @@
+# 对话框头像教程
+
+这篇教程用最少的概念说明：**怎样在 ADV 文本旁显示小头像**。对应组件是 [`Avatar`](../player/dialog)。你只需要记住两件事：
+
+1. 在 [`Character`](../core/elements/character) 上配置**用哪张图**（也可用舞台 [`Image`](../core/elements/image) 做表情立绘）。
+2. 在自己的 [`Dialog`](../player/dialog) 里**摆上 `<Avatar />`**，播放器才会画出来。
+
+完整规则（解析顺序、解析器函数、类型）见 [Dialog](../player/dialog) 与 [`useAvatar`](../player/hooks/useAvatar)。
+
+## 1. 配置角色级头像
+
+最简单：给一个固定图片。角色说话时都会尝试显示——包括**没有立绘在场上**的画外音。
+
+```ts
+import { Character } from "narraleaf-react";
+
+const alice = new Character("Alice", {
+    avatar: "/characters/alice/avatar.png",
+});
+
+alice.say("玩家会在文字旁边看到我的小头像。");
+```
+
+也可以用链式写法：
+
+```ts
+const bob = new Character("Bob").setAvatar("/characters/bob/avatar.png");
+```
+
+需要**有名字**的角色才会解析头像；**旁白**（`new Character(null)`）不显示头像。
+
+## 2. 在对话框里放上 `Avatar`
+
+[`Avatar`](../player/dialog) 会根据**当前这一句**解析出头像；没有可显示的图片时**不渲染**，不会留出空白占位。
+
+通常和 [`Nametag`](../player/dialog)、[`Texts`](../player/dialog) 并排，布局和内置默认对话框一致：
+
+```tsx
+import {
+    Avatar,
+    Dialog,
+    Nametag,
+    Texts,
+} from "narraleaf-react";
+
+export function GameDialog() {
+    return (
+        <Dialog className="bg-black/75 rounded-xl px-5 py-4 text-white">
+            <div
+                className="flex items-start gap-4"
+                style={{ width: "100%", minHeight: 96 }}
+            >
+                <Avatar
+                    className="shrink-0 rounded-lg border border-white/20"
+                    style={{ width: 88, height: 88 }}
+                />
+                <div className="min-w-0 flex-1 flex flex-col gap-1">
+                    <Nametag className="text-base font-semibold" />
+                    <Texts className="text-sm leading-relaxed" />
+                </div>
+            </div>
+        </Dialog>
+    );
+}
+```
+
+不写 `style` 时默认约 96×96；可用 `className`/`style` 覆盖。
+
+### 可选：用 `useAvatar` 自适应布局
+
+希望**没有头像时文字栏占满整行**，可用 [`useAvatar`](../player/hooks/useAvatar) 的 `visible`：
+
+```tsx
+import {
+    Avatar,
+    Dialog,
+    Nametag,
+    Texts,
+    useAvatar,
+} from "narraleaf-react";
+
+export function GameDialog() {
+    const { visible } = useAvatar();
+
+    return (
+        <Dialog className="bg-black/75 rounded-xl px-5 py-4">
+            <div
+                className="grid gap-4 items-start text-white"
+                style={{
+                    gridTemplateColumns: visible ? "96px minmax(0,1fr)" : "minmax(0,1fr)",
+                }}
+            >
+                {visible && <Avatar />}
+                <div>
+                    <Nametag />
+                    <Texts />
+                </div>
+            </div>
+        </Dialog>
+    );
+}
+```
+
+## 3. 注册自定义 Dialog
+
+在你的 [`Game`](../core/game/game) 上注册组件（写法与 [自定义对话框](./custom-dialog) 相同）：
+
+```tsx
+import { useEffect } from "react";
+import { useGame } from "narraleaf-react";
+import { GameDialog } from "./GameDialog";
+
+export function RegisterDialog() {
+    const game = useGame();
+
+    useEffect(() => {
+        game.configure({
+            dialog: GameDialog,
+        });
+    }, [game]);
+
+    return null;
+}
+```
+
+## 4. 常用扩展（仍然很好懂）
+
+### 某一幕不要头像
+
+```ts
+alice.say("这一句不显示头像。", { avatar: false });
+```
+
+### 可选：场上的立绘换一张对话框头像
+
+当舞台 `Image` 可见时，可以为它单独指定对话框头像（见角色页的 [`addPortrait`](../core/elements/character)）：
+
+```ts
+const body = new Image({
+    name: "alice-body",
+    src: "/characters/alice/body-normal.png",
+    opacity: 1,
+});
+
+const alice = new Character("Alice", {
+    avatar: "/characters/alice/avatar-default.png", // body 藏起来时用
+    portraits: [{ image: body, avatar: "/characters/alice/avatar-smile.png" }],
+});
+
+scene.action([
+    alice.say("画外 → 默认头像"),
+    body.show(/* ... */),
+    alice.say("上台 → 微笑头像"),
+]);
+```
+
+## 小结
+
+| 目的 | 做法 |
+|------|------|
+| 给有名角色出头像图 | `Character` 构造函数里的 `avatar` 或 `.setAvatar(...)` |
+| 屏幕上画出来 | 在 `<Dialog>` 里放入 `<Avatar />` |
+| 使用自己的对话框 | [`game.configure({ dialog: 你的组件 })`](../core/game/game) |
+| 单行特例 | `{ avatar: false }`、`{ avatar: "/其它.png" }` 或解析器（详见 [Dialog](../player/dialog)） |
+
+掌握以上内容就足够做出清晰可玩的头像效果；多层立绘、标签解析器等进阶内容见 [Dialog](../player/dialog)。

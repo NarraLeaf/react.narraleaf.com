@@ -1,0 +1,166 @@
+# Dialog Avatar Tutorial
+
+This walkthrough explains how to show a **small portrait** next to ADV dialog text—the component is [`Avatar`](../player/dialog). You only need two ideas:
+
+1. **Tell the [`Character`](../core/elements/character) which image to use** (or bind a stage [`Image`](../core/elements/image) for expression-based portraits).
+2. **Render `<Avatar />` inside your custom [`Dialog`](../player/dialog)** so the player can draw it.
+
+For full behavior (resolution order, resolvers, types), see the [Dialog](../player/dialog) reference and [`useAvatar`](../player/hooks/useAvatar).
+
+## 1. Set a character-level avatar
+
+The simplest setup: one image for that character whenever they speak—including **off-screen** lines with no sprite on stage.
+
+```ts
+import { Character } from "narraleaf-react";
+
+const alice = new Character("Alice", {
+    avatar: "/characters/alice/avatar.png",
+});
+
+alice.say("Players will see my portrait next to the text.");
+```
+
+You can use the chain style instead:
+
+```ts
+const bob = new Character("Bob").setAvatar("/characters/bob/avatar.png");
+```
+
+Names like `Alice`/`Bob` are required for an avatar to show; **narrator** (`new Character(null)`) lines never show avatars.
+
+## 2. Add `Avatar` to your dialog UI
+
+[`Avatar`](../player/dialog) resolves the correct image for the **current sentence** and renders an `<img>`, or **renders nothing** if there is no avatar—so layout does not reserve an empty hole.
+
+Put it next to [`Nametag`](../player/dialog) and [`Texts`](../player/dialog) (same pattern as the built-in default dialog):
+
+```tsx
+import {
+    Avatar,
+    Dialog,
+    Nametag,
+    Texts,
+} from "narraleaf-react";
+
+export function GameDialog() {
+    return (
+        <Dialog className="bg-black/75 rounded-xl px-5 py-4 text-white">
+            <div
+                className="flex items-start gap-4"
+                style={{ width: "100%", minHeight: 96 }}
+            >
+                <Avatar
+                    className="shrink-0 rounded-lg border border-white/20"
+                    style={{ width: 88, height: 88 }}
+                />
+                <div className="min-w-0 flex-1 flex flex-col gap-1">
+                    <Nametag className="text-base font-semibold" />
+                    <Texts className="text-sm leading-relaxed" />
+                </div>
+            </div>
+        </Dialog>
+    );
+}
+```
+
+Default size without `style` is 96×96; override with `className`/`style` as needed.
+
+### Optional: responsive layout with `useAvatar`
+
+If you want the **text column to grow when there is no avatar**, read visibility from [`useAvatar`](../player/hooks/useAvatar):
+
+```tsx
+import {
+    Avatar,
+    Dialog,
+    Nametag,
+    Texts,
+    useAvatar,
+} from "narraleaf-react";
+
+export function GameDialog() {
+    const { visible } = useAvatar();
+
+    return (
+        <Dialog className="bg-black/75 rounded-xl px-5 py-4">
+            <div
+                className="grid gap-4 items-start text-white"
+                style={{
+                    gridTemplateColumns: visible ? "96px minmax(0,1fr)" : "minmax(0,1fr)",
+                }}
+            >
+                {visible && <Avatar />}
+                <div>
+                    <Nametag />
+                    <Texts />
+                </div>
+            </div>
+        </Dialog>
+    );
+}
+```
+
+## 3. Register your dialog component
+
+Tell the [`Game`](../core/game/game) instance to use your dialog (same pattern as [Custom Dialog](./custom-dialog)):
+
+```tsx
+import { useEffect } from "react";
+import { useGame } from "narraleaf-react";
+import { GameDialog } from "./GameDialog";
+
+export function RegisterDialog() {
+    const game = useGame();
+
+    useEffect(() => {
+        game.configure({
+            dialog: GameDialog,
+        });
+    }, [game]);
+
+    return null;
+}
+```
+
+## 4. Common extras (still easy)
+
+### One line without a portrait
+
+```ts
+alice.say("This line hides the avatar.", { avatar: false });
+```
+
+### Optional: portrait follows the sprite on stage
+
+When a stage `Image` is visible, you can tie a **different** dialog avatar to that sprite (see [`addPortrait`](../core/elements/character) on the Character page):
+
+```ts
+const body = new Image({
+    name: "alice-body",
+    src: "/characters/alice/body-normal.png",
+    opacity: 1,
+});
+
+const alice = new Character("Alice", {
+    avatar: "/characters/alice/avatar-default.png", // when body is hidden
+    portraits: [{ image: body, avatar: "/characters/alice/avatar-smile.png" }],
+});
+
+scene.action([
+    alice.say("Off-screen → default avatar"),
+    body.show(/* ... */),
+    alice.say("On-stage → smile avatar"),
+]);
+```
+
+## Recap
+
+| Goal | What to do |
+|------|-------------|
+| Show a headshot for a named character | `Character` option `avatar` or `.setAvatar(...)` |
+| Draw it on screen | Place `<Avatar />` inside `<Dialog>...</Dialog>` |
+| Custom dialog | [`game.configure({ dialog: YourDialog })`](../core/game/game) |
+| Per-line exceptions | `{ avatar: false }`, `{ avatar: "/other.png" }`, or resolver (see [Dialog](../player/dialog)) |
+
+That is enough for a clear, playable setup; advanced rules (multiple visible portraits, tag resolvers) live on the main [Dialog](../player/dialog) page.

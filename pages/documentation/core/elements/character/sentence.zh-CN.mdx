@@ -1,4 +1,4 @@
-import {Callout, Tabs, Steps} from 'nextra/components';
+import { Steps } from 'nextra/components';
 
 # 句子
 
@@ -48,13 +48,30 @@ const sentence = new Sentence([
 
 <Steps>
 
-Copy the sentence
+复制句子
 
 ```ts
 const sentence = new Sentence("你好，世界");
 const sentence2 = sentence.copy();
 ```
 
-- Returns: `Sentence`
+- 返回值: `Sentence`
+
+</Steps>
+
+### getMetadata
+
+<Steps>
+
+返回配置中的运行时 `metadata`（见 [SentenceConfig](../../types/SentenceConfig)）；未设置时返回 `undefined`。元数据不会写入存档。
+
+```ts
+const sentence = new Sentence("你好", {
+    metadata: { uiHint: "emphasis" },
+});
+sentence.getMetadata(); // { uiHint: "emphasis" }
+```
+
+- 返回值: `SentenceMetadata | undefined`
 
 </Steps>

@@ -1,10 +1,6 @@
-import {Callout, Tabs, Steps} from 'nextra/components';
+import { Steps } from 'nextra/components';
 
 # Sentence
-
-<Callout type="warning" emoji="⚠️">
-    This page is under construction.
-</Callout>
 
 Sentence is a part of the Character. It is used to construct a dialogue.
 
@@ -60,5 +56,22 @@ const sentence2 = sentence.copy();
 ```
 
 - Returns: `Sentence`
+
+</Steps>
+
+### getMetadata
+
+<Steps>
+
+Returns runtime-only `metadata` from the sentence config (from [SentenceConfig](../../types/SentenceConfig)); `undefined` when unset. Metadata is not serialized with saves.
+
+```ts
+const sentence = new Sentence("Hello", {
+    metadata: { uiHint: "emphasis" },
+});
+sentence.getMetadata(); // { uiHint: "emphasis" }
+```
+
+- Returns: `SentenceMetadata | undefined`
 
 </Steps>

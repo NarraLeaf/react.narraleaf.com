@@ -3,9 +3,21 @@
 ```ts
 type CharacterConfig = {
     color?: Color;
+    avatar?: DialogAvatar | false;
+    portraits: (Image | CharacterPortraitConfig)[];
 };
 ```
 
+`DialogAvatar`、`CharacterPortraitConfig` 等类型说明见 [Dialog](../../player/dialog) 及 `narraleaf-react` 导出的类型。
+
 ## color
 
-The color of the name tag of the character.
+对话框名牌颜色。
+
+## avatar
+
+角色级对话框头像：可为静态资源、**解析器**函数，或 `false` 以关闭角色级头像。用于画外音、以及没有可见绑定立绘提供头像时的回退。
+
+## portraits
+
+绑定到该角色的舞台立绘列表。每一项可为裸 [`Image`](../elements/image)，或 `{ image, avatar? }`；当该立绘为当前生效的可见肖像时，`avatar` 可覆盖对话框头像。

@@ -1,0 +1,63 @@
+# useAvatar
+
+`useAvatar` returns the resolved dialog avatar for the **current** Say line: visibility, image URL, and related `Character` / portrait `Image` references. It is meant to be used **inside** a [`Dialog`](../dialog) subtree (same context as [`useDialog`](./useDialog)).
+
+## Usage
+
+```tsx
+import { Avatar, Dialog, Nametag, Texts, useAvatar } from "narraleaf-react";
+
+function GameDialog() {
+    const avatar = useAvatar();
+
+    return (
+        <Dialog>
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateColumns: avatar.visible ? "120px 1fr" : "1fr",
+                    gap: 16,
+                }}
+            >
+                {avatar.visible && <Avatar style={{ width: 120, height: 120 }} />}
+                <div>
+                    <Nametag />
+                    <Texts />
+                </div>
+            </div>
+        </Dialog>
+    );
+}
+```
+
+## Return value: `DialogAvatarContext`
+
+- `visible: boolean` — Whether an avatar image should be shown for this line.
+- `src: string | null` — Resolved URL for `<img src>`; `null` when no image.
+- `character: Character | null` — Speaking character, if any.
+- `portrait: Image | null` — Stage `Image` portrait that contributed to resolution, if any.
+- `alt: string` — Suggested `alt` text.
+
+When `visible` is false, `src` is `null`. The [`Avatar`](../dialog) component uses this hook and renders nothing if there is nothing to show.
+
+### Metadata when visible
+
+```tsx
+const avatar = useAvatar();
+
+if (avatar.visible) {
+    console.log(avatar.src);
+    console.log(avatar.character?.state.name);
+    console.log(avatar.portrait?.config.name);
+}
+```
+
+## Relation to `<Avatar />`
+
+[`Avatar`](../dialog) calls `useAvatar()` and renders an `<img>` with default sizing (96×96, `objectFit: "cover"`, `borderRadius: 6`). Pass `className` / `style` to override.
+
+## See also
+
+- [Dialog](../dialog) — Mental model, resolution order, `Character` / `Sentence` configuration
+- [Character](../../core/elements/character) — `setAvatar`, `addPortrait`, `setPortraits`
+- Types: `DialogAvatarContext` (exported from `narraleaf-react`)

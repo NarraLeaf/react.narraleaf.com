@@ -3,9 +3,21 @@
 ```ts
 type CharacterConfig = {
     color?: Color;
+    avatar?: DialogAvatar | false;
+    portraits: (Image | CharacterPortraitConfig)[];
 };
 ```
 
+For `DialogAvatar`, `CharacterPortraitConfig`, and related types, see [Dialog](../../player/dialog) and exported types from `narraleaf-react`.
+
 ## color
 
-The color of the name tag of the character.
+Color of the character nametag in the dialog.
+
+## avatar
+
+Character-level dialog avatar: a static image source, a **resolver** function, or `false` to disable the character-level avatar. Used for off-screen lines and when no visible bound portrait supplies an avatar.
+
+## portraits
+
+List of stage portraits bound to this character. Each entry can be a plain [`Image`](../elements/image) or an object `{ image, avatar? }` where `avatar` overrides the dialog avatar when that image is the active visible portrait.

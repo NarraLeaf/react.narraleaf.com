@@ -3,6 +3,7 @@
   "useLiveGame": "useLiveGame",
   "usePreference": "usePreference",
   "useRouter": "useRouter",
+  "useAvatar": "useAvatar",
   "useDialog": "useDialog",
   "useKeyBinding": "useKeyBinding",
   "usePathname": "usePathname",

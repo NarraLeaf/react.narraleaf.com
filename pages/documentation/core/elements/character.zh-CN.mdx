@@ -19,7 +19,7 @@ import {Callout, Tabs, Cards, Steps} from 'nextra/components';
 
 角色控制角色的对话。
 
-**注意：** 角色不控制角色的外观或图像。为此，您可以使用 [图像](./image)。 
+**注意：** `Character` 本身不驱动舞台立绘布局；舞台展示请使用 [Image](./image)。**对话框旁小头像**（ADV 头像）通过 `avatar` / `portraits` 配置，并在 UI 中使用 [`Avatar`](../../player/dialog) — 详见 [Dialog](../../player/dialog)。
 
 ## 公共方法
 
@@ -132,6 +132,59 @@ character
 ```
 
 - `name: string` - 角色的名称
+
+</Steps>
+
+### setAvatar
+
+<Steps>
+
+设置或清除**角色级**对话框头像（画外音、以及无可见绑定立绘时的回退）。
+
+```typescript
+const alice = new Character("Alice")
+    .setAvatar("/assets/alice/avatar-default.png");
+
+alice.setAvatar(false); // 关闭角色级头像
+```
+
+- `avatar: DialogAvatar | false | null` — 图片源、解析器、`false` 关闭，或 `null` 清除。
+
+解析语义与优先级见 [Dialog](../../player/dialog)。
+
+</Steps>
+
+### addPortrait
+
+<Steps>
+
+将舞台 [`Image`](./image) 绑定到该角色，并可选择为该绑定配置**立绘级**对话框头像（字符串或解析器）。
+
+```typescript
+alice.addPortrait(aliceBody, {
+    avatar: "/assets/alice/avatar-normal.png",
+});
+```
+
+- `image: Image` — 舞台立绘。
+- `config?: { avatar?: DialogAvatar }` — 该绑定可选的头像覆盖。
+
+</Steps>
+
+### setPortraits
+
+<Steps>
+
+替换完整的 `portraits` 列表（可为裸 `Image` 或 `{ image, avatar }`）。
+
+```typescript
+alice.setPortraits([
+    { image: aliceBody, avatar: "/assets/alice/avatar-a.png" },
+    bobPortraitImage,
+]);
+```
+
+- `portraits: (Image | CharacterPortraitConfig)[]` — 见 [CharacterConfig](../types/CharacterConfig)。
 
 </Steps>
 

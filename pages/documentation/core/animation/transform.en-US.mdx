@@ -1,66 +1,170 @@
-import {Callout, Cards, Steps} from 'nextra/components';
+import { Callout, Tabs, Steps } from 'nextra/components';
 
 # Transform
 
-<Callout type="warning" emoji="⚠️">
-    This page is under construction.
+`Transform` describes how a displayable element changes on screen: where it moves, how it scales, how it rotates, and how visible it is.
+
+The easiest way to read the API is:
+
+1. Chain the visual changes you want.
+2. Call `commit()` to turn those changes into one animation step.
+3. Keep chaining more steps if the animation should continue.
+
+```typescript
+import { Transform } from "narraleaf-react";
+
+const bounce = Transform.create()
+    .position({ yoffset: -10 })
+    .commit({ duration: 120, ease: "easeOut" })
+    .position({ yoffset: 0 })
+    .commit({ duration: 100, ease: "easeOut" })
+    .repeat(2);
+
+scene.action([
+    characterImage.transform(bounce),
+]);
+```
+
+<Callout type="info">
+    Most animations can be built with `Transform.create()`, one or more property methods, and `commit()`.
 </Callout>
 
-Transform controls the appearance of an image, like position, rotation, and scale.
+## Mental Model
 
-An example of a transform:
+<Steps>
 
-```typescript
-// The character will move down and up
-new Transform<TransformDefinitions.ImageTransformProps>([
-    {
-        props: {
-            position: {
-                yoffset: -10, // move down 10 pixels in 120ms with easeOut
-            }
-        },
-        options: {
-            duration: 120,
-            ease: "easeOut",
-        }
-    },
-    {
-        props: {
-            position: {
-                yoffset: 0, // move back to the original position in 100ms with easeOut
-            }
-        },
-        options: {
-            duration: 100,
-            ease: "easeOut",
-        }
-    }
-], {
-    repeat: 2,
-}),
-```
+### Stage changes
 
-or using commit-chaining:
+Methods like `position()`, `zoom()`, `rotation()`, and `opacity()` do not immediately add a new animation step. They stage changes on the current step.
 
 ```typescript
-Tranform.create()
-  .position({ yoffset: -10 })
-  .commit({ duration: 120, ease: "easeOut" })
-
-  .position({ yoffset: 0 })
-  .commit({ duration: 100, ease: "easeOut" })
+Transform.create()
+    .position({ xalign: 0.5 })
+    .opacity(1)
 ```
 
-The first parameter of `Transform` is an array of sequences. The second parameter is an object that contains the options of the transform. 
+### Commit a step
 
-A sequence of transformations is made of `props` and `options`:
+`commit()` records the staged changes as one sequence. Its options describe how that sequence runs.
 
-1. `props` is an object that contains the properties of the transformation. Like `position`, `rotation`, and `scale`.
-2. `options` is an object that contains the options of the transformation. Like `duration` and `ease`.
+```typescript
+Transform.create()
+    .position({ xalign: 0.5 })
+    .opacity(1)
+    .commit({ duration: 300, ease: "easeOut" })
+```
 
-## Transform Properties
+### Chain the next step
 
-For a list of properties, see [TransformDefinitions](../types/TransformDefinitions).
+After a commit, the staging area is cleared. The next property calls build the next sequence.
+
+```typescript
+Transform.create()
+    .position({ xalign: 0.35 })
+    .commit({ duration: 300, ease: "easeOut" })
+    .position({ xalign: 0.65 })
+    .commit({ duration: 300, ease: "easeInOut" })
+```
+
+</Steps>
+
+## Common Recipes
+
+### Move to a side
+
+Use the built-in helpers when all you need is a stage position.
+
+```typescript
+scene.action([
+    characterImage.transform(Transform.left(250, "easeOut")),
+    characterImage.transform(Transform.center(250, "easeInOut")),
+    characterImage.transform(Transform.right(250, "easeOut")),
+]);
+```
+
+### Move and fade together
+
+Put multiple property calls before one `commit()` to animate them at the same time.
+
+```typescript
+const enter = Transform.create()
+    .position({ xalign: 0.5, yoffset: 0 })
+    .opacity(1)
+    .commit({ duration: 300, ease: "easeOut" });
+```
+
+### Build a tiny timeline
+
+Each `commit()` appends a step, so the transform reads in playback order.
+
+```typescript
+const lookAround = Transform.create()
+    .rotation(-4)
+    .commit({ duration: 180, ease: "easeOut" })
+    .rotation(4)
+    .commit({ duration: 240, ease: "easeInOut" })
+    .rotation(0)
+    .commit({ duration: 180, ease: "easeOut" });
+```
+
+### Apply a state immediately
+
+Use `immediate()` when you want a visual state without a transition.
+
+```typescript
+scene.action([
+    characterImage.transform(
+        Transform.immediate({ opacity: 0 })
+    ),
+]);
+```
+
+## Chained API vs Raw Sequences
+
+The chained API and the constructor create the same kind of `Transform`. Prefer the chained API for everyday animation because it keeps the timing next to the change it belongs to.
+
+<Tabs items={['Chained API', 'Raw sequences']}>
+    <Tabs.Tab>
+        ```typescript
+        const bounce = Transform.create()
+            .position({ yoffset: -10 })
+            .commit({ duration: 120, ease: "easeOut" })
+            .position({ yoffset: 0 })
+            .commit({ duration: 100, ease: "easeOut" });
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+        ```typescript
+        const bounce = new Transform<TransformDefinitions.ImageTransformProps>([
+            {
+                props: {
+                    position: { yoffset: -10 },
+                },
+                options: {
+                    duration: 120,
+                    ease: "easeOut",
+                },
+            },
+            {
+                props: {
+                    position: { yoffset: 0 },
+                },
+                options: {
+                    duration: 100,
+                    ease: "easeOut",
+                },
+            },
+        ]);
+        ```
+    </Tabs.Tab>
+</Tabs>
+
+A raw sequence has two parts:
+
+- `props` contains the visual changes for that step, such as `position`, `rotation`, `zoom`, `scaleX`, `scaleY`, `opacity`, or `fontColor`.
+- `options` contains timing options for that step, such as `duration`, `ease`, `delay`, or `at`.
+
+For the full property types, see [TransformDefinitions](../types/TransformDefinitions).
 
 ## Static Methods
 
@@ -68,10 +172,11 @@ For a list of properties, see [TransformDefinitions](../types/TransformDefinitio
 
 <Steps>
 
-Move the image to the left side of the stage. 
+Move the image to the left side of the stage.
 
 - `duration: number` - The duration of the movement in milliseconds.
-- `easing?: TransformDefinitions.EasingDefinition` - See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function. See [EasingDefinition](../types/TransformDefinitions#EasingDefinition).
+- Returns `Transform<T>`
 
 </Steps>
 
@@ -82,7 +187,8 @@ Move the image to the left side of the stage.
 Move the image to the right side of the stage.
 
 - `duration: number` - The duration of the movement in milliseconds.
-- `easing?: TransformDefinitions.EasingDefinition` - See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function. See [EasingDefinition](../types/TransformDefinitions#EasingDefinition).
+- Returns `Transform<T>`
 
 </Steps>
 
@@ -93,7 +199,8 @@ Move the image to the right side of the stage.
 Move the image to the center of the stage.
 
 - `duration: number` - The duration of the movement in milliseconds.
-- `easing?: TransformDefinitions.EasingDefinition` - See [TransformDefinitions](../types/TransformDefinitions).[EasingDefinition](../types/TransformDefinitions#EasingDefinition)
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function. See [EasingDefinition](../types/TransformDefinitions#EasingDefinition).
+- Returns `Transform<T>`
 
 </Steps>
 
@@ -101,9 +208,9 @@ Move the image to the center of the stage.
 
 <Steps>
 
-Apply the transform immediately.
+Create a transform that applies the given properties immediately.
 
-- `props: SequenceProps<T>` - A single [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
+- `props: SequenceProps<T>` - A single [SequenceProps](../types/TransformDefinitions#SequenceProps) object.
 - Returns `Transform<T>`
 
 </Steps>
@@ -112,9 +219,9 @@ Apply the transform immediately.
 
 <Steps>
 
-Create a new transform with the given config. The sequences will be empty.
+Create an empty transform that can be built with chained property methods.
 
-- `config?: Partial<TransformDefinitions.TransformConfig>` - The config for the transform. See [TransformDefinitions.TransformConfig](../types/TransformDefinitions#TransformConfig)
+- `config?: Partial<TransformDefinitions.TransformConfig>` - The transform config. See [TransformConfig](../types/TransformDefinitions#TransformConfig).
 - Returns `Transform<T>`
 
 </Steps>
@@ -125,63 +232,61 @@ Create a new transform with the given config. The sequences will be empty.
 
 <Steps>
 
+Use the constructor when you already have a sequence object or when generated code produces sequence arrays.
+
 #### Overload 1 of 2
 
-This overload takes an array of sequences.
+This overload accepts an array of sequences.
 
-Example: 
-    
 ```typescript
 new Transform<TransformDefinitions.ImageTransformProps>([
     {
         props: {
             position: {
-                xalign: 0.3, // go to left in 120ms with easeOut
-            }
+                xalign: 0.3,
+            },
         },
         options: {
             duration: 120,
             ease: "easeOut",
-        }
+        },
     },
     {
         props: {
             position: {
-                xalign: 0.6, // go to right in 100ms with easeOut
-            }
+                xalign: 0.6,
+            },
         },
         options: {
             duration: 100,
             ease: "easeOut",
-        }
-    }
+        },
+    },
 ], {
     repeat: 2,
 });
 ```
 
-- `sequences: TransformDefinitions.Sequence<T>[]` - An array of Sequence
-- `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - Transform Config
+- `sequences: TransformDefinitions.Sequence<T>[]` - The sequence array.
+- `transformConfig?: Partial<TransformDefinitions.TransformConfig>` - Transform-level options.
 
 #### Overload 2 of 2
 
-This overload takes a single sequence.
+This overload accepts a single sequence.
 
-Example: 
-    
 ```typescript
 new Transform<TransformDefinitions.ImageTransformProps>({
     position: {
-        xalign: 0.3, // go to left in 120ms with easeOut
-    }
+        xalign: 0.3,
+    },
 }, {
     duration: 120,
     ease: "easeOut",
 });
 ```
 
-- `props: SequenceProps<T>` - A single [TransformDefinitions](../types/TransformDefinitions).[SequenceProps](../types/TransformDefinitions#SequenceProps)
-- `options?: Partial<TransformDefinitions.CommonTransformProps>` - A single [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
+- `props: SequenceProps<T>` - A single [SequenceProps](../types/TransformDefinitions#SequenceProps) object.
+- `options?: Partial<TransformDefinitions.CommonTransformProps>` - Timing options for that sequence. See [CommonTransformProps](../types/TransformDefinitions#CommonTransformProps).
 
 </Steps>
 
@@ -191,17 +296,15 @@ new Transform<TransformDefinitions.ImageTransformProps>({
 
 Repeat the transform.
 
-Example: 
-    
 ```typescript
 transform
-  .repeat(2)
-  .repeat(3)
-// repeat 6 times
+    .repeat(2)
+    .repeat(3);
+// repeats 6 times
 ```
 
 - `n: number` - The number of times to repeat the transform.
-- `return: this`
+- Returns `this`
 
 </Steps>
 
@@ -211,7 +314,7 @@ transform
 
 Copy the transform.
 
-- `return: Transform<T>`
+- Returns `Transform<T>`
 
 </Steps>
 
@@ -219,21 +322,22 @@ Copy the transform.
 
 <Steps>
 
-Commits all staged changes to the transform sequence. This method will create a new sequence from all pending changes that have been staged via chained methods. If there are no staged changes, this method will return the current instance without modification. After committing, the staged changes array will be cleared.
+Commit all staged changes into one transform sequence. If there are no staged changes, `commit()` returns the current instance without changing it.
 
-Example:
 ```typescript
 transform
-  .position({ x: 100, y: 100 })
-  .opacity(1).commit() // will create a new sequence with opacity 1 and position x: 100, y: 100
-  .position({ x: 200, y: 200 })
-  .opacity(0).commit({ duration: 1000 }) // will create a new sequence with opacity 0 and position x: 200, y: 200 with a duration of 1 second
+    .position({ x: 100, y: 100 })
+    .opacity(1)
+    .commit()
+    .position({ x: 200, y: 200 })
+    .opacity(0)
+    .commit({ duration: 1000 });
 ```
 
-**Note**: The staged changes will be committed before animation starts to ensure the latest changes are applied.
+The first commit creates a sequence with `position` and `opacity`. The second commit creates another sequence with its own timing options.
 
-- `options?: Partial<TransformDefinitions.SequenceOptions>` - The options for the sequence. See [TransformDefinitions.SequenceOptions](../types/TransformDefinitions#SequenceOptions)
-- `return: this`
+- `options?: Partial<TransformDefinitions.SequenceOptions>` - Sequence timing options. See [SequenceOptions](../types/TransformDefinitions#SequenceOptions).
+- Returns `this`
 
 </Steps>
 
@@ -241,11 +345,11 @@ transform
 
 <Steps>
 
-Scale the current staging sequence.
+Stage scale changes for both axes.
 
-- `scaleX: TransformDefinitions.Types["scaleX"]` - The scale of the transform on the X-axis, use negative value to invert the scale. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
-- `scaleY: TransformDefinitions.Types["scaleY"]` - The scale of the transform on the Y-axis, use negative value to invert the scale. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
-- `return: this`
+- `scaleX: TransformDefinitions.Types["scaleX"]` - The X-axis scale. Negative values invert the element on the X axis.
+- `scaleY: TransformDefinitions.Types["scaleY"]` - The Y-axis scale. Negative values invert the element on the Y axis.
+- Returns `this`
 
 </Steps>
 
@@ -253,10 +357,10 @@ Scale the current staging sequence.
 
 <Steps>
 
-Scale the current staging sequence on the X-axis.
+Stage an X-axis scale change.
 
-- `scaleX: TransformDefinitions.Types["scaleX"]` - The scale of the transform on the X-axis. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
-- `return: this`
+- `scaleX: TransformDefinitions.Types["scaleX"]` - The X-axis scale.
+- Returns `this`
 
 </Steps>
 
@@ -264,10 +368,10 @@ Scale the current staging sequence on the X-axis.
 
 <Steps>
 
-Scale the current staging sequence on the Y-axis.
+Stage a Y-axis scale change.
 
-- `scaleY: TransformDefinitions.Types["scaleY"]` - The scale of the transform on the Y-axis. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
-- `return: this`
+- `scaleY: TransformDefinitions.Types["scaleY"]` - The Y-axis scale.
+- Returns `this`
 
 </Steps>
 
@@ -275,11 +379,11 @@ Scale the current staging sequence on the Y-axis.
 
 <Steps>
 
-Scale the current staging sequence on both X and Y axes.
+Stage scale changes for both axes.
 
-- `scaleX: TransformDefinitions.Types["scaleX"]` - The scale of the transform on the X-axis. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
-- `scaleY: TransformDefinitions.Types["scaleY"]` - The scale of the transform on the Y-axis. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
-- `return: this`
+- `scaleX: TransformDefinitions.Types["scaleX"]` - The X-axis scale.
+- `scaleY: TransformDefinitions.Types["scaleY"]` - The Y-axis scale.
+- Returns `this`
 
 </Steps>
 
@@ -287,10 +391,10 @@ Scale the current staging sequence on both X and Y axes.
 
 <Steps>
 
-Zoom the current staging sequence (recommended for image scaling).
+Stage a zoom change. This is the recommended method for normal image scaling.
 
-- `zoom: TransformDefinitions.Types["zoom"]` - The zoom level of the transform. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
-- `return: this`
+- `zoom: TransformDefinitions.Types["zoom"]` - The zoom level.
+- Returns `this`
 
 </Steps>
 
@@ -298,10 +402,10 @@ Zoom the current staging sequence (recommended for image scaling).
 
 <Steps>
 
-Rotate the current staging sequence.
+Stage a rotation change.
 
-- `rotation: TransformDefinitions.Types["rotation"]` - The rotation of the transform. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
-- `return: this`
+- `rotation: TransformDefinitions.Types["rotation"]` - The rotation value.
+- Returns `this`
 
 </Steps>
 
@@ -309,10 +413,10 @@ Rotate the current staging sequence.
 
 <Steps>
 
-Set the position of the current staging sequence.
+Stage a position change.
 
-- `position: TransformDefinitions.Types["position"]` - The position of the transform. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
-- `return: this`
+- `position: TransformDefinitions.Types["position"]` - The position value.
+- Returns `this`
 
 </Steps>
 
@@ -320,10 +424,10 @@ Set the position of the current staging sequence.
 
 <Steps>
 
-Set the opacity of the current staging sequence.
+Stage an opacity change.
 
-- `opacity: TransformDefinitions.Types["opacity"]` - The opacity of the transform. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
-- `return: this`
+- `opacity: TransformDefinitions.Types["opacity"]` - The opacity value.
+- Returns `this`
 
 </Steps>
 
@@ -331,10 +435,9 @@ Set the opacity of the current staging sequence.
 
 <Steps>
 
-Set the font color of the current staging sequence.
+Stage a text color change.
 
-- `fontColor: TransformDefinitions.Types["fontColor"]` - The font color of the transform. See [TransformDefinitions.Types](../types/TransformDefinitions#Types)
-- `return: this`
+- `fontColor: TransformDefinitions.Types["fontColor"]` - The font color value.
+- Returns `this`
 
 </Steps>
-

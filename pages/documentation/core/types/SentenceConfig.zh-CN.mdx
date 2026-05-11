@@ -1,22 +1,30 @@
-
 # SentenceConfig
 
 ```ts
-type SentenceConfig = Partial<{
+type SentenceConfig = {
+    pause?: boolean | number;
+    voice: Sound | null;
     character: Character | null;
-    color?: Color;
     voiceId: string | number | null;
-    voice: Sound | string | null | undefined
-} & Font>;
+    color?: Color;
+    metadata?: SentenceMetadata;
+    avatar?: DialogAvatar | false;
+} & Font;
 ```
 
-For Font, see [Font](./Font).
+`SentenceMetadata` 见下文。`DialogAvatar` 见 [Dialog](../../player/dialog)。
+
+面向作者的局部配置见 [SentenceUserConfig](./SentenceUserConfig)。
+
+`Font` 见 [Font](./Font)。
+
+## pause
+
+句后是否停顿及停顿长短，可为 `boolean` 或时长。
 
 ## voice
 
-The voice that will say the sentence.
-
-If you specify the voice, the voiceId will be ignored.
+播放的语音资源。若指定了 `voice`，将忽略 `voiceId`。
 
 ```ts
 character1.say("hello!", {
@@ -28,9 +36,7 @@ character1.say("hello!", {
 
 ## voiceId
 
-VoiceId is a unique identifier for the voice. It can be a string or a number.
-
-For example, if you have a lot of voice files, you can use the voiceId to identify the voice.
+语音标识，可为字符串或数字。
 
 ```ts
 const voiceScene = new Scene("voice-scene", {
@@ -47,7 +53,7 @@ voiceScene.action([
 ]);
 ```
 
-Or you can use a handler to generate the voiceId.
+或使用函数生成路径：
 
 ```ts
 const voiceScene = new Scene("voice-scene", {
@@ -57,11 +63,11 @@ const voiceScene = new Scene("voice-scene", {
 
 ## character
 
-The character that will say the sentence. Using this property will override the previous character.
+说话的 [Character](../elements/character)。设置后会覆盖之前的角色。
 
 ## color
 
-The color of the sentence.
+句子文本颜色。
 
 ```ts
 new Sentence("hello!", {
@@ -80,3 +86,11 @@ new Sentence("hello!", {
     }
 });
 ```
+
+## metadata
+
+随句子附带的**运行时**元数据（`SentenceMetadata`，即 `Record<string, unknown>`）。**不会**写入存档。尽量使用可序列化的纯数据。运行时用 `Sentence.getMetadata()` 读取。
+
+## avatar
+
+按行的对话框头像覆盖：静态资源、解析器，或 `false` 隐藏本行头像。详见 [Dialog](../../player/dialog)。
