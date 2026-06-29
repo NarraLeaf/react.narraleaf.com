@@ -24,3 +24,14 @@ html, body {
 .backdrop-blur-md {
   backdrop-filter: blur(10px);
 }
+
+.nextra-banner-container {
+  background: #40a8c4 !important;
+  color: #ffffff !important;
+}
+
+.nextra-banner-container .new-docs-banner-site {
+  text-decoration-line: underline;
+  text-decoration-color: #ffffff;
+  text-underline-offset: 2px;
+}

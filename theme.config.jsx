@@ -1,8 +1,27 @@
 import LOGO from "./src/logo.tsx";
+import { useRouter } from "next/router";
+
+const NewDocsBanner = () => {
+    const { locale } = useRouter();
+    const isChinese = locale === 'zh-CN';
+
+    return (
+        <a href="https://narraleaf.com" target="_blank" rel="noopener noreferrer">
+            {isChinese
+                ? <>此文档已废弃并不再更新。新的文档已迁移至 <span className="new-docs-banner-site">NarraLeaf.com</span>，点击前往 →</>
+                : <>This documentation is deprecated and no longer updated. New documentation is available at <span className="new-docs-banner-site">NarraLeaf.com</span> →</>}
+        </a>
+    );
+};
 
 /**@type {import('nextra-theme-docs').DocsThemeConfig}*/
 const config = {
     logo: LOGO,
+    banner: {
+        key: 'new-docs-on-narraleaf-com',
+        text: <NewDocsBanner />,
+        dismissible: false,
+    },
     project: {
         link: 'https://github.com/NarraLeaf/narraleaf-react'
     },
