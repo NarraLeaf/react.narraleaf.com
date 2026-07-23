@@ -73,6 +73,17 @@ Execute all actions **at the same time**, do not wait for all actions to complet
 
 </Steps>
 
+<Callout type="warning">
+In `any`, `all`, and `allAsync`, each entry in the array runs as its own concurrent branch. A single chained statement (e.g. `image.pos(a).pos(b)`) is split into multiple parallel branches, which conflict when they target the same element. To run several steps **in sequence** within one branch, wrap them in `Control.do([...])`:
+
+```typescript
+Control.all([
+    Control.do([image.pos(a), image.pos(b)]), // sequential, one branch
+    sound.play(),                             // another branch
+]);
+```
+</Callout>
+
 ### repeat
 
 <Steps>

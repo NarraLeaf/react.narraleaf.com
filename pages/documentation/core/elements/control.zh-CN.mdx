@@ -73,6 +73,17 @@ Control.do([
 
 </Steps>
 
+<Callout type="warning">
+在 `any`、`all` 和 `allAsync` 中，数组里的每一项都会作为独立的并发分支运行。单条链式语句（例如 `image.pos(a).pos(b)`）会被拆分成多个并行分支，当它们作用于同一元素时会互相冲突。若要在一个分支内**按顺序**执行多个步骤，请用 `Control.do([...])` 包裹：
+
+```typescript
+Control.all([
+    Control.do([image.pos(a), image.pos(b)]), // 顺序执行，单个分支
+    sound.play(),                             // 另一个分支
+]);
+```
+</Callout>
+
 ### repeat
 
 <Steps>
