@@ -171,6 +171,8 @@ story.camera.resetCamera(600, "easeInOut");
 
 摄像机是一个 [Displayable](./displayable)，因此其全部变换能力都会作用于整个舞台：`zoom`、`scale`、`rotate`、`pos`（见 [`pan`](#pan)）、`opacity`、用于调色的 `filter` / `effect`，以及用于完整多步 [Transform](../animation/transform) 序列的 `transform`。
 
+有一个继承来的方法不可用：在摄像机上调用 [`bringToFront`](./displayable#bringtofront) 会抛出 `RuntimeGameError`。摄像机不是某个图层内的元素，因此不存在它可以位于其前方的对象。若要改变取景内容，请使用摄像机的变换方法。
+
 ## 设置初始姿态
 
 每个故事只有一个摄像机。仅当你想设置它的初始姿态时，才需要传入自定义摄像机：

@@ -172,6 +172,8 @@ The same fields are available on a [Transform](../animation/transform) via `Tran
 
 The camera is a [Displayable](./displayable), so its full transform surface moves the whole stage: `zoom`, `scale`, `rotate`, `pos` (see [`pan`](#pan)), `opacity`, `filter` / `effect` for colour-grading, and `transform` for full multi-step [Transform](../animation/transform) sequences.
 
+One inherited method is unavailable: [`bringToFront`](./displayable#bringtofront) throws a `RuntimeGameError` on a camera. The camera is not an element inside a layer, so it has nothing to be in front of. Use a camera transform to change what is in view.
+
 ## Setting the initial pose
 
 There is exactly one camera per story. Pass your own only to set its starting pose:
