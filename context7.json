@@ -1,4 +1,6 @@
 {
+  "$schema": "https://context7.com/schema/context7.json",
   "url": "https://context7.com/narraleaf/react.narraleaf.com",
-  "public_key": "pk_fqRhnBRUeIHstYz5iJkuZ"
+  "public_key": "pk_fqRhnBRUeIHstYz5iJkuZ",
+  "redirect": "https://github.com/NarraLeaf/NarraLeaf.com"
 }
