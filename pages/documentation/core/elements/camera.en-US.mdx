@@ -1,0 +1,192 @@
+import {Callout, Steps} from 'nextra/components';
+
+# Camera
+
+> This class extends [Displayble](./displayable)
+
+The camera transforms the **whole stage as one unit** — every [Scene](./scene), its backgrounds and sprites, and any playing [Video](./video) move together — while the dialog box, menus, and NVL layer stay fixed.
+
+Every [Story](./story) has exactly one camera, reachable as `story.camera`. You author camera actions like any other element action.
+
+```ts
+import { Story, Scene, Character } from "narraleaf-react";
+
+const story = new Story("entry");
+const scene = new Scene("scene 1");
+const aria = new Character("Aria");
+
+scene.action([
+    story.camera.zoom(2, 800, "easeInOut"),   // zoom the whole stage in
+    story.camera.pan({ xalign: 0.3 }, 800),   // slide the view across
+    story.camera.rotate(3, 400),              // tilt
+    story.camera.darken(0.6, 500),            // dim the stage
+    aria.say`It's getting dark...`,
+    story.camera.resetCamera(600),            // return to the neutral pose
+]);
+```
+
+<Callout type="info">
+    The camera reuses the same [Transform](../animation/transform) pipeline as images and layers, so it
+    inherits every chainable transform method from [Displayable](./displayable): `pos`, `zoom`, `scale`,
+    `rotate`, `opacity`, `transform`, `filter`, `effect`, and more. They all apply to the whole stage.
+</Callout>
+
+## Accessing the camera
+
+<Steps>
+### story.camera
+
+`story.camera` is a single, always-present camera. There is exactly one per story, its pose persists across scene changes, and it is captured by save/load like any other element.
+
+```ts
+scene.action([
+    story.camera.zoom(1.5, 600),
+    story.camera.darken(0.4, 400),
+]);
+```
+</Steps>
+
+## Public Methods
+
+### pan
+
+Pan the camera so the given position sits at the centre of the view. This is an alias of the inherited `pos` method with camera-oriented naming.
+
+```ts
+story.camera.pan({ xalign: 0.3 }, 800, "easeInOut");
+```
+
+### darken
+
+Darken the whole stage. `darkness` is a value between `0` (normal) and `1` (black). Under the hood it drives the camera's CSS `filter` to `brightness(1 - darkness)`, the same mechanism as [`Image.darken`](./image).
+
+```ts
+story.camera.darken(0.6, 500, "easeInOut");
+```
+
+<Callout type="warning">
+    Darken shares the single CSS `filter` channel, so it overwrites (and is overwritten by) other
+    filters. To combine darken with another filter such as `blur`, write the full string yourself via
+    `camera.filter("blur(4px) brightness(0.4)")`.
+</Callout>
+
+### shutter
+
+Close or open the shutter. Two blades close symmetrically from the top and bottom of the frame and meet in the middle. `shutter` is coverage: `0` is open, `1` is shut.
+
+```ts
+story.camera.shutter(1, 180, "easeInOut");
+```
+
+The shutter is a value, not a routine, so it holds at whatever you leave it at. `shutter(0.12)` is a cinematic matte that stays for as long as you want it; a blink is the value driven up and back:
+
+```ts
+scene.action([
+    story.camera.shutter(1, 180, "easeInOut"),
+    story.camera.shutter(0, 220, "easeInOut"),
+]);
+```
+
+- `shutter: number` - Coverage between `0` and `1`
+- `duration?: number` - The duration in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use
+
+### vignette
+
+Darken the corners of the frame. `vignette` is strength, between `0` (none) and `1`.
+
+```ts
+scene.action([
+    story.camera.vignette(0.72, 300, "easeInOut"),
+    aria.say`Everything narrowed to the middle of the room.`,
+    story.camera.vignette(0, 300, "easeInOut"),
+]);
+```
+
+- `vignette: number` - Strength between `0` and `1`
+- `duration?: number` - The duration in milliseconds
+- `easing?: TransformDefinitions.EasingDefinition` - The easing function to use
+
+Adjust its colour and falloff with [`lens`](#lens).
+
+<Callout type="info">
+    Both strengths are clamped: a value outside `0`–`1` is pulled into range, and a non-finite value
+    reads as `0`.
+</Callout>
+
+### lens
+
+Set any of the lens fields at once: the two strengths and the colour and falloff they are drawn with.
+
+```ts
+scene.action([
+    story.camera.lens({ vignetteColor: "#1a0b2e", vignetteInner: "20%", vignetteOuter: "95%" }),
+    story.camera.vignette(0.9, 400),
+]);
+```
+
+- `shutter?: number` - Shutter coverage, `0` to `1`. Default `0`
+- `shutterColor?: string` - Colour of the shutter blades. Default `"#000"`
+- `vignette?: number` - Vignette strength, `0` to `1`. Default `0`
+- `vignetteColor?: string` - Colour of the vignette. Default `"#000"`
+- `vignetteInner?: string` - Radius at which the vignette starts, as a CSS length or a percentage of the frame. Default `"44%"`
+- `vignetteOuter?: string` - Radius at which it reaches full strength. Default `"78%"`
+
+`shutter()` and `vignette()` are shorthand for the strength alone. `lens()` accepts the strengths too, so one call can set a strength and the geometry it is drawn with.
+
+The colour and falloff fields take effect the next time the strength they belong to rises above `0`. Set them as a cut before fading the effect in, not during it.
+
+<Callout type="warning">
+`lens` spells its timing differently from the other two. `shutter()` and `vignette()` take positional arguments, `(value, duration?, easing?)`. `lens()` takes the props and then an options object, and the key inside it is `ease`, not `easing`.
+
+```ts
+story.camera.vignette(0.9, 400, "easeInOut");                              // positional
+story.camera.lens({ vignette: 0.9 }, { duration: 400, ease: "easeInOut" }); // equivalent
+```
+</Callout>
+
+### resetCamera
+
+Return the camera to its neutral pose: centred, zoom `1`, no rotation, fully opaque, no filter (which also clears `darken`), and no lens effect. The shutter opens and the vignette lifts.
+
+```ts
+story.camera.resetCamera(600, "easeInOut");
+```
+
+The strengths ease back over the duration given, along with the pose. The colour and falloff return to their defaults once the strengths reach `0`.
+
+<Callout type="warning">
+    The authoring method is `resetCamera`, not `reset`. A closed shutter is otherwise only openable
+    by a further `shutter` call.
+</Callout>
+
+## The lens
+
+`shutter` and `vignette` are drawn on an overlay pinned to the viewport, so they stay put while the stage zooms, pans and rotates underneath them. The lens covers the scenes, stage transitions, videos and vfx, and sits below the dialog box, menus and the NVL layer.
+
+Both channels are part of the camera pose: they combine with `zoom`, `pan` and `darken` in a single transform, they settle correctly when the player skips, and they are saved and restored with the rest of the camera. A save written before these channels existed reads them as neutral.
+
+The same fields are available on a [Transform](../animation/transform) via `Transform.lens()`, typed as `TransformDefinitions.CameraLensProps`. A camera's transform props are `TransformDefinitions.CameraTransformProps`: everything an image accepts, plus these.
+
+## Inherited transform methods
+
+The camera is a [Displayable](./displayable), so its full transform surface moves the whole stage: `zoom`, `scale`, `rotate`, `pos` (see [`pan`](#pan)), `opacity`, `filter` / `effect` for colour-grading, and `transform` for full multi-step [Transform](../animation/transform) sequences.
+
+## Setting the initial pose
+
+There is exactly one camera per story. Pass your own only to set its starting pose:
+
+```ts
+import { Story, Camera } from "narraleaf-react";
+
+const story = new Story("entry", {
+    camera: new Camera({ zoom: 1.2, vignette: 0.3 }),
+});
+```
+
+The constructor accepts everything an image's transform props accept, plus the lens fields.
+
+<Callout type="info">
+    The camera moves the visual stage only. The dialog box, menus, and the NVL layer are rendered
+    outside it and are intentionally unaffected, so text stays readable while the camera moves.
+</Callout>

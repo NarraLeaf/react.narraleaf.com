@@ -1,0 +1,191 @@
+import {Callout, Steps} from 'nextra/components';
+
+# 摄像机
+
+> 该类继承自 [Displayble](./displayable)
+
+摄像机将**整个舞台作为一个整体**进行变换——每个 [Scene](./scene)、它的背景与立绘，以及正在播放的 [Video](./video) 会一起移动——而对话框、菜单和 NVL 层保持固定不动。
+
+每个 [Story](./story) 都恰好拥有一个摄像机，可通过 `story.camera` 访问。你可以像编写其他元素的操作一样编写摄像机的操作。
+
+```ts
+import { Story, Scene, Character } from "narraleaf-react";
+
+const story = new Story("entry");
+const scene = new Scene("scene 1");
+const aria = new Character("Aria");
+
+scene.action([
+    story.camera.zoom(2, 800, "easeInOut"),   // 放大整个舞台
+    story.camera.pan({ xalign: 0.3 }, 800),   // 横向平移镜头
+    story.camera.rotate(3, 400),              // 倾斜
+    story.camera.darken(0.6, 500),            // 压暗舞台
+    aria.say`天色渐暗……`,
+    story.camera.resetCamera(600),            // 回到中性姿态
+]);
+```
+
+<Callout type="info">
+    摄像机复用与图片、图层相同的 [Transform](../animation/transform) 管线，因此它继承了
+    [Displayable](./displayable) 的全部可链式变换方法：`pos`、`zoom`、`scale`、`rotate`、`opacity`、
+    `transform`、`filter`、`effect` 等，它们都会作用于整个舞台。
+</Callout>
+
+## 访问摄像机
+
+<Steps>
+### story.camera
+
+`story.camera` 是一个始终存在的唯一摄像机。每个故事只有一个，其姿态在场景切换之间保持不变，并像其他元素一样被存档 / 读档所保存与恢复。
+
+```ts
+scene.action([
+    story.camera.zoom(1.5, 600),
+    story.camera.darken(0.4, 400),
+]);
+```
+</Steps>
+
+## 公共方法
+
+### pan
+
+平移镜头，使给定的位置位于视图中心。这是继承的 `pos` 方法的别名，采用更贴合摄像机语义的命名。
+
+```ts
+story.camera.pan({ xalign: 0.3 }, 800, "easeInOut");
+```
+
+### darken
+
+压暗整个舞台。`darkness` 取值在 `0`（正常）到 `1`（全黑）之间。其底层将摄像机的 CSS `filter` 设为 `brightness(1 - darkness)`，与 [`Image.darken`](./image) 的机制相同。
+
+```ts
+story.camera.darken(0.6, 500, "easeInOut");
+```
+
+<Callout type="warning">
+    darken 与其他滤镜共用同一个 CSS `filter` 通道，因此它会覆盖其他滤镜，也会被其他滤镜覆盖。
+    若要将 darken 与诸如 `blur` 的滤镜组合，请通过 `camera.filter("blur(4px) brightness(0.4)")`
+    自行写出完整的滤镜字符串。
+</Callout>
+
+### shutter
+
+闭合或打开快门。上下两片挡板从画面的上下两侧对称合拢，在中间汇合。`shutter` 表示闭合程度：`0` 为完全打开，`1` 为完全闭合。
+
+```ts
+story.camera.shutter(1, 180, "easeInOut");
+```
+
+快门是一个值而不是一段例程，因此它会保持在你留下的位置。`shutter(0.12)` 是一条一直挂着的电影遮幅黑边；而“眨眼”就是把这个值推上去再推回来：
+
+```ts
+scene.action([
+    story.camera.shutter(1, 180, "easeInOut"),
+    story.camera.shutter(0, 220, "easeInOut"),
+]);
+```
+
+- `shutter: number` - 闭合程度，取值 `0` 到 `1`
+- `duration?: number` - 时长，单位毫秒
+- `easing?: TransformDefinitions.EasingDefinition` - 使用的缓动函数
+
+### vignette
+
+压暗画面四角。`vignette` 表示强度，取值在 `0`（无）到 `1` 之间。
+
+```ts
+scene.action([
+    story.camera.vignette(0.72, 300, "easeInOut"),
+    aria.say`视野收窄到了房间正中。`,
+    story.camera.vignette(0, 300, "easeInOut"),
+]);
+```
+
+- `vignette: number` - 强度，取值 `0` 到 `1`
+- `duration?: number` - 时长，单位毫秒
+- `easing?: TransformDefinitions.EasingDefinition` - 使用的缓动函数
+
+其颜色与衰减半径通过 [`lens`](#lens) 调整。
+
+<Callout type="info">
+    两个强度都会被钳制：超出 `0`–`1` 的取值会被拉回区间内，非有限值按 `0` 处理。
+</Callout>
+
+### lens
+
+一次性设置镜头的任意字段：两个强度，以及绘制它们所用的颜色与衰减半径。
+
+```ts
+scene.action([
+    story.camera.lens({ vignetteColor: "#1a0b2e", vignetteInner: "20%", vignetteOuter: "95%" }),
+    story.camera.vignette(0.9, 400),
+]);
+```
+
+- `shutter?: number` - 快门闭合程度，`0` 到 `1`。默认 `0`
+- `shutterColor?: string` - 快门挡板的颜色。默认 `"#000"`
+- `vignette?: number` - 暗角强度，`0` 到 `1`。默认 `0`
+- `vignetteColor?: string` - 暗角的颜色。默认 `"#000"`
+- `vignetteInner?: string` - 暗角开始的半径，可写 CSS 长度或画面的百分比。默认 `"44%"`
+- `vignetteOuter?: string` - 暗角达到满强度的半径。默认 `"78%"`
+
+`shutter()` 与 `vignette()` 是只设置强度的简写。`lens()` 同样接受这两个强度，因此一次调用即可同时设定强度和绘制它所用的几何。
+
+颜色与衰减半径这几个字段，在它们所属的强度下一次高于 `0` 时生效。请在淡入之前把它们作为瞬切设定好，而不要在淡入过程中改。
+
+<Callout type="warning">
+`lens` 的时长写法与另外两个不同。`shutter()` 与 `vignette()` 使用位置参数 `(value, duration?, easing?)`；`lens()` 则是先传属性、再传一个选项对象，且对象里的键名是 `ease` 而不是 `easing`。
+
+```ts
+story.camera.vignette(0.9, 400, "easeInOut");                              // 位置参数
+story.camera.lens({ vignette: 0.9 }, { duration: 400, ease: "easeInOut" }); // 等价写法
+```
+</Callout>
+
+### resetCamera
+
+将摄像机恢复到中性姿态：居中、缩放为 `1`、无旋转、完全不透明、无滤镜（同时也会清除 `darken`），并且不带任何镜头效果。快门会打开，暗角会撤去。
+
+```ts
+story.camera.resetCamera(600, "easeInOut");
+```
+
+两个强度会随姿态一起，在给定的时长内缓动回零。颜色与衰减半径则在强度归零之后恢复为默认值。
+
+<Callout type="warning">
+    编写故事时使用的方法是 `resetCamera` 而不是 `reset`。除此之外，闭合的快门只能靠再调用一次
+    `shutter` 打开。
+</Callout>
+
+## 镜头
+
+`shutter` 与 `vignette` 绘制在一层钉住视口的叠层上，因此当舞台在其下方缩放、平移、旋转时，它们不会跟着动。镜头覆盖场景、换场过渡、视频与 vfx，并位于对话框、菜单和 NVL 层之下。
+
+这两个通道都属于摄像机姿态的一部分：它们可以和 `zoom`、`pan`、`darken` 组合进同一个 transform，在玩家跳过时会正确落定，并随存档一起保存与恢复。在这两个通道出现之前写下的存档，读取时按中性值处理。
+
+同样的字段也可以通过 `Transform.lens()` 用在 [Transform](../animation/transform) 上，类型为 `TransformDefinitions.CameraLensProps`。摄像机的变换属性类型是 `TransformDefinitions.CameraTransformProps`：图片支持的全部字段，加上这些。
+
+## 继承的变换方法
+
+摄像机是一个 [Displayable](./displayable)，因此其全部变换能力都会作用于整个舞台：`zoom`、`scale`、`rotate`、`pos`（见 [`pan`](#pan)）、`opacity`、用于调色的 `filter` / `effect`，以及用于完整多步 [Transform](../animation/transform) 序列的 `transform`。
+
+## 设置初始姿态
+
+每个故事只有一个摄像机。仅当你想设置它的初始姿态时，才需要传入自定义摄像机：
+
+```ts
+import { Story, Camera } from "narraleaf-react";
+
+const story = new Story("entry", {
+    camera: new Camera({ zoom: 1.2, vignette: 0.3 }),
+});
+```
+
+构造函数接受图片变换属性的全部字段，外加镜头的这几个字段。
+
+<Callout type="info">
+    摄像机只移动视觉舞台。对话框、菜单和 NVL 层渲染在它之外，会被有意地排除在外，
+    因此镜头移动时文本依旧清晰可读。
+</Callout>
