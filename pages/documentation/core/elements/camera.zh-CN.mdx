@@ -167,6 +167,8 @@ story.camera.resetCamera(600, "easeInOut");
 
 同样的字段也可以通过 `Transform.lens()` 用在 [Transform](../animation/transform) 上，类型为 `TransformDefinitions.CameraLensProps`。摄像机的变换属性类型是 `TransformDefinitions.CameraTransformProps`：图片支持的全部字段，加上这些。
 
+从 `narraleaf-react/built-in` 导出的 `blink` 与 `vignette` 已弃用，改用这两个通道。它们仍然可用、仍在导出，但它们绑定在场景上，并且会随摄像机一起变换：由它们绘制的暗角会跟着舞台缩放和旋转。
+
 ## 继承的变换方法
 
 摄像机是一个 [Displayable](./displayable)，因此其全部变换能力都会作用于整个舞台：`zoom`、`scale`、`rotate`、`pos`（见 [`pan`](#pan)）、`opacity`、用于调色的 `filter` / `effect`，以及用于完整多步 [Transform](../animation/transform) 序列的 `transform`。

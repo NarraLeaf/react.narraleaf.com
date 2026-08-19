@@ -168,6 +168,8 @@ Both channels are part of the camera pose: they combine with `zoom`, `pan` and `
 
 The same fields are available on a [Transform](../animation/transform) via `Transform.lens()`, typed as `TransformDefinitions.CameraLensProps`. A camera's transform props are `TransformDefinitions.CameraTransformProps`: everything an image accepts, plus these.
 
+The `blink` and `vignette` helpers exported from `narraleaf-react/built-in` are deprecated in favour of these channels. They still work and are still exported, but they are bound to a scene and move with the camera: a vignette drawn by the helper scales and rotates with the stage.
+
 ## Inherited transform methods
 
 The camera is a [Displayable](./displayable), so its full transform surface moves the whole stage: `zoom`, `scale`, `rotate`, `pos` (see [`pan`](#pan)), `opacity`, `filter` / `effect` for colour-grading, and `transform` for full multi-step [Transform](../animation/transform) sequences.
