@@ -40,6 +40,8 @@ layer.opacity(0.5, 1000, "linear"); // 更改图层的不透明度，所有链�
 
 </Steps>
 
+图层**之间**的前后关系由此控制，并且这一层比较先于任一图层内部元素的顺序生效。若要调整同一图层内元素的顺序，请使用 [`Displayable.bringToFront`](./displayable#bringtofront)。
+
 ## 公共方法
 
 ### constructor
@@ -59,5 +61,20 @@ layer.opacity(0.5, 1000, "linear"); // 更改图层的不透明度，所有链�
 
 - `elements: (Image | Text)[] | Image | Text` - T要包含的可显示元素，例如 [Image](./image), [Text](./text)
 - 返回 `this`
+
+</Steps>
+
+### bringToFront
+
+<Steps>
+
+图层不支持该方法。`Layer` 从 [Displayable](./displayable) 继承了它，但调用时会在故事构建阶段抛出 `RuntimeGameError`。
+
+图层并不是另一个图层元素列表中的条目，因此不存在可以被提到的最前位置。若要让图层前移，请改用 [`setZIndex`](#setzindex)。
+
+```typescript
+layer.setZIndex(10);   // 让图层前移的正确做法
+layer.bringToFront();  // RuntimeGameError
+```
 
 </Steps>

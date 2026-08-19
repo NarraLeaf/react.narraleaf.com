@@ -1,4 +1,4 @@
-import {Steps} from "nextra/components";
+import {Callout, Steps} from "nextra/components";
 
 # 可显示元素
 
@@ -232,6 +232,35 @@ element.hide({
 - `options: Partial<TransformDefinitions.CommonTransformProps>` - 参见 [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
 </Steps>
+
+### bringToFront
+
+<Steps>
+
+将元素提到它所在图层的最前。[Image](./image)、[Text](./text) 与 Puppet 都可使用。
+
+```typescript
+scene.action([
+    yukoSprite.bringToFront(),
+    yuko.say`一直都是我。`,
+]);
+```
+
+该操作立即生效，且没有可选项。元素本身的其余部分不变：图层不变、变换不变、来源不变。调整之后的顺序属于存档内容，之后存下的档在读取时会恢复同样的顺序。
+
+- 不接受参数
+
+</Steps>
+
+<Callout type="warning">
+`bringToFront` 只在**同一个图层内部**排序。它无法把元素提到位于更高图层的元素之上，因为图层之间按 z-index 合成，这一层比较优先生效。若要让整个图层前移，请使用 [`Layer.setZIndex`](./layer#setzindex)。
+</Callout>
+
+<Callout type="info">
+没有 `sendToBack`。若要排列一组元素，请按你想要的前后顺序，从后往前依次调用 `bringToFront`。
+</Callout>
+
+[`Layer`](./layer) 与 [`Camera`](./camera) 同样继承自 Displayable，但调用该方法会抛出 `RuntimeGameError`。两者都不是某个图层列表中的条目，因此不存在可以被提到的“最前”。该错误在故事构建阶段抛出，而不是在播放过程中。
 
 
 

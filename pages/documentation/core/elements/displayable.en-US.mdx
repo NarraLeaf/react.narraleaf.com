@@ -1,4 +1,4 @@
-import {Steps} from "nextra/components";
+import {Callout, Steps} from "nextra/components";
 
 # Displayable
 
@@ -232,6 +232,35 @@ element.hide({
 - `options: Partial<TransformDefinitions.CommonTransformProps>` - See [TransformDefinitions](../types/TransformDefinitions).[CommonTransformProps](../types/TransformDefinitions#CommonTransformProps)
 
 </Steps>
+
+### bringToFront
+
+<Steps>
+
+Raise the element to the front of the layer it is on. Available on [Image](./image), [Text](./text) and Puppet.
+
+```typescript
+scene.action([
+    yukoSprite.bringToFront(),
+    yuko.say`It was me, all along.`,
+]);
+```
+
+The move takes effect at once and has no options. Nothing else about the element changes: same layer, same transform, same source. The resulting order is part of the saved game, and a save taken afterwards restores it.
+
+- Takes no arguments
+
+</Steps>
+
+<Callout type="warning">
+`bringToFront` only orders elements **within one layer**. It cannot lift an element above one on a higher layer, because layers are composited by z-index and that comparison is applied first. Use [`Layer.setZIndex`](./layer#setzindex) to move a whole layer forward.
+</Callout>
+
+<Callout type="info">
+There is no `sendToBack`. To arrange a group, bring the elements to the front in the order you want them, back to front.
+</Callout>
+
+[`Layer`](./layer) and [`Camera`](./camera) both extend Displayable but throw a `RuntimeGameError` from this method. Neither is an element inside a layer, so neither has a front to be moved to. The error is raised while the story is being built, not during playback.
 
 
 

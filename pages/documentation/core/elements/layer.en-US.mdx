@@ -40,6 +40,8 @@ Set the z-index of the layer. Higher z-index means the layer will be on top of t
 
 </Steps>
 
+This is how depth **between** layers is controlled, and the comparison is applied before the order of elements inside any one layer. To reorder elements that share a layer, use [`Displayable.bringToFront`](./displayable#bringtofront).
+
 ## Public Methods
 
 ### constructor
@@ -59,5 +61,20 @@ Include the displayable to the layer.
 
 - `elements: (Image | Text)[] | Image | Text` - The displayable to include, ex. [Image](./image), [Text](./text)
 - Returns `this`
+
+</Steps>
+
+### bringToFront
+
+<Steps>
+
+Not available on a layer. `Layer` inherits this method from [Displayable](./displayable), but calling it throws a `RuntimeGameError` while the story is being built.
+
+A layer is not an entry in another layer's list of elements, so it has no front to be moved to. Use [`setZIndex`](#setzindex) to raise a layer instead.
+
+```typescript
+layer.setZIndex(10);   // this is how a layer moves forward
+layer.bringToFront();  // RuntimeGameError
+```
 
 </Steps>
