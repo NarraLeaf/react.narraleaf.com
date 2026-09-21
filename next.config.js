@@ -10,7 +10,10 @@ const withNextra = require('nextra')({
 const NextJSConfig = {
     i18n: {
         locales: ['en-US', 'zh-CN'],
-        defaultLocale: 'en-US'
+        defaultLocale: 'en-US',
+        // middleware.ts redirects every request to www.narraleaf.com; detecting
+        // the language first would only add a hop in front of that redirect.
+        localeDetection: false
     },
     webpack: (config) => {
         config.resolve.alias['@headlessui/react'] = path.resolve(
